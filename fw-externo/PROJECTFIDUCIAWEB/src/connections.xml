@@ -1,0 +1,14 @@
+<?xml version = '1.0'?>
+<!DOCTYPE connections>
+<connections>
+   <connection>
+      <JDBC_PORT>1521</JDBC_PORT>
+      <ConnectionType>JDBC</ConnectionType>
+      <HOSTNAME>192.168.1.101</HOSTNAME>
+      <user>fiducia</user>
+      <ConnectionName>fiduciaDS</ConnectionName>
+      <SID>orcl</SID>
+      <JdbcDriver>oracle.jdbc.driver.OracleDriver</JdbcDriver>
+      <ORACLE_JDBC_TYPE>thin</ORACLE_JDBC_TYPE>
+   </connection>
+</connections>

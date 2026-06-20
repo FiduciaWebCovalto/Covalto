@@ -1,0 +1,64 @@
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+  <context-param>
+    	<param-name>crystal_image_uri</param-name>
+    	<param-value>crystalreportviewers10</param-value>
+  </context-param>
+
+
+  <servlet>
+     <servlet-name>reportesServlet</servlet-name>
+     <description>Servlet Controlador de Reportes</description>
+     <servlet-class>reporte.reportesServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>reportesServlet</servlet-name>
+    <url-pattern>/reporte</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProcesarServlet</servlet-name>
+        <servlet-class>com.bancomext.lib.ProcesarServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcesarServlet</servlet-name>
+        <url-pattern>/procesarDatos</url-pattern>
+    </servlet-mapping>
+    
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Fiducia</web-resource-name>
+      <description>Sitio accessible solo para usuarios auorizados</description>
+      <url-pattern>/FiduciaWebMovil/*</url-pattern>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Roles que tienen acceso.</description>
+      <role-name>fiduciario</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <description>Es como se deben transitir los datos del usuario.</description>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/entrada.jsp</form-login-page>
+      <form-error-page>/fail_login.html</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <security-role>
+    <description>Rol de usuarios del sistema</description>
+    <role-name>usuarios_firmas</role-name>
+  </security-role>
+
+</web-app>

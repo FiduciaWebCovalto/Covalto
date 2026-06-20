@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificación de Solicitud</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f6f9fc; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 30px auto; background: #ffffff;
+                     border-radius: 8px; padding: 25px;
+                     box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        h2 { color: #1565c0; }
+        p { color: #333; }
+        .footer { margin-top: 30px; font-size: 13px; color: #555; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Notificacion de envio de solicitud.</h2>
+    <p>Por este conducto, se informa que el usuario <span th:text="${name}"></span></p>
+    <p>ha enviado una solicitud, con el siguiente detalle.</p>
+    <p>Proyecto: <span th:text="${fideicomiso}"></span></p>
+    <p>Tipo de Instruccion: <span th:text="${tipo}"></span></p>
+    <p>Descripción: <span th:text="${descripcion}"></span></p>
+</div>
+</body>
+</html>

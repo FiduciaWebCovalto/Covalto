@@ -1,0 +1,658 @@
+<%@ page import="java.text.*,java.util.*,java.lang.*,java.io.*"%>
+
+<jsp:useBean id="reporte" class="mx.com.inscitech.fiducia.business.nReporte"/>
+<jsp:useBean id="valida" class="mx.com.inscitech.fiducia.business.nReporte"/>
+<jsp:useBean id="edoRes" scope="page" class="mx.com.inscitech.fiducia.business.edoResFormulas" />
+<jsp:useBean id="BD"  class="mx.com.inscitech.fiducia.business.FiduciaBD"/>
+
+<%
+String[] bitacora = new String[5];
+String fechaCont=BD.getFecha();
+String folioBit="";
+int regBitacora=0;
+
+try
+	{
+double subTotal1=0;
+double subTotal2=0;
+double subTotal3=0;
+double subTotal4=0;
+double subTotal5=0;
+double total=0;
+String fideicomiso="";
+String periodo="";			
+String apertura=""; 
+DecimalFormat decFormat = new DecimalFormat("###,###,###,###,###,###,###,##0.00");
+double sumInteCobra=0;
+double sumVentas=0;
+double sumComiCobra=0;
+double sumDonativos=0;
+double sumPrimaXgar =0;
+double sumUdis =0;
+double sumSAL_NUM_AUX1   =0;
+double sumCambios1 =0;
+double sumIngresos_por_servicio =0;
+double sumCosPer = 0;
+double sumCosAdmi = 0;
+double sumEntregas_a_fideicom  = 0;
+double sumGastos_administrativo  = 0;
+double sumHonorarios = 0;
+double sumImpDiver = 0;
+double sumOtrosIng  = 0;
+double sumAplicacion  = 0;
+double sumQuebrantos = 0;
+double sumOtros_Gastos  = 0;
+double sumCastigos  = 0;
+double sumAplicacion1  = 0;
+double sumAfectacion  = 0;
+double sum_5209 =0;
+double sumCambios=0;
+double sumRes_por_valuacion  = 0;
+double sumIntePagado  = 0;
+double sumComiPag  =0;
+double sumDividendosPag=0;
+double sumRES_NEG=0;//P
+double sumCAMBIOS_NEG=0;//P
+double sumEtiqueta_cambios=0;
+double sumEtiqueta_resultados=0;
+
+double sumComisionesFavor=0;//P
+double sumComisionesTarifas=0;//P
+double sumOtrosIngresosOpera=0;//P
+double sumImpuestosUtilidad=0;//P
+
+int j=0;
+String tipoAdmin="";
+String mensaje="";	
+String[] meses={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+int numFid=Integer.valueOf(request.getParameter("Fiso")).intValue();
+int mes=Integer.valueOf(request.getParameter("Mes")).intValue();
+int anio=Integer.valueOf(request.getParameter("Ano")).intValue();
+String dia = ((mes==1||mes==3||mes==5||mes==7||mes==8||mes==10||mes==12)?"31":"30");
+dia = ((mes==2&&anio%4==0)?"29":((mes==2)?"28":dia));
+//int dia = Integer.valueOf(request.getParameter("Dia")).intValue();
+String tabla = "saldos"+(request.getParameter("tipoReporte") == null ? "" : request.getParameter("tipoReporte"));
+
+// firma 
+boolean bfirma = request.getParameter("EjecutivoFirma")!=null;
+String nom_firma = "";
+String puesto_firma = "";
+
+// REEXPRESADO ----
+String monedaReexpresada = "Pesos";
+boolean bReexpresado = request.getParameter("reexpresado")!=null;
+monedaReexpresada = request.getParameter("moneda")!=null?request.getParameter("moneda").toString():monedaReexpresada;
+boolean bExtranjera = monedaReexpresada.equals("Dolares Americanos");
+
+monedaReexpresada = ((!bReexpresado&&bExtranjera)||(bReexpresado&&!bExtranjera)?"Moneda Nacional":"Dolares Americanos");
+// ---------------
+
+if(bfirma)
+{
+  String ejecutivoFirma = request.getParameter("EjecutivoFirma").toString();
+  nom_firma = ejecutivoFirma;
+  if(ejecutivoFirma.indexOf("-")>=0)
+  {
+    nom_firma = ejecutivoFirma.split("-")[0];
+    puesto_firma = ejecutivoFirma.split("-")[1];
+  }
+}
+// -----
+
+
+//empresa------------
+
+boolean bempresa = request.getParameter("Empresa")!=null;
+String nom_empresa = "";
+
+if(bempresa)
+{
+  nom_empresa = request.getParameter("Empresa").toString();
+}
+// ----------------
+
+
+//incorporacion de la bitacora
+ folioBit=BD.getFolio(2);
+ System.out.println("Folio"+folioBit);
+ bitacora[0]=fechaCont;
+ bitacora[1]= folioBit;
+ bitacora[2]="300";//(String)session.getValue("userid");
+ bitacora[3]="Consulta del Estado de Resultados para el Fideicomiso "+numFid
+ +" del Mes "+meses[mes-1].toUpperCase()+" del Anio "+anio;
+ bitacora[4]="120.0.0.1";
+
+ //regBitacora=BD.insertaBitacora(bitacora);	
+
+//Valida si el fideicomiso tiene administracion propia o no
+valida.setVtrIntDato1(numFid);//numero de contrato
+valida.querySelect(10, tabla);
+if(valida.hasData())
+	tipoAdmin=valida.getVtrStrDato1().trim();
+		
+if(tipoAdmin.equals("NO"))
+		{
+reporte.setVtrIntDato1(numFid);//numero de contrato
+reporte.setVtrIntDato2(mes);//mes del Reporte
+reporte.setVtrIntDato3(anio);//a�o del Reportes
+
+      if(bReexpresado)// REEXPRESADO
+        reporte.querySelect(6, tabla);
+      else
+        reporte.querySelect(2, tabla);
+		}
+else
+		{
+		mensaje="El Reporte de Estado de Resultados<BR>No esta disponible<BR><BR>Para Fideicomisos con administraci�n propia";
+		}
+if(tipoAdmin.equals("NO") && !reporte.hasData())
+		{
+	
+		mensaje="No esta disponible<BR>El Reporte de Estado de Resultados<BR>De "+meses[mes-1]+" del "+anio;
+		}
+
+%>
+<html>
+<head>
+<title>Estado de Resultados de <%=meses[mes-1]%> del <%=anio%>  Fideicomiso: <%=request.getParameter( "Fiso" )%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body <%=request.getParameter("bImprimir")!=null && request.getParameter("bImprimir").trim().equals("1") && reporte.hasData()==true ?"onLoad=\"window.print();window.close();\"":" "%>  oncontextmenu="return false" onkeydown="return false"   onmousemove ="return false" onselectstart ="return false" onclick="return false">
+<%
+boolean encabezado=false;
+if(reporte.hasData()==true)
+	{
+	fideicomiso=reporte.getVtrStrDato2().toUpperCase();
+  apertura = reporte.getVtrStrDato3().toUpperCase();
+  String anoApertura = apertura.substring(apertura.length()-4,apertura.length());
+  String anoActual = String.valueOf(anio);//reporte.getVtrStrDato4().substring(reporte.getVtrStrDato4().length()-4,reporte.getVtrStrDato4().length());
+
+	periodo= " DEL "+((anoApertura.equals(anoActual))?apertura.split(" DEL ")[0]:"1 DE ENERO")+" AL "+dia+" DE "+meses[mes-1].toUpperCase()+" DEL "+anio;//reporte.getVtrStrDato4();
+  //periodo= " DEL MES DE "+meses[mes-1].toUpperCase()+" DEL "+anio;
+do
+	{
+    reporte.setIndex(j);
+	
+  int sal_num_ctam = reporte.getVtrIntDato5(   );
+	int sal_num_scta =  reporte.getVtrIntDato6(   );
+	int sal_num_sscta = reporte.getVtrIntDato7(   );
+	int sal_num_ssscta = reporte.getVtrIntDato8(  );
+	int SAL_NUM_AUX1 = reporte.getVtrIntDato11(   );
+	double SAL_NUM_AUX2 = reporte.getVtrDoubleDato12(  );
+	double SAL_NUM_AUX3 = reporte.getVtrDoubleDato13(   );
+	double sal_imp_saldo_act = reporte.getVtrDoubleDato14(  );
+
+	// Cuentas y saldos
+	edoRes.setValores( sal_num_ctam,  sal_num_scta,  sal_num_sscta,sal_num_ssscta, SAL_NUM_AUX2,  SAL_NUM_AUX3,  sal_imp_saldo_act  );					
+	
+    sumInteCobra=sumInteCobra+edoRes.InteCobra();//INTERESES COBRADOS
+	sumVentas = sumVentas + edoRes.ventas();//VENTAS	
+	//sumComiCobra = sumComiCobra + edoRes.comiCobra();//COMISIONES COBRADAS
+	sumIngresos_por_servicio= sumIngresos_por_servicio + edoRes.ingresos_por_servicio();
+	sumDonativos= sumDonativos + edoRes.donativos();
+	sumPrimaXgar = sumPrimaXgar + edoRes.primaXgar();
+	sumUdis = sumUdis + edoRes.udis();
+	sumRes_por_valuacion = sumRes_por_valuacion + edoRes.res_por_valuacion();		
+	sum_5209 = sum_5209 + edoRes._5209();
+	sumCambios = sumCambios + edoRes.Cambios();
+	
+	sumIntePagado =  sumIntePagado + edoRes.IntePagado();
+	sumComiPag = sumComiPag + edoRes.comiPag();
+	sumDividendosPag = sumDividendosPag + edoRes.dividendosPag();
+	sumCambios1 = sumCambios1 + edoRes.cambios1();
+	sumCosPer = sumCosPer + edoRes.cosPer();
+	sumCosAdmi = sumCosAdmi + edoRes.cosAdmi();
+	sumEntregas_a_fideicom = sumEntregas_a_fideicom + edoRes.entregas_a_fideicom();
+	sumGastos_administrativo = sumGastos_administrativo + edoRes.gastos_administrativo();
+	sumHonorarios = sumHonorarios + edoRes.honorarios();
+	sumImpDiver = sumImpDiver + edoRes.impDiver();
+	sumOtrosIng  = sumOtrosIng  + edoRes.otrosIng();
+	sumAplicacion = sumAplicacion + edoRes.aplicacion();
+	sumQuebrantos =  sumQuebrantos + edoRes.quebrantos();
+	sumOtros_Gastos =  sumOtros_Gastos + edoRes.otros_Gastos();
+	sumCastigos = sumCastigos + edoRes.castigos();
+	sumAplicacion1 = sumAplicacion1 + edoRes.aplicacion1();
+	sumAfectacion =  sumAfectacion +  edoRes.afectacion();
+
+
+	sumComisionesFavor =  sumComisionesFavor + edoRes.ComisionesFavor();
+	sumComisionesTarifas = sumComisionesTarifas + edoRes.ComisionesTarifas();
+	sumOtrosIngresosOpera = sumOtrosIngresosOpera + edoRes.OtrosIngresosOpera();
+	sumImpuestosUtilidad =  sumImpuestosUtilidad +  edoRes.ImpuestosUtilidad();
+
+	
+	j++;
+	}
+	while(j<reporte.getSize());
+	System.out.println("cambios:"+sumCambios);
+	sumEtiqueta_cambios =  sumEtiqueta_cambios + edoRes.etiqueta_cambios(sumCambios);
+	sumEtiqueta_resultados =  sumEtiqueta_resultados + edoRes.etiqueta_resultados(sumRes_por_valuacion);
+	//resultados por valuacion
+	if(sumRes_por_valuacion<0 )
+		 sumRES_NEG= sumRes_por_valuacion*-1;
+	else
+		 sumRES_NEG= 0 ;
+	//CAMBIOS NEGATIVOS	 
+	if(sumCambios<0 )
+		 sumCAMBIOS_NEG= sumCambios;
+	else
+		 sumCAMBIOS_NEG= 0 ;	 
+	 
+	
+%>
+
+
+<table border='0' width='860' align="center" bordercolor='#000000' bgcolor='#FFFFFF'>
+		<tr>
+		<td>
+			<table> 
+				<tr>
+					<td width='151' height='91'><div align='center'><img src="<%=request.getContextPath()%>/imagenes/logo_bn.jpg" ></div></td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<table >
+				<tr>
+					<td align="CENTER" style="font-family: Arial;	font-size: 16px;color: #000000;font-weight: bold;"><%=bempresa?nom_empresa:session.getAttribute("empresa_1")%></td>
+				</tr>
+                                <tr> 
+                                    <td align="CENTER" style="font-family: Arial;	font-size: 16px;color: #000000;font-weight: bold;">GUILLERMO GONZALEZ CAMARENA NO 1200, PISO 2</td>
+                                </tr>
+                                <tr> 
+                                    <td align="CENTER" style="font-family: Arial;	font-size: 16px;color: #000000;font-weight: bold;">CENTRO CIUDAD SANTA FE, DISTRITO FEDERAL</td>                                
+                                </tr>    
+                                
+				<tr>
+					<td><div align='center' style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;font-weight: bold;"><%=session.getAttribute("empresa_2")%></div></td>
+				</tr>
+       <tr> 
+    <td align="center" style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;" colspan="7">ESTADO 
+      DE RESULTADOS <%=periodo%>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height='23' align="center" style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;">
+      <%= fideicomiso%>
+    </td>
+  </tr>
+  <tr>
+    <td height='23' align="center" style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;">
+      FIDEICOMISO <%=numFid%>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</td>
+</tr>
+		</table> 
+
+<table> 
+				<tr>
+					<td height='30'>&nbsp;</td>
+				</tr>
+			</table>
+	  
+<table width="860" border="0" align="center">
+  
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td align="center" colspan="5">(Importe en Moneda Nacional)</td>
+  </tr>
+
+    <%    
+   if(edoRes.bComiCobra)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >COMISIONES COBRADAS</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComiCobra)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%> 
+
+    <%    
+   if(edoRes.bComisionesTarifas)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >COMISIONES Y TARIFAS A CARGO</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComisionesTarifas)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>    
+ <%
+   if(edoRes.bComisionesFavor)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >COMISIONES A FAVOR</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComisionesFavor)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>   
+   
+ <%
+   if(edoRes.bComisionesFavor||edoRes.bComisionesTarifas)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td  align="right">__________________________________</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>    
+    
+<%   if(edoRes.bComisionesFavor||edoRes.bComisionesTarifas||edoRes.bComiCobra)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;" > 
+    <td >&nbsp;</td>
+    <td >INGRESOS POR SERVICIOS</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComisionesTarifas+sumComisionesFavor+sumComiCobra)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   		<%}%>
+  <%//sumInteCobra PONER BANDERAS%>
+  <% if(edoRes.bInteCobra)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >INGRESOS POR INTERESES</td>
+    <td >&nbsp; </td>
+    <td  align="right"><%=decFormat.format(sumInteCobra)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>  
+    <%if(edoRes.bOtrosIng)
+  		{%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >OTROS INGRESOS</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumOtrosIng)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  	  <%} %>
+    <%if(edoRes.bOtrosIngresosOpera)
+  		{%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >OTROS INGRESOS (EGRESOS) DE LA OPERACION</td>
+    <td >&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumOtrosIngresosOpera)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  	  <%} %>
+
+ <% if(edoRes.bImpDiver)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;"> 
+    <td >&nbsp;</td>
+    <td >IMPUESTOS DIVERSOS</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumImpDiver)%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+ <%
+   if(edoRes.bImpDiver||edoRes.bOtrosIngresosOpera||edoRes.bOtrosIng||edoRes.bQuebrantos||edoRes.bInteCobra)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td  align="right">__________________________________</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>    
+
+
+ <% if(edoRes.bImpDiver||edoRes.bOtrosIngresosOpera||edoRes.bOtrosIng||edoRes.bInteCobra)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;"> 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td  align="right">&nbsp;&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumInteCobra+sumOtrosIng+sumOtrosIngresosOpera+sumImpDiver)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+
+ <%
+   if(edoRes.bComisionesFavor||edoRes.bComisionesTarifas||edoRes.bComiCobra||
+   edoRes.bImpDiver||edoRes.bOtrosIngresosOpera||edoRes.bOtrosIng||edoRes.bQuebrantos||edoRes.bInteCobra)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td  align="right">__________________________________</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>    
+
+
+ <% if(edoRes.bComisionesFavor||edoRes.bComisionesTarifas||edoRes.bComiCobra||
+ edoRes.bImpDiver||edoRes.bOtrosIngresosOpera||edoRes.bOtrosIng||edoRes.bInteCobra)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;"> 
+    <td >&nbsp;</td>
+    <td >TOTAL INGRESOS</td>
+    <td  align="right">&nbsp;&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComisionesTarifas+sumComisionesFavor+sumComiCobra+
+    sumInteCobra+sumOtrosIng+sumOtrosIngresosOpera+sumImpDiver)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;" > 
+    <td >&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td >&nbsp;</td>
+    <td align="right"><table width="100%">
+        <td width="30%"></td>
+        <td><hr size="1" noshade></td>
+      </table></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <%}%>
+
+ <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;"> 
+    <td >&nbsp;</td>
+    <td >EGRESOS</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+
+ <% if(edoRes.bComiPag)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;"> 
+    <td >&nbsp;</td>
+    <td >COMISIONES PAGADAS</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumComiPag)%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+ <% if(edoRes.bHonorarios)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;"> 
+    <td >&nbsp;</td>
+    <td >HONORARIOS PAGADOS</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumHonorarios)%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+
+ <% if(edoRes.bImpuestosUtilidad)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;"> 
+    <td >&nbsp;</td>
+    <td >ISR PAGADO</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumImpuestosUtilidad)%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+ <% if(edoRes.bQuebrantos)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;"> 
+    <td >&nbsp;</td>
+    <td >ISR PAGADO</td>
+    <td  align="right">&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumQuebrantos)%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <%}%>
+
+
+ <%
+   if(edoRes.bComiPag||edoRes.bQuebrantos||edoRes.bHonorarios||edoRes.bImpuestosUtilidad)
+  	{
+	%>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;" > 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td  align="right">__________________________________</td>
+    <td>&nbsp;</td>
+  </tr>
+   <%}%>    
+
+
+ <% if(edoRes.bComiPag||edoRes.bQuebrantos||edoRes.bHonorarios||edoRes.bImpuestosUtilidad)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;"> 
+    <td >&nbsp;</td>
+    <td >TOTAL EGRESOS</td>
+    <td  align="right">&nbsp;&nbsp;</td>
+    <td  align="right"><%=decFormat.format(sumIntePagado+sumImpuestosUtilidad)%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;" > 
+    <td >&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td >&nbsp;</td>
+    <td align="right"><table width="100%">
+        <td width="30%"></td>
+        <td><hr size="1" noshade></td>
+      </table></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <%}%>
+
+ <% if(edoRes.bComisionesFavor||edoRes.bComisionesTarifas||edoRes.bComiCobra||
+edoRes.bImpDiver||edoRes.bOtrosIngresosOpera||edoRes.bOtrosIng||edoRes.bInteCobra||
+edoRes.bComiPag||edoRes.bQuebrantos||edoRes.bHonorarios||edoRes.bImpuestosUtilidad)
+  	{%> 
+  <tr style="font-family: Arial;	font-size: 14px;color: #000000;font-weight: bold;"> 
+    <td >&nbsp;</td>
+    <td >RESULTADO NETO</td>
+    <td  align="right">&nbsp;&nbsp;</td>
+    <td  align="right"><%=decFormat.format((sumComisionesTarifas+sumComisionesFavor+sumComiCobra+
+sumInteCobra+sumOtrosIng+sumOtrosIngresosOpera+sumImpDiver)-
+(sumIntePagado+sumImpuestosUtilidad))%>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;" > 
+    <td >&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td >&nbsp;</td>
+    <td align="right"><table width="100%">
+        <td width="30%"></td>
+        <td><hr size="1" noshade></td>
+      </table></td>
+    <td>&nbsp;</td>
+  </tr>
+
+  <%}%>
+
+
+
+
+  <%if(bfirma) 
+  {
+  %>
+    <tr> 
+      <td align="center" height="150" style="font-family: Arial;	font-size: 12px;color: #000000;" colspan="5" valign="bottom">
+          <hr width="35%"/>
+      </td>
+    </tr>
+    <tr> 
+      <td align="center" style="font-family: Arial;	font-size: 12px;color: #000000; font-weight:bolder;" colspan="8">	
+        <%=nom_firma%>
+      </td>
+    </tr>
+    <tr> 
+      <td align="center" style="font-family: Arial;	font-size: 12px;color: #000000; font-weight:bolder;" colspan="8">	
+        <%=puesto_firma%>
+      </td>
+    </tr>
+  <%}%>
+  
+  <tr style="font-family: Arial;	font-size: 12px;color: #000000;font-weight: bold;" > 
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td >&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
+
+<%
+}
+else
+	{%>
+
+	<%}%>
+
+<%}
+catch(Exception e)
+	{
+System.out.println(" Reporte Estado de Resultados: \nError:"+e);
+	%>
+
+	<table width="447" align="center">
+  <tr>
+    <td height="19">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="439" height="19">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td  align="center" height="19" style="font-family: Arial, Helvetica, Verdana;	font-size: 14px;color: #006699;font-weight: bold;">Reporte Estado de Resultados: Error:<%=e%></td>
+  </tr>
+  <tr> 
+    <td align="center">&nbsp;</td>
+  </tr>
+ 
+</table>
+
+<%}%>
+</body>
+</html>

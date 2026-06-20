@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+/*
+  @Autor:Inscitech
+  @Creado: Junio 2008
+*/
+-->
+
+<HTML>
+<HEAD><TITLE>FiduciaWeb Movil - Instalar el Certificado Digital</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="Página Principal" name=O>
+<link rel="stylesheet" href="styles/bancomext.css" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function enviar() { 
+document.instalaCD.submit();
+}
+function limpiar() { 
+document.instalaCD.SERIAL_NOM.value="";
+}
+//-->
+</script>
+</HEAD>
+<BODY leftMargin=0  topMargin=0 marginwidth="0" marginheight="0" >
+<TABLE border="0" cellPadding="0" cellSpacing="0" width="100%">
+  <TBODY>
+    <TR> 
+      <TD width="176" bgcolor="#003366"><IMG 
+            src="imagenes/logo.jpg" 
+            alt="<%=session.getAttribute("empresa_9")%>"   border="0"  width="176"></TD>
+      <TD vAlign="top" background="imagenes/msur01.png"
+          > </TD>
+    </TR>
+    <TR > 
+      <TD colspan="2" align="center" height="1"></TD>
+    </TR>
+    <TR > 
+      <TD background="imagenes/fondoMenu.gif" align="center" class="date"><script language="JavaScript">
+
+   var mydate=new Date()
+   var year=mydate.getYear()
+   if (year<2000)
+   year += (year < 1900) ? 1900 : 0
+   var day=mydate.getDay()
+   var month=mydate.getMonth()
+   var daym=mydate.getDate()
+   if (daym<10)
+   daym="0"+daym
+   var montharray=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+   var time = new Date();
+   var hour = time.getHours();
+   var minute = time.getMinutes();
+   var temp = "" + ((hour > 12) ? hour - 12 : hour);
+   temp += ((minute < 10) ? ":0" : ":") + minute;
+   document.write(montharray[month]+"&nbsp;"+daym+", "+year+"&nbsp;&nbsp;&nbsp;&nbsp;"+temp);
+</script> </TD>
+      <TD background="imagenes/fondoMenu.gif">&nbsp; </TD>
+    </TR>
+    <TR > 
+      <TD colspan="2" align="center" height="2"></TD>
+    </TR>
+    <TR > 
+      <TD align="center" class="textoNegrita" background="imagenes/fondoSubMenu.png" valign="top" height="540" width="176">&nbsp;</TD>
+      <TD valign="top" align="center"><form name="instalaCD" method="POST" action="https://www.bancomext.com/cgi-bin/seguriserver/instalarcertificado/CGI_GET_CERT.exe/INSTALL">
+         
+          <table width="90%" border="0">
+            <tr> 
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr> 
+              <td colspan="2" class="subtitulo" align="center">INSTALACION DE CERTIFICADO 
+                X.509</td>
+            </tr>
+            <tr> 
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr> 
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr> 
+              <td width="25%" align="right" class="textoNegrita">Número de Serie</td>
+              <td width="75%" ><input type="text" name="SERIAL_NOM"  style="HEIGHT: 22px; WIDTH: 300px" maxlength="60" size="30"></td>
+            </tr>
+            <tr> 
+              <td class="texto">&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr> 
+              <td colspan="2" align="center">
+			  <input type="button" class="boton" name="Enviar" value="Enviar" onClick="javascript:enviar()"> &nbsp;
+			   <input type="button" class="boton" name="Cancelar" value="Cancelar" onClick="javascript:limpiar()"> 
+              
+              </td>
+            </tr>
+          </table>
+        </form></TD>
+    </TR>
+    <TR> 
+      <TD bgColor=#ffffff colSpan=2 height=1> </TR>
+  </TBODY>
+</TABLE>
+</BODY></HTML>

@@ -1,0 +1,52 @@
+ /* Estilos del widget flotante */
+        #asistente-widget {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 99999;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            background: #fff;
+            width: 280px;
+        }
+        .widget-header {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .widget-content {
+            padding: 15px;
+            display: none; /* Oculto por defecto */
+            border: 1px solid #ddd;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background: #fff;
+        }
+        .btn-mic {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-min {
+            background: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .resultado-item {
+            border-bottom: 1px solid #eee;
+            padding: 8px 0;
+        }
+        .resultado-item:last-child { border: none; }
+    </style>

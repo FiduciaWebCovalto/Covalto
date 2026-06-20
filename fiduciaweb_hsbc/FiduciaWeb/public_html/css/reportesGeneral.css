@@ -1,0 +1,40 @@
+.textoGeneral {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+}
+.pageNum {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 7px;
+}
+.cabecera {
+  background-color: #CCCCCC;
+}
+#tablaGeneral {
+  font-family: Arial;
+  font-size: 9px; 
+  width: 900px;
+}
+.cambioPagina {
+  page-break-after: always;
+}
+.colFecha {
+  width: 70px;
+  text-align: center;
+}
+.colCuenta {
+  width: 220px;
+  text-align: center;
+}
+.colDesc {
+  width: 290px;
+}
+.colCargos {
+  width: 105px;
+}
+.colAbonos {
+  width: 105px;
+}
+.colSaldo {
+  width: 110px;
+}

@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<application-config>
+  <version>5.0</version>
+  <emulate-service>true</emulate-service>
+  <path-delimiter>/</path-delimiter>
+  <ignore-files>
+    <item type="contains">Estado_De_Cuenta_FW_</item>
+    <item type="contains">Confirmaciones_FW_</item>
+    <item type="contains">Timbrado_FW_</item>
+    <item type="contains">readme</item>
+  </ignore-files>
+  <meses-info>
+    <mes id="01" nombreLargo="ENERO">ENE</mes>
+    <mes id="02" nombreLargo="FEBRERO">FEB</mes>
+    <mes id="03" nombreLargo="MARZO">MAR</mes>
+    <mes id="04" nombreLargo="ABRIL">ABR</mes>
+    <mes id="05" nombreLargo="MAYO">MAY</mes>
+    <mes id="06" nombreLargo="JUNIO">JUN</mes>
+    <mes id="07" nombreLargo="JULIO">JUL</mes>
+    <mes id="08" nombreLargo="AGOSTO">AGO</mes>
+    <mes id="09" nombreLargo="SEPTIEMBRE">SEP</mes>
+    <mes id="10" nombreLargo="OCTUBRE">OCT</mes>
+    <mes id="11" nombreLargo="NOVIEMBRE">NOV</mes>
+    <mes id="12" nombreLargo="DICIEMBRE">DIC</mes>
+    <mes id="01" nombreLargo="JANARY">JAN</mes>
+    <mes id="02" nombreLargo="FEBRUARY">FEB</mes>
+    <mes id="03" nombreLargo="MARCH">MAR</mes>
+    <mes id="04" nombreLargo="APRIL">APR</mes>
+    <mes id="05" nombreLargo="MAY">MAY</mes>
+    <mes id="06" nombreLargo="JUNE">JUN</mes>
+    <mes id="07" nombreLargo="JULY">JUL</mes>
+    <mes id="08" nombreLargo="AUGUST">AUG</mes>
+    <mes id="09" nombreLargo="SEPTEMBER">SEP</mes>
+    <mes id="10" nombreLargo="OCTOBER">OCT</mes>
+    <mes id="11" nombreLargo="NOVEMBRE">NOV</mes>
+    <mes id="12" nombreLargo="DECEMBER">DEC</mes>
+  </meses-info>
+  <estados-cuenta>
+    <clientesURL>http://172.16.17.13:9083/Fiduciario/ClientesSearchServiceSoap12HttpPort</clientesURL>
+    <input-file-path>/home/sungard/EdosMensual</input-file-path>
+    <output-file-path>/home/sungard/EdosMensual</output-file-path>
+    <character-set>8859_1</character-set>
+    <useSystemOut>true</useSystemOut>
+    <log-level>DEBUG</log-level>
+    <after-read>NONE</after-read>
+    <!-- NONE / DELETE / MOVE / RENAME -->
+    <processed-file-location>/home/sungard/edoctas/procesados</processed-file-location>
+    <identificador-cliente>CUENTA:</identificador-cliente>
+    <identificador-no-cliente>ACCOUNT NUMBER:</identificador-no-cliente>
+    <identificador-seccion>--------------</identificador-seccion>
+    <output-prefix>Estado_De_Cuenta_FW_</output-prefix>
+    <output-ext>.txt</output-ext>
+    <!--file-start></file-start-->
+    <!--file-end></file-end-->
+    <client-start>INICIO</client-start>
+    <client-prefix>CLIENTE</client-prefix>
+    <line-delimiter>CR</line-delimiter>
+    <useClientFieldNames>false</useClientFieldNames>
+    <client-fields>
+      <field source="CON_NOM_CONTACTO" default="JUAN PEREZ LOPEZ">NOMBRE</field>
+      <field source="CON_RFC_SL" default="ACB7609076M2">RFC_SL</field>
+      <field source="CON_CALLE_NUM" default="LOMA BONITA 22">CALLE</field>
+      <field source="CON_NOM_COLONIA" default="ENSUENOS">COLONIA</field>
+      <field source="CON_NOM_POBLACION" default="CUAUTITLAN IZCALLI">POBLACION</field>
+      <field source="CON_NUM_ESTADO" default="15">ESTADO ID</field>
+      <field source="CON_NOM_ESTADO" default="ESTADO DE MEXICO">ESTADO</field>
+      <field source="CON_NOM_PAIS" default="MEXICO">PAIS</field>
+      <field source="CON_CODIGO_POSTAL" default="54740">CP</field>
+      <field source="CON_NUM_LADA_CASA" default="55">LADA</field>
+      <field source="CON_NUM_TELEF_CASA" default="555555555">TELEFONO</field>
+      <field source="CON_NUM_CONTRATO" default="3124">CLAVE CONTACTO</field>
+      <field source="CON_DEPENDENCIA" default="a@a.com">EMAIL</field>
+      <field source="CON_RFC" default="AAAA000000BBB">RFC</field>
+    </client-fields>
+    <secciones>
+      <seccion nombre="C O N F I R M A C I O N E S   D E   E J E C U C I O N E S" id="01">
+        <identificador>C O N F I R M A C I O N E S</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>10</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>42</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>18</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>5</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>2</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+        <exclude>
+            <lineContent>Tarifa Mexder</lineContent>
+            <lineContent>Tarifa Asigna</lineContent>
+            <lineContent>Com Liquidador</lineContent>
+        </exclude>
+      </seccion>
+      <seccion nombre="D E L I V E R Y   A N D   C A S H   S E T T L E M E N T S" id="02">
+        <identificador>D E L I V E R Y</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>8</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>40</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>16</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>5</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>    
+      <seccion nombre="C O M P R A   Y   V E N T A" id="03">
+        <identificador>C O M P R A</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>8</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>41</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>19</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>7</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>12</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>2</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="P O S I C I O N   A B I E R T A" id="04">
+        <identificador>P O S I C I O N</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>8</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>45</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>7</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>13</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="O P E N   P O S I T I O N S" id="04">
+        <identificador>O P E N</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>8</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>45</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>7</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>13</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="J O U R N A L   E N T R I E S" id="05">
+        <identificador>J O U R N A L</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="VALUE DATE" id="2">
+            <displayName>VALUE DATE</displayName>
+            <length>10</length>
+          </field>
+          <field name="PAYMENTS TYPE" id="3">
+            <displayName>PAYMENTS TYPE</displayName>
+            <length>27</length>
+          </field>
+          <field name="DESCRIPTION" id="4">
+            <displayName>DESCRIPTION</displayName>
+            <length>54</length>
+          </field>
+          <field name="REG CC" id="5">
+            <displayName>REG CC</displayName>
+            <length>6</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="6">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>18</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="7">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="A C T I V I T Y" id="07">
+        <identificador>A C T I V I T Y</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="TRADE" id="1">
+            <displayName>TRADE</displayName>
+            <length>10</length>
+          </field>
+          <field name="MARKET" id="2">
+            <displayName>MARKET</displayName>
+            <length>10</length>
+          </field>
+          <field name="BUY" id="3">
+            <displayName>BUY</displayName>
+            <length>10</length>
+          </field>
+          <field name="SELL" id="4">
+            <displayName>SELL</displayName>
+            <length>10</length>
+          </field>
+          <field name="DESCRIPTION" id="5">
+            <displayName>DESCRIPTION</displayName>
+            <length>40</length>
+          </field>
+          <field name="CASH FLOW" id="6">
+            <displayName>CASH FLOW</displayName>
+            <length>21</length>
+          </field>
+          <field name="REG CCY" id="7">
+            <displayName>BASE CURRENCY TYPE</displayName>
+            <length>9</length>
+          </field>
+          <field name="DEBIT/CREDIT" id="8">
+            <displayName>DEBIT/CREDIT</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="9">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="Account Summary" id="06">
+        <identificador>Account Summary</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>false</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>SUM</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <!--use-id-on-hp>true</use-id-on-hp>
+        <use-id-on-hs>true</use-id-on-hs-->
+        <use-id-on-body>false</use-id-on-body>
+        <fields>
+          <field name="EXCHANGE" id="1">
+            <displayName>EXCHANGE</displayName>
+            <length>32</length>
+            <skipStart>1</skipStart>
+            <skipEnd>1</skipEnd>
+            <trimType>R</trimType>
+          </field>
+          <field name="AMOUNT" id="2">
+            <displayName>AMOUNT</displayName>
+            <length>23</length>
+            <format>MONEY</format>
+          </field>
+          <field name="TYPE" id="3">
+            <displayName>TYPE</displayName>
+            <length>4</length>
+            <skipEnd>1</skipEnd>
+          </field>
+          <field name="BASE CURRENCY" id="4">
+            <displayName>BASE CURRENCY</displayName>
+            <length>23</length>
+            <format>MONEY</format>
+          </field>
+          <field name="BASE CURRENCY TYPE" id="5">
+            <displayName>BASE CURRENCY TYPE</displayName>
+            <length>3</length>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="E N T R E G A   L I Q U I D A T I O N   A L   C O N T A D O" id="08">
+        <identificador>E N T R E G A</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>10</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>9</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>36</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>21</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>4</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>15</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>2</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="E J E R C E R   A   P A R T I R" id="09">
+        <identificador>E J E R C E R</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>10</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>11</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>9</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>36</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>21</length>
+            <format>MONEY</format>
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>6</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>15</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>2</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="EXERCISES/ASSIGNMENTS" id="10">
+        <identificador>EXERCISES/ASSIGNMENTS</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="C/P  STRIKE" id="1">
+            <displayName>C</displayName>
+            <length>15</length>
+          </field>
+          <field name="QUANT" id="2">
+            <displayName>QUANT</displayName>
+            <length>6</length>
+          </field>
+          <field name="NATURE" id="3">
+            <displayName>MERCADO</displayName>
+            <length>7</length>
+          </field>
+          <field name="TRADE" id="4">
+            <displayName>TRADE</displayName>
+            <length>11</length>
+          </field>
+          <field name="DATE" id="5">
+            <displayName>DATE</displayName>
+            <length>9</length>
+          </field>
+          <field name="PREMIUM" id="6">
+            <displayName>PREMIUM</displayName>
+            <length>12</length>
+          </field>
+          <field name="QUANTITY" id="7">
+            <displayName>QUANTITY</displayName>
+            <length>9</length>
+          </field>
+          <field name="VALUATION" id="8">
+            <displayName>VALUATION</displayName>
+            <length>15</length>
+          </field>
+          <field name="INITIAL VALUATION" id="9">
+            <displayName>INITIAL VALUATION</displayName>
+            <length>15</length>
+            <format>MONEY</format>
+          </field>
+          <field name="COMMISSIONS" id="10">
+            <displayName>COMMISSIONS</displayName>
+            <length>15</length>
+          </field>
+          <field name="REALIZED" id="11">
+            <displayName>REALIZED</displayName>
+            <length>15</length>
+            <format>MONEY</format>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+        <exclude>
+            <lineContent>CLOSING DATE</lineContent>
+            <lineContent>MARKET</lineContent>
+            <lineContent>CONTRACT</lineContent>
+            <lineContent>C/P  STRIKE</lineContent>
+            <lineContent>OIP      MEXICAN PRICE AND QUOTATION</lineContent>
+            <lineContent>PROFIT</lineContent>
+            <lineContent>/2016</lineContent>
+        </exclude>        
+      </seccion>
+    </secciones>
+  </estados-cuenta>
+  <confirmaciones>
+    <!--clientesURL>http://172.16.17.13:9083/Fiduciario/ClientesSearchServiceSoap12HttpPort</clientesURL-->
+    <clientesURL>http://127.0.0.1/Fiduciario/ClientesSearchServiceSoap12HttpPort</clientesURL>
+    <input-file-path>/home/sungard/EdosDiarios</input-file-path>
+    <output-file-path>/home/sungard/EdosDiarios</output-file-path>
+    <character-set>8859_1</character-set>
+    <useSystemOut>true</useSystemOut>
+    <log-level>DEBUG</log-level>
+    <after-read>NONE</after-read>
+    <processed-file-location>/home/sungard/edoctas/procesados</processed-file-location>
+    <identificador-cliente>HSBC:</identificador-cliente>
+    <output-prefix>Confirmaciones_FW_</output-prefix>
+    <output-ext>.txt</output-ext>
+    <line-delimiter>CR</line-delimiter>
+    <useClientFieldNames>false</useClientFieldNames>
+    <send-resume-to>ghernandez@ghr-local.net</send-resume-to>
+    <exit-html>true</exit-html>
+    <client-fields>
+      <field source="CON_NUM_CONTRATO" default="1">CONTRATO</field>
+      <field source="CON_NUM_SEC_CONTAC" default="1">CLIENTE_ID</field>
+      <field source="CON_NOM_CONTACTO" default="JUAN PEREZ LOPEZ">NOMBRE</field>
+      <field source="CON_RFC" default="AAAA000000BBB">RFC</field>
+      <field source="CON_CALLE_NUM" default="LOMA BONITA 22">CALLE</field>
+      <field source="CON_NUM_LADA_FAX" default="">NOEXTERIOR</field>
+      <field source="CON_NUM_LADA_OFIC" default="">NOINTERIOR</field>
+      <field source="CON_NOM_COLONIA" default="ENSUENOS">COLONIA</field>
+      <field source="CON_NOM_POBLACION" default="CUAUTITLAN IZCALLI">POBLACION</field>
+      <field source="CON_NUM_ESTADO" default="15">ESTADO ID</field>
+      <field source="CON_NOM_ESTADO" default="ESTADO DE MEXICO">ESTADO</field>
+      <field source="CON_NOM_PAIS" default="MEXICO">PAIS</field>
+      <field source="CON_CODIGO_POSTAL" default="54740">CP</field>
+      <field source="CON_NUM_LADA_CASA" default="55">LADA</field>
+      <field source="CON_NUM_TELEF_CASA" default="555555555">TELEFONO</field>
+      <field source="CON_NUM_CONTRATO" default="3124">CLAVE CONTACTO</field>
+      <field source="CON_DEPENDENCIA" default="a@a.com">EMAIL</field>
+      <field source="CON_COMENTARIO" default="">DESTINATARIO</field>
+    </client-fields>
+    <send-mail>true</send-mail>
+    <mail-service>
+      <mailServer>127.0.0.1</mailServer>
+      <mailServerPort>25</mailServerPort>
+      <useAuth>false</useAuth>
+      <sender>ghernandez@ghr-local.net</sender>
+      <serverUserName>ghernandez@ghr-local.net</serverUserName>
+      <serverPassword>ghrDevel09</serverPassword>
+      <client-email>EMAIL</client-email>
+      <subject>Confirmacion Diaria</subject>
+      <mail-body>Mail de confirmaciones diarias HSBC</mail-body>
+    </mail-service>
+    <pdf-font-size>6</pdf-font-size>
+    <saltar-lineas-cliente>7</saltar-lineas-cliente>
+    <pdf-header-info>
+        <paragraph>
+            <fragment>                                                 ESTADO DE CUENTA MEXDER // MEXDER STATEMENT OF ACCOUNT</fragment>
+        </paragraph>
+        <paragraph><fragment> </fragment></paragraph>
+        <paragraph>
+            <fragment type="text">HSBC FIDEICOMISO LIQUIDADOR </fragment>
+            <fragment type="clienteData">CONTRATO</fragment>
+            <fragment>                               NUMERO CUENTA // ACCOUNT NO.: </fragment>
+            <fragment type="clienteData">CLIENTE_ID</fragment>
+        </paragraph>
+        <paragraph>
+            <fragment>                                                                                              MEXICO, D.F., PERIODO // PERIODO: </fragment>
+            <fragment type="fechaHoy">dd-MMM-yyyy</fragment>
+        </paragraph>
+        <paragraph><fragment> </fragment></paragraph>
+        <paragraph><fragment type="clienteData">NOMBRE</fragment></paragraph>
+        <paragraph>
+            <fragment type="clienteData">DATOS_CALLE</fragment>
+        </paragraph>
+        <paragraph>
+            <fragment type="clienteData">COLONIA</fragment>
+        </paragraph>
+        <paragraph>
+            <fragment type="clienteData">POBLACION</fragment>
+        </paragraph>
+        <paragraph>
+            <fragment type="clienteData">C.P.</fragment>
+        </paragraph>
+        <paragraph>
+            <fragment>ATN: </fragment>
+            <fragment type="clienteData">ATN</fragment>
+        </paragraph>
+        <paragraph><fragment> </fragment></paragraph>
+        <paragraph><fragment>********************************************************************************************************************************************</fragment></paragraph>
+        <paragraph><fragment> </fragment></paragraph>
+    </pdf-header-info>
+  </confirmaciones>
+  <timbrado>
+    <clientesURL>http://172.16.17.13:9083/Fiduciario/ClientesSearchServiceSoap12HttpPort</clientesURL>
+    <input-file-path>/home/sungard/EdosMensual</input-file-path>
+    <output-file-path>/home/sungard/EdosMensual</output-file-path>
+    <!--character-set>UTF-8</character-set-->
+    <useSystemOut>true</useSystemOut>
+    <log-level>DEBUG</log-level>
+    <after-read>MOVE</after-read>
+    <processed-file-location>/home/sungard/edoctas/procesados</processed-file-location>
+    <identificador-cliente>CUENTA:</identificador-cliente>
+    <identificador-seccion>--------------   </identificador-seccion>
+    <output-prefix>Timbrado_FW_</output-prefix>
+    <output-ext>.txt</output-ext>
+    <line-delimiter>CR</line-delimiter>
+    <periodo>AGOSTO 2014</periodo>
+    <useClientFieldNames>false</useClientFieldNames>
+    <client-fields>  
+      <field source="CON_RFC" default="AAAA000000BBB" printable="true">RFC</field>
+      <field source="CON_NOM_CONTACTO" default="N/D" printable="true">NOMBRE</field>
+      <field source="CON_NOM_PAIS" default="MEXICO" printable="true">PAIS</field>
+      <field source="CON_CALLE_NUM" default="N/D" printable="true">CALLE</field>
+      <field source="CON_NUM_LADA_FAX" default=" " printable="true">NOEXTERIOR</field>
+      <field source="CON_NUM_LADA_OFIC" default=" " printable="true">NOINTERIOR</field>
+      <field source="CON_NOM_COLONIA" default=" " printable="true">COLONIA</field>
+      <field source="CON_NUM_TELEF_FAX" default=" " printable="true">LOCALIDAD</field>
+      <field source="CON_VACIO" default="" printable="true">VACIO1</field>
+      <field source="CON_NUM_TELEF_OFIC" default=" " printable="true">MUNICIPIO</field>
+      <field source="CON_NUM_EXT_OFIC" default="DISTRITO FEDERAL" printable="true">ESTADO</field>
+      <field source="CON_CODIGO_POSTAL" default="" printable="true">CP</field>
+      <field source="CON_NUM_TELEF_CASA" default="555555555" printable="true">TELEFONO</field>
+      <field source="CON_NOM_POBLACION" default="CUAUTITLAN IZCALLI">POBLACION</field>
+      <field source="CON_NUM_ESTADO" default="15">ESTADO ID</field>
+      <field source="CON_NUM_LADA_CASA" default="55">LADA</field>
+      <field source="CON_NUM_CONTRATO" default="3124">CLAVE CONTACTO</field>
+      <field source="CON_DEPENDENCIA" default="ghernandez@ghr-local.net">EMAIL</field>
+    </client-fields>
+    <timbrado-info>
+      <seccion-origen>Account Summary</seccion-origen>
+      <banco-id>0</banco-id>
+      <field-separator>|</field-separator>
+      <moneda>MXN</moneda>
+      <total-commisions-field>TOTAL COMMISSIONS</total-commisions-field>
+      <total-amount-ops-field>TOTAL AMOUNT OPS</total-amount-ops-field>
+      <tipo-cfd>ECB</tipo-cfd>
+      <lugar-expedicion>Mexico D.F.</lugar-expedicion>
+      <iva-field>IVA</iva-field>
+      <tasa-iva>16</tasa-iva>
+      <isr-field>ISR</isr-field>
+      <periodo-base>Ejercicio Fiscal</periodo-base>
+      <periodo-fecha>yyyy</periodo-fecha>
+      <codigo-terminacion-factura>99</codigo-terminacion-factura>
+      <codigo-terminacion-archivo>9999</codigo-terminacion-archivo>
+      <linea-trece-fija>8032323|Movimiento ECB Fiscal|0.00|MXN|0.00|0.00|</linea-trece-fija>
+      <rfc-enajenante>FSL140702F48</rfc-enajenante>
+    </timbrado-info>
+    <secciones-detalle>
+      <seccion nombre="C O N F I R M A C I O N E S   D E   E J E C U C I O N E S" id="01">
+        <identificador>C O N F I R M A C I O N E S</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="NUMERO" id="2">
+            <displayName>NUMERO</displayName>
+            <length>10</length>
+          </field>
+          <field name="MERCADO" id="3">
+            <displayName>MERCADO</displayName>
+            <length>10</length>
+          </field>
+          <field name="COMPRA" id="4">
+            <displayName>COMPRA</displayName>
+            <length>10</length>
+          </field>
+          <field name="VENTA" id="5">
+            <displayName>VENTA</displayName>
+            <length>10</length>
+          </field>
+          <field name="DESCRIPCION DEL CONTRATO" id="6">
+            <displayName>DESCRIPCION DEL CONTRATO</displayName>
+            <length>42</length>
+          </field>
+          <field name="CURSOS PRECIO" id="7">
+            <displayName>CURSOS PRECIO</displayName>
+            <length>18</length>
+            <!--format>MONEY</format-->
+          </field>
+          <field name="MND" id="8">
+            <displayName>MND</displayName>
+            <length>5</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="9">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>14</length>
+            <format>MONEY</format>
+          </field>
+          <field name="DR/CR" id="10">
+            <displayName>DR/CR</displayName>
+            <length>2</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+      <seccion nombre="J O U R N A L   E N T R I E S" id="02">
+        <identificador>J O U R N A L</identificador>
+        <prefix>SEC</prefix>
+        <head-prefix>HP</head-prefix>
+        <use-sub>true</use-sub>
+        <sub-prefix>HS</sub-prefix>
+        <body-prefix>B</body-prefix>
+        <total-prefix>T</total-prefix>
+        <field-separator>|</field-separator>
+        <fields>
+          <field name="FECHA" id="1">
+            <displayName>FECHA</displayName>
+            <length>11</length>
+          </field>
+          <field name="VALUE DATE" id="2">
+            <displayName>VALUE DATE</displayName>
+            <length>10</length>
+          </field>
+          <field name="PAYMENTS TYPE" id="3">
+            <displayName>PAYMENTS TYPE</displayName>
+            <length>27</length>
+          </field>
+          <field name="DESCRIPTION" id="4">
+            <displayName>DESCRIPTION</displayName>
+            <length>54</length>
+          </field>
+          <field name="REG CC" id="5">
+            <displayName>REG CC</displayName>
+            <length>6</length>
+          </field>
+          <field name="DEBITO/CREDITO" id="6">
+            <displayName>DEBITO/CREDITO</displayName>
+            <length>18</length>
+          </field>
+          <field name="DR/CR" id="7">
+            <displayName>DR/CR</displayName>
+            <length>3</length>
+            <toEndOfLine>true</toEndOfLine>
+          </field>
+        </fields>
+      </seccion>
+    </secciones-detalle>
+    <campos-agrupar>
+      <campo>
+        <nombre>TARIFA MEXDER</nombre>
+        <incluir-siempre>true</incluir-siempre>
+        <valor-inicial>0.00</valor-inicial>
+        <value-from>115-130</value-from>
+      </campo>
+      <campo>
+        <nombre>TARIFA ASIGNA</nombre>
+        <incluir-siempre>true</incluir-siempre>
+        <valor-inicial>0.00</valor-inicial>
+        <value-from>115-130</value-from>
+      </campo>
+      <campo>
+        <nombre>COM LIQUIDADOR</nombre>
+        <incluir-siempre>true</incluir-siempre>
+        <valor-inicial>0.00</valor-inicial>
+        <value-from>115-130</value-from>
+      </campo>
+      <campo>
+        <nombre>COM OPERADOR</nombre>
+        <incluir-siempre>true</incluir-siempre>
+        <valor-inicial>0.00</valor-inicial>
+        <value-from>115-130</value-from>
+      </campo>
+    </campos-agrupar>
+  </timbrado>
+  <envioEstadosDeCuenta>
+    <clientesURL>http://172.16.17.13:9083/Fiduciario/ClientesSearchServiceSoap12HttpPort</clientesURL>
+    <input-file-path>/home/sungard/EdosDiarios</input-file-path>
+    <output-file-path>/home/sungard/EdosDiarios</output-file-path>
+    <character-set>8859_1</character-set>
+    <useSystemOut>true</useSystemOut>
+    <log-level>DEBUG</log-level>
+    <after-read>NONE</after-read>
+    <processed-file-location>/home/sungard/edoctas/procesados</processed-file-location>
+    <identificador-cliente>HSBC:</identificador-cliente>
+    <output-prefix>NONE</output-prefix>
+    <output-ext>.pdf</output-ext>
+    <line-delimiter>CR</line-delimiter>
+    <useClientFieldNames>false</useClientFieldNames>
+    <client-fields>
+      <field source="CON_NUM_CONTRATO" default="1">CONTRATO</field>
+      <field source="CON_NUM_SEC_CONTAC" default="1">CLIENTE_ID</field>
+      <field source="CON_NOM_CONTACTO" default="JUAN PEREZ LOPEZ">NOMBRE</field>
+      <field source="CON_RFC" default="AAAA000000BBB">RFC</field>
+      <field source="CON_CALLE_NUM" default="LOMA BONITA 22">CALLE</field>
+      <field source="CON_NUM_LADA_FAX" default="">NOEXTERIOR</field>
+      <field source="CON_NUM_LADA_OFIC" default="">NOINTERIOR</field>
+      <field source="CON_NOM_COLONIA" default="ENSUENOS">COLONIA</field>
+      <field source="CON_NOM_POBLACION" default="CUAUTITLAN IZCALLI">POBLACION</field>
+      <field source="CON_NUM_ESTADO" default="15">ESTADO ID</field>
+      <field source="CON_NOM_ESTADO" default="ESTADO DE MEXICO">ESTADO</field>
+      <field source="CON_NOM_PAIS" default="MEXICO">PAIS</field>
+      <field source="CON_CODIGO_POSTAL" default="54740">CP</field>
+      <field source="CON_NUM_LADA_CASA" default="55">LADA</field>
+      <field source="CON_NUM_TELEF_CASA" default="555555555">TELEFONO</field>
+      <field source="CON_NUM_CONTRATO" default="3124">CLAVE CONTACTO</field>
+      <field source="CON_DEPENDENCIA" default="a@a.com">EMAIL</field>
+      <field source="CON_COMENTARIO" default="">DESTINATARIO</field>
+    </client-fields>
+    <send-mail>true</send-mail>
+    <mail-service>
+      <mailServer>mail.hsbc.com.mx</mailServer>
+      <mailServerPort>25</mailServerPort>
+      <useAuth>false</useAuth>
+      <sender><![CDATA[Socio Liquidador HSBC <socliqhsbc@hsbc.com.mx>]]></sender>
+      <client-email>EMAIL</client-email>
+      <subject>Estado de Cuenta Mensual</subject>
+      <mail-body>Estado de Cuenta Mensual</mail-body>
+    </mail-service>
+  </envioEstadosDeCuenta>
+</application-config>

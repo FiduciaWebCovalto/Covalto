@@ -1,0 +1,658 @@
+var catOpertran = new Catalogo("mx.com.inscitech.fiducia.domain.Opertran");
+
+var arrTblTransferencia =  new Array();
+
+arrTblTransferencia[0] = "traNumContrato,80";
+arrTblTransferencia[1] = "traNumSecReg,80";
+arrTblTransferencia[2] = "traTipoMovimient,150";
+arrTblTransferencia[3] = "traContratoInter,100";
+arrTblTransferencia[4] = "traNomPizarra,100";
+arrTblTransferencia[5] = "traNumSerie,100";
+arrTblTransferencia[6] = "traNumCupon,50";
+arrTblTransferencia[7] = "traCveStTransfe,80";
+arrTblTransferencia[8] = "traNomFile,150";
+
+var arrTblArcOpertran =  new Array();
+
+arrTblArcOpertran[0] = "arcoTraNumSecReg,80";
+arrTblArcOpertran[1] = "arcoTraNomFile,200";
+arrTblArcOpertran[2] = "arcoArpSecuencial,80";
+arrTblArcOpertran[3] = "arcoStatus,100";
+
+var fncInterfase = JSON.parse("{\"id\":\"exeTAS\"}");
+var fncInterfase2 = JSON.parse("{\"id\":\"transfiereTAS\"}");
+var fvMantenimiento = new FormValidator();
+
+var objMonitor2 = {id:"controlIPs"};
+var urlProcCtl2 = ctxRoot + "/doRef.do?json=" + JSON.stringify(objMonitor2);
+
+var nom="";
+var date="";
+
+fvMantenimiento.setup({
+  formName      : "frmDatos",
+  tipoAlert     : 1,
+  alertFunction : BaloonAlert,
+  sendObjToAlert: true
+});
+
+initForms();
+formsLoaded();
+
+var fncValidaTransferencia = JSON.parse("{\"id\":\"conArcPlaTAS\"}");
+var vqryARCOP = JSON.parse("{\"id\":\"qryARCOP\"}");
+
+//modificar
+var fechaDefault = new Date(); 
+
+function setFechaCal() { 
+  GI("paramFechaAnt").value = GI("paramFecha").value;
+}
+
+function isValidDate(date) { 
+  var today = new Date();
+  if(date > today)
+    return true;
+  else
+    return false;
+}
+
+Calendar.setup({
+    inputField     :    "paramFecha",   // id of the input field
+    button         :    "paramFecha",
+    ifFormat       :    "%d/%m/%Y", //"%a %e/%b/%Y",       // format of the input field
+    showsTime      :    false,
+    timeFormat     :    "24",
+    onUpdate       :    setFechaCal,
+    disableFunc    :    isValidDate,
+    date           :    fechaDefault,
+    weekNumbers    :    false,
+    cache          :    true,
+    step           :    1
+});                   
+
+function frameSubmit(forma) {
+    ////console.log('frameSubmit');
+    //TODO: Optimizar la condicion para no tener un IF extenso... quiza un parseInt del valor de paramInterfaceID y poner la condicion de: si valor > 1 & < 4
+    if(GI("paramFecha").value=="" ||
+        !(eval(GI("paramInterfaceID").value) == 1 ||
+        eval(GI("paramInterfaceID").value) == 2 ||
+        eval(GI("paramInterfaceID").value) == 3 ||
+        eval(GI("paramInterfaceID").value) == 4||
+        eval(GI("paramInterfaceID").value) == 8)) {  
+        
+        Swal.fire('Aviso', 'Debe seleccionar la Fecha y el Archivo',  'warning');
+        
+    } else {  
+    
+        showWaitLayer();
+        //alert(date);
+        //nomArchivo = forma.document.getElementById("fileTest").value;
+        nomArchivo = document.frameUpload.frmCargaComprasVentas.fileTest.value;
+    
+        if (nomArchivo == '') {
+            Swal.fire('Aviso', 'debe seleccionar un archivo',  'warning');
+            hideWaitLayer();
+            return;
+        }
+    
+        nomArchivo = nomArchivo.split('\\');
+        nomArchivo = nomArchivo[nomArchivo.length - 1];
+        
+        //forma.document.getElementById("Fecha").value = GI("paramFecha").value;
+        //forma.document.getElementById("NombreArchivo").value = nomArchivo;
+        
+        //nom = nomArchivo;
+        
+        //borraArchivoTAS(document.frameUpload.frmCargaComprasVentas.fileTestvalue);
+        
+        forma.submit();
+        Swal.fire('Aviso', 'Archivo Cargado Exitosamente!',  'warning');
+        hideWaitLayer();    
+/*        if(GI("tipoXLS").checked) {
+            stopCtl = false;
+            uploadMonitor();
+        } else {
+            //hideWaitLayer();
+            setTimeout(function(){ recuperaTAS(); }, 25000);
+        }*/
+    }  
+}
+
+var iInterfase;
+var idis=false;
+function cambiaInterface(claseIf) {
+    ////console.log('cambiaInterface');
+    GI("paramInterfaceID").value = claseIf;
+    ////console.log(claseIf);
+    iInterfase=GI("paramInterfaceID").value;
+    if(claseIf == 10){
+        SA(GI("cmdTransferir"),"disabled", "true");
+        SA(GI("cmdValidar"),"disabled", "true");
+        //console.log("DESHABILITADOS")
+        idis=true;
+    }else{
+        if(idis){
+            RA(GI("cmdTransferir"),"disabled");
+            RA(GI("cmdValidar"),"disabled");
+            idis=false;
+        }
+    }
+}
+
+var fecha;
+var fecha2;
+function descomponeFecha(objOriginal) {
+    ////console.log('descomponeFecha');  
+    fecha2=objOriginal.value;
+    fecha=objOriginal.value;
+    fecha=fecha.toString();
+    fecha=fecha.split("/");    
+}
+
+function ejecutaResultadoTransferencia() {
+    ////console.log('ejecutaResultadoTransferencia');  
+    if(GI("paramFecha").value == "" || !(eval(GI("paramInterfaceID").value) == 1 || eval(GI("paramInterfaceID").value) == 2 || eval(GI("paramInterfaceID").value) == 3 || eval(GI("paramInterfaceID").value) == 4
+    || eval(GI("paramInterfaceID").value) == 8)) {  
+        Swal.fire('Aviso', 'Debe seleccionar la Fecha y la Interfase',  'warning');
+    } else {        
+        fncInterfase.InterfaceID = eval(GI("slcReportes").value);   
+        fncInterfase.Fecha = GI("paramFecha").value;
+        fncInterfase.FechaAnt = GI("paramFecha").value;
+        fncInterfase.MesAbierto = eval(0);
+        fncInterfase.Usuario = eval(0);
+        //Swal.fire('Aviso', 'El siguiente proceso puede durar algunos minutos, el sistema emitira una alerta al terminar!',  'warning');
+        var url = ctxRoot + "/executeRefAsync.do?json=" + JSON.stringify(fncInterfase);
+        showWaitLayer();
+        
+        stopCtl = false;
+        ultimaCantidad = -1;
+        veces = 0;
+        etapa = 0;
+        objMonitor.fechaAplicacion = GI("paramFecha").value;
+        objMonitor.interfaseID = eval(GI("slcReportes").value);  
+        urlProcCtl = ctxRoot + "/doRef.do?json=" + JSON.stringify(objMonitor);
+        makeAjaxRequest(url, "HTML", processMonitor, null);
+    }
+}
+
+var objMonitor = {id:"controlIFs", fechaAplicacion: "01/01/2000"};
+var urlProcCtl = ctxRoot + "/doRef.do?json=" + JSON.stringify(objMonitor);
+function processMonitor(obj, result) {
+    if(!stopCtl) { setTimeout(function() { makeAjaxRequest(urlProcCtl, "HTML", processMonitor, null); }, 3000); }
+    if(isDefinedAndNotNull(result)) {
+        
+        try {
+            var msgProc = JSON.parse(result);
+            if(msgProc.succedded) return;
+        } catch(e) {}
+        
+        var objCtl = JSON.parse(result)[0];
+        if(!stopCtl && objCtl.totalRegistros == ultimaCantidad && veces >= 5) {
+            stopCtl = true;
+            hideWaitLayer();            
+            Swal.fire('Aviso', 'Operaciï¿½n exitosa, consulte cifras control en el siguiente boton',  'warning');
+            RA(GI("cmdGenerar"),"disabled");
+        } else {
+            ultimaCantidad = objCtl.totalRegistros;
+            veces++;
+        }
+    }    
+}
+
+function generar(){
+    stopCtl = false;
+    ultimaCantidad = -1;
+    veces = 0;
+    showWaitLayer();
+    processMonitor2();    
+    objMonitor2.fechaAplicacion = GI("paramFecha").value;
+    if(eval(GI("slcReportes").value)==1){
+        objMonitor2.tipo = "CBYBANCO";
+    }else{//tipo = reportos
+        objMonitor2.tipo = "REPORTOS";
+    }
+    urlProcCtl2 = ctxRoot + "/doRef.do?json=" + JSON.stringify(objMonitor2);
+    //alert(JSON.stringify(objMonitor2));
+    //alert(urlProcCtl2);
+    processMonitor2();
+}
+
+function processMonitor2(obj, result) {
+    if(!stopCtl) { setTimeout(function() { makeAjaxRequest(urlProcCtl2, "HTML", processMonitor2, null); }, 3000); }
+    if(isDefinedAndNotNull(result)) {
+        
+        try {
+            var msgProc = JSON.parse(result);
+            if(msgProc.succedded) return;
+        } catch(e) {}
+        
+        var objCtl = JSON.parse(result)[0];
+        ////console.log(result);
+        ////console.log("VECES="+veces);
+        if(!stopCtl && parseInt(objCtl.cadena.split(";")[0]) == ultimaCantidad && veces >= 10) {
+            stopCtl = true;
+            
+            var x = objCtl.cadena;
+            var x0 = x.split("/")[0];
+            var x1 = x.split("/")[1];
+            ////console.log(x0);//PROCESADOS
+            ////console.log(x1);//NO APLICAN
+            //PROCESADOS
+            var rp=parseFloat(x0.split(";")[0]);
+            var ip=parseFloat(x0.split(";")[1]);
+            GI("regproc").value= rp.format();
+            GI("impproc").value= "$ "+ip.format();
+            //NO APLICAN
+            var rna=parseFloat(x1.split(";")[0]);
+            var ina=parseFloat(x1.split(";")[1]);
+            GI("regna").value= rna.format();
+            GI("impna").value= "$ "+ina.format();
+            //TOTALES=  NO APLICAN + PROCESADOS 
+            var rt=rp+rna;
+            var imt=ip+ina;
+            GI("numoperf").value=rt.format();
+            GI("imptotl").value="$ "+ imt.format();
+            
+            validaStoreInterfase(obj, result);
+        } else {
+            var x = objCtl.cadena;
+            ultimaCantidad = parseInt(x.split(";")[0]);
+            veces++;
+        }
+    }    
+}
+
+function validaStoreInterfase(obj, result) { 
+    ////console.log('validaStoreInterfase');  
+    Swal.fire('Aviso', 'Operaciï¿½n exitosa',  'warning');
+    //hideWaitLayer();
+    //consultaControl3();
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    fncValidaTransferencia.tipoId = 1;
+    fncValidaTransferencia.colData = "arpDescripcion";
+    fncValidaTransferencia.fileName = "PROCESAR_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0]; //PROCESADOS_FECHA
+    fncValidaTransferencia.order = "arpDescripcion";
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(fncValidaTransferencia);
+    makeAjaxRequest(url, "HTML", sugerirNombreArchivo, null);
+} 
+
+function sugerirNombreArchivo(obj, result) {
+    ////console.log('sugerirNombreArchivo');
+    delete fncValidaTransferencia.id;
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    fncValidaTransferencia.queryId = "conArcPlaTAS";
+    fncValidaTransferencia.Fecha = GI("paramFecha").value;
+    fncValidaTransferencia.fileName = "PROCESAR_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0];
+    fncValidaTransferencia.order = "arpDescripcion";
+    var url = ctxRoot + "/generarArchivoInterfase.do?json=" + encodeURIComponent(JSON.stringify(fncValidaTransferencia));
+    var liga = GI("ligaArchivo");
+    liga.href = url;
+    liga.click();
+    hideWaitLayer();
+    Swal.fire('¡Éxito!', "Proceso concluido satisfactoriamente", 'success');
+    GI("cmdNuevo").style.visibility="visible";
+}
+
+function consultaControl3() {
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"qryProces\"}");
+    objCargaMasivaParam.Anio = fechaEnPartes[2];
+    objCargaMasivaParam.Mes = fechaEnPartes[1];
+    objCargaMasivaParam.Dia = fechaEnPartes[0];
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", consultaControl3Res, null);
+}
+
+function consultaControl3Res(obj, result) {
+    ////console.log('consultaControl3Res');  
+    ////console.log(result);
+    var res = JSON.parse(result);
+    GI("regproc").value= res[0].numope;
+    GI("impproc").value= "$ "+res[0].importe;
+    consultaControl5();
+}
+
+function consultaControl5() {
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"qryTransfApli\"}");
+    objCargaMasivaParam.Anio = fechaEnPartes[2];
+    objCargaMasivaParam.Mes = fechaEnPartes[1];
+    objCargaMasivaParam.Dia = fechaEnPartes[0];
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", consultaControl5Res, null);
+}
+
+function consultaControl5Res(obj, result) {
+    ////console.log('consultaControl5Res');  
+    ////console.log(result);
+    var res = JSON.parse(result);
+    GI("regna").value= res[0].numope;
+    GI("impna").value= "$ "+res[0].importe;
+    /*TOTALES=  NO APLICAN + PROCESADOS */
+    ////console.log("REGERR="+ ftsq +"-"+ res[0].numope.replace(/,/g, ''));
+    var reg =  parseFloat(GI("regna").value.replace(/,/g, '')) +- parseFloat(GI("regproc").value.replace(/,/g, ''));//regerr
+    GI("numoperf").value=reg.format();
+    var impr =GI("impna").value.substr(1);
+    var impr2 =GI("impproc").value.substr(1);
+    var imprr=parseFloat(impr.replace(/,/g, '')) + parseFloat(impr2.replace(/,/g, ''));
+    GI("imptotl").value="$ "+ imprr.format();
+    
+}
+
+function llenaTablaArc(obj, result) {
+    ////console.log('llenaTablaArc');  
+    loadTableElement(GI('tblArcOpertran'), result);
+    hideWaitLayer();
+}
+
+function subirArchivo(obj, result) {
+    ////console.log('subirArchivo');  
+    var theProcessor = "mx.com.inscitech.fiducia.business.upload.processors.CargaArchivosExcelArchivosPoliza";
+    if(GI("tipoXLS").checked) {
+        switch(parseInt(GI("slcReportes").value)) {
+            case 1:
+                theProcessor = "mx.com.inscitech.fiducia.business.upload.processors.CargaArchivosExcelArchivosPoliza";
+                break;       
+            default:
+        }
+    }
+    //alert(theProcessor)
+    //document.frameUpload.frmCargaComprasVentas.processID.value = procID;
+    document.frameUpload.frmCargaComprasVentas.processor.value = theProcessor;
+    veces = 0;
+    frameSubmit(document.frameUpload.frmCargaComprasVentas);
+}
+
+
+
+//var urlCtl = ctxRoot + "/uploadCtl.do";
+var urlCtl = ctxRoot + "/getRef.do?json=" + JSON.stringify({id:"cuentaAP"});
+var stopCtl = false;
+var procID = 0;
+var veces = 0;
+var ultimaCantidad = -1;
+function uploadMonitor(obj, result) {
+    ////console.log('uploadMonitor.result: ' + result);
+    if(!stopCtl) { setTimeout(function() { makeAjaxRequest(urlCtl, "HTML", uploadMonitor, null); }, 3000); }
+    if(isDefinedAndNotNull(result)) {
+        /*var objCtl = JSON.parse(result);
+        if(objCtl.started && (objCtl.percent >= 100 || objCtl.finished)) {
+            if(!stopCtl) { Swal.fire('Aviso', 'Archivo Cargado Exitosamente!',  'warning'); }
+            stopCtl = true;
+            hideWaitLayer();
+            recuperaTAS();
+        }*/
+        var objCtl = JSON.parse(result)[0];
+        if(!stopCtl && objCtl.totalRegistros == ultimaCantidad && veces >= 5) {
+            Swal.fire('Aviso', 'Archivo Cargado Exitosamente!',  'warning');
+            stopCtl = true;
+            hideWaitLayer();
+            recuperaTAS();
+        } else {
+            ultimaCantidad = objCtl.totalRegistros;
+            veces++;
+        }
+    }
+}
+
+function recuperaTAS() {
+    ////console.log('recuperaTAS');
+    date = GI("paramFecha").value;
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"recuperaTAS\"}");
+    objCargaMasivaParam.Fechar = date;
+     if(eval(GI("slcReportes").value)==1){
+        objCargaMasivaParam.Tipo = 1;
+    }else{//tipo = reportos
+        objCargaMasivaParam.Tipo = 9;
+    }
+    
+    var url = ctxRoot + "/executeRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", recuperaTASRes, null);
+}
+
+function recuperaTASRes(obj, result) {
+    ////console.log('recuperaTASRes');  
+    ////console.log(result);
+    var res = JSON.parse(result);
+  
+    if(isDefinedAndNotNull(res)) {
+        if(res.mensaje == 0) {
+            //console.log("Archivo Recuperado");
+            consultaControl();
+        } else {
+            hideWaitLayer();
+        }
+    } else {
+        hideWaitLayer();
+    }
+}
+
+function consultaControl() {
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"qryTmpTransf\"}");
+    objCargaMasivaParam.Anio = fechaEnPartes[2];
+    objCargaMasivaParam.Mes = fechaEnPartes[1];
+    objCargaMasivaParam.Dia = fechaEnPartes[0];
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", consultaControlRes, null);
+}
+
+function consultaControlRes(obj, result) {
+    var res = JSON.parse(result);
+    GI("fttSeq").value= res[0].numope;
+    GI("fttImp").value= "$ "+res[0].importe;
+    hideWaitLayer();
+}
+
+function validaTAS() {
+    ////console.log('validaTAS');
+    date = GI("paramFecha").value;
+    showWaitLayer();
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"validaTAS\"}");
+    objCargaMasivaParam.Fechar = date;
+    objCargaMasivaParam.Tipo = eval(GI("slcReportes").value);
+    var url = ctxRoot + "/executeRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", validaTASRes, null);
+}
+
+function validaTASRes(obj, result) {
+    ////console.log('validaTASRes');  
+    ////console.log(result);
+    var res = JSON.parse(result);  
+    if(isDefinedAndNotNull(res)) {
+        if(res.mensaje == 0) {
+            ////console.log("Archivo Validado");
+            hideWaitLayer();
+            date = GI("paramFecha").value;
+            var fechaEnPartes = date.split('/');
+            fncValidaTransferencia.tipoId = 1;
+            fncValidaTransferencia.colData = "arpDescripcion";
+            fncValidaTransferencia.order = "arpDescripcion";
+            var nombre="VALIDACION_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0]+"";
+            //console.log("NOMBRE="+nombre);
+            fncValidaTransferencia.fileName = nombre;
+            //console.log("PARAMS="+JSON.stringify(fncValidaTransferencia));
+            var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(fncValidaTransferencia);
+            //console.log("URL="+url);
+            makeAjaxRequest(url, "HTML", sugerirNombreArchivo2, null);
+			RA(GI("cmdTransferir"),"disabled");
+        }
+    }else{
+        Swal.fire('Aviso', 'Ocurri&oacute; un error en la validaci&oacute;n',  'warning');
+        hideWaitLayer();
+    }
+}
+function sugerirNombreArchivo2(obj, result) {
+    ////console.log('sugerirNombreArchivo');
+    delete fncValidaTransferencia.id;
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    fncValidaTransferencia.queryId = "conArcPlaTAS";
+    fncValidaTransferencia.Fecha = GI("paramFecha").value;
+    fncValidaTransferencia.order = "arpDescripcion";
+    var nombre="VALIDACION_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0]+"";
+    ////console.log("NOMBRE2="+nombre);
+    fncValidaTransferencia.fileName = nombre;
+    
+    var url = ctxRoot + "/generarArchivoInterfase.do?json=" + encodeURIComponent(JSON.stringify(fncValidaTransferencia));
+    var liga = GI("ligaArchivo");
+    liga.href = url;
+    liga.click();
+    hideWaitLayer();
+    Swal.fire('¡Éxito!', "Proceso concluido satisfactoriamente", 'success');
+}
+
+function transfiereTas() {
+    ////console.log('transfiereTas');  
+    if(GI("paramFecha").value == "" || !(eval(GI("paramInterfaceID").value) == 1 || eval(GI("paramInterfaceID").value) == 2 || eval(GI("paramInterfaceID").value) == 3 || eval(GI("paramInterfaceID").value) == 4
+    || eval(GI("paramInterfaceID").value) == 8)) {  
+        Swal.fire('Aviso', 'Debe seleccionar la Fecha y la Interfase',  'warning');
+    } else {        
+        fncInterfase2.InterfaceID = eval(GI("slcReportes").value);   
+        fncInterfase2.Fecha = GI("paramFecha").value;
+        fncInterfase2.FechaAnt = GI("paramFecha").value;
+        fncInterfase2.MesAbierto = eval(0);
+        fncInterfase2.Usuario = eval(0);
+        var url = ctxRoot + "/executeRef.do?json=" + JSON.stringify(fncInterfase2);
+        showWaitLayer();
+        makeAjaxRequest(url, "HTML", transfiereTasRes, null);        
+    }
+}
+
+function transfiereTasRes(obj, result) { 
+    ////console.log('transfiereTasRes');  
+    hideWaitLayer();
+    res = JSON.parse(result);
+    if(res.mensaje==1){
+        Swal.fire('Aviso', 'No se puede transferir, ya hay registros de la fecha solicitada',  'warning');
+    }else{
+		RA(GI("cmdAplicar"),"disabled");
+        Swal.fire('Aviso', 'Operaci&oacute;n exitosa!',  'warning');
+    }
+    
+    consultaControl2()
+}
+
+function consultaControl2() {
+    
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    var objCargaMasivaParam;
+    /*if(eval(GI("slcReportes").value)==1){
+        objCargaMasivaParam= JSON.parse("{\"id\":\"qryTransfApli\"}");
+    }else{//tipo = reportos
+        objCargaMasivaParam= JSON.parse("{\"id\":\"qryTransfApliReportos\"}");
+    } */
+    objCargaMasivaParam= JSON.parse("{\"id\":\"qryTransfApli\"}");
+         
+    objCargaMasivaParam.Anio = fechaEnPartes[2];
+    objCargaMasivaParam.Mes = fechaEnPartes[1];
+    objCargaMasivaParam.Dia = fechaEnPartes[0];
+    if(eval(GI("slcReportes").value)==1){
+        objCargaMasivaParam.tipo = "CBYBANCO";
+    }else{//tipo = reportos
+        objCargaMasivaParam.tipo = "REPORTOS";
+    }
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", consultaControl2Res, null);
+}
+
+Number.prototype.format = function(){
+   return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+};
+
+function consultaControl2Res(obj, result) {
+    ////console.log('consultaControl2Res');  
+    ////console.log(result);
+    var res = JSON.parse(result);
+    GI("transf").value= res[0].numope;
+    if(res[0].importe!=null){
+        GI("imptransf").value="$ "+ res[0].importe;
+    }else{
+        GI("imptransf").value="$ 0.00";
+    }
+    //se determinan los errores    
+    var objCargaMasivaParam2 = JSON.parse("{\"id\":\"qryTransfApliErr\"}");
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(objCargaMasivaParam2);
+    makeAjaxRequest(url, "HTML", consultaControl2Res_Err, null);
+}
+
+function consultaControl2Res_Err(obj, result) {
+    var res = JSON.parse(result);
+    GI("regerr").value= res[0].numope;
+    if(res[0].importe!=null){
+        GI("imperr").value="$ "+ res[0].importe;
+    }else{
+        GI("imperr").value="$ 0.00";
+    }
+    
+    //se genera el archivo en la transferencia
+    ////console.log("Archivo Validado");
+    hideWaitLayer();
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    fncValidaTransferencia.tipoId = 1;
+    fncValidaTransferencia.colData = "arpDescripcion";
+    fncValidaTransferencia.order = "arpDescripcion";
+    var nombre="TRANSFERENCIA_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0]+"";
+    //console.log("NOMBRE="+nombre);
+    fncValidaTransferencia.fileName = nombre;
+    //console.log("PARAMS="+JSON.stringify(fncValidaTransferencia));
+    var url = ctxRoot + "/getRef.do?json=" + JSON.stringify(fncValidaTransferencia);
+    //console.log("URL="+url);
+    makeAjaxRequest(url, "HTML", sugerirNombreArchivo2Trans, null);    
+    hideWaitLayer();
+}
+
+
+function borraArchivoTAS(nom) {
+    ////console.log('borraArchivoTAS');  
+    nomo = nom.split('\\');
+    nomo = nomo[nomo.length - 1];
+    date = GI("paramFecha").value;
+    //showWaitLayer();
+    var objCargaMasivaParam = JSON.parse("{\"id\":\"borraArcPlaDate\"}");
+    objCargaMasivaParam.Archive = nomo;
+    objCargaMasivaParam.Fechar = date;
+    var url = ctxRoot + "/doRef.do?json=" + JSON.stringify(objCargaMasivaParam);
+    makeAjaxRequest(url, "HTML", borraArchivoTASRes, null);
+}
+
+function borraArchivoTASRes(obj,result) {
+    ////console.log('borraArchivoTASRes');  
+    var res = JSON.parse(result);
+    
+    if(isDefinedAndNotNull(res)) {
+        if(res.tipoError=="SUCCESS") {
+            ////console.log("Archivos Planos borrados.");
+        }
+    }
+    //hideWaitLayer();
+}
+
+//nueva seccion para generar archivo en la transferencia
+function sugerirNombreArchivo2Trans(obj, result) {
+    ////console.log('sugerirNombreArchivo');
+    delete fncValidaTransferencia.id;
+    date = GI("paramFecha").value;
+    var fechaEnPartes = date.split('/');
+    fncValidaTransferencia.queryId = "conArcPlaTAS";
+    fncValidaTransferencia.Fecha = GI("paramFecha").value;
+    fncValidaTransferencia.order = "arpDescripcion";
+    var nombre="TRANSFERENCIA_"+fechaEnPartes[2]+""+fechaEnPartes[1]+""+fechaEnPartes[0]+"";
+    ////console.log("NOMBRE2="+nombre);
+    fncValidaTransferencia.fileName = nombre;
+    
+    var url = ctxRoot + "/generarArchivoInterfase.do?json=" + encodeURIComponent(JSON.stringify(fncValidaTransferencia));
+    var liga = GI("ligaArchivo");
+    liga.href = url;
+    liga.click();
+    hideWaitLayer();
+    Swal.fire('¡Éxito!', "Proceso concluido satisfactoriamente", 'success');
+}

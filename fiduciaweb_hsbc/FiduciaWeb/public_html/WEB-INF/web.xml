@@ -1,0 +1,183 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <display-name>FiduciaWeb</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/config/fiduciario_toplink.xml,
+            /WEB-INF/config/fiduciario-services.xml,
+            /WEB-INF/config/fiduciario-mappings.xml
+        </param-value>
+    </context-param>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>mx.com.inscitech.fiducia.web.filters.SecurityFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SignOffFilter</filter-name>
+        <filter-class>mx.com.inscitech.fiducia.web.filters.SignOffFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>JavascriptNoCacheFilter</filter-name>
+        <filter-class>mx.com.inscitech.fiducia.web.filters.JavascriptNoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>/modules/*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SignOffFilter</filter-name>
+        <url-pattern>/ssologoff.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>JavascriptNoCacheFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>mx.com.inscitech.fiducia.web.listeners.ApplicationStartUp</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>MenuDispatcherServlet</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.web.servlets.MenuDispatcherServlet</servlet-class>
+    </servlet>    
+    
+    <servlet>
+        <servlet-name>servicios</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.servicios</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>servicios</servlet-name>
+        <url-pattern>/proceso</url-pattern>
+    </servlet-mapping>  
+    <servlet>
+        <servlet-name>PdfConsumer</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.PdfConsumer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PdfConsumer</servlet-name>
+        <url-pattern>/PdfConsumer</url-pattern>
+    </servlet-mapping>   
+    
+    <servlet>
+        <servlet-name>DownloadExcelServlet</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.DownloadExcelServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadExcelServlet</servlet-name>
+        <url-pattern>/downloadExcel</url-pattern>
+    </servlet-mapping>   
+    
+    <context-param>
+        <param-name>apiBaseUrl</param-name>
+        <param-value>http://localhost:8091</param-value>
+    </context-param>   
+    <servlet>
+        <servlet-name>PdfServlet</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.PdfServlet</servlet-class>
+        
+        <!-- Configuración para recibir archivos -->
+        <multipart-config>
+            <!-- Ubicación temporal donde se guardan los archivos -->
+            <location>/tmp</location>
+            <!-- Tamaño máximo por archivo (ej. 5MB) -->
+            <max-file-size>5242880</max-file-size>
+            <!-- Tamaño máximo de la solicitud (ej. 10MB) -->
+            <max-request-size>10485760</max-request-size>
+            <!-- Tamaño después del cual se escribe en disco -->
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ExcelUploadServlet</servlet-name>
+        <url-pattern>/ExcelUploadServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>ExcelUploadServlet</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.ExcelUploadServlet</servlet-class>
+        
+        <!-- Configuración para recibir archivos -->
+        <multipart-config>
+            <!-- Ubicación temporal donde se guardan los archivos -->
+            <location>/tmp</location>
+            <!-- Tamaño máximo por archivo (ej. 5MB) -->
+            <max-file-size>5242880</max-file-size>
+            <!-- Tamaño máximo de la solicitud (ej. 10MB) -->
+            <max-request-size>10485760</max-request-size>
+            <!-- Tamaño después del cual se escribe en disco -->
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PdfServlet</servlet-name>
+        <url-pattern>/uploadServlet</url-pattern>
+    </servlet-mapping>
+
+
+    
+    <servlet>
+        <servlet-name>Fiduciario</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+        /WEB-INF/config/fiduciario_toplink.xml,
+        /WEB-INF/config/fiduciario-services.xml,
+        /WEB-INF/config/fiduciario-mappings.xml
+      </param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ClientesSearchServiceSoap12HttpPort</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.web.services.ClientesSearchService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Fiduciario</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Fiduciario</servlet-name>
+        <url-pattern>/DatosFiduciarios.xls</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuDispatcherServlet</servlet-name>
+        <url-pattern>/xml/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientesSearchServiceSoap12HttpPort</servlet-name>
+        <url-pattern>/ClientesSearchServiceSoap12HttpPort</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error404.jsp</location>
+    </error-page>
+    <mime-mapping>
+        <extension>html</extension>
+        <mime-type>text/html</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>txt</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
+</web-app>

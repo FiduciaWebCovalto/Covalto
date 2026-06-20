@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fiduciario-config>
+  <properties>
+    <property name="fopTransformerFactory">org.apache.xalan.processor.TransformerFactoryImpl</property>
+    <property name="toplinkSessionsFile">META-INF/sessions.xml</property>
+    <property name="toplinkSessionName">FiduciarioTxds</property>
+    <property name="LoadToplinkSessions">false</property>
+    <property name="systemDataSource">jdbc/fiduciaDS</property>
+    <property name="defalutContentType">text/html; charset=ISO-8859-1</property>
+    <property name="defalutXMLContentType">text/xml; charset=ISO-8859-1</property>
+    <property name="guestProfileID">100</property>
+    <property name="mailAdministrador">admin@hsbc.com</property>
+    <property name="mailSoporte">soporte@hsbc.com</property>
+    <property name="MAIN_URL">soporte@hsbc.com</property>
+    <property name="LogSystemOut">enabled</property><!-- enabled/disabled -->
+    <property name="LogSecurityFilter">enabled</property><!-- enabled/disabled -->
+    <property name="pepsBaseUrl">http://localhost:8080/</property>
+    <property name="pepsServiceUrl">peps/consultaPeps</property>
+    <property name="pepsUsername">hsbcAdmin</property>
+    <property name="pepsPassword">ghr123</property>
+    <property name="peopleSoftFile">/nas/htsl-m485/peoplesoft/files/PS.txt</property>
+    <property name="sibFile">/nas/htsl-m485/sib/files/TAFIDU_movburAnt1.txt</property>
+  </properties>
+  <messages>
+    <message code="500" type="ERROR">Error Fatal</message>
+  </messages>
+</fiduciario-config>

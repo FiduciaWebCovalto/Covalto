@@ -1,0 +1,1 @@
+expdp fiduweb/orgafos@orcl schemas=FIDUWEB directory=DATA_PUMP_DIR dumpfile=FIDUWEB_20111213.dmp logfile=expdpFIDUWEB_20111213.log

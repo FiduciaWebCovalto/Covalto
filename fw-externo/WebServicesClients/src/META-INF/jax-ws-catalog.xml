@@ -1,0 +1,6 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://127.0.0.1:7101/FiduciaWeb/WatchListServices/MainServicePort?wsdl#%7Bhttp%3A%2F%2Fwatchlist.ws.actinver.inscitech.com.mx%2F%7DMainService"
+          uri="../mx/com/inscitech/actinver/ws/watchlist/MainService.wsdl"/>
+  <system systemId="http://127.0.0.1:7101/FiduciaWeb/PriceVectorServices/FWPriceVectorService?wsdl#%7Bhttp%3A%2F%2FpriceVector.ws.actinver.inscitech.com.mx%2F%7DFWPriceVectorService"
+          uri="../mx/com/inscitech/actinver/ws/pricevector/FWPriceVectorService.wsdl"/>
+</catalog>

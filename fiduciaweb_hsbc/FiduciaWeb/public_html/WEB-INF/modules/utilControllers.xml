@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="objectController" class="mx.com.inscitech.fiducia.web.controller.ObjectDefinitionActionController">
+        <property name="methodNameResolver">
+            <ref bean="objectControllerResolver"/>
+        </property>
+    </bean>
+    <bean id="objectControllerResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/getObject.do">getObjectDefinition</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="consultasController" class="mx.com.inscitech.fiducia.web.controller.ConsultasController">
+        <property name="methodNameResolver">
+            <ref bean="consultasControllerResolver"/>
+        </property>
+        <property name="genericDataAccessService">
+            <ref bean="genericDataAccessServiceBean"/>
+        </property>
+    </bean>
+    <bean id="consultasControllerResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/getRef.do">ejecutaConsulta</prop>
+                <prop key="/doRef.do">ejecutaQuery</prop>
+                <prop key="/executeRef.do">ejecutaProcedimiento</prop>
+                <prop key="/executeRefAsync.do">ejecutaProcedimientoAsync</prop>
+                <prop key="/getRefAsXLS.do">ejecutaConsultaExcel</prop>
+                <prop key="/getRefAsXLSX.do">ejecutaConsultaExcel</prop>
+                <prop key="/DatosFiduciarios.xls">ejecutaConsultaExcel</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="genericDataAccessServiceBeanMenu" class="mx.com.inscitech.fiducia.business.services.GenericDataAccessService">
+        <property name="jdbcTemplate" ref="JdbcTemplate"/>
+        <property name="consultas">
+            <map>
+                <entry key="1" value="SELECT PAI_NUM_PAIS, PAI_NOM_PAIS FROM PAISES"/>
+            </map>
+        </property>
+        <property name="parametros">
+            <map>
+                <!-- Ejemplo -->
+                <entry key="store">
+                    <list>
+                        <bean class="mx.com.inscitech.fiducia.common.beans.ParametroQueryBean">
+                            <property name="name">
+                                <value>sfechai</value>
+                            </property>
+                        </bean>
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <!-- Controller que se encarga de generar el menu de acuerdo a el(los) puesto(s) del usuario -->
+    <bean id="menuController" class="mx.com.inscitech.fiducia.web.controller.MenuController">
+        <property name="genericDataAccessService">
+            <ref bean="genericDataAccessServiceBeanMenu"/>
+        </property>
+    </bean>
+    <bean id="interfacesController" class="mx.com.inscitech.fiducia.web.controller.InterfacesController">
+        <property name="methodNameResolver">
+            <ref bean="interfacesResolver"/>
+        </property>
+    </bean>
+    <!--Interfase Quien es Quien-->
+    <bean id="accesoResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/login.do">validaAcceso</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="interfacesResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+        <property name="mappings">
+            <props>
+                <prop key="/listasNegras.do">validaListasNegras</prop>
+                <prop key="/getClienteUnico.do">getClienteUnico</prop>
+                <prop key="/PeopleSoft.do">doPeopleSoft</prop>
+                <prop key="/SIB.do">doSib</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

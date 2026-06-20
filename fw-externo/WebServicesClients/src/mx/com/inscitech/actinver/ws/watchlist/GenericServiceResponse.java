@@ -1,0 +1,329 @@
+
+package mx.com.inscitech.actinver.ws.watchlist;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for genericServiceResponse complex type.
+ *
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ *
+ * <pre>
+ * &lt;complexType name="genericServiceResponse"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="errorDetail" type="{http://watchlist.ws.actinver.inscitech.com.mx/}errorData" minOccurs="0"/&gt;
+ *         &lt;element name="exitCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="exitMessage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="matches" type="{http://watchlist.ws.actinver.inscitech.com.mx/}watchListMatch" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="messages" type="{http://watchlist.ws.actinver.inscitech.com.mx/}watchListMessages" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="requestedOperation" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="responseCategory" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="responseMessage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="responseType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="succeded" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="transactionID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ *
+ *
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "genericServiceResponse",
+         propOrder =
+         { "errorDetail", "exitCode", "exitMessage", "matches", "messages", "requestedOperation", "responseCategory", "responseMessage", "responseType", "succeded", "transactionID"
+    })
+public class GenericServiceResponse {
+
+    protected ErrorData errorDetail;
+    protected String exitCode;
+    protected String exitMessage;
+    @XmlElement(nillable = true)
+    protected List<WatchListMatch> matches;
+    @XmlElement(nillable = true)
+    protected List<WatchListMessages> messages;
+    protected String requestedOperation;
+    protected String responseCategory;
+    protected String responseMessage;
+    protected String responseType;
+    protected boolean succeded;
+    protected String transactionID;
+
+    /**
+     * Gets the value of the errorDetail property.
+     *
+     * @return
+     *     possible object is
+     *     {@link ErrorData }
+     *
+     */
+    public ErrorData getErrorDetail() {
+        return errorDetail;
+    }
+
+    /**
+     * Sets the value of the errorDetail property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link ErrorData }
+     *
+     */
+    public void setErrorDetail(ErrorData value) {
+        this.errorDetail = value;
+    }
+
+    /**
+     * Gets the value of the exitCode property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getExitCode() {
+        return exitCode;
+    }
+
+    /**
+     * Sets the value of the exitCode property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setExitCode(String value) {
+        this.exitCode = value;
+    }
+
+    /**
+     * Gets the value of the exitMessage property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getExitMessage() {
+        return exitMessage;
+    }
+
+    /**
+     * Sets the value of the exitMessage property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setExitMessage(String value) {
+        this.exitMessage = value;
+    }
+
+    /**
+     * Gets the value of the matches property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the matches property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getMatches().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link WatchListMatch }
+     *
+     *
+     */
+    public List<WatchListMatch> getMatches() {
+        if (matches == null) {
+            matches = new ArrayList<WatchListMatch>();
+        }
+        return this.matches;
+    }
+
+    /**
+     * Gets the value of the messages property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the messages property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getMessages().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link WatchListMessages }
+     *
+     *
+     */
+    public List<WatchListMessages> getMessages() {
+        if (messages == null) {
+            messages = new ArrayList<WatchListMessages>();
+        }
+        return this.messages;
+    }
+
+    /**
+     * Gets the value of the requestedOperation property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getRequestedOperation() {
+        return requestedOperation;
+    }
+
+    /**
+     * Sets the value of the requestedOperation property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setRequestedOperation(String value) {
+        this.requestedOperation = value;
+    }
+
+    /**
+     * Gets the value of the responseCategory property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getResponseCategory() {
+        return responseCategory;
+    }
+
+    /**
+     * Sets the value of the responseCategory property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setResponseCategory(String value) {
+        this.responseCategory = value;
+    }
+
+    /**
+     * Gets the value of the responseMessage property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    /**
+     * Sets the value of the responseMessage property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setResponseMessage(String value) {
+        this.responseMessage = value;
+    }
+
+    /**
+     * Gets the value of the responseType property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getResponseType() {
+        return responseType;
+    }
+
+    /**
+     * Sets the value of the responseType property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setResponseType(String value) {
+        this.responseType = value;
+    }
+
+    /**
+     * Gets the value of the succeded property.
+     *
+     */
+    public boolean isSucceded() {
+        return succeded;
+    }
+
+    /**
+     * Sets the value of the succeded property.
+     *
+     */
+    public void setSucceded(boolean value) {
+        this.succeded = value;
+    }
+
+    /**
+     * Gets the value of the transactionID property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
+     */
+    public String getTransactionID() {
+        return transactionID;
+    }
+
+    /**
+     * Sets the value of the transactionID property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *
+     */
+    public void setTransactionID(String value) {
+        this.transactionID = value;
+    }
+
+}

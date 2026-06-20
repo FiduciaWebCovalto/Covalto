@@ -1,0 +1,106 @@
+<!--Version de Formalizacion/Proyectos-->
+
+<FORM name="frmDatosFinalidadesContratoConsulta" id="frmDatosFinalidadesContratoConsulta" onsubmit="">
+  <%=mx.com.inscitech.fiducia.web.security.SecurityBean.getToken(request, session)%>
+  <table cellspacing="1" cellpadding="1" border="0" width="100%" align="center" style="height:auto;">
+      <tr>
+        <td height="100%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center" height="100%" class="titulo">Servicios</td>
+      </tr>
+      <tr>
+        <td height="100%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="100%">
+          <table width="90%" align="center" class="texto" border="0">
+            <tr valign="middle">
+              <td width="25%">&nbsp;</td>
+              <td nowrap width="6%">No. Fideicomiso</td>
+              <td width="8%">
+                <input type="text" -name="paramNumFideicomiso" id="paramNumFideicomiso" tipo="Num" size="10" maxlength="10" onblur="mostrarDatosInformativos(1);"/> <!--paramNumFiso-->
+              </td>
+              <td colspan="3" width="10%">
+                <input type="text" name="txtNomProyecto" id="txtNomProyecto" tipo="AlphaNumeric" size="40"style="visibility:hidden"/>
+                <div id="txtNomProyecto" class="textoNegrita" ref="conNomFid" fun="asignaValor2DivFideicomiso" param="divNombreFideicomisoParam">&nbsp;</div>
+              </td>
+            </tr>
+            <!--tr valign="middle">
+              <td width="25%">&nbsp;</td>
+              <td nowrap width="6%">Servicio</td>
+              <td width="8%">
+                <select size="1" name="paramServicio" id="paramServicio" ref="claves" fun="loadComboElement" keyValue="cveDescClave" theValue="cveDescClave" param="clavesComboServicio" next="formsLoaded"/>
+              </td>
+              <td colspan="3" width="10%">&nbsp;</td>
+            </tr-->
+            <tr style="display:none">
+                <td width="20%" colspan="6" align="center" valign="middle">
+                    <input type="text" name="paramCuenta" id="paramCuenta" style="visibility:hidden"/>
+                    <input type="text" name="paramTipoCuenta" id="paramTipoCuenta" style="visibility:hidden"/>
+                </td>
+            </tr>
+            <tr style="display:none">
+              <td width="20%" colspan="6" align="center" valign="middle">
+              <table width="224" cellpadding="0" cellspacing="0">
+                <tr>
+                <td width="112"  align="center" valign="middle">
+                  <input type="BUTTON" value="Aceptar" id="cmdAceptar" name="cmdAceptar" class="btn btn-primary" ref="muestraDatosRelServicios" fun="loadTableElement" tabla="tablaRegistrosFinalidadesContrato" onclick="consultar(this, GI('frmDatosFinalidadesContratoConsulta'), false);" style="visibility: hidden;"/>
+                  </td>
+                  <td width="112" align="center" valign="middle">
+                    <input type="BUTTON" value="Limpiar" id="cmdLimpiar" name="cmdLimpiar" class="btn btn-warning" onclick="limpiar(frmDatosFinalidadesContratoConsulta);"/>
+                  </td>
+                </tr>
+            </table>
+                
+                
+              </td>
+            </tr>
+            <tr>
+              <td width="20%" colspan="6" align="center" valign="middle">&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="20%" colspan="6" align="center" valign="middle">
+              <table cellpadding="0" cellspacing="0">
+                <tr>                  
+                   <td width="112"  align="center" valign="middle"> <input type="BUTTON" value="  Alta   " id="cmdAlta" name="cmdAlta" class="btn btn-primary" onclick="cargaMantenimientoFinalidadesContrato(1)"/> </td>
+                   <td width="112"  align="center" valign="middle"> <input type="BUTTON" value="Modificar" id="cmdModificar" name="cmdModificar" class="btn btn-success" onclick="cargaMantenimientoFinalidadesContrato(2)"/> </td>
+                   <td width="112"  align="center" valign="middle"> <input type="BUTTON" value="  Baja   " id="cmdBaja" name="cmdBaja" class="btn btn-danger" onclick="eliminarRegistro()"/> </td>
+                   <td width="112"  align="center" valign="middle"> <input type="BUTTON" value="Consultar" id="cmdConsultar" name="cmdConsultar" class="btn btn-info" onclick="cargaMantenimientoFinalidadesContrato(3)"/> </td>                   
+                  </td>
+                </tr>
+            </table>
+                
+              </td>
+            </tr>
+            <tr>
+              <td width="20%" colspan="6" align="center" valign="middle">&nbsp;</td>
+            </tr>
+            <tr align="center">
+              <td colspan="6">
+                <div style="height:250px; overflow:auto; position:relative; vertical-align:top; width:100%;">
+                    <table id="tablaRegistrosFinalidadesContrato" border="0" cellspacing="0" cellpadding="0" width=513px dataInfo="tablaFinalidadesContratoData" keys="frdsIdFidei,frdsNo,frdsTipoCta,frdsServicio" fun="clickTabla" radioWidth="23" NoRecordsMsg="No existen Registros para estos criterios de busqueda">
+                        <thead>
+                          <tr align="left" class="cabeceras">
+                            <td width="23px" align="center">&nbsp;</td>
+                            <td width="90px">Fideicomiso</td>
+                            <td width="100px">Servicio</td>
+                            <td width="220px">Contrato / Afiliacion</td>
+                            <td width="220px">Detalle</td>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td width="60%" height="100%" align="center">
+            <input type="BUTTON" value="Regresar" id="cmdRegresar" name="cmdRegresar" class="btn btn-primary" onclick="cargaPrincipalFinalidadesContrato()"/>
+        </td>
+      </tr>
+  </table>
+</FORM>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Incorporacion de Cuenta✅</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 30px auto; background: #ffffff; border-radius: 8px;
+                     padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2e7d32; text-align: center; }
+        p { color: #333; line-height: 1.6; }
+        ul { list-style: none; padding: 0; }
+        li { background: #f1f1f1; margin: 5px 0; padding: 10px; border-radius: 5px; }
+        .footer { margin-top: 30px; font-size: 13px; color: #777; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Hola, <span th:text="${usuario}"></span> 👋</h2>
+    <p>Ha sido incorporada una Cuenta al Fideicomiso: <span th:text="${fiso}"></span></p>
+
+    <p><b>Detalle de la Cuenta:</b></p>
+    <ul>
+        <li>Numero de Cuenta: <b th:text="${cuenta}"></b></li>
+        <li>Tipo de cuenta: <b th:text="CHEQUES"></b></li>
+        <li>Fecha de Creación: <b th:text="${fecha}"></b></li>
+    </ul>
+
+    <p>Remitase al Catalogo de cuentas para evaluar dicha cuenta.</p>
+
+</div>
+</body>
+</html>

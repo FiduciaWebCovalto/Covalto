@@ -1,0 +1,548 @@
+body
+{ 
+	font-family: Verdana,arial, helvetica, sanserif; 
+	color: #000000; 
+	font-size: 11px;  
+	font-weight: normal;
+	height: 100%;
+	background:#ADD8E6;
+	margin:0px;
+}
+
+
+#frmLoginExterno{
+	display: inline-block;
+	margin: 0 auto;
+	border: 1px solid #666;
+	 border-radius: 10px;
+	 box-shadow: 0 0 10px 1px #999;
+	 padding: 20px;
+	 margin-top: 100px;
+	 background-color: rgba(0,0,0,.6);
+	border:1px solid white;
+	color: white;
+}
+
+#frmLoginExterno label{
+	font-size: 16px;
+	width: 100px;
+	display: inline-block;
+	text-align: left;
+	margin: 10px 0;
+
+}
+
+#frmLoginExterno input[type="text"],#frmLoginExterno input[type="password"]{
+	width: 180px;
+	display: inline-block;
+	border-radius: 5px;
+	height: 20px;
+	padding: 5px;
+	border:1px solid #ccc;
+}
+
+#dvPassOlvidado{
+	margin: 10px 0;
+}
+
+#dvPassOlvidado a{
+	color: #DBC544;
+}
+
+
+
+#btnLogin{
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+header{
+	width: 100%;
+	background-color:  #FFFFFF;
+	box-shadow: 0 0 10px 1px #999;
+	margin: 10px 0;
+}
+
+header img{
+	border:none;
+	margin-left: 5px;
+}
+
+
+header .titleContainer{
+	width: 49.5%;
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+}
+
+header .titleContainer:last-child{
+	text-align: right;
+	
+}
+
+
+
+
+html { height:100%; }
+
+a {  	
+
+		font-size: 12px;
+		font-weight: normal; 
+		color:  #006699; 
+		text-decoration: none
+	}
+
+a:hover {  	color: #FFC600; 
+			
+			font-style: normal; 
+			font-size: 12px; 
+			font-weight: normal; 
+			text-decoration: none
+		}
+
+
+
+select {
+width: auto;
+margin: 0;
+line-height: 150%;
+font-size: 1em;
+padding: 3px;
+vertical-align: middle;
+}
+
+
+
+.botonGris
+		{
+		background: #666666; 
+		border: 2px solid #CCCCCC; 
+		
+		font-size: 11px; 
+		font-weight: bold;
+		color: #FFFFFF; 
+		cursor:hand;
+		}
+			
+.botonG10
+		{
+		background: #A8A8A8; 
+		border: 1px solid #666666; 
+		
+		font-size: 10px; 
+		color: #000033; 
+		cursor:hand;
+		}		
+						
+.texto {  
+		 
+		color: #000000; 
+		font-size: 12px;  
+		font-weight: normal; 
+    text-align:left;
+    }
+    
+.texto3 {
+     
+		color: #000000; 
+		font-size: 11px;  
+		font-weight: normal; 
+    background: #C0C0C0;
+}
+				
+.textoAzul { line-height: 120%; cursor: default; color: #073650; font-size: 10px; font-style: normal}
+.textoNegrita { 
+				 
+				color: #000000; 
+				font-size: 11px;  
+				font-weight: bolder; 
+
+			   }
+.textoNegritaWhite { 
+				 
+				color: #FFFFFF; 
+				font-size: 11px;  
+				font-weight: bolder; 
+
+			   }			   
+
+.texto_menu_inf { line-height: 130%; cursor: default;  color: #2788D0; font-size: 3pt; text-decoration: none; clip: rect( ) ; font-weight: bold}
+
+
+.titulo {  line-height: 100%; cursor: default;  color: #2788D0; font-size: 16px;  text-decoration: none;
+	background:none;
+}
+
+.pie {  line-height: 120%; cursor: default;  color: #99ADB8; font-size: 9px;  font-weight: normal; text-decoration: none; clip:   rect(   )}
+
+.textohome2 {  line-height: 130%; cursor: default;  color: #4F6280; font-size: 10px;  font-weight: normal; text-decoration: none; clip:   rect(   )}
+.texto2 { line-height: 120%; cursor: default; color: #073650; font-size: 11px; font-style: normal}
+.celda01 {  line-height: 120%; cursor: default;  color: #000033; font-size: 11px;  font-weight: normal; text-decoration: none;font-weight: bold; clip:   rect(   ) }
+
+.celda02 {  color: #000000; font-size: 10px; font-weight: normal;  font-style: regular; line-height: 110%; background-color:#E6E6E6 }
+
+.celda03 {  color: #000000; font-size: 10px; font-weight: normal;  font-style: regular; line-height: 110%}
+
+.celdaPregunta{  color: #000000; font-size: 12px; font-weight:bold;  font-style: regular; line-height: 110%; background-color:#FFFFCC }
+
+.celdaInciso {  color: #000000; font-size: 10px; font-weight: normal;  font-style: regular; line-height: 110%; background-color:#E6E6E6 }
+
+.mensaje { line-height: 120%; cursor: default; color: #f3b12f; font-size: 9px; font-style: normal}
+
+.mensaje01 { line-height: 120%; cursor: default; color: #FF0000; font-size: 11px; font-style: normal}
+
+.nota { line-height: 120%; cursor: default; color: #073650; font-size: 11px; font-style: normal}
+
+.titulo { 
+	line-height: 120%;
+	cursor: default;
+	font-weight: bold;
+	color: #0B4D82;
+	font-size: 26px;
+}
+.subtitulo { line-height: 120%; cursor: default; color: #073650; font-size: 12px; font-weight: 900; text-decoration: none; clip: rect( ) ; font-style: normal}
+
+.fiso { line-height: 120%; cursor: default; color: #003366; font-size: 13px; font-weight: 900; text-decoration: none; clip: rect( ) ; font-style: normal}
+.date { line-height: 120%; cursor: default; color: #073650; font-size: 11px; font-weight: 900; text-decoration: none; clip: rect( ) ; font-style: normal}
+
+
+.Menu { 
+			line-height: 120%;  
+			
+			color: #0066CC; 
+			font-size: 12px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal
+		}
+.Menu:hover {   
+			line-height: 120%;  
+			
+			color: #999900; 
+			font-size: 12px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal; 
+			}
+
+.subMenu { 
+			line-height: 120%;  
+			
+			color: #FFFF66; 
+			font-size: 12px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal
+		}
+.subMenu:hover {   
+			line-height: 120%;  
+			
+			color: #CCCCCC; 
+			font-size: 12px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal; 
+			}
+			
+			
+
+.ref { 
+			line-height: 120%;  
+			
+			color: #073650; 
+			font-size: 11px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal
+		}
+.ref:hover {   
+			line-height: 120%;  
+			
+			color: #f3b12f; 
+			font-size: 11px; 
+			font-weight: 900; 
+			text-decoration: none; 
+			clip: rect( ) ; 
+			font-style: normal; 			
+			}
+.alerta { color: #C60000; font-size: 13px; font-weight: bold;}
+
+
+.textoRP {  
+		
+		color: #000000; 
+		font-size: 9px;  
+		font-weight: normal; 
+		}				
+
+.tituloRP{  
+		
+		color: #000000; 
+		font-size: 9px;  
+		font-weight: bolder; 
+		}
+.tituloRP9{  
+		
+		color: #000000; 
+		font-size: 9px;  
+		font-weight: bolder; 
+		}		
+    
+    
+input[type="submit"].boton, input[type="reset"].boton, input[type="button"].boton{
+	text-shadow: 0 -1px 0 
+	#1D6DC1;
+	color: 
+	white;
+	border: 1px solid 
+	#1D6DC1;
+	background: 
+	#7ABCFF;
+	background: -moz-linear-gradient(top, 
+	rgba(122, 188, 255, 1) 0%, 
+	rgba(96, 171, 248, 1) 44%, 
+	rgba(64, 150, 238, 1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,
+	rgba(122, 188, 255, 1)), color-stop(44%,
+	rgba(96, 171, 248, 1)), color-stop(100%,
+	rgba(64, 150, 238, 1)));
+	background: -webkit-linear-gradient(top, 
+	rgba(122, 188, 255, 1) 0%,
+	rgba(96, 171, 248, 1) 44%,
+	rgba(64, 150, 238, 1) 100%);
+	background: -o-linear-gradient(top, 
+	rgba(122, 188, 255, 1) 0%,
+	rgba(96, 171, 248, 1) 44%,
+	rgba(64, 150, 238, 1) 100%);
+	background: -ms-linear-gradient(top, 
+	rgba(122, 188, 255, 1) 0%,
+	rgba(96, 171, 248, 1) 44%,
+	rgba(64, 150, 238, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 );
+	background: linear-gradient(top, 
+	rgba(122, 188, 255, 1) 0%,
+	rgba(96, 171, 248, 1) 44%,
+	rgba(64, 150, 238, 1) 100%);
+}
+
+input[type="submit"], input[type="reset"], input[type="button"] {
+font-family: "Trebuchet Ms", verdana,arial, sans-serif;
+
+}
+
+input[type="text"], textarea, button, a.button, a, input[type="file"] {
+	transition: box-shadow 0.5s, border 0.5s, background 0.5s;
+	-moz-transition: -moz-box-shadow 0.5s, border 0.5s, background 0.5s;
+	-webkit-transition: -webkit-box-shadow 0.5s, border 0.5s, background 0.5s;
+	-o-transition: -o-box-shadow 0.5s, border 0.5s, background 0.5s;
+}
+
+
+input[type="submit"], input[type="reset"], input[type="button"] {
+	position: relative;
+	top: 0;
+	left: 0;
+	vertical-align: middle;
+	margin: 0;
+	padding: 5px 15px;
+	line-height: 100%;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+	width: auto;
+	overflow: visible;
+	font-weight: normal;
+	font-size: 14px;
+	text-shadow: 0 1px 0 
+	white;
+	color: 
+	#666;
+	text-decoration: none;
+	vertical-align: middle;
+	box-sizing: border-box;
+	zoom: 1;
+	border: 1px solid 
+}
+
+
+input[type="text"]:focus, textarea:focus, button:focus, a.button:focus, select:focus, input[type="file"]:focus {
+	-webkit-box-shadow: 0 0 7px 
+	#6DB9FF;
+	-moz-box-shadow: 0 0 7px #6DB9FF;
+	-o-box-shadow: 0 0 7px #6DB9FF;
+	box-shadow: 0 0 7px 
+	#6DB9FF;
+	border: 1px solid 
+	#50B1FE;
+	outline: none;
+}
+
+
+input[type="text"], textarea, button, a.button, a, input[type="file"] {
+	transition: box-shadow 0.5s, border 0.5s, background 0.5s;
+	-moz-transition: -moz-box-shadow 0.5s, border 0.5s, background 0.5s;
+	-webkit-transition: -webkit-box-shadow 0.5s, border 0.5s, background 0.5s;
+	-o-transition: -o-box-shadow 0.5s, border 0.5s, background 0.5s;
+}
+
+input [type="text"]{
+	vertical-align: middle;
+	width: auto;
+	zoom: 1;
+	margin: 0;
+	border: 1px solid 
+	#CCC;
+	font-size: 1em;
+	padding: 5px 0;
+	text-indent: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: 
+	white;
+	-moz-box-shadow: inset 0px 0px 6px #ccc;
+	-webkit-box-shadow: inset 0px 1px 6px 
+	#CCC;
+	box-shadow: inset 0px 1px 6px 
+	#CCC;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+form table tr.celda01{
+  background-color:#999;
+  font-size:12px;
+  color:#333;
+}
+
+
+form table tr.celda01{
+  background:none;
+}
+
+
+form table tr.celda01 td{
+  background-color:#AAA;
+  font-size:12px;
+  color:#333;
+  border:none;
+}
+
+
+form table tr td{
+  height:25px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0px;
+  
+}
+
+
+.menuLateral{
+  list-style:none;  
+  padding:0;
+  margin:0 10px;
+}
+
+
+
+.menuLateral li{
+  background: #4096ee;
+  margin: 10px 0;
+  border: 1px solid #fff;
+  min-height: 30px;
+  border-radius: 5px 0;
+  box-shadow: 0 0 5px 1px #999;
+  cursor:pointer;
+}
+
+.menuLateral li:hover{
+	text-decoration: underline;
+  background: #1374D5;
+  color: white;	
+
+}
+
+.menuLateral li a{
+	font-size: 12px; 
+	display:block;
+	color:white;
+	min-height:20px;
+	line-height:30px;
+	padding:5px;
+
+}
+
+
+
+.trMenuSuperior,.tdMenuLateral{
+	/*
+	background-image: linear-gradient(bottom, #F0F0F0 3%, #B0B0B0 90%);
+	background-image: -o-linear-gradient(bottom, #F0F0F0 3%, #B0B0B0 90%);
+	background-image: -moz-linear-gradient(bottom, #F0F0F0 3%, #B0B0B0 90%);
+	background-image: -webkit-linear-gradient(bottom, #F0F0F0 3%, #B0B0B0 90%);
+	background-image: -ms-linear-gradient(bottom, #F0F0F0 3%, #B0B0B0 90%);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F0F0F0', endColorstr='#B0B0B0');/*For IE7-8-9*/ 
+
+	/*background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.03, #F0F0F0),
+		color-stop(0.9, #B0B0B0)
+	);*/
+
+	background-color: rgba(0,0,0,.6);
+	border:1px solid white;
+}
+
+.tdMenuLateral{
+	border-left: none;
+}
+
+/***** LO NUEVO **/
+
+.menuSuperior{
+
+	list-style: none;
+	width:100%;
+	margin: 0px;
+	padding: 10px 0;
+}
+
+.menuSuperior li{
+	display: inline-block;
+	margin-left: 10px;
+	padding: 10px 20px;
+	border-radius: 5px 0;
+	background-color: #888;
+	border: 1px solid white;
+	box-shadow: 0 0 5px 1px #999;
+	cursor:pointer;
+}
+
+
+.menuSuperior li:hover{
+	background-color: #666;
+	text-decoration: underline;
+	color: white;	
+}
+
+.menuSuperior li a{
+	font-size: 16px; 
+	color: white;	
+}
