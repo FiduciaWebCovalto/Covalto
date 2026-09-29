@@ -1,0 +1,96 @@
+# =========================================================================
+# .gitignore for Classic Java Web Application (Maven / Java EE / WebLogic)
+# =========================================================================
+
+# --- Compiled Java Class files ---
+*.class
+classes/
+
+# --- Maven Build Artifacts ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Package Archives & Deployments ---
+*.war
+*.ear
+*.nar
+*.rar
+deploy/
+build/
+dist/
+
+# --- JAR files (Exclude general JARs, but KEEP proprietary vendor JARs) ---
+*.jar
+!src/main/webapp/WEB-INF/lib/*.jar
+
+# --- Application & Server Runtime Logs ---
+*.log
+*.log.*
+application.log
+logs/
+servers/
+.WL_internal/
+
+# --- Eclipse IDE ---
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.factorypath
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Oracle JDeveloper / ADF ---
+.data/
+*.cdi
+*.deploy
+WebAppRunner.html
+
+# --- NetBeans IDE ---
+nbproject/private/
+nbbuild/
+nbdist/
+
+# --- Visual Studio Code ---
+.vscode/
+
+# --- OS-specific & Temporary Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# --- JVM Crash Dumps ---
+hs_err_pid*
+replay_pid*
+
+# --- Environment & Credentials ---
+.env
+.env.local
+*.key
+*.pem
