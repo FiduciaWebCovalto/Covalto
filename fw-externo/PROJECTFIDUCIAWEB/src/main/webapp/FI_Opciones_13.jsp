@@ -6,9 +6,9 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nFiducia"/>
-<jsp:useBean id="cuentas"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="det_cuentas"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nFiducia"/>
+<jsp:useBean id="cuentas"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="det_cuentas"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 <%@ page import="java.text.*,java.util.*"%>
 <%@ include file="sesionOpc2.jsp" %>
 <HTML>

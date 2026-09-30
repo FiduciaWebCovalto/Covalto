@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <HTML>
 <HEAD><TITLE>Instrucciones  -  Aspectos Legales</TITLE>
 <META content="text/html; charset=windows-1252" http-equiv=Content-Type>

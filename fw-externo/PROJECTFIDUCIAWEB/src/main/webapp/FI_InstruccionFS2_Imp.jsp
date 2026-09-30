@@ -7,8 +7,8 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="ct"  class="com.bancomext.negocio.nAcuerdos"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="ct"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
 <%@ include file="sesionInstrucc.jsp" %>
 
 <%

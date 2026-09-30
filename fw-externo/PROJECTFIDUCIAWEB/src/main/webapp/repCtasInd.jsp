@@ -8,8 +8,8 @@
 
 <%@ page import="java.io.*"%>
 <%@ page import="java.sql.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="reporte"  class="com.bancomext.negocio.nFinanciera"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="reporte"  class="mx.com.inscitech.clients.negocio.nFinanciera"/>
 <%@ include file="Sesion.jsp" %>
 <HTML>
 <HEAD><TITLE>Información Financiera - FiduciaWeb Movil</TITLE>

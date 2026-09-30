@@ -8,10 +8,10 @@
 -->
 
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="BDRet"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="ct"  class="com.bancomext.negocio.nAcuerdos"/>
-<jsp:useBean id="BD2"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="BDRet"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="ct"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
+<jsp:useBean id="BD2"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="sesionInstrucc.jsp" %>
 <%@ include file="pki.jsp" %>
 <%@ include file="configura_bus.jsp" %>

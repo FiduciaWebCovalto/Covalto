@@ -1,9 +1,9 @@
 <!-- FI_UsuarioAsigna.jsp -->
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fPerfilDAO" class="com.bancomext.daos.FPerfilDAO"/>
-<jsp:useBean id="fUsuarioDAO" class="com.bancomext.daos.FUsuarioDAO"/>
-<jsp:useBean id="fUsuario" class="com.bancomext.beans.FUsuario"/>
-<jsp:useBean id="stringFormatter" class="com.bancomext.util.StringFormatter"/>
+<jsp:useBean id="fPerfilDAO" class="mx.com.inscitech.clients.daos.FPerfilDAO"/>
+<jsp:useBean id="fUsuarioDAO" class="mx.com.inscitech.clients.daos.FUsuarioDAO"/>
+<jsp:useBean id="fUsuario" class="mx.com.inscitech.clients.beans.FUsuario"/>
+<jsp:useBean id="stringFormatter" class="mx.com.inscitech.clients.util.StringFormatter"/>
 <% 
   String fusuIdUsuario = request.getParameter("fusuIdUsuario");
   fUsuario = fUsuarioDAO.consultar(fusuIdUsuario);

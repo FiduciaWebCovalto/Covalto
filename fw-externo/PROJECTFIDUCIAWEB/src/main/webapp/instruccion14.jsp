@@ -6,8 +6,8 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="secuencial"  class="com.bancomext.negocio.nServicios"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="secuencial"  class="mx.com.inscitech.clients.negocio.nServicios"/>
 <%@ page import="java.util.*,java.text.*"%>
 <%@ include file="sesionInstrucc.jsp" %>
 <%@ include file="pki.jsp" %>

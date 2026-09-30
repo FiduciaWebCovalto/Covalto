@@ -1,8 +1,8 @@
 <!-- FI_CharolaOperacionesRelevantes.jsp -->
 <%@ page import="java.text.*, java.util.*"%>
-<jsp:useBean id="BD" class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="instruccDAO" class="com.bancomext.daos.InstruccDAO"/>
-<jsp:useBean id="instrucc" class="com.bancomext.beans.Instrucc"/>
+<jsp:useBean id="BD" class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="instruccDAO" class="mx.com.inscitech.clients.daos.InstruccDAO"/>
+<jsp:useBean id="instrucc" class="mx.com.inscitech.clients.beans.Instrucc"/>
 <%@ include file="Sesion.jsp"%>
 <%
   String buscar = request.getParameter("Buscar");

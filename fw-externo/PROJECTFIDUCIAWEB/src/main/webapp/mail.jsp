@@ -5,7 +5,7 @@
   @Creado: Junio 2008
 */
 -->
-<jsp:useBean id="BD" class="com.bancomext.negocio.FiduciaBD">en</jsp:useBean>
+<jsp:useBean id="BD" class="mx.com.inscitech.clients.negocio.FiduciaBD">en</jsp:useBean>
 
 
 <%@ page import="java.util.*, javax.mail.*, javax.mail.internet.*, java.io.*, javax.activation.*" %>

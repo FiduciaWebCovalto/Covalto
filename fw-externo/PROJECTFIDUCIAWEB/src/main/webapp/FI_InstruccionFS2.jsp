@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ page import="java.text.*,java.util.*"%>
 <%@ include file="sesionInstrucc.jsp"%>
 <%int l=0;%>

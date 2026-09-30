@@ -6,10 +6,10 @@
 */
 -->
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="BD2"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="CargaArchivo"  class="com.bancomext.negocio.CargaArchivo"/>
-<jsp:useBean id="nombreSubCuenta"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="BD2"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="CargaArchivo"  class="mx.com.inscitech.clients.negocio.CargaArchivo"/>
+<jsp:useBean id="nombreSubCuenta"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 
 <%@ include file="sesionInst1.jsp" %>
 

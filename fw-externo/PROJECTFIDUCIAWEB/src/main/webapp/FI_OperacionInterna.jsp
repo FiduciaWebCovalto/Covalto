@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.*, java.util.*"%>
-<jsp:useBean id="BD" class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD" class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="Sesion.jsp" %>
 <%
 int menu=Integer.parseInt(request.getParameter("menu")!=null?request.getParameter("menu").trim():"0");

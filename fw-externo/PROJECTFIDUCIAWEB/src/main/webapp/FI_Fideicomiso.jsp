@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="Sesion.jsp" %>
 <HTML>
 <HEAD><TITLE>FiduciaWeb Movil  -  <%=session.getAttribute("empresa_1")%></TITLE>

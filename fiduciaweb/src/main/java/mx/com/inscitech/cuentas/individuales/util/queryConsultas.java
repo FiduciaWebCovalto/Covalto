@@ -1,0 +1,346 @@
+package mx.com.inscitech.cuentas.individuales.util;
+
+
+public class queryConsultas {
+
+public String queryCaptura   = " SELECT per_nom_usuario nomUsuario"
+							 + " FROM personal,bitacora"
+							 + " WHERE "
+							 + " bit_seg_transac=?"
+							 + " AND"
+							 + " bit_id_terminal='INTERNET'"
+							 + " AND bit_num_usuario=per_num_usuario"
+	 				         + " ORDER BY TO_DATE(BIT_DIA_TRANSAC||'/'||BIT_MES_TRANSAC||'/'||BIT_ANO_TRANSAC||' '||BIT_HORA_TRANSAC||':'||BIT_MIN_TRANSAC,'dd/mm/yyyy hh24:mi') ASC";
+
+
+//Detalle de Firmas Mancomunadas 
+public String queryfirmas    = " select "
+							+ " FIR_FOLIO as folio,"
+							+ " FIR_NUM_CONTRATO as fideicomiso,"
+							+ " DECODE(FIR_USUARIO_CAPTURA,0,'CAPTURA',(select PER_NOM_USUARIO from personal where PER_NUM_USUARIO=FIR_USUARIO_CAPTURA)) as captura,"
+							+ " to_char(FIR_FECHA_CAPTURA,'dd/mm/yyyy') as fechaCaptura,"
+							+ " DECODE(FIR_USUARIO_FIRMA1,0,'ESPERA1',(select PER_NOM_USUARIO from personal where PER_NUM_USUARIO=FIR_USUARIO_FIRMA1)) as firma1,"
+							+ " to_char(FIR_FECHA_FIRMA1,'dd/mm/yyyy') as fechaFirma1,"
+							+ " DECODE(FIR_USUARIO_FIRMA2,0,'ESPERA2',(select PER_NOM_USUARIO from personal where PER_NUM_USUARIO=FIR_USUARIO_FIRMA2)) as firma2,"
+							+ " to_char(FIR_FECHA_FIRMA2,'dd/mm/yyyy') as fechaFirma2," 
+							+ " FIR_ST_FIRMA1 as stFirma1, "
+							+ " FIR_ST_FIRMA2 as stFirma2 "
+							+ " from "
+							+ " FIRMAS "
+							+ " where "
+							+ " FIR_FOLIO=? "
+							+ " and "
+							+ " FIR_NUM_CONTRATO=? ";
+
+   
+//Instrucciones Pendientes de Fisos Normales   
+public String strQueryInstruccEspera 	= " SELECT "
+										+ " INS_NUM_FOLIO_INST AS FOLIO, "
+										+ " TO_CHAR(TO_DATE(INS_DIA_ALTA_REG||'/'||INS_MES_ALTA_REG||'/'||INS_ANO_ALTA_REG,'dd/mm/yyyy'),'dd/mm/yyyy') as FECHA,"
+										+ " DECODE(INS_CVE_TIPO_INSTR,'RECEPCION INTERNET','DEPOSITO','LIQUIDACION INTERNET','RETIRO',"
+										+ " 'TRASPASO INTERNET','TRASPASO') AS INSTRUCCION,"
+										+ " DECODE(INS_CVE_TIPO_INSTR,'RECEPCION INTERNET',1,'LIQUIDACION INTERNET',2,"
+										+ " 'TRASPASO INTERNET',3) AS TIPO,"
+										+ " DPO_IMP_DEPOSITO AS IMPORTEDPO,"
+										+ " DEL_IMP_LIQUIDAR AS IMPORTEDEL"
+										+ " FROM"
+										+ " INSTRUCC,DEPOSIT,DETLIQUI"
+										+ " WHERE"
+										+ " INS_NUM_CONTRATO = ? "
+										+ " AND "
+										+ " INS_CVE_ST_INSTRUC='ESPERA' "
+										+ " AND "
+										+ " INS_CVE_TIPO_INSTR IN ('RECEPCION INTERNET','LIQUIDACION INTERNET','TRASPASO INTERNET') "
+										+ " AND "
+										+ " DPO_FOLIO_OPERA(+)=INS_NUM_FOLIO_INST "
+										+ " AND "
+										+ " DEL_FOLIO_OPERA(+)=INS_NUM_FOLIO_INST "
+										+ " ORDER BY 4,FOLIO ASC ";
+										
+
+//Instrucciones de Fisos Normales   
+public String strQueryInstrucc 	= " SELECT "
+								+ " INS_NUM_FOLIO_INST AS FOLIO, "
+								+ " TO_CHAR(TO_DATE(INS_DIA_ALTA_REG||'/'||INS_MES_ALTA_REG||'/'||INS_ANO_ALTA_REG,'dd/mm/yyyy'),'dd/mm/yyyy') as FECHA,"
+								+ " DECODE(INS_CVE_TIPO_INSTR,'RECEPCION INTERNET','DEPOSITO','LIQUIDACION INTERNET','RETIRO',"
+								+ " 'TRASPASO INTERNET','TRASPASO') AS INSTRUCCION,"
+								+ " DECODE(INS_CVE_TIPO_INSTR,'RECEPCION INTERNET',1,'LIQUIDACION INTERNET',2,"
+								+ " 'TRASPASO INTERNET',3) AS TIPO,"
+								+ " DPO_IMP_DEPOSITO AS IMPORTEDPO,"
+								+ " DEL_IMP_LIQUIDAR AS IMPORTEDEL"
+								+ " FROM"
+								+ " INSTRUCC,DEPOSIT,DETLIQUI"
+								+ " WHERE"
+								+ " INS_NUM_CONTRATO = ? "
+								+ " AND "
+								+ " INS_CVE_ST_INSTRUC IN ('ACTIVO','ACEPTADA','APLICADA') "
+								+ " AND "
+								+ " INS_CVE_TIPO_INSTR IN ('RECEPCION INTERNET','LIQUIDACION INTERNET','TRASPASO INTERNET') "
+								+ " AND "
+								+ " DPO_FOLIO_OPERA(+)=INS_NUM_FOLIO_INST "
+								+ " AND "
+								+ " DEL_FOLIO_OPERA(+)=INS_NUM_FOLIO_INST "
+								+ " AND "
+								+ " TO_DATE(INS_DIA_ALTA_REG||'/'||INS_MES_ALTA_REG||'/'||INS_ANO_ALTA_REG,'dd/mm/yyyy') "
+								+ " BETWEEN "
+								+ " TO_DATE(?,'dd/mm/yyyy') "
+								+ " AND "
+								+ " TO_DATE(?,'dd/mm/yyyy') ";
+
+
+public String strQueryInstruccPKAacuerdo = " AND "
+										 + " ses_fecha=TO_DATE('?','dd/mm/yyyy') "
+										 + " AND"
+									     + " ses_tipo=? " 
+									     + " AND"
+									     + " acu_id=?" ;
+
+								
+public String strQueryInstruccOrderBy = " ORDER BY 4,FOLIO ASC ";
+										
+
+//DETALLE DEPOSITO
+public String queryDetalleDeposito   = " SELECT "
+									 + " LTRIM(TO_CHAR(dpo_dia_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(dpo_mes_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(dpo_ano_alta_reg,'0000')) as fecha, "
+									 + " DECODE(dpo_rubro,0,'NO','SI') as rutinaria,"
+									 + " dpo_concepto as concepto,"
+									 + " dpo_folio_opera as folio,"
+									 + " dpo_contrato_inter as contrato,"
+									 + " dpo_imp_deposito as importe,"
+									 + " dpo_num_cuenta As numCuenta, "
+									 //+ " ctn_cuenta as nomcuenta,"
+									 + " cve_303.cve_desc_clave as nomcuenta, "
+									 + " dpo_cve_tipo_cta as instrumento, "
+                   					 + " dpo_nom_pers_fid as persona "
+									 //+ " FROM deposit,ctasnafin,claves "
+									 + " FROM deposit,claves cve_303, claves cve_300 "
+									 + " where "
+									 + " dpo_folio_opera= ? "
+									 + " AND "
+									 + " dpo_num_contrato= ? "
+									 //+ " AND "
+									 //+ " ctn_num_contrato= dpo_num_contrato "
+									 + " AND "
+									 + " TO_NUMBER(cve_300.CVE_LIMSUP_CLAVE)=DPO_NUM_CUENTA "
+									 + " AND "
+									 + " TO_NUMBER(cve_303.CVE_PARAM1)= cve_300.cve_num_sec_clave "
+									 + " AND "
+									 + "  cve_300.cve_num_clave = 300 "
+									 + " AND "
+									 + "  cve_303.cve_num_clave = 303 ";
+									 //+ " AND ctn_cuenta LIKE '%'||dpo_num_cuenta||'%' ";
+                  
+
+public String queryDetalleRetiro 	= " SELECT "
+ 									+ " LTRIM(TO_CHAR(del_dia_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(del_mes_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(del_ano_alta_reg,'0000')) as fecha, "
+									+ " del_contrato_inter as contrato,"
+									+ " del_imp_liquidar as importe,"
+									+ " DECODE(del_rubro,0,'NO','SI') as rutinaria,"
+									+ " del_concepto AS concepto,"
+									+ " DECODE(del_cve_tipo_liq,3,'CHEQUE',5,'SPEUA',18,'BANXICO',19,'TBC-BANCOMER',20,'TEF',21,'SWIFT',22,'PV',23,'SPEI',9,'TRASPASO INTERNO','OTRA') as formaLiq,"
+									+ " del_cve_tipo_liq AS claveLiquid,"
+									+ " del_nom_banco AS banco,"
+									+ " del_num_cuenta AS numCta,"
+									+ " del_cta_banxico AS numCtaBanxico,"
+									+ " del_nom_pers_fid AS beneficiario,"//titular
+									+ " del_nom_plaza AS plaza,"
+									+ " del_dir_aper_cta AS rfcTEF, "
+									+ " to_char(ses_fecha,'dd/mm/yyyy')  As fechaSesion,"
+									+ " ses_tipo As tipoSesion,"
+									+ " acu_id As noAcuerdo" 
+									+ " FROM "
+									+ " detliqui,instrucc "
+									+ " WHERE "
+									+ " del_folio_opera= ? " 
+									+ " AND "
+									+ " del_num_contrato= ? "
+									+ " AND "
+									+ "	ins_num_folio_inst=del_folio_opera "
+									+ " AND "
+								 	+ " ins_num_contrato=del_num_contrato ";
+																	
+									
+									
+public String queryDetalleRetiroSWIFT 	= " SELECT "
+										+ " DECODE(l.del_num_pers_fid,0,'0',(select PAI_NOM_PAIS from paises where PAI_NUM_PAIS=l.del_num_pais)) AS paisDSWIFT,"
+										+ " l.del_nom_area	AS ciudadDSWIFT,"
+										+ " l.del_nom_banco	AS bancoDSWIFT,"
+										+ " s.SWI_NOM_PLAZA  AS plazaDSWIFT,"
+										+ " l.del_num_sucursal AS sucursalDSWIFT,"
+										+ " l.del_num_cuenta	AS ctaDSWIFT,"
+										+ " s.SWI_BRANCH   AS codigoBranch,"
+										//+ " DECODE(l.del_num_moneda,0,'MONEDA NACIONAL',(select MON_NOM_MONEDA from MONEDAS where MON_NUM_PAIS=l.del_num_moneda))	AS monedaSWIFT,"
+										+ " l.del_dir_aper_cta AS monedaSWIFT,"
+										+ " l.del_imp_liquidar  AS importe,"
+										+ " l.del_codigo_trans AS codigoSWIFT,"
+										+ " l.del_nom_pers_fid AS nombreBSWIFT,"
+										+ " DECODE(l.del_num_pais,0,'0',(select PAI_NOM_PAIS from paises where PAI_NUM_PAIS=l.del_num_pais)) AS paisBSWIFT,"
+										+ " l.del_nom_plaza	AS ciudadBSWIFT,"
+										+ " s.SWI_DOMICILIO  AS domicilioBswift,"
+										+ " l.del_cve_tipo_cta AS telBSWIFT,"
+										+ " to_char(ses_fecha,'dd/mm/yyyy') As fechaSesion,"
+										+ " ses_tipo As tipoSesion,"
+										+ " acu_id As noAcuerdo" 
+										+ " from detliqui l,detswift  s,instrucc i"
+										+ " where"
+										+ " l.del_cve_tipo_liq=21 "
+										+ " and"
+										+ " l.del_folio_opera=? "
+										+ " and"
+										+ " l.del_num_contrato=? "
+										+ " and"
+										+ " s.del_folio_opera=l.del_folio_opera"
+										+ " AND "
+										+ "	i.ins_num_folio_inst=l.del_folio_opera "
+										+ " AND "
+								 		+ " i.ins_num_contrato=l.del_num_contrato ";
+
+
+							
+//DETALLE TRASPASO
+public String queryDetalleTraspaso   = " SELECT "
+									 + " LTRIM(TO_CHAR(dpo_dia_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(dpo_mes_alta_reg,'00'))||'/'||LTRIM(TO_CHAR(dpo_ano_alta_reg,'0000')) as fecha, "
+									 + " del_contrato_inter as ctoOrigen,"
+									 + " dpo_contrato_inter as ctoDestino,"
+									 + " dpo_imp_deposito as importe,"
+									 + " dpo_cve_tipo_cta as instrumento "
+									 + " FROM deposit,detliqui "
+									 + " where "
+									 + " dpo_folio_opera= ? "
+									 + " AND "
+									 + " dpo_num_contrato= ? "
+									 + " AND "
+									 + " del_folio_opera= dpo_folio_opera "
+									 + " AND "
+									 + " del_num_contrato= dpo_num_contrato ";
+									 
+									 
+//CONSULTA DE SALDOS POR CONTRATOS DE INVERSION	
+ public String querySaldosPorContrato =  " SELECT DISTINCT cpr_contrato_inter as num_contrato,"
+					                  + " ((SELECT NVL(SUM(pos_costo_historic), 0)"
+					                  + "    FROM posicion"
+					                  + "   WHERE pos_num_contrato = cpr_num_contrato AND "
+					                  + "         pos_contrato_inter = cpr_contrato_inter) + "
+					                  + " (SELECT NVL(SUM(cre_imp_reporto), 0)"
+					                  + "    FROM conrepor"
+					                  + "   WHERE cre_num_contrato = cpr_num_contrato AND"
+					                  + "         cre_contrato_inter = cpr_contrato_inter AND"
+					                  + "         cre_cve_st_conrepo = 'ACTIVO'                  )) as saldo,"
+					                  + " cpr_num_pais as clave_moneda,"
+					                  + " mon_sigla as sigla_moneda "
+  				  		              + " FROM continte, monedas "
+									  + " WHERE cpr_num_contrato = ? AND cpr_contrato_inter <> 1000 AND "
+									  + " cpr_cve_st_contint = 'ACTIVO' AND mon_num_pais = cpr_num_pais "
+									  + " ORDER BY NVL(cpr_num_pais, 0), cpr_contrato_inter ASC ";
+									 
+
+//CONSULTA DE CUENTAS PENDIENTES
+ public String queryCuentasPendientes =  " SELECT PFD_FOLIO  as clave," 
+                                        + "CDP_CVE_BANCO,CDP_NUM_CUENTA,CDP_PLAZA,CDP_SUCURSAL," 
+                                        + "CDP_TITULAR,CDP_RFC,TO_CHAR(PFD_FECHA_ALTA,'DD/MM/YYYY') AS FECHA"
+                                        + " FROM PERFIRDI,CUENDEP WHERE "
+                                        + " PFD_ST='CAPTURADA' AND"
+                                        + " PFD_NUM_CONTRATO=?  AND"
+                                        + " CDP_CVE_CUENDEP=PFD_CVE_CUENDEP"
+                                        + " ORDER BY PFD_FOLIO,CDP_NUM_CUENTA ASC";
+	
+
+public String queryCuentasPendientesporClave =  " SELECT DISTINCT PFD_FOLIO as clave," 
+		                                       + "CDP_CVE_BANCO,"
+		                                       + "CDP_NUM_CUENTA,"
+		                                       + "CDP_PLAZA,"
+		                                       + "CDP_SUCURSAL," 
+		                                       + "CDP_TITULAR,"
+		                                       + "CDP_RFC,"
+		                                       + "TO_CHAR(PFD_FECHA_ALTA,'DD/MM/YYYY') AS FECHA,"
+		                                       + "to_char(nvl(CDP_CVE_CUENDEP,0)) as CDP_CVE_CUENDEP"
+		                                       + " FROM PERFIRDI,CUENDEP WHERE "
+		                                       + " PFD_ST='CAPTURADA' AND"
+		                                       + " PFD_FOLIO=? AND"
+		                                       + " PFD_NUM_CONTRATO=?  AND"
+		                                       + " CDP_CVE_CUENDEP=PFD_CVE_CUENDEP"
+		                                       + " ORDER BY PFD_FOLIO,CDP_NUM_CUENTA ASC";
+
+public String queryDetalleCuenta =  " SELECT DISTINCT CDP_CVE_CUENDEP as clave," 
+		                                       + "CDP_CVE_BANCO,"
+		                                       + "CDP_NUM_CUENTA,"
+		                                       + "CDP_PLAZA,"
+		                                       + "CDP_SUCURSAL," 
+		                                       + "CDP_TITULAR,"
+		                                       + "CDP_RFC"
+		                                       + " FROM CUENDEP WHERE "
+		                                       + " CDP_CVE_CUENDEP=? "
+		                                       + " ORDER BY CDP_CVE_CUENDEP,CDP_NUM_CUENTA ASC";
+		                                       
+public String queryDescripcionBanco = " SELECT CVE_DESC_CLAVE "
+                                        + " FROM CLAVES "
+                                        + " WHERE CVE_NUM_CLAVE = 27 "
+                                        + " AND CVE_NUM_SEC_CLAVE NOT IN( 169, 170 ) "
+                                        + " AND CVE_NUM_SEC_CLAVE=?";
+                                        
+public String querynumusuario = " SELECT USU_NUM_USUARIO "
+                                        + " FROM USUARIOS "
+                                        + " WHERE TIPO_USUARIO='INTERNET' "
+                                        + " AND USU_NUM_USUARIO=? ";
+
+public String queryCapturaCuentas   = " SELECT per_nom_usuario nomUsuario"
+							 + " FROM personal,perfirdi"
+							 + " WHERE "
+							 + " PFD_FOLIO=?"
+							 + " AND PFD_USU_SOLICIT=per_num_usuario";
+
+public String queryNombreFideicomiso = " SELECT CTO_NOM_CONTRATO as ctoNomContrato "
+                                        + " FROM CONTRATO "
+                                        + " WHERE CTO_NUM_CONTRATO = ? ";
+                                        
+public String queryCorreoRechazoCuentas = " SELECT ATE_NUM_CONTRATO, " +
+        "USU_NUM_USUARIO, " +
+        "PER_NIVEL_ESTUDIOS, " +
+        "PER_NOM_USUARIO, " +
+        "CDP_NUM_CUENTA, " +
+        "CDP_CVE_CUENDEP, " +
+        "PFD_FOLIO as FOLIO " +
+        "FROM USUARIOS " +
+        "PERSONAL " +
+        "ATENCION " +
+        "CUENDEP " +
+        "PERFIRDI " +
+        "WHERE PERSONAL.PER_NUM_USUARIO = USUARIOS.USU_NUM_USUARIO " +
+        "AND TO_NUMBER(NVL(PERFIRDI.PFD_USU_SOLICIT,'0'))   = USUARIOS.USU_NUM_USUARIO " +
+        "AND ATENCION.ATE_NUM_CONTRATO  = PERFIRDI.PFD_NUM_CONTRATO " +
+        "AND CUENDEP.CDP_CVE_CUENDEP    = PERFIRDI.PFD_CVE_CUENDEP " +
+        "AND ATENCION.ATE_EJEC_ATENCION = USUARIOS.USU_NUM_USUARIO " +
+        "AND USUARIOS.USU_TIPO_USUARIO  = 'INTERNET' " +
+        "AND PERFIRDI.PFD_FOLIO = ? " +
+        "AND PERFIRDI.PFD_NUM_CONTRATO =  ? " +
+        "AND PERFIRDI.PFD_ST = 'RECHAZADA' " ;
+
+public String queryAgenda = " SELECT DISTINCT PER_NIVEL_ESTUDIOS FROM PERSONAL " 
+                                +"WHERE PER_NUM_USUARIO = ? ";
+
+public String queryUsuarioAgenda = "SELECT DISTINCT PER_NUM_USUARIO FROM PERSONAL,USUARIOS WHERE PER_NUM_USUARIO=USU_NUM_USUARIO AND USU_CVE_ST_USUARIO='ACTIVO' ORDER BY PER_NUM_USUARIO ASC";
+
+public String queryProsTipoPers = "SELECT DISTINCT FID_CVE_PERSONA,FID_NOM_PERSONA,FID_SECUENCIAL_PERSONA FROM fideicom_prospecto WHERE FID_NUM_PROSPECTO=? ORDER BY FID_SECUENCIAL_PERSONA ASC";
+
+//Estados de cuenta ACTINVER 2019/04/22
+/*Valor de Mercado*/public String queryECValorMercado = "SELECT FECVM_SEQ,FECVM_FECE_SEQ,FECVM_RI_SI_EFE,FECVM_RI_SI_DEUDA,FECVM_RI_SI_MERCADODINE,FECVM_RI_SI_RENTAVAR,FECVM_RI_SI_MERCADOCAP,FECVM_RI_SI_BIENFID,FECVM_RI_SI_EFELIQ,FECVM_RI_SI_TOTAL,FECVM_RI_SF_EFE,FECVM_RI_SF_DEUDA,FECVM_RI_SF_MERCADODINE,FECVM_RI_SF_RENTAVAR,FECVM_RI_SF_MERCADOCAP,FECVM_RI_SF_BIENFID,FECVM_RI_SF_EFELIQ,FECVM_RI_SF_TOTAL,FECVM_RXM_P_EFE,FECVM_RXM_P_DEUDA,FECVM_RXM_P_MERCADINE,FECVM_RXM_P_RENTAVAR,FECVM_RXM_P_MERCADOCAP,FECVM_RXM_P_BIENFID,FECVM_RXM_P_EFELIQ,FECVM_RXM_P_TOTAL,FECVM_RXM_D_EFE,FECVM_RXM_D_DEUDA,FECVM_RXM_D_MERCADINE,FECVM_RXM_D_RENTAVAR,FECVM_RXM_D_MERCADOCAP,FECVM_RXM_D_BIENFID,FECVM_RXM_D_EFELIQ,FECVM_RXM_D_TOTAL,FECVM_RXM_E_EFE,FECVM_RXM_E_DEUDA,FECVM_RXM_E_MERCADINE,FECVM_RXM_E_RENTAVAR,FECVM_RXM_E_MERCADOCAP,FECVM_RXM_E_BIENFID,FECVM_RXM_E_EFELIQ,FECVM_RXM_E_TOTAL FROM F_EC_VMERCADO";
+/*Instrumentos de Deuda*/public String queryECInsDeuda ="SELECT FECID_SEQ,   FECID_FECE_SEQ,   FECID_NUM,   FECID_PORCENT,   FECID_CONTRATO,   FECID_TIPOVAL,   FECID_EMISORA,   FECID_MESANTE,   FECID_MESACTU,   FECID_VALORLIB,   FECID_PRECIOAL,   FECID_VALORACT,   FECID_PLUSVINF,   FECID_PORCEPORT FROM F_EC_INSDEUDA WHERE FECID_FECE_SEQ=? ORDER BY FECID_CONTRATO, FECID_EMISORA ASC ";
+/*Mercado de Dinero*/public String queryECMercaDin = "SELECT FECMD_SEQ,   FECMD_FECE_SEQ,   FECMD_CONTRATO,   FECMD_TIPOVAL,   FECMD_EMISORA,   FECMD_MESANTE,   FECMD_MESACTU,   FECMD_FADQUI,   FECMD_FVENCI,   FECMD_PRECIOAL,   FECMD_VALORACT,   FECMD_PORCTASA,   FECMD_DIASPORVEN,   FECMD_PORCGAT,   FECMD_PORCPORT FROM F_EC_MERCADODINE WHERE FECMD_FECE_SEQ=? ORDER BY FECMD_CONTRATO, FECMD_EMISORA ASC";
+/*Instrumentos Capitales*/public String queryECInsCap = "SELECT FECIC_SEQ,   FECIC_FECE_SEQ,   FECIC_NUM,   FECIC_PORCENT,   FECIC_CONTRATO,   FECIC_TIPOVAL,   FECIC_EMISORA,   FECIC_MESANTE,   FECIC_MESACTU,   FECIC_VALORLIB,   FECIC_PRECIOAL,   FECIC_VALORACT,   FECIC_PLUSVINF,   FECIC_PORCEPORT FROM F_EC_INSCAPI WHERE FECIC_FECE_SEQ=? ORDER BY FECIC_CONTRATO, FECIC_EMISORA ASC";
+/*Mercado de Capitales*/public String queryECMerCapi ="SELECT FECMC_SEQ,   FECMC_FECE_SEQ,   FECMC_CONTRATO,   FECMC_TIPOVAL,   FECMC_EMISORA,   FECMC_MESANTE,   FECMC_MESACTU,   FECMC_VALORLIB,   FECMC_PRECIOAL,   FECMC_VALORACT,   FECIC_PLUSVINF,   FECMC_PORCPORT FROM F_EC_MERCADOCAPI WHERE FECMC_FECE_SEQ =? ORDER BY FECMC_CONTRATO, FECMC_EMISORA ASC";
+/*Bienes Fideicomitidos*/public String queryECBienFid ="SELECT FEC_B_SEQ,   FEC_B_FECENC_SEQ,   FEC_B_TIPO,   FEC_B_DESC,   FEC_B_VALORMERCA,   FEC_B_PORCVM,   FEC_B_PLUSINFO FROM F_EC_BIENFID WHERE FEC_B_FECENC_SEQ=? ORDER BY FEC_B_SEQ ASC";
+/*Movimientos del Mes del Contrato Moneda Nacional*/public String queryECMovConMN= "SELECT FEC_MMCMN_SEQ,   FEC_MMCMN_FECENC_SEQ,   FEC_MMCMN_OPERLIQ,   FEC_MMCMN_FOLIO,   FEC_MMCMN_DESC,   FEC_MMCMN_CARGO,   FEC_MMCMN_ABONO,   FEC_MMCMN_SALDO FROM F_EC_MMCMN WHERE FEC_MMCMN_FECENC_SEQ =? ORDER BY FEC_MMCMN_SEQ ASC";
+/*Movimientos del Mes del Contrato Dolares*/public String queryECMovConDL= "SELECT FEC_MMCDLRS_SEQ,   FEC_MMCDLRS_FECENC_SEQ,   FEC_MMCDLRS_OPERLIQ,   FEC_MMCDLRS_FOLIO,   FEC_MMCDLRS_DESC,   FEC_MMCDLRS_CARGO,   FEC_MMCDLRS_ABONO,   FEC_MMCDLRS_SALDO FROM F_EC_MMCDLRS WHERE FEC_MMCDLRS_FECENC_SEQ =? ORDER BY FEC_MMCDLRS_SEQ ASC";
+/*Situacion Financiera*/public String queryECSitFin ="SELECT FEC_SF_SEQ,   FEC_SF_FECE_SEQ,   FEC_SF_DESC,   FEC_SF_ACTIVOS,   FEC_SF_CAPITAL,   FEC_SF_TIPO FROM F_EC_SITUFIN WHERE FEC_SF_FECE_SEQ = ? ORDER BY FEC_SF_SEQ ASC";
+/*Situacion Financiera Dolares*/public String queryECSitFinDL = "SELECT FEC_SFDLRS_SEQ,   FEC_SFDLRS_FECE_SEQ,   FEC_SFDLRS_DESC,   FEC_SFDLRS_ACTIVOS,   FEC_SFDLRS_CAPITAL,   FEC_SFDLRS_TIPO FROM F_EC_SITUFINDLRS WHERE FEC_SFDLRS_FECE_SEQ=? ORDER BY FEC_SFDLRS_SEQ ASC";
+/*Estado de Resultados*/public String queryECEdoRes = "SELECT F_EC_EDORES_SEQ,   F_EC_EDORES_FECE_SEQ,   F_EC_EDORES_DESC,   F_EC_EDORES_ING,   F_EC_EDORES_EGR,   F_EC_EDORES_RESEJE,   F_EC_EDORES_TIPO FROM F_EC_EDORES WHERE F_EC_EDORES_FECE_SEQ = ? ORDER BY F_EC_EDORES_SEQ ASC";
+/*Estado de Resultados Dolares*/public String queryECEdoResDL ="SELECT F_EC_EDORESDLRS_SEQ,   F_EC_EDORESDLRS_FECE_SEQ,   F_EC_EDORESDLRS_DESC,   F_EC_EDORESDLRS_ING,   F_EC_EDORESDLRS_EGR,   F_EC_EDORESDLRS_RESEJE,   F_EC_EDORESDLRS_TIPO FROM F_EC_EDORESDLRS WHERE F_EC_EDORESDLRS_FECE_SEQ = ? ORDER BY F_EC_EDORESDLRS_SEQ ASC";
+/*Depositos en Efectivo*/public String queryECDepEfe = "SELECT F_EC_DEPEFE_SEQ,   F_EC_DEPEFE_FECE_SEQ,   F_EC_DEPEFE_PERIODO,   F_EC_DEPEFE_TOTALDEPOS FROM F_EC_DEPEFE WHERE F_EC_DEPEFE_FECE_SEQ=? ORDER BY F_EC_DEPEFE_SEQ";
+/*Comisiones Cobradas*/public String queryECComCob ="SELECT F_EC_COMICOB_SEQ,   F_EC_COMICOB_FECE_SEQ,   F_EC_COMICOB_CONCEPTO,   F_EC_COMICOB_COMISION,   F_EC_COMICOB_IVA,   F_EC_COMICOB_TOTAL FROM F_EC_COMICOB WHERE F_EC_COMICOB_FECE_SEQ =? ORDER BY F_EC_COMICOB_SEQ ASC";
+/*CONTENIDO ESTADO DE CUENTA*/public String queryECCont ="SELECT FEC_CONT_SEQ,   FEC_FECE_SEQ,   FEC_VMERCADO,   FEC_INSDEUDA,   FEC_MERCADINE,   FEC_INSCAPI,   FEC_MERCAPI,   FEC_BIENFID,   FEC_MOVCONMN,   FEC_MOVCONDLR,   FEC_SITFIN,   FEC_SITFINDLR,   FEC_ESTRES,   FEC_ESTRESDLR,   FEC_DEPEFE,   FEC_COMCOB FROM F_EC_CONTENIDO WHERE FEC_FECE_SEQ=?";                       
+                              
+
+
+    public String queryResumenEstadoCuenta = "SELECT * FROM FID_RES_CTAS_IND WHERE SAL_CONTRATO=? AND SAL_CLAVE_INV=?";
+    public String queryResumenEstadoCuenta2 = "SELECT TO_CHAR(DAT_FEC_ULT_MOD,'DD/MM/YYYY') DAT_FEC_ULT_MOD, TO_CHAR(DAT_FEC_ALTA,'DD/MM/YYYY') DAT_FEC_ALTA,DAT_DESCRIPCION DIRECCION,TO_CHAR(DAT_FEC_BAJA,'DD/MM/YYYY') DAT_FEC_BAJA FROM fid_datos_est_ctas WHERE dat_clave=? AND DAT_CONTRATO=? AND DAT_NIVEL=2";
+}

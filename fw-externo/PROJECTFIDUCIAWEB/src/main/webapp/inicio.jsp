@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%
 
  String sysFecha=BD.fecha(); 

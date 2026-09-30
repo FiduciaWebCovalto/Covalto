@@ -1,39 +1,39 @@
-﻿
+
 <!doctype html>
 <!--FI_BandejaEntrada.jsp-->
 <%@ page import="java.text.*, java.util.*"%>
-<jsp:useBean id="BD" class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD" class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="Sesion.jsp" %>
 <%
 try {
 int menu=Integer.parseInt(request.getParameter("menu")!=null?request.getParameter("menu").trim():"0");
-String titulo="OPERACI�N";
+String titulo="OPERACI?N";
 //String fecha=BD.getFecha();
 int regBitacora=0;
 /*
-menu=1;Administraci�n
-menu=2;Operaci�n
+menu=1;Administraci?n
+menu=2;Operaci?n
 */
      switch(menu)
 					{
           
 					case 1: //Menu principal
-							titulo="Autorizaci�n/Rechazo de Cuentas SPEI";
+							titulo="Autorizaci?n/Rechazo de Cuentas SPEI";
 							break;
 					case 2: //Menu principal
 							titulo="Bandeja de Entrada";
 							break;
-					case 3: //Submenu de Autorizaci�n/Rechazo de Cuentas SPEI
-							titulo="Modificaci�n de Cuentas";
+					case 3: //Submenu de Autorizaci?n/Rechazo de Cuentas SPEI
+							titulo="Modificaci?n de Cuentas";
 							break;
 					case 4: //Submenu de la Bandeja de Entrada
-							titulo="Detalle de la Instrucci�n";
+							titulo="Detalle de la Instrucci?n";
 							break;
-					case 5: //Submenu de Autorizaci�n/Rechazo de Cuentas SPEI
-							titulo="Asignaci�n/Eliminaci�n de Cuentas a Fideicomisos";
+					case 5: //Submenu de Autorizaci?n/Rechazo de Cuentas SPEI
+							titulo="Asignaci?n/Eliminaci?n de Cuentas a Fideicomisos";
 							break;
-					case 6: //Submenu de Autorizaci�n/Rechazo de Cuentas SPEI
-							titulo="Contabiliza/Rechaza Instrucci�n";
+					case 6: //Submenu de Autorizaci?n/Rechazo de Cuentas SPEI
+							titulo="Contabiliza/Rechaza Instrucci?n";
 							break;     
 					case 7: //Submenu de Charola de Operaciones Relevantes
 							titulo="Charola de Op. Inusuales/Relevantes/24Hrs";
@@ -49,7 +49,7 @@ menu=2;Operaci�n
 							break;  
               
 					default:
-							titulo="OPERACI�N";
+							titulo="OPERACI?N";
               
 							break;	
 					}//switch(menu)
@@ -57,7 +57,7 @@ menu=2;Operaci�n
 <HTML>
 <HEAD><TITLE><%=titulo%> - FiduciaWeb Movil</TITLE>
 <META content="text/html; charset=windows-1252" http-equiv=Content-Type>
-<META content="P�gina Principal" name=O>
+<META content="P?gina Principal" name=O>
 <link rel="stylesheet" href="styles/bancomext.css" type="text/css">
 <link rel="stylesheet" href="styles/calendario.css" type="text/css">
 <SCRIPT src="scripts/calendario.js" type=text/javascript></SCRIPT>
@@ -114,14 +114,14 @@ function atras() {
               <%
   switch(menu)
 					{
-					case 1://menu principal Autorizaci�n/Rechazo de Cuentas SPEI
+					case 1://menu principal Autorizaci?n/Rechazo de Cuentas SPEI
             if (session.getAttribute("permiso").equals("ADMINISTRACION")) {
           %>
             <jsp:include page="FI_AutorizacionCuentaFideicomiso.jsp" />
           <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }          
             break;
@@ -133,19 +133,19 @@ function atras() {
               <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
           break;
 
-					case 3: //Submenu Alta de Autorizaci�n/Rechazo de Cuentas SPEI
+					case 3: //Submenu Alta de Autorizaci?n/Rechazo de Cuentas SPEI
             if (session.getAttribute("permiso").equals("ADMINISTRACION")) {
             %>
               <jsp:include page="FI_CuentaBancariaModificar.jsp" />
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
 					break;
@@ -156,7 +156,7 @@ function atras() {
             <%	
             break;
               
-					case 5: //Submenu Asinar/Quitar Fideicomiso de Autorizaci�n/Rechazo de Cuentas SPEI
+					case 5: //Submenu Asinar/Quitar Fideicomiso de Autorizaci?n/Rechazo de Cuentas SPEI
             %>
               <jsp:include page="FI_CuentaBancariaAsignarFideicomiso.jsp" />
             <%
@@ -168,7 +168,7 @@ function atras() {
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
               break; 
@@ -179,7 +179,7 @@ function atras() {
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
               break;         
@@ -190,7 +190,7 @@ function atras() {
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
               break; 
@@ -201,7 +201,7 @@ function atras() {
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
               break; 
@@ -212,7 +212,7 @@ function atras() {
             <%
             } else {
               out.print("<tr>"); 
-              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>");
+              out.print("<td align=\"center\" class=\"alerta\">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>");
               out.print("</tr>");          
             }
               break;               
@@ -235,7 +235,7 @@ function atras() {
          } else {
         %>
           <tr> 
-          <td align="center" class="alerta">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci�n<br></td>
+          <td align="center" class="alerta">Operaci&oacute;n no Autorizada<br>No cuentas con los permisos, para esta operaci?n<br></td>
           </tr>
         <%          
           }

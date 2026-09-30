@@ -7,8 +7,8 @@
 -->
 
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="BDRet"  class="com.bancomext.negocio.RetirosDB"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="BDRet"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
 <%@ include file="sesionInstrucc.jsp" %>
 <%@ include file="pki.jsp"%>
 <%@ include file="parametrosPKI.jsp" %>

@@ -7,9 +7,9 @@
 -->
 
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="acuerdo"  class="com.bancomext.negocio.nAcuerdos"/>
-<jsp:useBean id="consulta"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="acuerdo"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
+<jsp:useBean id="consulta"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 <%@ include file="Sesion.jsp" %>
 <%
 try{

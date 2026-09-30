@@ -1,7 +1,7 @@
 <!-- FI_CuentaBancariaAsignarFideicomiso.jsp -->
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fContratoDAO" class="com.bancomext.daos.FContratoDAO"/>
-<jsp:useBean id="fCueban" class="com.bancomext.beans.FCueban"/>
+<jsp:useBean id="fContratoDAO" class="mx.com.inscitech.clients.daos.FContratoDAO"/>
+<jsp:useBean id="fCueban" class="mx.com.inscitech.clients.beans.FCueban"/>
 <% 
 try {
 String fcbaClabeCba = request.getParameter("fcbaClabeCba");

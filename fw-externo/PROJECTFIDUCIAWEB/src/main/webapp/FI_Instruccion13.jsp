@@ -5,13 +5,13 @@
  * Fecha: Junio 2009
  **/
 -->
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="consultas"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="param2"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="param3"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="movimientos"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="querys"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="ValoresQuerys"  class="com.bancomext.negocio.nInstrucciones"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="consultas"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="param2"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="param3"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="movimientos"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="querys"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="ValoresQuerys"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
 
 <%@ include file="paramSeguridad.jsp" %>
 <HEAD><TITLE>Instrucciones - No Monetarias</TITLE>

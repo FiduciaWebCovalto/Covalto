@@ -7,10 +7,10 @@
 -->
 
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="Correo"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="BD2"  class="com.bancomext.negocio.nFiducia"/>
-<jsp:useBean id="Alerta"  class="com.bancomext.negocio.nInstrucciones"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="Correo"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="BD2"  class="mx.com.inscitech.clients.negocio.nFiducia"/>
+<jsp:useBean id="Alerta"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
 <%@ include file="sesionInst1.jsp" %>
 <%@ include file="pki.jsp" %>
 <%@ include file="configura_bus.jsp" %>

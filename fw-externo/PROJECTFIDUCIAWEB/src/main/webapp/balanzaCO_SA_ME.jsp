@@ -6,8 +6,8 @@
 */
 -->
 
-<jsp:useBean id="bal" class="com.bancomext.negocio.balanzaComprob"/>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="bal" class="mx.com.inscitech.clients.negocio.balanzaComprob"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
 <%@ page import="java.util.*" %>

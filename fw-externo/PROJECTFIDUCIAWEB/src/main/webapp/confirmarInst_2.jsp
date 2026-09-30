@@ -7,12 +7,12 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="DB"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="Moneda"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="Horario"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="CargaArchivo2"  class="com.bancomext.negocio.CargaArchivo"/>
-<jsp:useBean id="FechaHabilSig"  class="com.bancomext.negocio.RetirosDB"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="DB"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="Moneda"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="Horario"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="CargaArchivo2"  class="mx.com.inscitech.clients.negocio.CargaArchivo"/>
+<jsp:useBean id="FechaHabilSig"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
 <%@ include file="configura_bus.jsp" %>
 <%
     // Recuperamos el parámetro del web.xml

@@ -1,7 +1,7 @@
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="consultas2"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="consultas"  class="com.bancomext.negocio.nServicios"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="consultas2"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="consultas"  class="mx.com.inscitech.clients.negocio.nServicios"/>
 <%@ include file="parametrosToken.jsp" %>
 <%@ include file="paramSeguridad.jsp" %>
 <%@ include file="configura_bus.jsp" %>

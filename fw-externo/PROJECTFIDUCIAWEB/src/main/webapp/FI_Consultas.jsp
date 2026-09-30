@@ -11,17 +11,17 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="movimientos"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="consultas"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="firmas"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="det"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="detCuentas"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="detComite"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="detSWIFT"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="moneda"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="consultas_doc"  class="com.bancomext.negocio.nConsultasMDC"/>
-<jsp:useBean id="CargaArchivo"  class="com.bancomext.negocio.CargaArchivo"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="movimientos"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="consultas"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="firmas"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="det"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="detCuentas"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="detComite"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="detSWIFT"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="moneda"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="consultas_doc"  class="mx.com.inscitech.clients.negocio.nConsultasMDC"/>
+<jsp:useBean id="CargaArchivo"  class="mx.com.inscitech.clients.negocio.CargaArchivo"/>
 
 <%@ include file="Sesion.jsp" %>
 <%

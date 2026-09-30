@@ -1,10 +1,10 @@
 <%@ page import="java.text.DecimalFormat, java.text.NumberFormat,java.util.Locale"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="parametrosToken.jsp" %>
 <%@ include file="Sesion.jsp" %>
 
-<%@ page import="com.bancomext.daos.FValuacionFondoDao"%>
-<%@ page import="com.bancomext.beans.FValuacionFondoBean"%>
+<%@ page import="mx.com.inscitech.clients.daos.FValuacionFondoDao"%>
+<%@ page import="mx.com.inscitech.clients.beans.FValuacionFondoBean"%>
 
 <link rel="stylesheet" href="styles/calendario.css" type="text/css">
 <SCRIPT src="scripts/calendario.js" type=text/javascript></SCRIPT>

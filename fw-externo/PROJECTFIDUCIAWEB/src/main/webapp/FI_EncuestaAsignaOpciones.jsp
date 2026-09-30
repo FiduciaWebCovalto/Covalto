@@ -1,5 +1,5 @@
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fEncuestaDAO" class="com.bancomext.daos.FEncuestaDAO"/>
+<jsp:useBean id="fEncuestaDAO" class="mx.com.inscitech.clients.daos.FEncuestaDAO"/>
 <%
   String fencIdEncuesta = request.getParameter("fencIdEncuesta");
   //out.print(fencIdEncuesta);

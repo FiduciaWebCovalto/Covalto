@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" id="AutenticaUsuario"
+          version="11.1.1.62.29"
+          BeanClass="mx.com.inscitech.clients.negocio.AutenticaUsuario" isJavaBased="true"></JavaBean>

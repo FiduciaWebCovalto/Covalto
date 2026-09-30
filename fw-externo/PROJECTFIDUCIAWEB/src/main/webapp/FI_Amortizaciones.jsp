@@ -1,7 +1,7 @@
 
 <%@ page import="java.text.DecimalFormat, java.text.NumberFormat,java.util.Locale"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<%@ page import="com.bancomext.daos.FAmortizacionDao"%>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<%@ page import="mx.com.inscitech.clients.daos.FAmortizacionDao"%>
 <%@ include file="parametrosToken.jsp" %>
 <%@ include file="Sesion.jsp" %>
 <% 

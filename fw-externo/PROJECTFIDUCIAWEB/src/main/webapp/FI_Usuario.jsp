@@ -1,5 +1,5 @@
 <!-- FI_Usuario.jsp -->
-<%@ page import="com.bancomext.daos.FPerfilDAO, com.bancomext.daos.FUsuarioDAO"%>
+<%@ page import="mx.com.inscitech.clients.daos.FPerfilDAO, mx.com.inscitech.clients.daos.FUsuarioDAO"%>
 <%
 try {
 FPerfilDAO fPerfilDAO = new FPerfilDAO();

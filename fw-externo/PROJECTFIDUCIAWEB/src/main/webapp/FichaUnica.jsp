@@ -7,14 +7,14 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.io.*"%>
-<jsp:useBean id="FichaUnica"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="moneda"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="DetRetiro"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="DetDeposito"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="DetTraspaso"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="detSWIFT"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="usuAutoriza"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.RetirosDB"/>
+<jsp:useBean id="FichaUnica"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="moneda"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="DetRetiro"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="DetDeposito"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="DetTraspaso"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="detSWIFT"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="usuAutoriza"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
 <link rel="stylesheet" href="styles/bancomext.css" type="text/css">
 <%
 //se recupera la informacion del Arreglo de Datos del query consulta

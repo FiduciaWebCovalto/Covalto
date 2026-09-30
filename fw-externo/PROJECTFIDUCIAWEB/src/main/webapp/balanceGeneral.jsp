@@ -7,12 +7,12 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*,java.io.*,java.sql.*"%>
-<jsp:useBean id="balance" class="com.bancomext.negocio.nReporte"/>
-<jsp:useBean id="valida" class="com.bancomext.negocio.nReporte"/>
-<jsp:useBean id="cuentas" class="com.bancomext.negocio.balanceFormulas"/>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="repEdoFinan"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="datEdoFinan" class="com.bancomext.negocio.nReporte"/>
+<jsp:useBean id="balance" class="mx.com.inscitech.clients.negocio.nReporte"/>
+<jsp:useBean id="valida" class="mx.com.inscitech.clients.negocio.nReporte"/>
+<jsp:useBean id="cuentas" class="mx.com.inscitech.clients.negocio.balanceFormulas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="repEdoFinan"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="datEdoFinan" class="mx.com.inscitech.clients.negocio.nReporte"/>
 <%
 
 DecimalFormat decFormat = new DecimalFormat("###,###,###,###,###,###,###,##0.00");

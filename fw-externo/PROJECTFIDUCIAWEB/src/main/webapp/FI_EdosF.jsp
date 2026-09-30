@@ -5,8 +5,8 @@
   @Creado: Junio 2008
 */
 -->
-<jsp:useBean id="BD"  class="com.bancomext.negocio.EdoCuenta"/>
-<jsp:useBean id="valida" class="com.bancomext.negocio.nReporte"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.EdoCuenta"/>
+<jsp:useBean id="valida" class="mx.com.inscitech.clients.negocio.nReporte"/>
 <%@ include file="Sesion.jsp" %>
 
 <%	

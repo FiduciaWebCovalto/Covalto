@@ -1,12 +1,12 @@
 <!-- confirmarInstruccion.jsp -->
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="instruccDAO" class="com.bancomext.daos.InstruccDAO"/>
-<jsp:useBean id="fDeposito" class="com.bancomext.beans.FDeposito"/>
-<jsp:useBean id="fRetiro" class="com.bancomext.beans.FRetiro"/>
-<jsp:useBean id="fTraspaso" class="com.bancomext.beans.Traspaso"/>
-<jsp:useBean id="fHonorarios" class="com.bancomext.beans.Honorarios"/>
-<jsp:useBean id="instrucc" class="com.bancomext.beans.Instrucc"/>
-<jsp:useBean id="instruccComVen" class="com.bancomext.beans.Instrucc"/>
+<jsp:useBean id="instruccDAO" class="mx.com.inscitech.clients.daos.InstruccDAO"/>
+<jsp:useBean id="fDeposito" class="mx.com.inscitech.clients.beans.FDeposito"/>
+<jsp:useBean id="fRetiro" class="mx.com.inscitech.clients.beans.FRetiro"/>
+<jsp:useBean id="fTraspaso" class="mx.com.inscitech.clients.beans.Traspaso"/>
+<jsp:useBean id="fHonorarios" class="mx.com.inscitech.clients.beans.Honorarios"/>
+<jsp:useBean id="instrucc" class="mx.com.inscitech.clients.beans.Instrucc"/>
+<jsp:useBean id="instruccComVen" class="mx.com.inscitech.clients.beans.Instrucc"/>
 <% 
   String folio = request.getParameter("folio");
   String tipo = request.getParameter("tipo")==null?"":request.getParameter("tipo");

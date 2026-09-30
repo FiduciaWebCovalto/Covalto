@@ -1,6 +1,6 @@
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fEncuestaDAO" class="com.bancomext.daos.FEncuestaDAO" />
-<jsp:useBean id="fEncuesta" class="com.bancomext.beans.FEncuesta" />
+<jsp:useBean id="fEncuestaDAO" class="mx.com.inscitech.clients.daos.FEncuestaDAO" />
+<jsp:useBean id="fEncuesta" class="mx.com.inscitech.clients.beans.FEncuesta" />
 <% 
 String aceptarAlta = request.getParameter("AceptarAlta");
 //out.print("aceptar: " + aceptarAlta+"<br>");

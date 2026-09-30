@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.DecimalFormat, java.text.NumberFormat,java.util.Locale"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="parametrosToken.jsp" %>
 <%@ include file="sesionInstrucc.jsp"%>
 <HTML>

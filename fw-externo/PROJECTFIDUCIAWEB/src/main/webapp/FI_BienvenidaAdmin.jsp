@@ -6,8 +6,8 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="avisos" class="com.bancomext.negocio.nServicios"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="avisos" class="mx.com.inscitech.clients.negocio.nServicios"/>
 <%@ include file="Sesion.jsp" %> 
 <%@ include file="parametrosToken.jsp" %>
 <%

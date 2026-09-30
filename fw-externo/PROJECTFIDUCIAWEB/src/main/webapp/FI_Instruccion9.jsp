@@ -6,9 +6,9 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nFiducia"/>
-<jsp:useBean id="BD2"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="instrucciones"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nFiducia"/>
+<jsp:useBean id="BD2"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="instrucciones"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 <%@ page import="java.text.*,java.util.*"%>
 <%@ include file="sesionInst9.jsp" %>
 <HTML>

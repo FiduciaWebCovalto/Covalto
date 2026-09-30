@@ -7,12 +7,12 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="reporte" class="com.bancomext.negocio.nReporte"/>
-<jsp:useBean id="valida" class="com.bancomext.negocio.nReporte"/>
-<jsp:useBean id="edoRes" scope="page" class="com.bancomext.negocio.edoResFormulas" />
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="repEdoFinan"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="datEdoFinan" class="com.bancomext.negocio.nReporte"/>
+<jsp:useBean id="reporte" class="mx.com.inscitech.clients.negocio.nReporte"/>
+<jsp:useBean id="valida" class="mx.com.inscitech.clients.negocio.nReporte"/>
+<jsp:useBean id="edoRes" scope="page" class="mx.com.inscitech.clients.negocio.edoResFormulas" />
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="repEdoFinan"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="datEdoFinan" class="mx.com.inscitech.clients.negocio.nReporte"/>
 
 <%
 String[] bitacora = new String[5];

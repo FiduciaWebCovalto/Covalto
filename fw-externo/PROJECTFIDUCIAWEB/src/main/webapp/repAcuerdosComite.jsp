@@ -7,9 +7,9 @@
 -->
 
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="Sesion"  class="com.bancomext.negocio.nAcuerdos"/>
-<jsp:useBean id="acuerdo"  class="com.bancomext.negocio.nAcuerdos"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="Sesion"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
+<jsp:useBean id="acuerdo"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
 <%
 String tipoUsuario=((String)session.getAttribute("permiso"))!=null?(String)session.getAttribute("permiso"):"OTRO";
 DecimalFormat dec = new DecimalFormat("###,###,###,###,###,###,###,##0.00");

@@ -1,7 +1,7 @@
 <!-- FI_UsuarioFideicomiso.jsp -->
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fContratoDAO" class="com.bancomext.daos.FContratoDAO"/>
-<jsp:useBean id="fUsuario" class="com.bancomext.beans.FUsuario"/>
+<jsp:useBean id="fContratoDAO" class="mx.com.inscitech.clients.daos.FContratoDAO"/>
+<jsp:useBean id="fUsuario" class="mx.com.inscitech.clients.beans.FUsuario"/>
 
 <% 
 try {

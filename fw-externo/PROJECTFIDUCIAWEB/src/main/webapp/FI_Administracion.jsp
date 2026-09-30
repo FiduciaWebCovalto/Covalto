@@ -1,7 +1,7 @@
 <!doctype html>
 <!--FI_Administracion.jsp-->
 <%@ page %>
-<jsp:useBean id="BD" class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD" class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="Sesion.jsp" %>
 <%
 try {

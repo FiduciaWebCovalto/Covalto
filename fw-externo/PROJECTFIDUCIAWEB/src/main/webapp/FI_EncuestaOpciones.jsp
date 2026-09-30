@@ -1,5 +1,5 @@
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fOpcionesDAO" class="com.bancomext.daos.FOpcionesDAO"/>
+<jsp:useBean id="fOpcionesDAO" class="mx.com.inscitech.clients.daos.FOpcionesDAO"/>
 <%
 try {
  

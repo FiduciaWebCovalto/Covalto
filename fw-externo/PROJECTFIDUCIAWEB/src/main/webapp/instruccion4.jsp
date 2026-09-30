@@ -7,9 +7,9 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="Formato"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="Moneda"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="Formato"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="Moneda"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 <%@ include file="sesionInst4.jsp" %>
 <%@ include file="pki.jsp" %>
 <%@ include file="parametrosPKI.jsp" %>

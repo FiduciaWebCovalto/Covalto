@@ -1,6 +1,6 @@
-<jsp:useBean id="param"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="seguridad"  class="com.bancomext.negocio.nSeguridad"/>
-<jsp:useBean id="comTec"  class="com.bancomext.negocio.nAcuerdos"/>
+<jsp:useBean id="param"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="seguridad"  class="mx.com.inscitech.clients.negocio.nSeguridad"/>
+<jsp:useBean id="comTec"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
 <%	  
 //**************************************************************Seguridad*******************************************************/
 

@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="avisos" class="com.bancomext.negocio.nServicios"/>
+<jsp:useBean id="avisos" class="mx.com.inscitech.clients.negocio.nServicios"/>
 
 <HTML>
 <HEAD><TITLE>AVISO IMPORTANTE</TITLE>

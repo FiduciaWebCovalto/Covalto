@@ -5,7 +5,7 @@
   @Creado: Junio 2008
 */
 -->
-<%@ page session="true" import="com.bancomext.seguridad.*"%>
+<%@ page session="true" import="mx.com.inscitech.clients.seguridad.*"%>
     <script>
         // Verificación básica de sesión
         if (!localStorage.getItem('token')) {

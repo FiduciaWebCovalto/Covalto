@@ -1,8 +1,8 @@
 <%@ page import="java.util.*,java.text.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstruccionesMDC"/>
-<jsp:useBean id="BD3"  class="com.bancomext.negocio.nInstrucciones"/>
-<jsp:useBean id="BD2"  class="com.bancomext.negocio.nFiducia"/>
-<jsp:useBean id="consultas"  class="com.bancomext.negocio.nConsultasMDC"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstruccionesMDC"/>
+<jsp:useBean id="BD3"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
+<jsp:useBean id="BD2"  class="mx.com.inscitech.clients.negocio.nFiducia"/>
+<jsp:useBean id="consultas"  class="mx.com.inscitech.clients.negocio.nConsultasMDC"/>
 <%@ include file="paramSeguridad.jsp" %>
 <%@ include file="pki.jsp" %>
 <%@ include file="configura_bus.jsp" %>

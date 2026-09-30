@@ -15,7 +15,7 @@
     <modules>
         <module>fw-externo/WebServicesClients</module>
         <module>fw-externo/PROJECTFIDUCIAWEB</module>
-        <module>fiduciaweb_hsbc</module>
+        <module>fiduciaweb</module>
         <module>WS_Oracle/backend</module>
         <module>ESB Postgresql/backend</module>
     </modules>

@@ -7,12 +7,12 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="Moneda"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="Moneda2"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="TipoPago"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="ct"  class="com.bancomext.negocio.nAcuerdos"/>
-<jsp:useBean id="nombreSubCuenta"  class="com.bancomext.negocio.nConsultas"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="Moneda"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="Moneda2"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="TipoPago"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="ct"  class="mx.com.inscitech.clients.negocio.nAcuerdos"/>
+<jsp:useBean id="nombreSubCuenta"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
 <link rel="stylesheet" href="styles/calendario.css" type="text/css">
 <SCRIPT src="scripts/calendario.js" type=text/javascript></SCRIPT>
 <SCRIPT src="scripts/calendario-es.js" type=text/javascript></SCRIPT>

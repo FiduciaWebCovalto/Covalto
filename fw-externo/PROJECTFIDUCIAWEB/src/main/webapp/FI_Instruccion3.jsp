@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="sesionInstrucc.jsp" %>
 <HTML  xmlns:th="http://www.thymeleaf.org">
 <HEAD><TITLE>Traspaso - FiduciaWeb Movil</TITLE>

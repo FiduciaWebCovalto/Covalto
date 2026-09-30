@@ -44,7 +44,7 @@
 
     <servlet>
         <servlet-name>ProcesarServlet</servlet-name>
-        <servlet-class>com.bancomext.lib.ProcesarServlet</servlet-class>
+        <servlet-class>mx.com.inscitech.clients.lib.ProcesarServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarServlet</servlet-name>
@@ -53,7 +53,7 @@
 
     <servlet>
         <servlet-name>PdfServlet</servlet-name>
-        <servlet-class>com.bancomext.lib.PdfServlet</servlet-class>
+        <servlet-class>mx.com.inscitech.clients.lib.PdfServlet</servlet-class>
         
         <!-- Configuración para recibir archivos -->
         <multipart-config>

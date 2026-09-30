@@ -7,7 +7,7 @@
 -->
 
 <%! String accion = ""; %> 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 
 <%
 String[] bitacora = new String[5];

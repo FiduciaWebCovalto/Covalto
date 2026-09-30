@@ -1,7 +1,7 @@
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fPerfilDAO" class="com.bancomext.daos.FPerfilDAO"/>
-<jsp:useBean id="fUsuarioDAO" class="com.bancomext.daos.FUsuarioDAO"/>
-<jsp:useBean id="fUsuario" class="com.bancomext.beans.FUsuario"/>
+<jsp:useBean id="fPerfilDAO" class="mx.com.inscitech.clients.daos.FPerfilDAO"/>
+<jsp:useBean id="fUsuarioDAO" class="mx.com.inscitech.clients.daos.FUsuarioDAO"/>
+<jsp:useBean id="fUsuario" class="mx.com.inscitech.clients.beans.FUsuario"/>
 <% 
 String aceptarAlta = request.getParameter("AceptarAlta");
 //out.print("aceptar: " + aceptarAlta+"<br>");

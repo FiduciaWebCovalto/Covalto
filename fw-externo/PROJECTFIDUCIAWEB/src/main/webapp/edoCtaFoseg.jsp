@@ -6,8 +6,8 @@
 */
 -->/
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="reporte"  class="com.bancomext.negocio.nFinanciera"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="reporte"  class="mx.com.inscitech.clients.negocio.nFinanciera"/>
 <%@ page import="java.io.*"%>
 <%@ page import="java.io.PrintWriter"%>
 <%@ include file="Sesion.jsp" %>

@@ -1,7 +1,7 @@
 <!--FI_CuentaBancariaModificar.jsp-->
 <%@ page import="java.util.*, java.text.*"%>
-<jsp:useBean id="fCuebanDAO" class="com.bancomext.daos.FCuebanDAO"/>
-<jsp:useBean id="fCueban" class="com.bancomext.beans.FCueban"/>
+<jsp:useBean id="fCuebanDAO" class="mx.com.inscitech.clients.daos.FCuebanDAO"/>
+<jsp:useBean id="fCueban" class="mx.com.inscitech.clients.beans.FCueban"/>
 <% 
 try {
   String ffidIdFideicomiso = request.getParameter("ffidIdFideicomiso");

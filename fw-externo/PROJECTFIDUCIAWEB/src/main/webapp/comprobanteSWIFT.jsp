@@ -6,7 +6,7 @@
 */
 -->
 
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="Sesion.jsp" %>
 <HTML><HEAD><TITLE>Comprobante de Instrucción de Retiro SWIFT - FiduciaWeb Movil</TITLE>
 <META content="text/html; charset=windows-1252" http-equiv=Content-Type>

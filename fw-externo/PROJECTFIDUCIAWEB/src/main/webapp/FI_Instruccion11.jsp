@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
 <%@ include file="sesionInst11.jsp" %>
 <HTML>
 <HEAD><TITLE>Transferencia Inter-fideicomisos - FiduciaWeb Movil</TITLE>

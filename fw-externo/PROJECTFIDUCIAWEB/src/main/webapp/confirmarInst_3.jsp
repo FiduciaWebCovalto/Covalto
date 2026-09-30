@@ -7,11 +7,11 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.FiduciaBD"/>
-<jsp:useBean id="Horario"  class="com.bancomext.negocio.nConsultas"/>
-<jsp:useBean id="FechaHabilSig"  class="com.bancomext.negocio.RetirosDB"/>
-<jsp:useBean id="MonedaOrig"  class="com.bancomext.negocio.nServicios"/>
-<jsp:useBean id="MonedaDest"  class="com.bancomext.negocio.nServicios"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.FiduciaBD"/>
+<jsp:useBean id="Horario"  class="mx.com.inscitech.clients.negocio.nConsultas"/>
+<jsp:useBean id="FechaHabilSig"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
+<jsp:useBean id="MonedaOrig"  class="mx.com.inscitech.clients.negocio.nServicios"/>
+<jsp:useBean id="MonedaDest"  class="mx.com.inscitech.clients.negocio.nServicios"/>
 <%@ include file="sesionInstrucc.jsp" %>
 <%@ include file="parametrosToken.jsp" %>
 <%@ include file="configura_bus.jsp" %>

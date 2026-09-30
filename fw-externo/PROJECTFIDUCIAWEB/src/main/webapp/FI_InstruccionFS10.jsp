@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
 <%@ include file="sesionInst4.jsp" %>
 
 <% 

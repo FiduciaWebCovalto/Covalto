@@ -1,6 +1,6 @@
 <!-- FI_AutorizacionCuentaFideicomiso.jsp -->
 <%@ page import="java.util.*"%>
-<jsp:useBean id="fCuebanDAO" class="com.bancomext.daos.FCuebanDAO"/>
+<jsp:useBean id="fCuebanDAO" class="mx.com.inscitech.clients.daos.FCuebanDAO"/>
 <%
   String botonBuscar = request.getParameter("botonBuscar");
   String fcbaNumeroCtaBan  = request.getParameter("fcbaNumeroCtaBan");  

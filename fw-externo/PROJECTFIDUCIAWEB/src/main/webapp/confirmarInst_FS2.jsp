@@ -7,7 +7,7 @@
 -->
 
 <%@ page import="java.text.*,java.util.*"%>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.RetirosDB"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.RetirosDB"/>
 <%@ include file="sesionInstrucc.jsp" %> 
 <%@ include file="parametrosToken.jsp" %>
 <%

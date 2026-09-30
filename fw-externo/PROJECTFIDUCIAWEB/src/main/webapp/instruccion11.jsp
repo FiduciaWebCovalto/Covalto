@@ -8,7 +8,7 @@
 
 <%@ page import="java.text.*,java.util.*,java.lang.*"%>
 <%@ page errorPage="FI_Instrucciones.jsp?error=1" %>
-<jsp:useBean id="BD"  class="com.bancomext.negocio.nInstrucciones"/>
+<jsp:useBean id="BD"  class="mx.com.inscitech.clients.negocio.nInstrucciones"/>
 <%@ include file="sesionInst11.jsp" %> 
 <%@ include file="pki.jsp" %>
 <%@ include file="parametrosPKI.jsp" %>
