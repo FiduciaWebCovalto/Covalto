@@ -38,16 +38,16 @@ public class ReporteXBLR extends ConsultasController {
         try {
 
             GenericDML dml = new GenericDML();
-            Long helper = new Long("1");
+            Long helper = Long.valueOf("1");
 
             HashMap exitData = new HashMap();
-            exitData.put(helper, new Long(0));
+            exitData.put(helper, Long.valueOf(0));
             String fecha = request.getParameter("FECHA");
             String fiso = request.getParameter("FISO");
-            exitData = dml.executeCall(FUNCION_SQL, new Object[] { "", fecha, new Long(fiso) }, exitData);
+            exitData = dml.executeCall(FUNCION_SQL, new Object[] { "", fecha, Long.valueOf(fiso) }, exitData);
 
             if (exitData != null && exitData.containsKey(helper)) {
-                if (new Long(0).equals(exitData.get(helper))) { //Si es 0 exito
+                if (Long.valueOf(0).equals(exitData.get(helper))) { //Si es 0 exito
                     return respondObject(response, GenericResponseBean.SUCCESS_BEAN);
                 } else {
                     return respondObject(response, new GenericResponseBean(GenericResponseBean.ERROR, "FIDUCIA-XBLR-03", "No fue posible generar el reporte."));

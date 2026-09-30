@@ -128,7 +128,7 @@ public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
 
                             List parametrosQuery = new ArrayList();
 
-                            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", new Integer(0), true));
+                            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", Integer.valueOf(0), true));
                             parametrosQuery.add(new ParametroQueryBean("TIPO", "NUMBER", 1));
                             parametrosQuery.add(new ParametroQueryBean("FECHA_ARCH", "VARCHAR", ""));
             

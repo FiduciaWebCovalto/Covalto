@@ -252,7 +252,7 @@ public class GenericDataAccessService {
         if (isSelect)
             result = jdbcTemplate.query(query, parametrosQry.toArray(), new GenericRowMapper());
         else
-            result.add(new Integer(jdbcTemplate.update(query, parametrosQry.toArray())));
+            result.add(Integer.valueOf(jdbcTemplate.update(query, parametrosQry.toArray())));
 
         return result;
     }

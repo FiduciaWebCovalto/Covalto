@@ -48,8 +48,8 @@ public class MoneyUtils {
             dec = "0";
         }
 
-        numero = new Integer(num).intValue();
-        decim = new Integer(dec).intValue();
+        numero = Integer.parseInt(num);
+        decim = Integer.parseInt(dec);
 
         String linea = "";
 

@@ -46,7 +46,7 @@ public class FieldInfo {
      * @param formatInfo El formato que se usa para transformar el valor del campo.
      * @param mapToField El nombre de la propiedad, campo, metodo o variable en la que se almacenara el valor del campo.
      * @param typeLengthInfo Objeto en el que se almacena la informacion sobre el tipo de dato y la longitud.
-     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (new Long(15)) se tomara como que el campo es numerico con longitud de 15.
+     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (Long.valueOf(15)) se tomara como que el campo es numerico con longitud de 15.
      * @param description La descripcion del campo.
      * @param name El nombre con el cual se hara referencia al campo. Generalmente es solo informativo al igual que la descripcion.
      */
@@ -64,7 +64,7 @@ public class FieldInfo {
      * @param formatInfo El formato que se usa para transformar el valor del campo.
      * @param mapToField El nombre de la propiedad, campo, metodo o variable en la que se almacenara el valor del campo.
      * @param typeLengthInfo Objeto en el que se almacena la informacion sobre el tipo de dato y la longitud.
-     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (new Long(15)) se tomara como que el campo es numerico con longitud de 15.
+     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (Long.valueOf(15)) se tomara como que el campo es numerico con longitud de 15.
      * @param description La descripcion del campo.
      * @param name El nombre con el cual se hara referencia al campo. Generalmente es solo informativo al igual que la descripcion.
      */
@@ -80,7 +80,7 @@ public class FieldInfo {
      * Constructor que inicializa solo algunas de las propiedades.
      * @param mapToField El nombre de la propiedad, campo, metodo o variable en la que se almacenara el valor del campo.
      * @param typeLengthInfo Objeto en el que se almacena la informacion sobre el tipo de dato y la longitud.
-     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (new Long(15)) se tomara como que el campo es numerico con longitud de 15.
+     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (Long.valueOf(15)) se tomara como que el campo es numerico con longitud de 15.
      * @param description La descripcion del campo.
      * @param name El nombre con el cual se hara referencia al campo. Generalmente es solo informativo al igual que la descripcion.
      */
@@ -95,7 +95,7 @@ public class FieldInfo {
      * Constructor que inicializa solo algunas de las propiedades.
      * @param mapToField El nombre de la propiedad, campo, metodo o variable en la que se almacenara el valor del campo.
      * @param typeLengthInfo Objeto en el que se almacena la informacion sobre el tipo de dato y la longitud.
-     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (new Long(15)) se tomara como que el campo es numerico con longitud de 15.
+     * Ej. si se almacena un objeto de tipo java.lang.Long con valor de 15 (Long.valueOf(15)) se tomara como que el campo es numerico con longitud de 15.
      * @param description La descripcion del campo.
      */
     public FieldInfo(String description, Object typeLengthInfo, String mapToField) {
@@ -156,7 +156,7 @@ public class FieldInfo {
     }
 
     public int getLength() {
-        Double longitud = new Double(typeLengthInfo.toString());
+        Double longitud = Double.valueOf(typeLengthInfo.toString());
         return longitud.intValue();
     }
 

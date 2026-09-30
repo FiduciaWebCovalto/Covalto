@@ -96,7 +96,7 @@ public class ConsultasController extends JsonActionController {
 
             int registrosAfectados = 0;
             List result = genericDataAccessService.ejecutaQuery(parametros);
-            Object firstObjet = result.isEmpty() ? new Integer(0) : result.get(0);
+            Object firstObjet = result.isEmpty() ? Integer.valueOf(0) : result.get(0);
 
             if (firstObjet instanceof Integer) {
                 registrosAfectados = ((Integer) firstObjet).intValue();

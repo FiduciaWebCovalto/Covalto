@@ -18,6 +18,7 @@ import java.awt.Dimension;
  * Applet para transferencia de archivos server - cliente - server
  * @author Inscitech México inscitech@inscitechmexico.com
  */
+@SuppressWarnings("removal")
 public class UploadFTP extends Applet {
 
     private Label lblWait = new Label();

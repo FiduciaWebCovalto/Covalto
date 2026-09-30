@@ -89,7 +89,7 @@ public class CargaArchivosExcelRDCImp extends UploadProcessor {
 
             List parametrosQuery = new ArrayList();
 
-            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", new Integer(0), true));
+            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", Integer.valueOf(0), true));
             parametrosQuery.add(new ParametroQueryBean("TIPO_FOLIO", "NUMBER", 2));
 
             Object resultadoFuncion = ejecutaProcedimiento(sql, parametrosQuery).get("result");

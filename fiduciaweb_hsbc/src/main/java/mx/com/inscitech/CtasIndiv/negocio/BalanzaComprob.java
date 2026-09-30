@@ -73,7 +73,7 @@ public class BalanzaComprob {
 
             rs = st.executeQuery(sQuery);
             rs.next();
-            return new Boolean(rs.getBoolean(1));
+            return Boolean.valueOf(rs.getBoolean(1));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -1453,22 +1453,22 @@ public class BalanzaComprob {
             while (rs.next()) {
                 Vector reg = new Vector();
 
-                reg.add(new Integer(rs.getInt(1)));
-                reg.add(new Integer(rs.getInt(2)));
-                reg.add(new Integer(rs.getInt(3)));
-                reg.add(new Integer(rs.getInt(4)));
-                reg.add(new Integer(rs.getInt(5)));
-                reg.add(new Integer(rs.getInt(6)));
+                reg.add(Integer.valueOf(rs.getInt(1)));
+                reg.add(Integer.valueOf(rs.getInt(2)));
+                reg.add(Integer.valueOf(rs.getInt(3)));
+                reg.add(Integer.valueOf(rs.getInt(4)));
+                reg.add(Integer.valueOf(rs.getInt(5)));
+                reg.add(Integer.valueOf(rs.getInt(6)));
                 reg.add((rs.getString(7)));
                 reg.add((rs.getString(8)));
                 reg.add((Math.round(rs.getDouble(9))) + "");
                 //JJR 10/08/2005
-                //reg.add( new Integer(rs.getInt(10)) );
+                //reg.add( Integer.valueOf(rs.getInt(10)) );
                 reg.add((Math.round(rs.getDouble(10))) + "");
-                reg.add(new Double(rs.getDouble(11)));
-                reg.add(new Double(rs.getDouble(12)));
-                reg.add(new Double(rs.getDouble(13)));
-                reg.add(new Double(rs.getDouble(14)));
+                reg.add(Double.valueOf(rs.getDouble(11)));
+                reg.add(Double.valueOf(rs.getDouble(12)));
+                reg.add(Double.valueOf(rs.getDouble(13)));
+                reg.add(Double.valueOf(rs.getDouble(14)));
                 reporte.add(reg);
             }
 
@@ -1588,10 +1588,10 @@ public class BalanzaComprob {
             rs = st.executeQuery(sQuery);
             while (rs.next()) {
 
-                sumas.add(new Double(rs.getDouble(1)));
-                sumas.add(new Double(rs.getDouble(2)));
-                sumas.add(new Double(rs.getDouble(3)));
-                sumas.add(new Double(rs.getDouble(4)));
+                sumas.add(Double.valueOf(rs.getDouble(1)));
+                sumas.add(Double.valueOf(rs.getDouble(2)));
+                sumas.add(Double.valueOf(rs.getDouble(3)));
+                sumas.add(Double.valueOf(rs.getDouble(4)));
             }
 
             return sumas;
@@ -1648,7 +1648,7 @@ public class BalanzaComprob {
         ResultSet rs = null;
         String sQuery;
         Integer numeroRegistro = null;
-        Double suma = new Double(0);
+        Double suma = Double.valueOf(0);
 
         try {
             if (conBD == null)
@@ -2575,10 +2575,10 @@ public class BalanzaComprob {
             rs = st.executeQuery(sQuery);
 
             while (rs.next()) {
-                suma = new Double(suma.doubleValue() + rs.getDouble(1));
+                suma = Double.valueOf(suma.doubleValue() + rs.getDouble(1));
             }
 
-            numeroRegistro = new Integer((new Double(Math.ceil(suma.doubleValue() / 16.0))).intValue());
+            numeroRegistro = Integer.valueOf((Double.valueOf(Math.ceil(suma.doubleValue() / 16.0))).intValue());
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

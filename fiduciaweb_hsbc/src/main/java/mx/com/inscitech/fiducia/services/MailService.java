@@ -53,6 +53,7 @@ public class MailService {
 
     private boolean haveRepyTo = false, haveCC = false, haveBCC = false, haveAttachments = false;
 
+    @SuppressWarnings("removal")
     public void finalize() {
         if (recipients != null)
             recipients.clear();

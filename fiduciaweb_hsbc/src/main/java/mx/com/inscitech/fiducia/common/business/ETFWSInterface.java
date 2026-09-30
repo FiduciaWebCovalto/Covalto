@@ -73,7 +73,7 @@ public class ETFWSInterface extends InterfaceDef {
 
             } else {
 
-                this.resultCode = new Integer(result.getCode());
+                this.resultCode = Integer.valueOf(result.getCode());
                 this.strCode = result.getCode();
                 this.description = result.getMessage();
 

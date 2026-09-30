@@ -55,6 +55,7 @@ public class MenuService {
         }
     }
 
+    @SuppressWarnings("removal")
     public void finalize() {
         if (cn != null)
             try {
@@ -108,7 +109,7 @@ public class MenuService {
                 menuId = rs.getInt("FFUN_ID_FUNCION");
 
                 if (menuHaveChilds(menuId))
-                    menuItem.setChildItems(getMenuChilds(puestoId, new Integer(menuId)));
+                    menuItem.setChildItems(getMenuChilds(puestoId, Integer.valueOf(menuId)));
                 System.out.println("menuId:" + menuId);
                 result.add(menuItem);
             }

@@ -43,7 +43,7 @@ public class ApplicationStartUp extends FiduciaWebBase implements ServletContext
         //logSrv.log(this, Thread.currentThread(), INFO, "javax.xml.transform.TransformerFactory set to: " + config.getProperty("fopTransformerFactory"));
 
         /*logSrv.log(this, Thread.currentThread(), INFO, "config.getProperty(\"LoadToplinkSessions\"): " + config.getProperty("LoadToplinkSessions"));
-    boolean loadToplinkSessions = new Boolean((config.getProperty("LoadToplinkSessions") == null ? "true" : config.getProperty("LoadToplinkSessions"))).booleanValue();
+    boolean loadToplinkSessions = Boolean.valueOf((config.getProperty("LoadToplinkSessions") == null ? "true" : config.getProperty("LoadToplinkSessions"))).booleanValue();
     logSrv.log(this, Thread.currentThread(), INFO, "loadToplinkSessions: " + loadToplinkSessions);
 
     if(loadToplinkSessions) {

@@ -113,7 +113,7 @@ public abstract class UploadProcessor extends FiduciaWebBase implements Runnable
         if (isSelect)
             result = jdbcTemplate.query(query, parametrosQry, new GenericRowMapper());
         else
-            result.add(new Integer(jdbcTemplate.update(query, parametrosQry)));
+            result.add(Integer.valueOf(jdbcTemplate.update(query, parametrosQry)));
 
         return result;
     }

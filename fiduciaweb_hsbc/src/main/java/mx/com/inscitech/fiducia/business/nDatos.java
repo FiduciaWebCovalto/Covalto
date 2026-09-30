@@ -225,154 +225,151 @@ public class nDatos {
 
 
     public void setVtrDoubleDato1(double dblDato) {
-        vtrDoubleDato1.add(new Double(dblDato));
+        vtrDoubleDato1.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato2(double dblDato) {
-        vtrDoubleDato2.add(new Double(dblDato));
+        vtrDoubleDato2.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato3(double dblDato) {
-        vtrDoubleDato3.add(new Double(dblDato));
+        vtrDoubleDato3.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato4(double dblDato) {
-        vtrDoubleDato4.add(new Double(dblDato));
+        vtrDoubleDato4.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato5(double dblDato) {
-        vtrDoubleDato5.add(new Double(dblDato));
+        vtrDoubleDato5.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato6(double dblDato) {
-        vtrDoubleDato6.add(new Double(dblDato));
+        vtrDoubleDato6.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato7(double dblDato) {
-        vtrDoubleDato7.add(new Double(dblDato));
+        vtrDoubleDato7.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato8(double dblDato) {
-        vtrDoubleDato8.add(new Double(dblDato));
+        vtrDoubleDato8.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato9(double dblDato) {
-        vtrDoubleDato9.add(new Double(dblDato));
+        vtrDoubleDato9.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato10(double dblDato) {
-        vtrDoubleDato10.add(new Double(dblDato));
+        vtrDoubleDato10.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato11(double dblDato) {
-        vtrDoubleDato11.add(new Double(dblDato));
+        vtrDoubleDato11.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato12(double dblDato) {
-        vtrDoubleDato12.add(new Double(dblDato));
+        vtrDoubleDato12.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato13(double dblDato) {
-        vtrDoubleDato13.add(new Double(dblDato));
+        vtrDoubleDato13.add(Double.valueOf(dblDato));
     }
-
 
     public void setVtrDoubleDato14(double dblDato) {
-        vtrDoubleDato14.add(new Double(dblDato));
+        vtrDoubleDato14.add(Double.valueOf(dblDato));
     }
 
-
     public void setVtrDoubleDato15(double dblDato) {
-        vtrDoubleDato15.add(new Double(dblDato));
+        vtrDoubleDato15.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato16(double dblDato) {
-        vtrDoubleDato16.add(new Double(dblDato));
+        vtrDoubleDato16.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato17(double dblDato) {
-        vtrDoubleDato17.add(new Double(dblDato));
+        vtrDoubleDato17.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato18(double dblDato) {
-        vtrDoubleDato18.add(new Double(dblDato));
+        vtrDoubleDato18.add(Double.valueOf(dblDato));
     }
 
     public void setVtrDoubleDato19(double dblDato) {
-        vtrDoubleDato19.add(new Double(dblDato));
+        vtrDoubleDato19.add(Double.valueOf(dblDato));
     }
 
-
     public void setVtrIntDato1(int intDato) {
-        vtrIntDato1.add(new Integer(intDato));
+        vtrIntDato1.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato2(int intDato) {
-        vtrIntDato2.add(new Integer(intDato));
+        vtrIntDato2.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato3(int intDato) {
-        vtrIntDato3.add(new Integer(intDato));
+        vtrIntDato3.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato4(int intDato) {
-        vtrIntDato4.add(new Integer(intDato));
+        vtrIntDato4.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato5(int intDato) {
-        vtrIntDato5.add(new Integer(intDato));
+        vtrIntDato5.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato6(int intDato) {
-        vtrIntDato6.add(new Integer(intDato));
+        vtrIntDato6.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato7(int intDato) {
-        vtrIntDato7.add(new Integer(intDato));
+        vtrIntDato7.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato8(int intDato) {
-        vtrIntDato8.add(new Integer(intDato));
+        vtrIntDato8.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato9(int intDato) {
-        vtrIntDato9.add(new Integer(intDato));
+        vtrIntDato9.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato10(int intDato) {
-        vtrIntDato10.add(new Integer(intDato));
+        vtrIntDato10.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato11(int intDato) {
-        vtrIntDato11.add(new Integer(intDato));
+        vtrIntDato11.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato12(int intDato) {
-        vtrIntDato12.add(new Integer(intDato));
+        vtrIntDato12.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato13(int intDato) {
-        vtrIntDato13.add(new Integer(intDato));
+        vtrIntDato13.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato14(int intDato) {
-        vtrIntDato14.add(new Integer(intDato));
+        vtrIntDato14.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato15(int intDato) {
-        vtrIntDato15.add(new Integer(intDato));
+        vtrIntDato15.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato16(int intDato) {
-        vtrIntDato16.add(new Integer(intDato));
+        vtrIntDato16.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato17(int intDato) {
-        vtrIntDato17.add(new Integer(intDato));
+        vtrIntDato17.add(Integer.valueOf(intDato));
     }
 
     public void setVtrIntDato18(int intDato) {
-        vtrIntDato18.add(new Integer(intDato));
+        vtrIntDato18.add(Integer.valueOf(intDato));
     }
 
     //

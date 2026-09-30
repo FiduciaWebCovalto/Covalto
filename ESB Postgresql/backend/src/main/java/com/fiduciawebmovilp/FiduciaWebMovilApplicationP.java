@@ -15,7 +15,7 @@ public class FiduciaWebMovilApplicationP {
 //    private final NotificationService notificationService;
 
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
         SpringApplication.run(FiduciaWebMovilApplicationP.class, args);
         /*System.setProperty("PORT", dotenv.get("PORT"));
         System.setProperty("LOCAL_DB_URL", dotenv.get("LOCAL_DB_URL"));

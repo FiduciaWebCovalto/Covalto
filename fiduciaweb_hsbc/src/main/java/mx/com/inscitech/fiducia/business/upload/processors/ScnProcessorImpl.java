@@ -41,42 +41,42 @@ public class ScnProcessorImpl extends UploadProcessor {
         headerInfo = new ArrayList();
         bodyInfo = new ArrayList();
 
-        headerInfo.add(new FieldInfo("Parte del Archivo", new Long(1), ""));
-        headerInfo.add(new FieldInfo("Numero de Operaciones", new Long(5), ""));
-        headerInfo.add(new FieldInfo("Importe de las Operaciones", new Long(21), ""));
+        headerInfo.add(new FieldInfo("Parte del Archivo", Long.valueOf(1), ""));
+        headerInfo.add(new FieldInfo("Numero de Operaciones", Long.valueOf(5), ""));
+        headerInfo.add(new FieldInfo("Importe de las Operaciones", Long.valueOf(21), ""));
         headerInfo.add(new FieldInfo("Intermediario", "5", ""));
-        headerInfo.add(new FieldInfo("Ceros", new Long(190), ""));
+        headerInfo.add(new FieldInfo("Ceros", Long.valueOf(190), ""));
 
-        bodyInfo.add(new FieldInfo("Parte del Archivo", new Long(1), "")); // Procesar solo los que tienen 3
-        bodyInfo.add(new FieldInfo("Contrato de Inversion", new Long(15), "TraContratoInter"));
+        bodyInfo.add(new FieldInfo("Parte del Archivo", Long.valueOf(1), "")); // Procesar solo los que tienen 3
+        bodyInfo.add(new FieldInfo("Contrato de Inversion", Long.valueOf(15), "TraContratoInter"));
         bodyInfo.add(new FieldInfo("Fecha de operacion", "", "10", "TraFecInicioPer", "dd/MM/yyyy"));
 
         bodyInfo.add(new FieldInfo("Fecha de liquidacion", "", "10", "TraFecCorte", "dd/MM/yyyy", true));
-        bodyInfo.add(new FieldInfo("Fecha de liquidacion Dia", "Dia de la fecha de liquidacion", new Integer(2), "TraDiaMovto"));
-        bodyInfo.add(new FieldInfo("Slash Fecha", "Slash de la fecha de liquidacion", new Integer(1), null));
-        bodyInfo.add(new FieldInfo("Fecha de liquidacion Mes", "Mes de la fecha de liquidacion", new Integer(2), "TraMesMovto"));
-        bodyInfo.add(new FieldInfo("Slash Fecha", "Slash de la fecha de liquidacion", new Integer(1), null));
-        bodyInfo.add(new FieldInfo("Fecha de liquidacion Año", "Año de la fecha de liquidacion", new Integer(4), "TraAnoMovto"));
+        bodyInfo.add(new FieldInfo("Fecha de liquidacion Dia", "Dia de la fecha de liquidacion", Integer.valueOf(2), "TraDiaMovto"));
+        bodyInfo.add(new FieldInfo("Slash Fecha", "Slash de la fecha de liquidacion", Integer.valueOf(1), null));
+        bodyInfo.add(new FieldInfo("Fecha de liquidacion Mes", "Mes de la fecha de liquidacion", Integer.valueOf(2), "TraMesMovto"));
+        bodyInfo.add(new FieldInfo("Slash Fecha", "Slash de la fecha de liquidacion", Integer.valueOf(1), null));
+        bodyInfo.add(new FieldInfo("Fecha de liquidacion Año", "Año de la fecha de liquidacion", Integer.valueOf(4), "TraAnoMovto"));
 
-        bodyInfo.add(new FieldInfo("Tipo de Movimiento", new Integer(2), "TraTipoMovimient"));
+        bodyInfo.add(new FieldInfo("Tipo de Movimiento", Integer.valueOf(2), "TraTipoMovimient"));
         bodyInfo.add(new FieldInfo("Tipo de Operacion", "15", ""));
 
         bodyInfo.add(new FieldInfo("Tipo de Valor o Pizarra", "2", "TraTipoValor"));
         bodyInfo.add(new FieldInfo("Nombre de la Emisora", "10", "TraNomPizarra"));
         bodyInfo.add(new FieldInfo("Serie", "7", "TraNumSerie"));
-        bodyInfo.add(new FieldInfo("Cupon", new Integer(5), "TraNumCupon"));
-        bodyInfo.add(new FieldInfo("Numero de Titulos", new Long(12), "TraNumTitulos"));
-        bodyInfo.add(new FieldInfo("Precio Unitario", new Double(27), "TraImpPrecio"));
-        bodyInfo.add(new FieldInfo("Tasa", new Double(27), "TraPjeTasa"));
-        bodyInfo.add(new FieldInfo("Sobre Tasa", new Double(27), "TraPjeStasa"));
-        bodyInfo.add(new FieldInfo("Plazo", new Integer(6), "TraNumPlazo"));
-        bodyInfo.add(new FieldInfo("Importe de la Operacion", new Double(21), "TraImpTitulos"));
+        bodyInfo.add(new FieldInfo("Cupon", Integer.valueOf(5), "TraNumCupon"));
+        bodyInfo.add(new FieldInfo("Numero de Titulos", Long.valueOf(12), "TraNumTitulos"));
+        bodyInfo.add(new FieldInfo("Precio Unitario", Double.valueOf(27), "TraImpPrecio"));
+        bodyInfo.add(new FieldInfo("Tasa", Double.valueOf(27), "TraPjeTasa"));
+        bodyInfo.add(new FieldInfo("Sobre Tasa", Double.valueOf(27), "TraPjeStasa"));
+        bodyInfo.add(new FieldInfo("Plazo", Integer.valueOf(6), "TraNumPlazo"));
+        bodyInfo.add(new FieldInfo("Importe de la Operacion", Double.valueOf(21), "TraImpTitulos"));
         bodyInfo.add(new FieldInfo("Referencia del Movto", "8", "TraNumFactura"));
-        bodyInfo.add(new FieldInfo("Moneda", new Integer(2), "TraMoneda"));
-        bodyInfo.add(new FieldInfo("Forma Cobro/Pago", new Long(3), ""));
-        bodyInfo.add(new FieldInfo("Vector", new Double(27), "TraVector"));
-        bodyInfo.add(new FieldInfo("Precio de Mercado", new Double(27), "TraPrecioMerca"));
-        bodyInfo.add(new FieldInfo("Minusvalía/Plusvalía", new Double(15), "TraMinusPlus")); // Se cambio de 27 a 15 no cuadra la longitud de la linea
+        bodyInfo.add(new FieldInfo("Moneda", Integer.valueOf(2), "TraMoneda"));
+        bodyInfo.add(new FieldInfo("Forma Cobro/Pago", Long.valueOf(3), ""));
+        bodyInfo.add(new FieldInfo("Vector", Double.valueOf(27), "TraVector"));
+        bodyInfo.add(new FieldInfo("Precio de Mercado", Double.valueOf(27), "TraPrecioMerca"));
+        bodyInfo.add(new FieldInfo("Minusvalía/Plusvalía", Double.valueOf(15), "TraMinusPlus")); // Se cambio de 27 a 15 no cuadra la longitud de la linea
     }
 
     public ScnProcessorImpl() {
@@ -201,11 +201,11 @@ public class ScnProcessorImpl extends UploadProcessor {
 
             List parametrosQuery = new ArrayList();
 
-            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", new Integer(0), true));
+            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", Integer.valueOf(0), true));
             parametrosQuery.add(new ParametroQueryBean("Nombre Archivo", "VARCHAR", fileName));
             parametrosQuery.add(new ParametroQueryBean("Fecha", "VARCHAR", fechaArchivo));
-            parametrosQuery.add(new ParametroQueryBean("usuario", "NUMBER", new Integer(300))); // TODO: Poner el Id de usuario
-            parametrosQuery.add(new ParametroQueryBean("opcionTAS", "NUMBER", new Integer(3)));
+            parametrosQuery.add(new ParametroQueryBean("usuario", "NUMBER", Integer.valueOf(300))); // TODO: Poner el Id de usuario
+            parametrosQuery.add(new ParametroQueryBean("opcionTAS", "NUMBER", Integer.valueOf(3)));
 
             Object resultadoFuncion = ejecutaProcedimiento(sql, parametrosQuery).get("result");
             logger.info("El resultado de la funcion Transferencia: " + resultadoFuncion + " Clase: " + resultadoFuncion.getClass());

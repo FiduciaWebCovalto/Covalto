@@ -29,8 +29,8 @@ public class ReflectionUtils extends FiduciaWebBase {
                 for (int i = 0; i < methods.length; i++) {
                     if (methods[i].getName().startsWith("set")) {
                         String getMethodName = "get" + methods[i].getName().substring(3);
-                        Method getter = source.getClass().getMethod(getMethodName, null);
-                        Object value = getter.invoke(source, null);
+                        Method getter = source.getClass().getMethod(getMethodName);
+                        Object value = getter.invoke(source);
                         methods[i].invoke(destination, new Object[] { value });
                     }
                 }
@@ -51,8 +51,8 @@ public class ReflectionUtils extends FiduciaWebBase {
                 if (methods[i].getName().startsWith("set")) {
                     String fieldName = methods[i].getName().substring(3);
                     String getMethodName = "get" + fieldName;
-                    Method getter = helper.getClass().getMethod(getMethodName, null);
-                    Object value = getter.invoke(helper, null);
+                    Method getter = helper.getClass().getMethod(getMethodName);
+                    Object value = getter.invoke(helper);
 
                     /*if(helper.isDateField(fieldName)) {
             if(value != null && !((String)value).trim().equals(""))
@@ -78,8 +78,8 @@ public class ReflectionUtils extends FiduciaWebBase {
                     try {
                         String fieldName = methods[i].getName().substring(3);
                         String getMethodName = "get" + fieldName;
-                        Method getter = domainObject.getClass().getMethod(getMethodName, null);
-                        Object value = getter.invoke(domainObject, null);
+                        Method getter = domainObject.getClass().getMethod(getMethodName);
+                        Object value = getter.invoke(domainObject);
 
                         /*if(helper.isDateField(fieldName)) {
               if(value != null)

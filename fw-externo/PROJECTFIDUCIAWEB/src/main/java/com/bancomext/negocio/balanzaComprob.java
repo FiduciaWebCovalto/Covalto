@@ -133,7 +133,7 @@ public class balanzaComprob  {
             
             rs=st.executeQuery(sQuery); 
             rs.next();
-            return new Boolean(rs.getBoolean(1));
+            return Boolean.valueOf(rs.getBoolean(1));
         } catch (Exception ex){ 
             System.out.println(ex);
             return null;
@@ -214,23 +214,23 @@ public class balanzaComprob  {
                 while ( rs.next() ){
         		    Vector reg = new Vector();
 
-                    reg.add( new Integer(rs.getInt(1)) );
-                    reg.add( new Integer(rs.getInt(2)) );
-                    reg.add( new Integer(rs.getInt(3)) );
-                    reg.add( new Integer(rs.getInt(4)) );
-                    reg.add( new Integer(rs.getInt(5)) );
-                    reg.add( new Integer(rs.getInt(6)) );
+                    reg.add( Integer.valueOf(rs.getInt(1)) );
+                    reg.add( Integer.valueOf(rs.getInt(2)) );
+                    reg.add( Integer.valueOf(rs.getInt(3)) );
+                    reg.add( Integer.valueOf(rs.getInt(4)) );
+                    reg.add( Integer.valueOf(rs.getInt(5)) );
+                    reg.add( Integer.valueOf(rs.getInt(6)) );
                     reg.add( (rs.getString(7)) );
                     reg.add( (rs.getString(8)) );
                     reg.add( (Math.round(rs.getDouble(9)))+"" );
                     //INSCITECH JULIO 2008
-                    //reg.add( new Integer(rs.getInt(10)) );
+                    //reg.add( Integer.valueOf(rs.getInt(10)) );
                     reg.add( (Math.round(rs.getDouble(10)))+"");
-                    reg.add( new Double (rs.getDouble(11)) );
-                    reg.add( new Double (rs.getDouble(12)) );
-                    reg.add( new Double (rs.getDouble(13)) );
-                    reg.add( new Double (rs.getDouble(15)) );                    
-                    reg.add( new Double (rs.getDouble(14)) );
+                    reg.add( Double.valueOf(rs.getDouble(11)) );
+                    reg.add( Double.valueOf(rs.getDouble(12)) );
+                    reg.add( Double.valueOf(rs.getDouble(13)) );
+                    reg.add( Double.valueOf(rs.getDouble(15)) );                    
+                    reg.add( Double.valueOf(rs.getDouble(14)) );
                     reporte.add(reg);
                 }
             
@@ -326,11 +326,11 @@ public class balanzaComprob  {
                 rs=st.executeQuery(sQuery); 
                 while ( rs.next() ) {
                     
-                   sumas.add( new Double (rs.getDouble(1)) );
-                   sumas.add( new Double (rs.getDouble(2)) );
-                   sumas.add( new Double (rs.getDouble(3)) );
-                   sumas.add( new Double (rs.getDouble(5)) );//DEUDOR
-                   sumas.add( new Double (rs.getDouble(4)) );//ACREEDOR
+                   sumas.add( Double.valueOf(rs.getDouble(1)) );
+                   sumas.add( Double.valueOf(rs.getDouble(2)) );
+                   sumas.add( Double.valueOf(rs.getDouble(3)) );
+                   sumas.add( Double.valueOf(rs.getDouble(5)) );//DEUDOR
+                   sumas.add( Double.valueOf(rs.getDouble(4)) );//ACREEDOR
                 }
                 
                 return sumas;
@@ -371,7 +371,7 @@ public class balanzaComprob  {
          ResultSet rs = null;
          String    sQuery;
          Integer   numeroRegistro = null;
-         Double    suma = new Double(0);
+         Double    suma = Double.valueOf(0);
          
             try {
                 if (conBD == null) if (!conectarBD()) return null;
@@ -416,10 +416,10 @@ public class balanzaComprob  {
                 rs=st.executeQuery(sQuery);
                 
                 while ( rs.next() ) {
-                      suma = new Double(suma.doubleValue() + rs.getDouble(1));
+                      suma = Double.valueOf(suma.doubleValue() + rs.getDouble(1));
                 }
                 
-            numeroRegistro = new Integer( ( new Double(Math.ceil(suma.doubleValue()/16.0))).intValue() );              
+            numeroRegistro = Integer.valueOf((int) Math.ceil(suma.doubleValue() / 16.0));              
             } catch (Exception ex){ 
                  System.out.println(ex);
             } finally {

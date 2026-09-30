@@ -105,8 +105,8 @@ public class GarLiqProcessorImpl extends UploadProcessor {
 
             List parametrosQuery = new ArrayList();
 
-            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", new Integer(0), true));
-            parametrosQuery.add(new ParametroQueryBean("Fiso", "NUMBER", new Integer(fiso)));
+            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", Integer.valueOf(0), true));
+            parametrosQuery.add(new ParametroQueryBean("Fiso", "NUMBER", Integer.valueOf(fiso)));
             parametrosQuery.add(new ParametroQueryBean("Tipo", "VARCHAR", tipo));
             parametrosQuery.add(new ParametroQueryBean("Nombre", "VARCHAR", nombre));
             parametrosQuery.add(new ParametroQueryBean("Fecha", "VARCHAR", fecha));

@@ -204,7 +204,7 @@ public class CargaArchivosMoralExtranjera extends UploadProcessor {
 
 
 
-            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", new Integer(0), true));
+            parametrosQuery.add(new ParametroQueryBean("result", "NUMBER", Integer.valueOf(0), true));
 
             parametrosQuery.add(new ParametroQueryBean("TIPO_FOLIO", "NUMBER", 2));
 

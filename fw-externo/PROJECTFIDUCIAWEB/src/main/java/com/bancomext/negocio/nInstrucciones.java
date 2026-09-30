@@ -2969,7 +2969,7 @@ public class nInstrucciones extends nFiducia
 			s.append("<table width='100%' border='0' cellspacing='2' cellpadding='4'> <tr> <td class='subtitulo'>14-2-1-1 Honorarios Fiduciarios</td> <td class='subtitulo'>A&ntilde;o:</td> <td class='subtitulo'>Saldo</td><tr>" );			
 			for(i=0;i<sData.length;i++)
 				{
-					Double dSaldo=new Double(sData[i][1]);
+					Double dSaldo=Double.valueOf(sData[i][1]);
 					sImp=nfFormato.format(dSaldo);			// Saldo formateado 			
 					s.append("<tr> <td width='40%'><input type='hidden' name ='" + sData[i][0] + "' value='" + sData[i][1] + "'" + "></td> <td width='20%' class='subtitulo'><input type='radio'         name='optAnio' value='" + sData[i][0] + "' onClick='Valida(" + " 1 , " + sData[i][1] + ");'>" + sData[i][0] + "</td> <td width='35%' class='subtitulo'>" + sImp + "</td><tr>" );
 					sImp = null;

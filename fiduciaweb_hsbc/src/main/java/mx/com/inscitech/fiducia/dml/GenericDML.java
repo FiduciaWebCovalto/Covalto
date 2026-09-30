@@ -195,9 +195,9 @@ public class GenericDML extends FiduciaWebBase {
                     if (outParameters[i] instanceof BigDecimal) {
                         resultObject.add(ps.getBigDecimal(values.length + i + 1));
                     } else if (outParameters[i] instanceof Long) {
-                        resultObject.add(new Long(ps.getLong(values.length + i + 1)));
+                        resultObject.add(Long.valueOf(ps.getLong(values.length + i + 1)));
                     } else if (outParameters[i] instanceof Integer) {
-                        resultObject.add(new Integer(ps.getInt(values.length + i + 1)));
+                        resultObject.add(Integer.valueOf(ps.getInt(values.length + i + 1)));
                     } else {
                         resultObject.add(ps.getString(values.length + i + 1));
                     }
@@ -671,17 +671,17 @@ public class GenericDML extends FiduciaWebBase {
                 for (int i = 1; i <= values.length; i++) {
                     int k = i - 1;
 
-                    if (outKeys.containsKey(new Long(i))) {
-                        if (outKeys.get(new Long(i)) instanceof BigDecimal) {
+                    if (outKeys.containsKey(Long.valueOf(i))) {
+                        if (outKeys.get(Long.valueOf(i)) instanceof BigDecimal) {
                             call.registerOutParameter(i, Types.NUMERIC);
                             this.logger.log(DEBUG, "Registering output parameter " + i + " as numeric (BigDecimal).", null);
-                        } else if (outKeys.get(new Long(i)) instanceof Long) {
+                        } else if (outKeys.get(Long.valueOf(i)) instanceof Long) {
                             call.registerOutParameter(i, Types.NUMERIC);
                             this.logger.log(DEBUG, "Registering output parameter " + i + " as numeric. (Long)", null);
-                        } else if (outKeys.get(new Long(i)) instanceof Integer) {
+                        } else if (outKeys.get(Long.valueOf(i)) instanceof Integer) {
                             call.registerOutParameter(i, Types.NUMERIC);
                             this.logger.log(DEBUG, "Registering output parameter " + i + " as numeric. (Integer)", null);
-                        } else if (outKeys.get(new Long(i)) instanceof Date) {
+                        } else if (outKeys.get(Long.valueOf(i)) instanceof Date) {
                             call.registerOutParameter(i, Types.DATE);
                             this.logger.log(DEBUG, "Registering output parameter " + i + " as date.", null);
                         } else {
@@ -727,9 +727,9 @@ public class GenericDML extends FiduciaWebBase {
                 if (outKeys.get(key) instanceof BigDecimal)
                     result.put(key, call.getBigDecimal(fieldId));
                 else if (outKeys.get(key) instanceof Long)
-                    result.put(key, new Long(call.getLong(fieldId)));
+                    result.put(key, Long.valueOf(call.getLong(fieldId)));
                 else if (outKeys.get(key) instanceof Integer)
-                    result.put(key, new Integer(call.getInt(fieldId)));
+                    result.put(key, Integer.valueOf(call.getInt(fieldId)));
                 else if (outKeys.get(key) instanceof Date)
                     result.put(key, call.getDate(fieldId));
                 else

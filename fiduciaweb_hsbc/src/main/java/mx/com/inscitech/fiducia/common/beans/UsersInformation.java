@@ -154,7 +154,7 @@ public class UsersInformation {
     }
 
     public String getStrFechaContable() {
-        Integer mesActual = new Integer(this.getFechaContable().split("/")[1]);
+        Integer mesActual = Integer.valueOf(this.getFechaContable().split("/")[1]);
         String strFecha = new String(this.getFechaContable().split("/")[0] + " de ");
         switch (mesActual.intValue()) {
         case 1:

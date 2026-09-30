@@ -11,7 +11,7 @@ public class DatosBD {
     public Vector vtrDatos = new Vector (1,1);
     public void setDataBO (  double dblDato)
     {
-            vtrDatos.add (  new Double(dblDato)  );
+            vtrDatos.add (  Double.valueOf(dblDato)  );
     }	
     public void setDataBO (  String strDato)
     {
@@ -19,7 +19,7 @@ public class DatosBD {
     }
     public void setDataBO ( int intDato)
     {
-            vtrDatos.add (  new Integer (intDato)  );
+            vtrDatos.add (  Integer.valueOf(intDato)  );
     }
     public Object getDatoBD ( int intPosicion)
     {

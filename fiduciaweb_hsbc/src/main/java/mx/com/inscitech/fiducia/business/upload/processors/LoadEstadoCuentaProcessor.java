@@ -14,7 +14,7 @@ public class LoadEstadoCuentaProcessor extends UploadProcessor {
     }
     
     public void run() {
-        Integer noFiso = new Integer(this.getParameter("fisoId", "0"));
+        Integer noFiso = Integer.valueOf(this.getParameter("fisoId", "0"));
         String noCta = this.getParameter("noCta", "0");
         String year = this.getParameter("year", "0");
         String month = this.getParameter("month", "0");
