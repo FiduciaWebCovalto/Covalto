@@ -4,8 +4,8 @@ try {
 %>
 <table id="tablaFooter">
   <tr>
-    <TD align="left" valign="middle"><b>© Copyright, FiduciaWeb. TODOS LOS DERECHOS RESERVADOS. </b></td>
-    <TD align="right" valign="middle">Sistema Fiduciario 2026.05 &nbsp;</td>
+    <TD align="left" valign="middle"><b>ï¿½ Copyright, FiduciaWeb. TODOS LOS DERECHOS RESERVADOS. </b></td>
+    <TD align="right" valign="middle">Sistema Fiduciario v1.0.0 &nbsp;</td>
   </tr>
 </table>
 <%
