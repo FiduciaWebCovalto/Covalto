@@ -1,4 +1,5 @@
 package mx.com.inscitech.fiducia.services;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
