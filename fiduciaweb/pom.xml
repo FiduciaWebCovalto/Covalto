@@ -449,6 +449,34 @@
                     <failOnMissingWebXml>true</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.transformer</groupId>
+                <artifactId>transformer-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>transform-war</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <jakartaDefaults>true</jakartaDefaults>
+                                <stripSignatures>true</stripSignatures>
+                            </rules>
+                            <artifact>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>${project.artifactId}</artifactId>
+                                <version>${project.version}</version>
+                                <type>war</type>
+                            </artifact>
+                            <classifier>-</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
