@@ -1,6 +1,9 @@
 package mx.com.inscitech.cuentas.individuales.util;
 
- import mx.com.inscitech.cuentas.individuales.lib.Conexion;
+ 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import mx.com.inscitech.cuentas.individuales.lib.Conexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class uReporte extends queryReportes{    
+public class uReporte extends queryReportes{
+    private static final Logger LOGGER = LoggerFactory.getLogger(uReporte.class);
+    
     private boolean blnDebug = true;
     public Statement st=null;
     public ResultSet rs=null;
@@ -16,13 +21,13 @@ public class uReporte extends queryReportes{
     Connection dbConn = null;
     public void dbConnClose()
     {
-        try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println("st"+ex); }
-        try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println("rt"+ex); }
-        try { if(prepared != null ) prepared.close(); } catch (Exception ex) { System.out.println(ex); }
+        try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }
+        try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.debug("rt"+ex); }
+        try { if(prepared != null ) prepared.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
         try { 
             if(dbConn != null ) 
                     dbConn.close();
-        } catch (Exception ex) { System.out.println(ex); }
+        } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
     }
     public synchronized  ResultSet getResultSet ( int opc , DatosBD db, String tabla) 
      throws Exception, SQLException
@@ -33,17 +38,17 @@ public class uReporte extends queryReportes{
             c = new Conexion();
             dbConn = c.conectarBD ( );				
             if (dbConn == null)	{	
-                System.out.println (this.getClass()+"-Error es nula la conexion");
+                LOGGER.debug(this.getClass()+"-Error es nula la conexion");
                 throw new Exception ("0");
             }
             else						
                  st= dbConn.createStatement();
 
         } catch (SQLException e ) {
-                System.out.println (this.getClass() +"->" +  e); 
+                LOGGER.debug(this.getClass() +"->" +  e); 
                 throw new Exception ("0");
         }catch (Exception e){
-                System.out.println (this.getClass()+"->" +e); 
+                LOGGER.debug(this.getClass()+"->" +e); 
                 throw new Exception ("2");
         }			
         try{
@@ -51,7 +56,7 @@ public class uReporte extends queryReportes{
             	
             	//BALANCE GENERAL
                   case 1:
-                    System.out.println("this.getStrQueryBalance(tabla): " + this.getStrQueryBalance(tabla) + " tabla: " + tabla);
+                    LOGGER.debug("this.getStrQueryBalance(tabla): " + this.getStrQueryBalance(tabla) + " tabla: " + tabla);
                         prepared = dbConn.prepareStatement (this.getStrQueryBalance(tabla));
                         prepared.setInt (1,((Integer)db.getDatoBD(0)).intValue());//CTO_NUM_CONTRATO	
                         
@@ -65,7 +70,7 @@ public class uReporte extends queryReportes{
                         
                   //ESTADO DE RESULTADOS      
                    case 2:
-                        //System.out.println ("strQueryEdoRes->" + strQueryEdoRes);
+                        //LOGGER.debug("strQueryEdoRes->" + strQueryEdoRes);
                         prepared = dbConn.prepareStatement (this.getStrQueryEdoRes(tabla));
                         prepared.setInt (1,((Integer)db.getDatoBD(0)).intValue());//CTO_NUM_CONTRATO	
                         
@@ -79,7 +84,7 @@ public class uReporte extends queryReportes{
                         
                   //ESTADO DE RESULTADOS POR MES
                    case 3:
-                        //System.out.println ("strQueryEdoRes->" + getStrQueryEdoResMes);
+                        //LOGGER.debug("strQueryEdoRes->" + getStrQueryEdoResMes);
                         prepared = dbConn.prepareStatement (this.getStrQueryEdoResMes(tabla));
                         prepared.setInt (1,((Integer)db.getDatoBD(0)).intValue());//CTO_NUM_CONTRATO	
                         
@@ -110,7 +115,7 @@ public class uReporte extends queryReportes{
                  
                  //VALIDA MES CERRADO
                  case 12:
-                 System.out.println("this.getStrValidaCerrrado(tabla): " + tabla);
+                 LOGGER.debug("this.getStrValidaCerrrado(tabla): " + tabla);
                  prepared = dbConn.prepareStatement (this.getStrValidaCerrrado());
                  rs = prepared.executeQuery ( );
                  break;
@@ -118,7 +123,7 @@ public class uReporte extends queryReportes{
 
                  //Variacion Patrimonio
                  case 13:
-                 System.out.println("this.getStrValidaCerrrado(tabla): " + tabla);
+                 LOGGER.debug("this.getStrValidaCerrrado(tabla): " + tabla);
                  prepared = dbConn.prepareStatement (this.getStrVariacionPatrimonio());
                  prepared.setInt (1,((Integer)db.getDatoBD(0)).intValue());//CTO_NUM_CONTRATO    
                  rs = prepared.executeQuery ( );
@@ -130,8 +135,8 @@ public class uReporte extends queryReportes{
              }			
              return rs;
         } catch (SQLException e ) {
-          e.printStackTrace();
-                System.out.println (this.getClass()+"->" + e+"<->opcion:"+ opc);
+          LOGGER.error("Exception: ", e);
+                LOGGER.debug(this.getClass()+"->" + e+"<->opcion:"+ opc);
                 try{
                     dbConn.close();
                 } catch (Exception eCon){
@@ -139,7 +144,7 @@ public class uReporte extends queryReportes{
                 }
                 throw new Exception ("1");
         }catch (Exception e) {
-                System.out.println (this.getClass()+"->" + e+"<->opcion:"+ opc);
+                LOGGER.debug(this.getClass()+"->" + e+"<->opcion:"+ opc);
                 try{
                     dbConn.close();
                 }catch (Exception eCon){

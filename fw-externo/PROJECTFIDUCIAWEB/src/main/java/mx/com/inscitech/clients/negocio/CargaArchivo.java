@@ -4,6 +4,9 @@
 */
 
 package mx.com.inscitech.clients.negocio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,6 +51,8 @@ import mx.com.inscitech.clients.negocio.RetirosDB;
 
 public class CargaArchivo extends FiduciaBD
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivo.class);
+
   Connection connection = null;
   Statement statement = null;
   Statement statement2 = null;
@@ -147,18 +152,18 @@ public void leeArchivo(String rutaArchivo,String sFolio,String sImporte, HttpSer
       if (connection != null)
         connection.close();       
     } catch (FileNotFoundException fnfe){ 
-          System.out.println("No ha sido posible encontrar el archivo "+ rutaArchivo +" "); 
+          LOGGER.debug("No ha sido posible encontrar el archivo "+ rutaArchivo +" "); 
    } 
    catch (IOException ioe){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo "+ rutaArchivo +" "); 
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo "+ rutaArchivo +" "); 
     } 
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
        session.setAttribute("bRetiroMultiple","1"); 
        session.setAttribute("AlertaRetiroMultiple","SE PRODUJO UN ERROR DURANTE LA LECTURA DEL ARCHIVO, VERIFIQUE EL FORMATO."); 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
 
 }
@@ -230,16 +235,16 @@ public String leeArchivo(String rutaArchivo,String sFolio){//String filename
       if (connection != null)
         connection.close();       
     } catch (FileNotFoundException fnfe){ 
-          System.out.println("No ha sido posible encontrar el archivo "+ rutaArchivo +" "); 
+          LOGGER.debug("No ha sido posible encontrar el archivo "+ rutaArchivo +" "); 
    } 
    catch (IOException ioe){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo "+ rutaArchivo +" "); 
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo "+ rutaArchivo +" "); 
     } 
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (NamingException e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
       
   return sbTabla.toString();
@@ -302,10 +307,10 @@ public boolean iValidaCarga(String sFolioDef,String sFolio,double dImporte){//St
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (NamingException e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
       
   return bresultado;
@@ -389,10 +394,10 @@ public boolean iValidaCarga(String sFolioDef,String sFolio,double dImporte){//St
         connection.close();       
 		}
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (NamingException e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
     finally
     {
@@ -467,10 +472,10 @@ public boolean iValidaCarga(String sFolioDef,String sFolio,double dImporte){//St
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(e);     
+       LOGGER.error("Exception: ", e);     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
 
   return resultado;
@@ -561,10 +566,10 @@ public String iValidaCarga(String sFolio,String sImporte,int sFideicomiso)
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return bresultado;
 } 
@@ -685,10 +690,10 @@ public String iValidaCargaGarantiasRetiro(String sFolio,String sImporte,int sFid
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return bresultado;
 } 
@@ -779,10 +784,10 @@ public double iValidaGarantiasRetiro(int sFideicomiso,int sSubcuenta,int sGarant
         connectionG.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return dImporteIndividualDisponible;
 }   
@@ -905,10 +910,10 @@ public String iValidaCargaGarantiasDeposito(String sFolio,String sImporte,int sF
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return bresultado;
 }  
@@ -984,10 +989,10 @@ public double iValidaGarantiasDeposito(int sFideicomiso,int sSubcuenta,int sGara
         connectionG.close();       
     }
     catch (SQLException e){ 
-       System.out.println(stringBufferSQL.toString());     
+       LOGGER.debug(stringBufferSQL.toString());     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return dImporteIndividual;
 }   
@@ -1056,10 +1061,10 @@ public String[] sValidaCLABES(String sFolio,String sImporte)
         connection.close();       
     }
     catch (SQLException e){ 
-       System.out.println(e);     
+       LOGGER.error("Exception: ", e);     
       }   
     catch (Exception e){ 
-       System.out.println("Se ha producido un error durante la lectura del archivo ");     
+       LOGGER.debug("Se ha producido un error durante la lectura del archivo ");     
       }    
   return sRegresoValidaRFC;
 } 

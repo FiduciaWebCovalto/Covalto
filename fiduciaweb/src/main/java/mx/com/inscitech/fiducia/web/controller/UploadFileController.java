@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,6 +35,8 @@ import org.springframework.web.servlet.mvc.Controller;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class UploadFileController implements Controller {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadFileController.class);
+
 
     protected LoggingService logger = LoggingService.getInstance();
 
@@ -86,7 +91,7 @@ public class UploadFileController implements Controller {
                                 item.write(storeFile);
                                 files.add(storeFile);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                LOGGER.error("Exception: ", e);
                                 throw new BusinessException("Unable to get the file from request");
                             }
                         }
@@ -113,7 +118,7 @@ public class UploadFileController implements Controller {
 
                 request.getSession().setAttribute("UploadProcessor", processor);
             } catch (FileUploadException e) {
-                e.printStackTrace();
+                LOGGER.error("Exception: ", e);
             } catch (InstantiationException e) {
                 throw new BusinessException(e.getMessage());
             } catch (IllegalAccessException e) {

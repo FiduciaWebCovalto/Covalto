@@ -1,6 +1,9 @@
 package mx.com.inscitech.clients.daos;
 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +14,8 @@ import mx.com.inscitech.clients.negocio.nFiducia;
 
 public class FCuebanDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FCuebanDAO.class);
+
   Connection connection = null;
   Statement statement = null;
   PreparedStatement preparedStatement = null;
@@ -43,7 +48,7 @@ public class FCuebanDAO
         
         while (resultSet.next()) 
         {
-          //System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2));       
+          //LOGGER.debug(resultSet.getInt(1) + " " + resultSet.getString(2));       
           value = resultSet.getInt(1);
           label = resultSet.getString(2);
           if (cveNumSecClave == value) 
@@ -64,7 +69,7 @@ public class FCuebanDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
    
     return strSelect;
@@ -132,9 +137,9 @@ public class FCuebanDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
 
@@ -166,7 +171,7 @@ public class FCuebanDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -208,7 +213,7 @@ public class FCuebanDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }  
@@ -256,7 +261,7 @@ public class FCuebanDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }  
     return fCueban;
   }
@@ -284,7 +289,7 @@ public class FCuebanDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -315,7 +320,7 @@ public class FCuebanDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -346,7 +351,7 @@ public class FCuebanDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   } 

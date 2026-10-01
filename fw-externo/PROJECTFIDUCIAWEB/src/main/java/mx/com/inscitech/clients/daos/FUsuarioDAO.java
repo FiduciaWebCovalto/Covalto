@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FUsuario;
 import mx.com.inscitech.clients.lib.servicios;
 import mx.com.inscitech.clients.lib.serviciosenvio;
@@ -24,6 +27,8 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 public class FUsuarioDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FUsuarioDAO.class);
+
   Connection connection = null;
   Statement statement = null;
   PreparedStatement preparedStatement = null;
@@ -83,9 +88,9 @@ public class FUsuarioDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
  
@@ -98,7 +103,7 @@ public class FUsuarioDAO
     int resultado = 0;
    try 
    {
-        System.out.println("eliminar fusuIdUsuario: "+fusuIdUsuario);
+        LOGGER.debug("eliminar fusuIdUsuario: "+fusuIdUsuario);
         sProv= new String[2];
         sProv=fusuIdUsuario.split("-");
         
@@ -121,7 +126,7 @@ public class FUsuarioDAO
 
    } catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  }
@@ -151,7 +156,7 @@ public class FUsuarioDAO
        
    } catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  }
@@ -162,7 +167,7 @@ public class FUsuarioDAO
    */
   public FUsuario consultar(String fusuIdUsuario) 
   { 
-       System.out.println("consultar usuario: "+fusuIdUsuario);
+       LOGGER.debug("consultar usuario: "+fusuIdUsuario);
        String []sProv={null};
        String usuario="";
     StringFormatter stringFormatter = new StringFormatter();
@@ -171,7 +176,7 @@ public class FUsuarioDAO
     FUsuario fUsuario = null;
     int value = 0;
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      System.out.println("eliminar fusuIdUsuario: "+fusuIdUsuario);
+      LOGGER.debug("eliminar fusuIdUsuario: "+fusuIdUsuario);
       sProv= new String[2];
       sProv=fusuIdUsuario.split("-");
       if(sProv.length==1)
@@ -206,7 +211,7 @@ public class FUsuarioDAO
           fUsuario.setFperIdPerfil(resultSet.getInt(5));
           fUsuario.setFusuImpMaximo(resultSet.getString(6)); 
           fUsuario.setFusuUltAcceso(LocalDateTime.parse(resultSet.getString(7), formatter));
-          System.out.println("Entro arecuperar informacion de usuarios");
+          LOGGER.debug("Entro arecuperar informacion de usuarios");
         }//if
         
         if (statement != null)
@@ -218,7 +223,7 @@ public class FUsuarioDAO
           connection.close();
       
       } catch (Exception e) {
-          System.out.println("Error en FUsuarioDAO.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FUsuarioDAO.consultar: " + e.getMessage());
       }
       
     return fUsuario;
@@ -260,7 +265,7 @@ public class FUsuarioDAO
         
    } catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  }
@@ -282,7 +287,7 @@ public class FUsuarioDAO
           resultado=serv.consumo(6,"31");  
           String []elemento=new String[resultado.length];
           for (String subconjunto : resultado) {
-              System.out.println("subconjunto: " + subconjunto);              
+              LOGGER.debug("subconjunto: " + subconjunto);              
               elemento=subconjunto.split("-");  
               value = elemento[2];
               label = elemento[2];
@@ -296,7 +301,7 @@ public class FUsuarioDAO
           }   
 
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
    
     return strSelect;

@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.export.txt;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +17,8 @@ import mx.com.inscitech.fiducia.dml.vo.DataRow;
 import mx.com.inscitech.fiducia.dml.vo.DataSet;
 
 public class DataToPlainTextFileUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataToPlainTextFileUtil.class);
+
 
     private boolean printHeaders = false;
     private String fieldIdentifier = "";
@@ -151,7 +156,7 @@ public class DataToPlainTextFileUtil {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
 
         } finally {
             closeFile();
@@ -170,7 +175,7 @@ public class DataToPlainTextFileUtil {
             fileOut.flush();
             fileOut.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 

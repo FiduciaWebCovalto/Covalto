@@ -1,4 +1,7 @@
 package mx.com.inscitech.fiducia.services;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -24,13 +27,15 @@ import mx.com.inscitech.fiducia.domain.FideicomDTO;
 
 @WebServlet("/PdfConsumer")
 public class PdfConsumer extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdfConsumer.class);
+
 
     @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
             String urlfinal="";
             String apiUrl = ConfigLoader.getUrl();
-            System.out.println("apiUrl de archivo config "+apiUrl);
+            LOGGER.debug("apiUrl de archivo config "+apiUrl);
             
             String pathurl=apiUrl;
             HttpURLConnection connection = null;
@@ -59,16 +64,16 @@ public class PdfConsumer extends HttpServlet {
             }
             
             for (String item : sRegreso) {
-                System.out.println("item:"+item);
+                LOGGER.debug("item:"+item);
                 //validaSalida=item;
                 String []sProv=item.split("-");
                 sNombrePDF=sProv[0];
             }
-            System.out.println("p1:"+p1);
-            System.out.println("p2:"+p2);
-            System.out.println("p3:"+p3);
-            System.out.println("p4:"+p4);
-            System.out.println("sRegreso:"+sRegreso);
+            LOGGER.debug("p1:"+p1);
+            LOGGER.debug("p2:"+p2);
+            LOGGER.debug("p3:"+p3);
+            LOGGER.debug("p4:"+p4);
+            LOGGER.debug("sRegreso:"+sRegreso);
                 try{
                     if(sRegreso!=null){
                         switch(Integer.valueOf(p1).intValue()){
@@ -128,7 +133,7 @@ public class PdfConsumer extends HttpServlet {
                 
             }
             catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Exception: ", e);
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error interno");
             } 
             finally {

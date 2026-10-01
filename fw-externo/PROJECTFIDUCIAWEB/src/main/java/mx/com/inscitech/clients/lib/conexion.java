@@ -5,6 +5,9 @@
 
 package mx.com.inscitech.clients.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.postgresql.ds.PGSimpleDataSource;
 import mx.com.inscitech.clients.lib.servicios;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -44,6 +47,8 @@ import java.sql.SQLException;
 
 
 public class conexion {
+    private static final Logger LOGGER = LoggerFactory.getLogger(conexion.class);
+
     
    private Connection conn=null;
     // Inyecci�n de recursos       
@@ -68,7 +73,7 @@ public class conexion {
 	}
 	catch (Exception error)
 	{
-		System.out.println ("error en conectarBD: " + error);
+		LOGGER.debug("error en conectarBD: " + error);
 		return null;
 	}
         return conn;

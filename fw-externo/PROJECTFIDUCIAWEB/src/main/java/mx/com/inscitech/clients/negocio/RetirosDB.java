@@ -5,6 +5,9 @@
 
 package mx.com.inscitech.clients.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.domain.ClavesDTO;
 import mx.com.inscitech.clients.lib.servicios;
 
@@ -15,6 +18,8 @@ import java.sql.*;
 import oracle.jdbc.driver.*;
 
 public class RetirosDB extends FiduciaBD{
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetirosDB.class);
+
     int origen=0;//1 origen servicios y 0 query
     servicios serv = new servicios();
     String[] resultado  ={null};
@@ -325,8 +330,8 @@ public class RetirosDB extends FiduciaBD{
                 break;   
             
           case 50://recupera numero de cuenta bancaria de la tabla f_fideico_cueban
-                                        System.out.println("antes cuenta bancaria param sCond: "+sCond);
-                                      System.out.println("cuenta bancaria param sCond: "+sCond);
+                                        LOGGER.debug("antes cuenta bancaria param sCond: "+sCond);
+                                      LOGGER.debug("cuenta bancaria param sCond: "+sCond);
                                       origen=1;
                                       resultado=serv.consumo(14,sCond); 
                                       sData= resultado;
@@ -367,7 +372,7 @@ public class RetirosDB extends FiduciaBD{
                     
                     stQuery = conBD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                     String sValor="";
-                    System.out.println("RetirosDB sQuery getData: "+sQuery);
+                    LOGGER.debug("RetirosDB sQuery getData: "+sQuery);
                     rsQuery=stQuery.executeQuery(sQuery); 
                     if(rsQuery.next())
                      {
@@ -387,13 +392,13 @@ public class RetirosDB extends FiduciaBD{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
     }
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData;
 	}
@@ -412,7 +417,7 @@ public class RetirosDB extends FiduciaBD{
                                     origen=0;
                                     resultado=serv.consumo(6,"128"); //se Traen las claves 
 
-				  //System.out.println("Conceptos Deposito "+sCont);
+				  //LOGGER.debug("Conceptos Deposito "+sCont);
 				  sQuery = " SELECT fcma_id_padre||'-'||fcma_id_sec_catma||'-',fcma_id_sec_catma FROM F_CATMAES_FIDEIC ";
 				  sQuery += " WHERE fcma_id_padre=128 and FFID_ID_FIDEICOMISO = " + sCont;
 				  sQuery += " ORDER BY FCMA_ID_SEC_CATMA ASC "; 
@@ -521,7 +526,7 @@ public class RetirosDB extends FiduciaBD{
                             if (conBD != null && conBD.isClosed() == true) if (!conectarBD()) return sData;
                             
                             stQuery = conBD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                            System.out.println("sQuery: "+sQuery);
+                            LOGGER.debug("sQuery: "+sQuery);
                             rsQuery=stQuery.executeQuery(sQuery); 
                             
                             if(rsQuery.next())
@@ -554,7 +559,7 @@ public class RetirosDB extends FiduciaBD{
                         case 13: case 3:// formas de retiro
                                  sData = new String[resultado.length][2];
                                  for (String item : resultado) {
-                                     System.out.println("FiduciaBD "+item);
+                                     LOGGER.debug("FiduciaBD "+item);
                                      elemento=item.split("-");
                                      sData[i][0] = elemento[1];                     // Clave
                                      sData[i][1] = elemento[2]; 
@@ -562,22 +567,22 @@ public class RetirosDB extends FiduciaBD{
                                  }
                                  break;
                              default:
-                                 System.out.println("default: ");
+                                 LOGGER.debug("default: ");
                                  break;
                         } 
                     }      
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sQuery);
     }
 		finally
 		{
 		    if(origen==0){
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
                     }    
 		}
 		return sData;
@@ -666,14 +671,14 @@ public class RetirosDB extends FiduciaBD{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
     }
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData;
 	}
@@ -696,12 +701,12 @@ public class RetirosDB extends FiduciaBD{
 			if(rsQuery.next())
 			   sNumTercero = rsQuery.getString(1);
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenNumTercero");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNumTercero");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
 		}
 		return sNumTercero;
 	}
@@ -801,13 +806,13 @@ public class RetirosDB extends FiduciaBD{
       stInstrucc.executeUpdate(queryPersona);					
     }
 		catch (Exception ex) {
-			System.out.println("Metodo: insertaTercero");
-			System.out.println("Error: \n"+ ex);
+			LOGGER.debug("Metodo: insertaTercero");
+			LOGGER.debug("Error: \n"+ ex);
 		} finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaTerceros");System.out.println(ex); }
-			try { if(conBD != null) CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaTercero");System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaTerceros");LOGGER.error("Exception: ", ex); }
+			try { if(conBD != null) CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaTercero");LOGGER.error("Exception: ", ex); }
 		}
     return true;
 	}	
@@ -857,14 +862,14 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
 		}
 		catch (Exception ex)
 				{
-			System.out.println(ex + "\n CONSULTA:\n"+ex);			
+			LOGGER.debug(ex + "\n CONSULTA:\n"+ex);			
 			
     			}
 		finally
 				{
-					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 				}
 		return impDisponible;
 	}
@@ -900,7 +905,7 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
       
       nDias = Integer.valueOf(spContabiliza .getString(4).replaceAll(" ","")).intValue();
       spContabiliza.close();
-      System.out.println("opcion"+String.valueOf(nDias));
+      LOGGER.debug("opcion"+String.valueOf(nDias));
       if(nDias==1 && Opcion==1)//se contempla caso para antes de las 16:00 para 24 horas
         sFechaHabilSig=sFecha;
       else if(nDias==1 && Opcion==2)//se contempla caso para despues  de las 16:00 para 24 horas
@@ -921,7 +926,7 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
               sFechaTemp = rsQuery.getString(1);              
           }
           rsQuery.close();
-          System.out.println("sFechaTemp"+sFechaTemp);
+          LOGGER.debug("sFechaTemp"+sFechaTemp);
           
           sQuery  = "SELECT TO_NUMBER(TO_CHAR(TO_DATE('"+sFechaTemp+"', 'DD/MM/YYYY'), 'D'))"
           +" FROM DUAL";
@@ -930,11 +935,11 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
           if(rsQuery.next())
             {
               iAuxDia = rsQuery.getInt(1);  
-              System.out.println("Auxdia"+iAuxDia);
+              LOGGER.debug("Auxdia"+iAuxDia);
             
               if (!(iAuxDia==7||iAuxDia==6))
               {
-                //System.out.println("Auxdia1"+iAuxDia);
+                //LOGGER.debug("Auxdia1"+iAuxDia);
                 sQuery="SELECT COUNT(1) "+
                 "FROM FERIADOS " +
                 "WHERE FER_NUM_PAIS = "+String.valueOf(nMoneda)+" AND FER_FEC_MES = SUBSTR('"+sFechaTemp+"', 4, 2) AND " +
@@ -944,19 +949,19 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
                 if(rsQuery_Secuen.next())
                   if(rsQuery_Secuen.getInt(1)==0){
                     iContTemp++;
-                    System.out.println("sFechaTemp"+sFechaTemp);
+                    LOGGER.debug("sFechaTemp"+sFechaTemp);
                   }  
-                System.out.println("iContTemp:"+iContTemp);
+                LOGGER.debug("iContTemp:"+iContTemp);
                     
                 rsQuery_Secuen.close();    
               }
               
             }
           rsQuery.close();
-          System.out.println("iContTemp:"+iContTemp);          
+          LOGGER.debug("iContTemp:"+iContTemp);          
         
           sFecha2=sFechaTemp;  
-          System.out.println("sFecha2"+sFecha2);
+          LOGGER.debug("sFecha2"+sFecha2);
           sFecha=sFecha2;
         }
         sFechaHabilSig=sFecha2;
@@ -980,7 +985,7 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
               sFechaTemp = rsQuery.getString(1);              
           }
           rsQuery.close();
-          System.out.println("sFechaTemp"+sFechaTemp);
+          LOGGER.debug("sFechaTemp"+sFechaTemp);
           
           sQuery  = "SELECT TO_NUMBER(TO_CHAR(TO_DATE('"+sFechaTemp+"', 'DD/MM/YYYY'), 'D'))"
           +" FROM DUAL";
@@ -989,11 +994,11 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
           if(rsQuery.next())
             {
               iAuxDia = rsQuery.getInt(1);  
-              System.out.println("Auxdia"+iAuxDia);
+              LOGGER.debug("Auxdia"+iAuxDia);
             
                 if (!(iAuxDia==7||iAuxDia==6))
               {
-                //System.out.println("Auxdia1"+iAuxDia);
+                //LOGGER.debug("Auxdia1"+iAuxDia);
                 sQuery="SELECT COUNT(1) "+
                 "FROM FERIADOS " +
                 "WHERE FER_NUM_PAIS = "+String.valueOf(nMoneda)+" AND FER_FEC_MES = SUBSTR('"+sFechaTemp+"', 4, 2) AND " +
@@ -1003,18 +1008,18 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
                 if(rsQuery_Secuen.next())
                   if(rsQuery_Secuen.getInt(1)==0){
                     iContTemp++;
-                    System.out.println("sFechaTemp"+sFechaTemp);
+                    LOGGER.debug("sFechaTemp"+sFechaTemp);
                   }  
-                System.out.println("iContTemp:"+iContTemp);
+                LOGGER.debug("iContTemp:"+iContTemp);
                     
                 rsQuery_Secuen.close();    
               }
               
             }
           rsQuery.close();
-          System.out.println("iContTemp:"+iContTemp);          
+          LOGGER.debug("iContTemp:"+iContTemp);          
           sFecha2=sFechaTemp;  
-          System.out.println("sFecha2"+sFecha2);
+          LOGGER.debug("sFecha2"+sFecha2);
         }
         sFechaHabilSig=sFecha2;
       }      
@@ -1031,11 +1036,11 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
           if(rsQuery.next())
             {
               iAuxDia = rsQuery.getInt(1);  
-              System.out.println(sFecha+ " Auxdia "+iAuxDia);
+              LOGGER.debug(sFecha+ " Auxdia "+iAuxDia);
             
                 if (!(iAuxDia==7||iAuxDia==6))
               {
-                //System.out.println("Auxdia1"+iAuxDia);
+                //LOGGER.debug("Auxdia1"+iAuxDia);
                 sQuery="SELECT COUNT(1) "+
                 "FROM FERIADOS " +
                 "WHERE FER_NUM_PAIS = "+String.valueOf(nMoneda)+" AND FER_FEC_MES = SUBSTR('"+sFecha+"', 4, 2) AND " +
@@ -1045,10 +1050,10 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
                 if(rsQuery_Secuen.next())
                   if(rsQuery_Secuen.getInt(1)==0){
                     sFechaHabilSig=sFecha;//ndias >2
-                    System.out.println("sFechaTemp"+sFechaTemp);
+                    LOGGER.debug("sFechaTemp"+sFechaTemp);
                     break;
                   }  
-                System.out.println("iContTemp:"+iContTemp);
+                LOGGER.debug("iContTemp:"+iContTemp);
                     
                 rsQuery_Secuen.close();    
               }
@@ -1065,18 +1070,18 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
               sFecha = rsQuery.getString(1);              
           }
           rsQuery.close();
-          System.out.println("sFechaTemp"+sFecha);
+          LOGGER.debug("sFechaTemp"+sFecha);
           
         }  
       }   
       fiduciaConnection.CloseBD();
    }catch (Exception ex) {
-   System.out.println(ex);
-      System.out.println("Excepci�n en obtenNumTercero");
+   LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNumTercero");
     } finally {
-   try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-   try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-   try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+   try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+   try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+   try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
   }
     return sFechaHabilSig;
   }
@@ -1121,11 +1126,11 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
           if(rsQuery.next())//SE VALIDA QUE LA FUNCION DE ARRIBA NOS REGRESE LA SIGUIENTE FECHA
             {
               iAuxDia = rsQuery.getInt(1);  
-              System.out.println(sFecha+ " Auxdia "+iAuxDia);
+              LOGGER.debug(sFecha+ " Auxdia "+iAuxDia);
             
               if (!(iAuxDia==7||iAuxDia==6)) //PARA PRODUCCION VALIDA SI NO ES SABADO O DOMINGO
               {
-                //System.out.println("Auxdia1"+iAuxDia);
+                //LOGGER.debug("Auxdia1"+iAuxDia);
                 sQuery="SELECT COUNT(1) "+
                 "FROM FERIADOS " +
                 "WHERE FER_NUM_PAIS = "+String.valueOf(nMoneda)+" AND FER_FEC_MES = SUBSTR('"+sFecha+"', 4, 2) AND " +
@@ -1135,10 +1140,10 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
                 if(rsQuery_Secuen.next())
                   if(rsQuery_Secuen.getInt(1)==0){
                     sFechaHabilSig=sFecha;//ndias >2
-                    System.out.println("sFechaTemp"+sFechaTemp);
+                    LOGGER.debug("sFechaTemp"+sFechaTemp);
                     break;
                   }  
-                System.out.println("iContTemp:"+iContTemp);
+                LOGGER.debug("iContTemp:"+iContTemp);
                     
                 rsQuery_Secuen.close();    
               }
@@ -1155,18 +1160,18 @@ public double getSaldoDisponibleAcuerdoCT(	int numFiso,
               sFecha = rsQuery.getString(1);              
           }
           rsQuery.close();
-          System.out.println("sFechaTemp"+sFecha);
+          LOGGER.debug("sFechaTemp"+sFecha);
           
         }    
       fiduciaConnection.CloseBD();
    }catch (Exception ex) {
-   System.out.println(ex);
-      System.out.println("Excepci�n en obtenNumTercero");
+   LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNumTercero");
     } finally {
-   try { if(conBD != null ) conBD.close(); } catch (Exception ex) { System.out.println(ex); }
-   try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-   try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-   try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+   try { if(conBD != null ) conBD.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+   try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+   try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+   try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
   }
     return sFechaHabilSig;
   }	

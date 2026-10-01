@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -34,6 +37,8 @@ import org.apache.log4j.Level;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class UserInformationService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserInformationService.class);
+
 
     public static final HashMap<String, List<String>> USER_FUNCTIONS = new HashMap<>();
 
@@ -95,7 +100,7 @@ public class UserInformationService {
     public UserServiceData getUserInfo(String userName, String userPassword, int tipoCambio, boolean alwaysAllow) throws InvalidUserException, FiduciaException {
 
         UsersInformation userInfoBean = null;
-        System.out.println("UserServiceData alwaysAllow:"+alwaysAllow);
+        LOGGER.debug("UserServiceData alwaysAllow:"+alwaysAllow);
         /*if (!alwaysAllow)
             isUserValid(userName, userPassword);
         */

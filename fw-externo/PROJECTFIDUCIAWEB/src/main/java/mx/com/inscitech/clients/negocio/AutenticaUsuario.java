@@ -5,12 +5,17 @@
 
 package mx.com.inscitech.clients.negocio;
     
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.rsa.authagent.authapi.AuthAgentException;
 import com.rsa.authagent.authapi.AuthSession;
 import com.rsa.authagent.authapi.AuthSessionFactory;
 
 public class AutenticaUsuario
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AutenticaUsuario.class);
+
     private AuthSessionFactory api = null;
 	private int salida=AuthSession.ACCESS_DENIED;    
     public int autenticaUsu(String ruta,String ClaveUsuario,String passCode) throws Exception
@@ -22,7 +27,7 @@ public class AutenticaUsuario
         }
         catch (AuthAgentException e)
         {
-            System.out.println ("No se pudo crear la Api de RSA: " + e.getMessage());
+            LOGGER.debug("No se pudo crear la Api de RSA: " + e.getMessage());
             throw e;
         }
         finally
@@ -46,7 +51,7 @@ public class AutenticaUsuario
 		}
         catch (AuthAgentException e)
         {
-            System.out.println ("Ocurrio un error al Autenticar al Usuario en RSA: " + e.getMessage());
+            LOGGER.debug("Ocurrio un error al Autenticar al Usuario en RSA: " + e.getMessage());
             throw e;
         }
 		finally{
@@ -69,11 +74,11 @@ public class AutenticaUsuario
 	        status = session.lock(ClaveUsuario);
 	        status = session.check(ClaveUsuario, passCode);
 	        status = sincroniza(nextPassCode,session);
-	        System.out.println("Status del nextcode"+status);
+	        LOGGER.debug("Status del nextcode"+status);
 		}
         catch (AuthAgentException e)
         {
-            System.out.println ("Ocurrio un error al Autenticar al Usuario en RSA: " + e.getMessage());
+            LOGGER.debug("Ocurrio un error al Autenticar al Usuario en RSA: " + e.getMessage());
             throw e;
         }
 		finally{
@@ -94,7 +99,7 @@ public class AutenticaUsuario
 		}
         catch (AuthAgentException e)
         {
-            System.out.println ("Ocurrio un error al Sincronizar el Token " + codigoToken + " en RSA: " + e.getMessage());
+            LOGGER.debug("Ocurrio un error al Sincronizar el Token " + codigoToken + " en RSA: " + e.getMessage());
             throw e;
         }
         finally{

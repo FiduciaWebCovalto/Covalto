@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FCreditosBean;
 import mx.com.inscitech.clients.beans.FValuacionFondoBean;
 import mx.com.inscitech.clients.util.StringFormatter;
@@ -15,6 +18,8 @@ import java.sql.Statement;
 import java.sql.Types;
 
 public class FValuacionFondoDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FValuacionFondoDao.class);
+
 
     //VARIABLES GLOBALES//////////////////////////////////////////////////////////////////////////////////
     Connection connection = null;
@@ -55,11 +60,11 @@ public class FValuacionFondoDao {
                }
               
           } catch (Exception ex){ 
-              System.out.println(ex); 
+              LOGGER.error("Exception: ", ex); 
           }finally{
-              try { if(resultSet != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-              try { if(statement != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-              try { if(connection != null ) connection.close(); } catch (Exception ex) { System.out.println(ex); }
+              try { if(resultSet != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+              try { if(statement != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+              try { if(connection != null ) connection.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
           }
           
           return tabla;
@@ -129,7 +134,7 @@ public class FValuacionFondoDao {
             connection.close();
             fiduciaConnection.CloseBD();
         } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
         }
          return sbTabla.toString();
     }
@@ -193,7 +198,7 @@ public class FValuacionFondoDao {
             connection.close();
             fiduciaConnection.CloseBD();
         } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
         }
         
         return fvfb;
@@ -269,7 +274,7 @@ public class FValuacionFondoDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.insertar(): " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.insertar(): " + e.getMessage());
           return -1;
         }
     }*/
@@ -320,7 +325,7 @@ public class FValuacionFondoDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.modificar(): " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.modificar(): " + e.getMessage());
           return -1;
         }
     }*/
@@ -438,7 +443,7 @@ public class FValuacionFondoDao {
               fiduciaConnection.CloseBD();
               
          } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
          }
       
     return fcb;
@@ -471,7 +476,7 @@ public class FValuacionFondoDao {
               fiduciaConnection.CloseBD();
               return resultado;
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.baja: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.baja: " + e.getMessage());
           return -1;
          }
     }
@@ -535,7 +540,7 @@ public class FValuacionFondoDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
        }
        
        return arrfideicomisos;

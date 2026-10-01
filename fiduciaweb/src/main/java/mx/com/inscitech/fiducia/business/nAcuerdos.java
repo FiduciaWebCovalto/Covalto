@@ -1,11 +1,16 @@
 package mx.com.inscitech.fiducia.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.fiducia.common.util.DatosBD;
 import mx.com.inscitech.fiducia.common.util.Acuerdos;
 
 import java.sql.ResultSet;
 
 public class nAcuerdos extends nDatos {
+    private static final Logger LOGGER = LoggerFactory.getLogger(nAcuerdos.class);
+
 
     ResultSet rsDatos = null;
     Acuerdos acuerdos = new Acuerdos();
@@ -27,7 +32,7 @@ public class nAcuerdos extends nDatos {
 
         } catch (Exception e) {
             blnDatos = false;
-            System.out.println("Error:" + e + "--" + 201);
+            LOGGER.debug("Error:" + e + "--" + 201);
         } finally {
             acuerdos.dbConnClose();
             removerValores();
@@ -99,7 +104,7 @@ public class nAcuerdos extends nDatos {
             intRows = acuerdos.executeUpdate(opc, db);
             return intRows;
         } catch (Exception error) {
-            System.out.println("error->" + error);
+            LOGGER.debug("error->" + error);
         }
 
         acuerdos.dbConnClose();
@@ -159,7 +164,7 @@ public class nAcuerdos extends nDatos {
             rsDatos = acuerdos.getResultSet(opc, db);
 
         } catch (Exception error) {
-            System.out.println("error->" + error);
+            LOGGER.debug("error->" + error);
         }
 
         removerValores();
@@ -223,7 +228,7 @@ public class nAcuerdos extends nDatos {
 
         } catch (Exception e) {
             blnDatos = false;
-            System.out.println("Error:" + e + "--" + opc);
+            LOGGER.debug("Error:" + e + "--" + opc);
         } finally {
             acuerdos.dbConnClose();
         }

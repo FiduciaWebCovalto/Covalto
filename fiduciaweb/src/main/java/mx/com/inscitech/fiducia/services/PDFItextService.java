@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -27,6 +30,8 @@ import java.io.StringReader;
 import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 public class PDFItextService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PDFItextService.class);
+
 
     protected LoggingService logger = null;
 
@@ -122,7 +127,7 @@ public class PDFItextService {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             logger.log(this, Thread.currentThread(), LoggingService.ERROR, "Error al convertir el HTML a PDF", e);
 
         }

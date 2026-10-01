@@ -1,4 +1,7 @@
 package mx.com.inscitech.clients.daos;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FCreditosBean;
 import mx.com.inscitech.clients.negocio.nFiducia;
 import mx.com.inscitech.clients.util.StringFormatter;
@@ -13,6 +16,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class FCreditosDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FCreditosDao.class);
+
 
     //VARIABLES GLOBALES//////////////////////////////////////////////////////////////////////////////////
     Connection connection = null;
@@ -89,7 +94,7 @@ public class FCreditosDao {
                   connection.close();
                   fiduciaConnection.CloseBD();
         } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
         }
          return sbTabla.toString();
     }
@@ -164,7 +169,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.insertar(): " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.insertar(): " + e.getMessage());
           return -1;
         }
     }
@@ -216,7 +221,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.modificar(): " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.modificar(): " + e.getMessage());
           return -1;
         }
     }
@@ -334,7 +339,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               
          } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
          }
       
     return fcb;
@@ -367,7 +372,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               return resultado;
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.baja: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.baja: " + e.getMessage());
           return -1;
          }
     }
@@ -448,7 +453,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
        }
        
        return arrfideicomisos;
@@ -494,7 +499,7 @@ public class FCreditosDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FAmortizacionDao.getCount(): " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionDao.getCount(): " + e.getMessage());
           return  numero=-1;
        }
        

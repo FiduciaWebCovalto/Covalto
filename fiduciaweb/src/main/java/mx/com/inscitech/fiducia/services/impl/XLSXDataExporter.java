@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services.impl;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +22,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XLSXDataExporter implements ExcelDataExporter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(XLSXDataExporter.class);
+
 
     private static LoggingService logger = LoggingService.getNewInstance();
 
@@ -132,7 +137,7 @@ public class XLSXDataExporter implements ExcelDataExporter {
             exportedOK = true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             logger.log(this, Thread.currentThread(), LoggingService.ERROR, "Error al exportar la informacion", e);
         }
 
@@ -143,7 +148,7 @@ public class XLSXDataExporter implements ExcelDataExporter {
         try {
             theExcelWB.write(archivoSalida);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 
@@ -158,7 +163,7 @@ public class XLSXDataExporter implements ExcelDataExporter {
             archivoSalida = null;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 

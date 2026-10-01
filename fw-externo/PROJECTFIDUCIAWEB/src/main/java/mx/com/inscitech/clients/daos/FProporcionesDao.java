@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FProporcionesBean;
 import mx.com.inscitech.clients.util.StringFormatter;
 
@@ -18,6 +21,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class FProporcionesDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FProporcionesDao.class);
+
 
     //VARIABLES GLOBALES//////////////////////////////////////////////////////////////////////////////////
     Connection connection = null;
@@ -97,7 +102,7 @@ public class FProporcionesDao {
                   connection.close();
                   fiduciaConnection.CloseBD();
         } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
         }
          return sbTabla.toString();
     }
@@ -171,7 +176,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FProporcionesDao.insertar(): " + e.getMessage());
+          LOGGER.debug("Error en FProporcionesDao.insertar(): " + e.getMessage());
           return -1;
         }
     }
@@ -224,7 +229,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
                 return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FProporcionesDao.modificar(): " + e.getMessage());
+          LOGGER.debug("Error en FProporcionesDao.modificar(): " + e.getMessage());
           return -1;
         }
     }
@@ -310,7 +315,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
               
          } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
          }
       
     return fpropb;
@@ -343,7 +348,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
               return resultado;
       } catch (Exception e) {
-          System.out.println("Error en FProporcionesDao.baja: " + e.getMessage());
+          LOGGER.debug("Error en FProporcionesDao.baja: " + e.getMessage());
           return -1;
          }
     }
@@ -424,7 +429,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
        }
        
        return arrfideicomisos;
@@ -470,7 +475,7 @@ public class FProporcionesDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FAmortizacionDao.getCount(): " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionDao.getCount(): " + e.getMessage());
           return  numero=-1;
        }
        

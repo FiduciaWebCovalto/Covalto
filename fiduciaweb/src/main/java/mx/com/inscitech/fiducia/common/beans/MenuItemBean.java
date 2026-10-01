@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.beans;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -11,6 +14,8 @@ import java.util.List;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class MenuItemBean {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuItemBean.class);
+
     //<MenuItem name="Formalización" id="moduloFormalizacion" width="30" withoutImages="true">
     // TODO: Cambiar las propiedades al tipo de objeto que mejor convenga.
 
@@ -59,7 +64,7 @@ public class MenuItemBean {
 
             result = menuData.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace(); // TODO: Usar el logger
+            LOGGER.error("Exception: ", e); // TODO: Usar el logger
         } finally {
             try {
                 menuData.flush();

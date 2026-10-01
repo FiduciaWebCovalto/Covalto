@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business.upload.processors;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -26,6 +29,8 @@ import org.apache.commons.fileupload.FileItem;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class TasProcessorImpl extends UploadProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TasProcessorImpl.class);
+
 
     /**
      * Variable que tiene la informacion del header del archivo del TAS
@@ -137,8 +142,8 @@ public class TasProcessorImpl extends UploadProcessor {
                     //logger.log(this, Thread.currentThread(), Level.DEBUG, "Procesando Encabezado.");
                     for (i = 0; i < headerInfo.size(); i++) {
                         field = (FieldInfo) headerInfo.get(i);
-                        //System.out.println("field.getLength(): " + field.getLength() + " indx: " + indx);
-                        //System.out.println("\nCampo: " + field.getName() + "\nvalor: " + linea.substring(indx, indx+field.getLength()) + "\nlongitud: " + linea.substring(indx, indx+field.getLength()).length());
+                        //LOGGER.debug("field.getLength(): " + field.getLength() + " indx: " + indx);
+                        //LOGGER.debug("\nCampo: " + field.getName() + "\nvalor: " + linea.substring(indx, indx+field.getLength()) + "\nlongitud: " + linea.substring(indx, indx+field.getLength()).length());
                         //logger.log(this, Thread.currentThread(), Level.DEBUG, "\nCampo: " + field.getName() + "\nvalor: " + linea.substring(indx, indx+field.getLength()) + "\nlongitud: " + linea.substring(indx, field.getLength()).length());
                         indx += field.getLength();
                     }
@@ -157,9 +162,9 @@ public class TasProcessorImpl extends UploadProcessor {
                         for (i = 0; i < bodyInfo.size(); i++) {
                             field = (FieldInfo) bodyInfo.get(i);
 
-                            //System.out.println("\nCampo: " + field.getName() + " Longitud: " + field.getLength() + " indx: " + indx);
+                            //LOGGER.debug("\nCampo: " + field.getName() + " Longitud: " + field.getLength() + " indx: " + indx);
                             fieldValue = linea.substring(indx, indx + field.getLength());
-                            //System.out.println("\nvalor: " + fieldValue + "\nlongitud valor: " + fieldValue.length());
+                            //LOGGER.debug("\nvalor: " + fieldValue + "\nlongitud valor: " + fieldValue.length());
                             //logger.log(this, Thread.currentThread(), Level.DEBUG, "\nCampo: " + field.getName() + "\nvalor: " + fieldValue + "\nlongitud: " + fieldValue.length());
 
                             if (field.getName().equals("") && !fieldValue.equals("3"))

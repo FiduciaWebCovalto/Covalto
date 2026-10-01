@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.beans;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -11,6 +14,8 @@ import java.util.List;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class MenuBean {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuBean.class);
+
 
     // TODO: Cambiar las propiedades al tipo de objeto que mejor convenga.
     private String absolutePosition = "auto";
@@ -58,7 +63,7 @@ public class MenuBean {
 
             result = menuData.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace(); // TODO: Usar el logger
+            LOGGER.error("Exception: ", e); // TODO: Usar el logger
             result = "<menu absolutePosition=\"auto\" mode=\"classic\" maxItems=\"8\" xname=\"Demo Menu\" mixedImages=\"yes\" type=\"a2\"></menu>".getBytes();
         } finally {
             try {

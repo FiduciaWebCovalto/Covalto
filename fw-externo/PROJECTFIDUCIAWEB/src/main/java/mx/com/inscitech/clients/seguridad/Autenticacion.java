@@ -5,6 +5,9 @@
 
 package mx.com.inscitech.clients.seguridad;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Hashtable;
 
 import javax.naming.CommunicationException;
@@ -14,7 +17,9 @@ import javax.naming.directory.InitialDirContext;
 
 import netscape.ldap.LDAPException;
 
-public class Autenticacion {    
+public class Autenticacion {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Autenticacion.class);
+    
     
     public static final String LDAP_CONTEXT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
     public static final String LADAP_URL_JNDI_LOCATION = "HTSL_M485_FIDUCIARIO_ADAM_URI";
@@ -80,13 +85,13 @@ public class Autenticacion {
             }
             else{
                 btResult = -1;
-                System.out.println("El usuario y/o contrase�a estan vacios. Usuario:"+stUsuario+" Contrase�a:"+stPassword);
+                LOGGER.debug("El usuario y/o contrase�a estan vacios. Usuario:"+stUsuario+" Contrase�a:"+stPassword);
             }
 
         } catch (CommunicationException ce) {
-            ce.printStackTrace();
+            LOGGER.error("Exception: ", ce);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
         
         return btResult;
@@ -102,10 +107,10 @@ public class Autenticacion {
             throw new RuntimeException("FALLA EN ACCESO A LDAP");
         }
         
-        if(res == 1) System.out.println("exito");
-        else System.out.println("falla");
+        if(res == 1) LOGGER.debug("exito");
+        else LOGGER.debug("falla");
         
-        System.out.println("fin");
+        LOGGER.debug("fin");
     }
 
 }

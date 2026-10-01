@@ -1,4 +1,7 @@
 package mx.com.inscitech.clients.lib;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +23,8 @@ import java.nio.file.StandardCopyOption;
     maxRequestSize = 1024 * 1024 * 15     // 15 MB
 )
 public class PdfServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdfServlet.class);
+
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -38,15 +43,15 @@ public class PdfServlet extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         String apiKey = "dennis123456789phegon123456789den1234321";
 
-        /*System.out.println("Archivo "+fileName);
-        System.out.println("Id: "+id);
-        System.out.println("Token: "+token);
-        System.out.println("Usuario: "+usuario);*/
+        /*LOGGER.debug("Archivo "+fileName);
+        LOGGER.debug("Id: "+id);
+        LOGGER.debug("Token: "+token);
+        LOGGER.debug("Usuario: "+usuario);*/
         // Guardar archivo
         servicios serv = new servicios();
         String []resultado=serv.consumo(50,id);
         String sRegreso="500";
-        System.out.println("Existe el Folio: "+resultado.length);
+        LOGGER.debug("Existe el Folio: "+resultado.length);
         if(resultado.length==0){
             UploadPDF env = new UploadPDF();
             sRegreso=env.sendPdfToRestApi
@@ -54,7 +59,7 @@ public class PdfServlet extends HttpServlet {
         }
         else
             sRegreso="800";    
-        System.out.println("sendPdfToRestApi: "+sRegreso);
+        LOGGER.debug("sendPdfToRestApi: "+sRegreso);
         response.getWriter().println(sRegreso);
     }
 

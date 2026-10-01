@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +20,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class FiduciaBD extends nFiducia {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FiduciaBD.class);
+
 
 
     //Catalogos
@@ -353,24 +358,24 @@ public class FiduciaBD extends nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -419,7 +424,7 @@ public class FiduciaBD extends nFiducia {
                 " BIT_DIA_ALTA_REG," + " BIT_ANO_ULT_MOD," + " BIT_MES_ULT_MOD," + " BIT_DIA_ULT_MOD," + " BIT_CVE_ST_BITACOR)" + "  VALUES (" + anio + "," + mes + "," + dia +
                 "," + "TO_NUMBER(TO_CHAR(sysdate,'HH24'))," + "TO_NUMBER(TO_CHAR(sysdate,'MI'))," + folio + "," + "'" + ipPcUsuario + "'," + numUsuario + ",'INTERNET'," +
                 "'INSTRUCCION INTERNET','" + detalle + "'," + anio + "," + mes + "," + dia + "," + anio + "," + mes + "," + dia + "," + "'ACTIVO')";
-            System.out.println("Query " + queryBitacora);
+            LOGGER.debug("Query " + queryBitacora);
             iRows = stInstrucc.executeUpdate(queryBitacora);
 
         } catch (Exception ex) {
@@ -428,25 +433,25 @@ public class FiduciaBD extends nFiducia {
             try {
                 conBD.rollback();
                 conBD.commit();
-                System.out.println("rollback");
+                LOGGER.debug("rollback");
             } catch (SQLException e) {
 
-                System.out.println("Metodo: insertaBitacora:" + e);
+                LOGGER.debug("Metodo: insertaBitacora:" + e);
             }
         } finally {
             try {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println("Funcion: insertaBitacora");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: insertaBitacora");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 conBD.setAutoCommit(false);
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println("Funcion: insertaBitacora");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: insertaBitacora");
+                LOGGER.error("Exception: ", ex);
             }
             return iRows;
         }
@@ -478,20 +483,20 @@ public class FiduciaBD extends nFiducia {
 
         } catch (Exception ex) {
             importeMaximo = 0;
-            System.out.println("Metodo: getImporteMaxRetiro:" + ex);
+            LOGGER.debug("Metodo: getImporteMaxRetiro:" + ex);
         } finally {
             try {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println("Funcion: getImporteMaxRetiro");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: getImporteMaxRetiro");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println("Funcion: getImporteMaxRetiro");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: getImporteMaxRetiro");
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -564,25 +569,25 @@ public class FiduciaBD extends nFiducia {
                 intCve = rsQuery.getInt(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenDatosEscritura");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenDatosEscritura");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return intCve;
@@ -608,25 +613,25 @@ public class FiduciaBD extends nFiducia {
                 nombreIntermed = rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenNombreIntermed");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenNombreIntermed");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return nombreIntermed;
@@ -652,26 +657,26 @@ public class FiduciaBD extends nFiducia {
                 sNumCuenta = rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenNumCuenta");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenNumCuenta");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
-                System.out.println("Excepción del Finally");
+                LOGGER.error("Exception: ", ex);
+                LOGGER.debug("Excepción del Finally");
             }
         }
         return sNumCuenta;
@@ -698,26 +703,26 @@ public class FiduciaBD extends nFiducia {
                 sNomBanco = rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenNombreBanco");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenNombreBanco");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
-                System.out.println("Excepción del Finally");
+                LOGGER.error("Exception: ", ex);
+                LOGGER.debug("Excepción del Finally");
             }
         }
         return sNomBanco;
@@ -750,25 +755,25 @@ public class FiduciaBD extends nFiducia {
                 intPersona = rsQuery.getInt(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenDatosPersona");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenDatosPersona");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return intPersona;
@@ -796,32 +801,32 @@ public class FiduciaBD extends nFiducia {
             sQuery =
                 " SELECT TIC_IMP_TIPO_CAMB " + " FROM TIPOCAMB " + " WHERE TIC_NUM_PAIS = " + moneda + " AND TIC_ANO_ULT_MOD = " + a + " AND TIC_MES_ULT_MOD = " + m +
                 " AND TIC_DIA_ULT_MOD = " + d;
-            //System.out.println("Consulta tipo de cambio: " + sQuery );
+            //LOGGER.debug("Consulta tipo de cambio: " + sQuery);
             rsQuery = stQuery.executeQuery(sQuery);
             if (rsQuery.next())
                 sTipoCambio = rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenCotizacion");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenCotizacion");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
-                System.out.println("Excepción del Finally");
+                LOGGER.error("Exception: ", ex);
+                LOGGER.debug("Excepción del Finally");
             }
         }
         return sTipoCambio;
@@ -894,7 +899,7 @@ public class FiduciaBD extends nFiducia {
 
                 sQuery = "SELECT cve_num_sec_clave FROM claves WHERE cve_num_clave=27 AND";
                 sQuery += " cve_desc_clave='" + sCond.substring(sCond.indexOf('|') + 2, sCond.lastIndexOf('|') - 1) + "'";
-                System.out.println(sQuery);
+                LOGGER.debug(sQuery);
 
                 rsQuery = stQuery.executeQuery(sQuery);
                 rsQuery.next();
@@ -903,7 +908,7 @@ public class FiduciaBD extends nFiducia {
                 sQuery = "SELECT cdp_cve_cuendep FROM cuendep WHERE CDP_ESTATUS='ACEPTADA' AND cdp_cve_banco=";
                 sQuery = sQuery + sCve + " AND cdp_num_cuenta=";
                 sQuery = sQuery + sCond.substring(sCond.lastIndexOf('|') + 2, sCond.length());
-                System.out.println(sQuery);
+                LOGGER.debug(sQuery);
                 sCve = "";
                 break;
             }
@@ -914,7 +919,7 @@ public class FiduciaBD extends nFiducia {
 
             sQuery = "SELECT cdp_cve_banco,cdp_plaza,cdp_sucursal,cdp_titular,cdp_rfc";
             sQuery += " FROM cuendep WHERE CDP_ESTATUS='ACEPTADA' AND cdp_cve_cuendep=" + sCve;
-            System.out.println(sQuery);
+            LOGGER.debug(sQuery);
             rsQuery = stQuery.executeQuery(sQuery);
             rsQuery.next();
 
@@ -925,26 +930,26 @@ public class FiduciaBD extends nFiducia {
             sData[4] = (rsQuery.getString(5) == null) ? "" : rsQuery.getString(5);
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println(sQuery);
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug(sQuery);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -1021,25 +1026,25 @@ public class FiduciaBD extends nFiducia {
                 sData[4] = (rsQuery.getString(5) == null) ? "" : rsQuery.getString(5);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -1154,25 +1159,25 @@ public class FiduciaBD extends nFiducia {
 
             return sData.toString();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData.toString();
@@ -1267,7 +1272,7 @@ public class FiduciaBD extends nFiducia {
             sData.append("</tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></table>");
             return sData.toString();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
 
@@ -1275,33 +1280,33 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             if (numHon != 0) {
                 try {
                     if (rsQuery_Secuen != null)
                         rsQuery_Secuen.close();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    LOGGER.error("Exception: ", ex);
                 }
             }
             try {
                 if (stQuery_Secuen != null)
                     stQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
 
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData.toString();
@@ -1336,7 +1341,7 @@ public class FiduciaBD extends nFiducia {
                 fBalance.close();
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
                 return "error";
             }
         } else if (tipo == 2) {
@@ -1393,7 +1398,7 @@ public class FiduciaBD extends nFiducia {
                         k++;
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
                 return "error";
             }
         }
@@ -1423,7 +1428,7 @@ public class FiduciaBD extends nFiducia {
                 fEdoRes.close();
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
                 return "error";
             }
         }
@@ -1528,39 +1533,39 @@ public class FiduciaBD extends nFiducia {
                 return "";
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             if (adeudoPendiente == true) {
                 try {
                     if (rsQuery_Secuen != null)
                         rsQuery_Secuen.close();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    LOGGER.error("Exception: ", ex);
                 }
                 try {
                     if (stQuery_Secuen != null)
                         stQuery_Secuen.close();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    LOGGER.error("Exception: ", ex);
                 }
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData.toString();
@@ -1696,7 +1701,7 @@ public class FiduciaBD extends nFiducia {
 
             return sData.toString();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
 
@@ -1705,18 +1710,18 @@ public class FiduciaBD extends nFiducia {
                     if (rsQuery != null)
                         rsQuery.close();
                 } catch (Exception ex) {
-                    System.out.println("rs" + ex);
+                    LOGGER.debug("rs" + ex);
                 }
                 try {
                     if (stQuery != null)
                         stQuery.close();
                 } catch (Exception ex) {
-                    System.out.println("st" + ex);
+                    LOGGER.debug("st" + ex);
                 }
                 try {
                     CloseBD();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    LOGGER.error("Exception: ", ex);
                 }
             }
         }
@@ -1813,25 +1818,25 @@ public class FiduciaBD extends nFiducia {
                 return sData.toString();
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData.toString();
@@ -1898,37 +1903,37 @@ public class FiduciaBD extends nFiducia {
                 return dfFormat.format(dImp).trim();
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (rsQuery_Secuen != null)
                     rsQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery_Secuen != null)
                     stQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return "0.00";
@@ -1965,15 +1970,15 @@ public class FiduciaBD extends nFiducia {
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return NSCertificado;
 		}
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de getNSCertificado");
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			//LOGGER.debug("Cerrando finally de la base de getNSCertificado");
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}	
    	
 	}
@@ -2000,7 +2005,7 @@ public class FiduciaBD extends nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return 0;
         } finally {
 
@@ -2008,18 +2013,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -2059,7 +2064,7 @@ public class FiduciaBD extends nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
 
@@ -2067,18 +2072,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -2124,7 +2129,7 @@ public class FiduciaBD extends nFiducia {
             return sEncuesta;
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
 
@@ -2132,30 +2137,30 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (rsQuery_Secuen != null)
                     rsQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery_Secuen != null)
                     stQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -2248,7 +2253,7 @@ public class FiduciaBD extends nFiducia {
 				sReturn = "Esta operación no esta vigente";
 				return  sReturn ;
 			}*/
-            //System.out.println("Validando el numero de operaciones");
+            //LOGGER.debug("Validando el numero de operaciones");
 
             sQuery = "SELECT COUNT(*) FROM instrucc,detliqui WHERE ins_num_contrato=" + sNumFid;
             sQuery += " AND ins_cve_tipo_instr='LIQUIDACION INTERNET' AND del_rubro = " + sCveConcepto;
@@ -2271,8 +2276,8 @@ public class FiduciaBD extends nFiducia {
                 return "";
 
         } catch (Exception ex) {
-            System.out.println("Error de ValidRetiro");
-            System.out.println(ex);
+            LOGGER.debug("Error de ValidRetiro");
+            LOGGER.error("Exception: ", ex);
             return "";
         } finally {
 
@@ -2280,18 +2285,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -2331,7 +2336,7 @@ public class FiduciaBD extends nFiducia {
             } else
                 return 0;
         } catch (Exception ex) {
-            System.out.println("ExisteSWIFT: " + ex);
+            LOGGER.debug("ExisteSWIFT: " + ex);
             return 0;
         } finally {
 
@@ -2339,18 +2344,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -2410,7 +2415,7 @@ public class FiduciaBD extends nFiducia {
             }
             return sData;
         } catch (Exception ex) {
-            System.out.println("getDatosSWIFT: " + ex);
+            LOGGER.debug("getDatosSWIFT: " + ex);
             return null;
         } finally {
 
@@ -2418,18 +2423,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -2586,8 +2591,8 @@ public class FiduciaBD extends nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("getMovsFOSEG: " + ex);
-            System.out.println(sQuery);
+            LOGGER.debug("getMovsFOSEG: " + ex);
+            LOGGER.debug(sQuery);
 
         } finally {
 
@@ -2596,18 +2601,18 @@ public class FiduciaBD extends nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println("rs" + ex);
+                LOGGER.debug("rs" + ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println("st" + ex);
+                LOGGER.debug("st" + ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return sData.toString();
 
@@ -3528,8 +3533,8 @@ public class FiduciaBD extends nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("getMovsDetFOSEG: " + ex);
-            System.out.println(sQuery);
+            LOGGER.debug("getMovsDetFOSEG: " + ex);
+            LOGGER.debug(sQuery);
             sMensaje = "ERRORFS";
             sData.append("<font class=\"alerta\">Error al consultar el detalle<br>Intente mas tarde<br>Si el problema persiste: Informe a su ejecutivo de cuenta</font>");
         } finally {
@@ -3543,18 +3548,18 @@ public class FiduciaBD extends nFiducia {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println("st" + ex);
+                LOGGER.debug("st" + ex);
             }
             try {
                 if (stQuery_Secuen != null)
                     stQuery_Secuen.close();
             } catch (Exception ex) {
-                System.out.println("st" + ex);
+                LOGGER.debug("st" + ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return sData.toString();
         }
@@ -3622,8 +3627,8 @@ public class FiduciaBD extends nFiducia {
         }
 
         catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Error del metodo: getCtosSaldo");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Error del metodo: getCtosSaldo");
             return null;
         } finally {
 
@@ -3632,18 +3637,18 @@ public class FiduciaBD extends nFiducia {
                     if (rsQuery != null)
                         rsQuery.close();
                 } catch (Exception ex) {
-                    System.out.println("rs" + ex);
+                    LOGGER.debug("rs" + ex);
                 }
                 try {
                     if (stQuery != null)
                         stQuery.close();
                 } catch (Exception ex) {
-                    System.out.println("st" + ex);
+                    LOGGER.debug("st" + ex);
                 }
                 try {
                     CloseBD();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    LOGGER.error("Exception: ", ex);
                 }
             }
         }
@@ -3680,25 +3685,25 @@ public class FiduciaBD extends nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println("getIpMail: " + ex);
+            LOGGER.debug("getIpMail: " + ex);
             dato = null;
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return dato;
         }
@@ -3731,25 +3736,25 @@ public class FiduciaBD extends nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println("getDatosParametros: " + ex);
+            LOGGER.debug("getDatosParametros: " + ex);
             dato = null;
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return dato;
         }
@@ -3795,9 +3800,9 @@ public class FiduciaBD extends nFiducia {
             if (connection != null)
                 connection.close();
         } catch (SQLException e) {
-            System.out.println(e);
+            LOGGER.error("Exception: ", e);
         } catch (Exception e) {
-            System.out.println("Se ha producido un error durante la lectura del archivo ");
+            LOGGER.debug("Se ha producido un error durante la lectura del archivo ");
         }
     }
 

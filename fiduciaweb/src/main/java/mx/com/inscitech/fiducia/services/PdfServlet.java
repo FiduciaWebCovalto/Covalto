@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,6 +28,8 @@ import mx.com.inscitech.fiducia.UploadPDF;
     maxRequestSize = 1024 * 1024 * 15     // 15 MB: Tamaño máximo total de la solicitud
 )
 public class PdfServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdfServlet.class);
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,20 +59,20 @@ public class PdfServlet extends HttpServlet {
         Map<String, String> data = new HashMap<>();
         data.put("id", id);
         data.put("id2", fiso);
-        System.out.println("resultado antes: "+resultado);
-        System.out.println("resultado longitud antes: "+resultado.length);
+        LOGGER.debug("resultado antes: "+resultado);
+        LOGGER.debug("resultado longitud antes: "+resultado.length);
         if(resultado.length==0){
             UploadPDF env = new UploadPDF();
             sRegreso=env.uploadFileAndData
             (fileContent,"file",fileName,data,id,fiso,persona,token);
-            System.out.println("sRegreso despues ws "+sRegreso);    
+            LOGGER.debug("sRegreso despues ws "+sRegreso);    
             if (sRegreso.contains("Archivo subido:")) {
                 sRegreso="200";
             }
         }
         else
             sRegreso="800";    
-        System.out.println("sendPdfToRestApi: "+sRegreso);
+        LOGGER.debug("sendPdfToRestApi: "+sRegreso);
         response.getWriter().println(sRegreso);
     }
     

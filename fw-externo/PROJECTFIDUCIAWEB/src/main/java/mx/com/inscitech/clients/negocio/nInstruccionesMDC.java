@@ -12,6 +12,9 @@ Funcion: Insertar las Intrucciones:
 
 package mx.com.inscitech.clients.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.serviciosenvio;
 
 import java.sql.*;
@@ -23,6 +26,8 @@ import java.util.Calendar;
 
 public class nInstruccionesMDC extends nFiducia
 	{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nInstruccionesMDC.class);
+
 
 	private String[] ctas=new String[18];	
 	private	Statement stSaldos=null;//stSaldos
@@ -102,7 +107,7 @@ public class nInstruccionesMDC extends nFiducia
 						+ Datos[3] + "," + Datos[1] + ",0,"+bitacora[2]+","
 						+ "TO_TIMESTAMP('"+ bitacora[0] +" '||(SELECT to_char(NOW(), 'HH24:MI:SS') FROM DUAL),'DD/MM/YYYY HH24:MI:SS'),NULL,"
 						+ "'',0)";
-			      System.out.println("InsNoMon: "+sInstrucc);      
+			      LOGGER.debug("InsNoMon: "+sInstrucc);      
 			      iRows = stInstrucc.executeUpdate(sInstrucc);
                               sProv=new String[5];
                               sProv[0]=Datos[3];  
@@ -117,33 +122,33 @@ public class nInstruccionesMDC extends nFiducia
         }
 				if(iRows>0) {
 					 
-				     System.out.println("Se registro Deposito con Folio:"+Datos[1]);	
+				     LOGGER.debug("Se registro Deposito con Folio:"+Datos[1]);	
 				     conBD.commit();
 				   	 bInstruccion=true;
 				} else {
-					   System.out.println("No se registro Deposito con Folio:"+Datos[1]);	
+					   LOGGER.debug("No se registro Deposito con Folio:"+Datos[1]);	
 						 conBD.rollback();
 						 conBD.commit();
 						 bInstruccion=false;
 				}
 		}catch (Exception ex) {
-						System.out.println("Funcion: insertaDeposito");
-						System.out.println("Error: "+ex);
-						System.out.println(ex);
-						System.out.println(sInstrucc);
-						System.out.println(sQuery);
+						LOGGER.debug("Funcion: insertaDeposito");
+						LOGGER.debug("Error: "+ex);
+						LOGGER.error("Exception: ", ex);
+						LOGGER.debug(sInstrucc);
+						LOGGER.debug(sQuery);
 						try{
-						  	System.out.println("No se registro Deposito con Folio:"+Datos[1]);	
+						  	LOGGER.debug("No se registro Deposito con Folio:"+Datos[1]);	
 							  conBD.rollback();
 							  conBD.commit();
-							  System.out.println("rollback");
+							  LOGGER.debug("rollback");
 						} catch(SQLException e) {				
-								System.out.println("Error al realizar el roll back: :"+e);	
+								LOGGER.debug("Error al realizar el roll back: :"+e);	
 						}	
 						  bInstruccion=false;
 		} finally {
-				try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-				try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+				try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+				try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
 				return bInstruccion;						
 		}										
  }
@@ -177,7 +182,7 @@ public class nInstruccionesMDC extends nFiducia
                     + folio + "," 
                     + "'bit_detalle'"
                     +")";
-        System.out.println("InsNoMon f_bitacora: "+queryBitacora);
+        LOGGER.debug("InsNoMon f_bitacora: "+queryBitacora);
        iRows = stInstrucc.executeUpdate(queryBitacora);		
 		    //envio informacion
 		    bitacora[2]=bitacora[4];
@@ -187,8 +192,8 @@ public class nInstruccionesMDC extends nFiducia
 		catch (Exception ex)
 		{
 			iRows=0;
-			System.out.println("Metodo: insertaBitacora");
-			System.out.println("Error: \n"+ex);
+			LOGGER.debug("Metodo: insertaBitacora");
+			LOGGER.debug("Error: \n"+ex);
 		}
 		finally
 		{
@@ -267,15 +272,15 @@ public class nInstruccionesMDC extends nFiducia
 		}
 		catch (SQLException ex)
 		{
-			System.out.println("Error al insertaFirma");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirma");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 			catch (Exception ex)
 		{
-			System.out.println("Error al insertaFirma");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirma");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 		finally
 		{
@@ -389,27 +394,27 @@ public boolean autorizacion( String[] strDatos,
 				if(iRows>0)
 				   {
 				   	conBD.commit();
-				    System.out.println("FirmaAutoriza  con Folio:"+strDatos[1]);
+				    LOGGER.debug("FirmaAutoriza  con Folio:"+strDatos[1]);
 				    bInstruccion=true;
 				   }	
 				else{
 					conBD.rollback();
 				   	bInstruccion=false;
-				   	System.out.println("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
+				   	LOGGER.debug("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
 				    }
 		}
 		catch (Exception ex)
 		{
 			try	{
 				conBD.rollback();
-				System.out.println("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
-				System.out.println("Error: "+ex);
-				System.out.println("Query: \n"+query);
+				LOGGER.debug("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
+				LOGGER.debug("Error: "+ex);
+				LOGGER.debug("Query: \n"+query);
 				}
 			catch (Exception error)
 				{
-				System.out.println("No se realizo la FirmaAutoriza rollback");
-				System.out.println("Error: "+ex);	
+				LOGGER.debug("No se realizo la FirmaAutoriza rollback");
+				LOGGER.debug("Error: "+ex);	
 				
 				}
 			bInstruccion=false;
@@ -418,9 +423,9 @@ public boolean autorizacion( String[] strDatos,
 		finally
 		{
     
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: autoriza");System.out.println(ex); }
-      try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("Funcion: autoriza");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: autoriza");System.out.println(ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: autoriza");LOGGER.error("Exception: ", ex); }
+      try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("Funcion: autoriza");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: autoriza");LOGGER.error("Exception: ", ex); }
 			return bInstruccion;
 		}
 	}  
@@ -463,13 +468,13 @@ private String[] getDatosAcuerdoCT(String numfiso,String numfolio)
 		}
 		catch (Exception ex)
 				{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
     			}
 		finally
 				{
-					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 				}
 		return sDatos;
 	} 
@@ -518,22 +523,22 @@ private String[] getDatosAcuerdoCT(String numfiso,String numfolio)
 	                                 iRows = stInstrucc.executeUpdate(sInstrucc);
 	                       
 	                   }catch (Exception ex) {
-	                                                   System.out.println("Funcion: insertaDeposito");
-	                                                   System.out.println("Error: "+ex);
-	                                                   System.out.println(ex);
-	                                                   System.out.println(sInstrucc);
-	                                                   System.out.println(sQuery);
+	                                                   LOGGER.debug("Funcion: insertaDeposito");
+	                                                   LOGGER.debug("Error: "+ex);
+	                                                   LOGGER.error("Exception: ", ex);
+	                                                   LOGGER.debug(sInstrucc);
+	                                                   LOGGER.debug(sQuery);
 	                                                   try{
 
 	                                                             conBD.rollback();
 	                                                             conBD.commit();
 
 	                                                   } catch(SQLException e) {                               
-	                                                                   System.out.println("Error al realizar el roll back: :"+e);      
+	                                                                   LOGGER.debug("Error al realizar el roll back: :"+e);      
 	                                                   }       
 	                   } finally {
-	                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-	                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+	                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+	                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
 	                                   return iRows;                                            
 	                   }                                                                               
 	    }

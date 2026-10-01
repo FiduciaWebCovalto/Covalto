@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,6 +29,8 @@ import mx.com.inscitech.fiducia.UploadPDF;
 )
 
 public class ExcelUploadServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUploadServlet.class);
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,11 +60,11 @@ public class ExcelUploadServlet extends HttpServlet {
             sRegreso=env.uploadFileAndData
             (fileContent,"file",fileName,data,
              id,token,origen,fecha,fiso);
-            System.out.println("sRegreso despues ws "+sRegreso);    
+            LOGGER.debug("sRegreso despues ws "+sRegreso);    
             if (sRegreso.contains("Archivo Cargado Correctamente")) {
                 sRegreso="200";
             }
-        System.out.println("sendPdfToRestApi: "+sRegreso);
+        LOGGER.debug("sendPdfToRestApi: "+sRegreso);
         response.getWriter().println(sRegreso);
     }
     

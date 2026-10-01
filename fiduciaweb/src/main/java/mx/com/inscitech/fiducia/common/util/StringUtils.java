@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.util;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -7,6 +10,8 @@ import java.io.UnsupportedEncodingException;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class StringUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.class);
+
     private StringUtils() {
     }
 
@@ -25,7 +30,7 @@ public class StringUtils {
         try {
             return new String(strIn.getBytes(), encoding);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             return strIn;
         }
     }
@@ -42,7 +47,7 @@ public class StringUtils {
         try {
             strTmp = new String("".getBytes(), "ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             strTmp = "";
         }
 

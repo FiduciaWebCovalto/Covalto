@@ -1,5 +1,8 @@
 package mx.com.inscitech.cuentas.individuales.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -7,6 +10,8 @@ import java.sql.ResultSet;
 import java.text.DecimalFormat;
 
 public class nFinanciera extends nFiducia{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nFinanciera.class);
+
 	
 
 /*
@@ -33,7 +38,7 @@ public class nFinanciera extends nFiducia{
       		DecimalFormat dfFormat2 = new DecimalFormat("0.00");
 			for(i=0;i<=3;i++){
 				if (sData[i] == null || sData[i] == ""){
-					System.out.println(this.getClass()+".getStrContenidoHtml()->Datos no completos");
+					LOGGER.debug(this.getClass()+".getStrContenidoHtml()->Datos no completos");
 					return null;
 				}
 			}			
@@ -283,16 +288,16 @@ public class nFinanciera extends nFiducia{
 		catch(Exception ex)
 		{
 			
-			System.out.println("Error:" +this.getClass()+ ".getPresupuestal:"+ex);
-			System.out.println(queryFinal);
+			LOGGER.debug("Error:" +this.getClass()+ ".getPresupuestal:"+ex);
+			LOGGER.debug(queryFinal);
 			return null;
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQ: "+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQ: "+ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQ: "+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQ: "+ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}//getPresupuestal
 	//mevm-fin	
@@ -327,7 +332,7 @@ public class nFinanciera extends nFiducia{
 			{
 				if (sData[i] == null || sData[i] == "")
 				{
-					System.out.println("Datos no completos");
+					LOGGER.debug("Datos no completos");
 					return "Datos no completos";
 				}
 			}
@@ -450,7 +455,7 @@ public class nFinanciera extends nFiducia{
       sp_Saldos.setString(2, FechaStr);
 	 
       
-      System.out.println("Fecha del en formato correcto "+FechaStr);        	
+      LOGGER.debug("Fecha del en formato correcto "+FechaStr);        	
 	  
 	 
       iAño = Integer.parseInt(sData[3].substring(6,10));
@@ -460,12 +465,12 @@ public class nFinanciera extends nFiducia{
       String FechaStr1 = sData[3].substring(0,2)+"/"+sData[3].substring(3,5)+"/"+sData[3].substring(6,10);
 	  sp_Saldos.setString(3,FechaStr1);
 	  
-	  System.out.println("Fecha al en formato correcto "+FechaStr1);        	
+	  LOGGER.debug("Fecha al en formato correcto "+FechaStr1);        	
 
 			sp_Saldos.setString(4,sClave);
 			sp_Saldos.setString(5,sClave);
 			sp_Saldos.setString(6,"FALSE");
-			System.out.println("Inversionista "+sClave);
+			LOGGER.debug("Inversionista "+sClave);
 
 			//sp_Saldos.execute();
 	*/		
@@ -483,9 +488,9 @@ public class nFinanciera extends nFiducia{
 			iRows = stInstrucc.executeUpdate(sInstrucc);//inserta en instrucc
 			conBD.commit();	
 			stInstrucc.close();		
-			System.out.println("Instruccion completa de store "+sInstrucc);
-			System.out.println("Prueba"+FechaStr+"Prueba");
-			System.out.println("Prueba"+FechaStr1+"Prueba");
+			LOGGER.debug("Instruccion completa de store "+sInstrucc);
+			LOGGER.debug("Prueba"+FechaStr+"Prueba");
+			LOGGER.debug("Prueba"+FechaStr1+"Prueba");
 
 			//Obtener los datos
 			sQuery = "SELECT TO_CHAR(SAL_FECHA_OPERA,'DD/MM/YYYY')";
@@ -501,8 +506,8 @@ public class nFinanciera extends nFiducia{
       sQuery += " AND SAL_CLAVE_INV  = '" + sClave + "'";
       sQuery += " ORDER BY TO_DATE(SAL_FECHA_OPERA,'DD/MM/YYYY') ASC";
       
-      System.out.println("Fideicomiso "+sData[0]);        	
-      System.out.println("Inversionista "+sClave);        	
+      LOGGER.debug("Fideicomiso "+sData[0]);        	
+      LOGGER.debug("Inversionista "+sClave);        	
 			
 			rsQuery= stQuery.executeQuery(sQuery);
 			
@@ -587,17 +592,17 @@ public class nFinanciera extends nFiducia{
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return ex.toString();
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQ: "+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQ: "+ex); }
-			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { System.out.println("rsQS"+ex); }
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println("stQS"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("stI"+ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQ: "+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQ: "+ex); }
+			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { LOGGER.debug("rsQS"+ex); }
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.debug("stQS"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("stI"+ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
   }
 }

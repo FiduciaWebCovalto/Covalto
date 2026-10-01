@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +25,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.web.servlet.ModelAndView;
 
 public class DocumentsHandlerController extends JsonActionController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentsHandlerController.class);
+
     
     LoggingService log = LoggingService.getInstance();
         
@@ -85,7 +90,7 @@ public class DocumentsHandlerController extends JsonActionController {
                 }
 
             } catch (FileUploadException e) {
-                e.printStackTrace();
+                LOGGER.error("Exception: ", e);
             
             } finally {
                 // TODO: Ver que no le pegue al procesador del archivo
@@ -107,7 +112,7 @@ public class DocumentsHandlerController extends JsonActionController {
             return result;
             
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
 
         return null;

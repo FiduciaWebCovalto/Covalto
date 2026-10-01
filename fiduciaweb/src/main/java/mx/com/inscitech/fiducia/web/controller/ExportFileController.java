@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -29,6 +32,8 @@ import org.springframework.web.servlet.mvc.Controller;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class ExportFileController implements Controller {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExportFileController.class);
+
 
     protected LoggingService logger = LoggingService.getInstance();
 
@@ -51,7 +56,7 @@ public class ExportFileController implements Controller {
             //Se crea el objeto bean a partir de la cadena json
             jsonObject = JSONObject.fromObject(json);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
 
         return jsonObject;

@@ -5,6 +5,9 @@
 
 package mx.com.inscitech.clients.seguridad;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Enumeration;
 import netscape.ldap.LDAPAttributeSet;
 import netscape.ldap.LDAPConnection;
@@ -12,6 +15,8 @@ import netscape.ldap.LDAPEntry;
 
 public class ConexionLDAP 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConexionLDAP.class);
+
 
   public ConexionLDAP()
   {
@@ -29,21 +34,21 @@ public class ConexionLDAP
     		LDAPConnection ld = new LDAPConnection();
     		ld.connect(host, port);
         ld.authenticate("uid=weblogic,ou=people,ou=myrealm,dc=fiduciaDomain", "weblogic");
-    		System.out.println(ld.getAuthenticationPassword());
-    		System.out.println(ld.getAuthenticationDN());
-    		System.out.println(ld.getAuthenticationMethod());
+    		LOGGER.debug("{}", ld.getAuthenticationPassword());
+    		LOGGER.debug("{}", ld.getAuthenticationDN());
+    		LOGGER.debug("{}", ld.getAuthenticationMethod());
     		LDAPEntry ldapEntry = ld.read("uid=weblogic,ou=people,ou=myrealm,dc=fiduciaDomain");
     		LDAPAttributeSet ldapAttributeSet = ldapEntry.getAttributeSet();
     		Enumeration e = ldapAttributeSet.getAttributes();
     		
     		while(e.hasMoreElements()) {
-    			System.out.println(e.nextElement());
+    			LOGGER.debug("{}", e.nextElement());
     		}
     		
-    		System.out.println();
+    		LOGGER.debug("");
     		ld.disconnect();
     	}catch(Exception e) {
-    		e.printStackTrace();
+    		LOGGER.error("Exception: ", e);
     	}
 
   }

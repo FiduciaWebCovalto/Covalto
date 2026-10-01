@@ -28,9 +28,11 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/documentos")
+@Slf4j
 public class FileController {
 
     @Autowired
@@ -116,7 +118,7 @@ public class FileController {
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error al procesar archivo PDF", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

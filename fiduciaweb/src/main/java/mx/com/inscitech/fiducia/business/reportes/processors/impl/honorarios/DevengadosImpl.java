@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business.reportes.processors.impl.honorarios;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 
 import java.math.BigDecimal;
@@ -17,6 +20,8 @@ import mx.com.inscitech.fiducia.business.reportes.processors.BaseProcessor;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class DevengadosImpl implements BaseProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DevengadosImpl.class);
+
     public DevengadosImpl() {
     }
 
@@ -108,7 +113,7 @@ public class DevengadosImpl implements BaseProcessor {
             return dataSetXML;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             throw new BusinessException("500", "No fue posible generar el reporte solicitado!");
         } finally {
             dataRow = null;

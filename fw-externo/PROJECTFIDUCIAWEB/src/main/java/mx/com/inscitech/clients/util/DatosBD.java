@@ -4,9 +4,14 @@
 */
 
 package mx.com.inscitech.clients.util;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.*;
 
 public class DatosBD {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatosBD.class);
+
     
     public Vector vtrDatos = new Vector (1,1);
     public void setDataBO (  double dblDato)
@@ -28,7 +33,7 @@ public class DatosBD {
     public void verDatos ()
     {
          for (int a= 0;  a < vtrDatos.size();  a++)
-             System.out.println ("dato " + a + " - " + vtrDatos.elementAt(a) );
+             LOGGER.debug("dato " + a + " - " + vtrDatos.elementAt(a));
     }
     
     public void limpiarDatos ()

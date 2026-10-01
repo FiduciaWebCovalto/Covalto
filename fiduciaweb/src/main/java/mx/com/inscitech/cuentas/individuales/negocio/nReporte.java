@@ -1,11 +1,16 @@
 package mx.com.inscitech.cuentas.individuales.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.cuentas.individuales.util.DatosBD;
 import mx.com.inscitech.cuentas.individuales.util.uReporte;
 
 import java.sql.ResultSet;
 
 public class nReporte extends nDatos{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nReporte.class);
+
     
     ResultSet rsDatos;
     public void querySelect(int opc, String tabla) 
@@ -71,7 +76,7 @@ public class nReporte extends nDatos{
 			}
 	catch (Exception e)
 			{  
-            System.out.println (this.getClass()+"->" + e +"<->opcion:"+opc);
+            LOGGER.debug(this.getClass()+"->" + e +"<->opcion:"+opc);
 			}
 			removerValores();
 			intContador=0;
@@ -173,7 +178,7 @@ public class nReporte extends nDatos{
      catch(Exception e) 
      				{
             blnDatos= false;
-            System.out.println(this.getClass()+"->"+e+"<->opcion:"+ opc );
+            LOGGER.debug(this.getClass()+"->"+e+"<->opcion:"+ opc);
         			}
         reportes.dbConnClose();
      }	

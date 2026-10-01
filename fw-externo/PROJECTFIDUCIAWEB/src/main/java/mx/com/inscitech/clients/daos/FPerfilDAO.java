@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FPerfil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +13,8 @@ import java.util.Vector;
 
 public class FPerfilDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FPerfilDAO.class);
+
 
   //Querys ocupados en esta clase
   //SELECT FPER_ID_PERFIL, FPER_NOMBRE_PERFIL, FPER_IMPORTE_DISP_OPMON, FPER_TIPO_OPEMON_AUT FROM F_PERFIL ORDER BY FPER_NOMBRE_PERFIL  
@@ -61,7 +66,7 @@ public class FPerfilDAO
         connection.close();
     
     } catch (Exception e) {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
     }
     return fPerfilVector;
   }
@@ -98,8 +103,8 @@ public class FPerfilDAO
         {
           value = resultSet.getInt(1);
           label = resultSet.getString(2)==null?"":resultSet.getString(2);
-          System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2));       
-            System.out.println("fperIdPerfil:"+fperIdPerfil);       
+          LOGGER.debug(resultSet.getInt(1) + " " + resultSet.getString(2));       
+            LOGGER.debug("fperIdPerfil:"+fperIdPerfil);       
           if (fperIdPerfil == value) 
           {
             codigoSelect += "<option value=\"" + value + "\" selected=\"selected\">" + label.trim() + "</option>\n";  
@@ -108,7 +113,7 @@ public class FPerfilDAO
             codigoSelect += "<option value=\"" + value + "\">" + label.trim() + "</option>\n";  
           }  
         }//while
-        System.out.println("LLego aqui");
+        LOGGER.debug("LLego aqui");
         if (statement != null)
           statement.close();
         if (resultSet != null)
@@ -118,7 +123,7 @@ public class FPerfilDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
    
     return codigoSelect;

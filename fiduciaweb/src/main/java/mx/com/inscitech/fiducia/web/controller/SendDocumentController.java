@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -18,6 +21,8 @@ import org.springframework.web.servlet.mvc.Controller;
 
 
 public class SendDocumentController implements Controller {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendDocumentController.class);
+
 
     protected LoggingService logger = LoggingService.getInstance();
 
@@ -98,7 +103,7 @@ public class SendDocumentController implements Controller {
             fo.close();
             fo = null;*/
 
-            System.out.println("Documento Recuperado!");
+            LOGGER.debug("Documento Recuperado!");
 
             responseCode = "0";
 

@@ -1,12 +1,17 @@
 //nConsultas.java
 package mx.com.inscitech.cuentas.individuales.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.cuentas.individuales.util.DatosBD;
 import mx.com.inscitech.cuentas.individuales.util.uConsultas;
 
 import java.sql.ResultSet;
 
 public class nConsultas extends nDatos{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nConsultas.class);
+
     
     ResultSet rsDatos;
     public void querySelect( int opc) 
@@ -178,7 +183,7 @@ public class nConsultas extends nDatos{
 			}
 	catch (Exception e)
 			{  
-            System.out.println (this.getClass()+"->" + e +"<->opcion:"+opc);
+            LOGGER.debug(this.getClass()+"->" + e +"<->opcion:"+opc);
 			}
 	removerValores();
 	intContador=0;
@@ -620,7 +625,7 @@ public class nConsultas extends nDatos{
 
                  case 118: //Resumen Estado de Cuenta
                      setVtrStrDato1(rsDatos.getString("DAT_FEC_ULT_MOD"));
-                     System.out.print("Fecha Ingreso "+rsDatos.getString("DAT_FEC_ULT_MOD"));
+                     LOGGER.debug("Fecha Ingreso "+rsDatos.getString("DAT_FEC_ULT_MOD"));
                      setVtrStrDato2(rsDatos.getString("DAT_FEC_ALTA"));
                      setVtrStrDato3(rsDatos.getString("DIRECCION"));
                      setVtrStrDato4(rsDatos.getString("DAT_FEC_BAJA"));
@@ -636,7 +641,7 @@ public class nConsultas extends nDatos{
      catch(Exception e) 
      				{
             blnDatos= false;
-            System.out.println(this.getClass()+"->"+e+"<-> opcionG :"+ opc );
+            LOGGER.debug(this.getClass()+"->"+e+"<-> opcionG :"+ opc);
         			}
         consulta.dbConnClose();
      }	

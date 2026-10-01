@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +20,8 @@ import mx.com.inscitech.fiducia.common.services.ConfigurationService;
 import mx.com.inscitech.fiducia.common.util.ServiceLocator;
 
 public class nFiducia {
+    private static final Logger LOGGER = LoggerFactory.getLogger(nFiducia.class);
+
     public Connection conBD;
     public Statement stQuery;
     public ResultSet rsQuery;
@@ -61,7 +66,7 @@ public class nFiducia {
                                   .getConnection();
             return true;
         } catch (SQLException e) {
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
             return false;
         }
     }
@@ -71,7 +76,7 @@ public class nFiducia {
             if (conBD != null && conBD.isClosed() == false)
                 conBD.close();
         } catch (SQLException e) {
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
         }
     }
 
@@ -102,27 +107,27 @@ public class nFiducia {
             return rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println("Error de getFecha");
-            System.out.println(ex);
+            LOGGER.debug("Error de getFecha");
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            //System.out.println("Cerrando finally de la base de  getFecha");
+            //LOGGER.debug("Cerrando finally de la base de  getFecha");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -147,27 +152,27 @@ public class nFiducia {
             return rsQuery.getString(1);
 
         } catch (Exception ex) {
-            System.out.println("Error de getFecha");
-            System.out.println(ex);
+            LOGGER.debug("Error de getFecha");
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            //System.out.println("Cerrando finally de la base de  getFecha");
+            //LOGGER.debug("Cerrando finally de la base de  getFecha");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -192,27 +197,27 @@ public class nFiducia {
             } else
                 return HoraActual;
         } catch (Exception ex) {
-            System.out.println("Error de getHora");
-            System.out.println(ex);
+            LOGGER.debug("Error de getHora");
+            LOGGER.error("Exception: ", ex);
             return HoraActual;
         } finally {
-            //System.out.println("Cerrando finally de la base de getHoraOperacion");
+            //LOGGER.debug("Cerrando finally de la base de getHoraOperacion");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -260,7 +265,7 @@ public class nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println("getAccesoInternet: " + ex);
+            LOGGER.debug("getAccesoInternet: " + ex);
 
         } finally {
 
@@ -268,18 +273,18 @@ public class nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
 
             return bResult;
@@ -314,7 +319,7 @@ public class nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("getHorarioOperacion: " + ex);
+            LOGGER.debug("getHorarioOperacion: " + ex);
 
         } finally {
 
@@ -322,18 +327,18 @@ public class nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return bandera;
         }
@@ -371,27 +376,27 @@ public class nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("Error de getFechaHabil");
-            System.out.println(ex);
+            LOGGER.debug("Error de getFechaHabil");
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            //System.out.println("Cerrando finally de la base de  getFechaHabil");
+            //LOGGER.debug("Cerrando finally de la base de  getFechaHabil");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -471,27 +476,27 @@ public class nFiducia {
 
             return dias_trans;
         } catch (Exception ex) {
-            System.out.println("Error de getFeriados");
-            System.out.println(ex);
+            LOGGER.debug("Error de getFeriados");
+            LOGGER.error("Exception: ", ex);
             return 0;
         } finally {
-            //System.out.println("Cerrando finally de la base de getFeriados");
+            //LOGGER.debug("Cerrando finally de la base de getFeriados");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -514,27 +519,27 @@ public class nFiducia {
             rsQuery.next();
             return rsQuery.getString(1);
         } catch (Exception ex) {
-            System.out.println("Error de getCalcFecha");
-            System.out.println(ex);
+            LOGGER.debug("Error de getCalcFecha");
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            ////System.out.println("Cerrando finally de la base de  getCalcFecha");
+            ////LOGGER.debug("Cerrando finally de la base de  getCalcFecha");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -565,15 +570,15 @@ public class nFiducia {
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return null;
 		}
 		finally
 		{
-			try { if(stInstrucc!= null ) stInstrucc.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(stInstrucc!= null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}
   */
@@ -600,32 +605,32 @@ public class nFiducia {
             else
                 return null;
         } catch (Exception ex) {
-            System.out.println("Error de getFolio");
-            System.out.println(ex);
+            LOGGER.debug("Error de getFolio");
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
             try {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -658,31 +663,31 @@ public class nFiducia {
             else
                 return null;
         } catch (Exception ex) {
-            System.out.println("Error de getFolioFOSEG" + ex);
+            LOGGER.debug("Error de getFolioFOSEG" + ex);
             return null;
         } finally {
             try {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -724,21 +729,21 @@ public class nFiducia {
             else
                 return null;
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            //System.out.println("Cerrando base del  finally de getKey");
+            //LOGGER.debug("Cerrando base del  finally de getKey");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -770,8 +775,8 @@ public class nFiducia {
                 return "";
 
         } catch (Exception ex) {
-            System.out.println("Error de  getNumContrato" + ex);
-            System.out.println(sQuery);
+            LOGGER.debug("Error de  getNumContrato" + ex);
+            LOGGER.debug(sQuery);
             return null;
         } finally {
 
@@ -779,18 +784,18 @@ public class nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -821,25 +826,25 @@ public class nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("Error de  rendimientosPendientes" + ex);
+            LOGGER.debug("Error de  rendimientosPendientes" + ex);
             bResultado = false;
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return bResultado;
         }
@@ -850,7 +855,7 @@ public class nFiducia {
 
         try {
 
-            System.out.println("entraaaa amet");
+            LOGGER.debug("entraaaa amet");
             if (conBD == null)
                 if (!OpenBD())
                     return 0;
@@ -871,25 +876,25 @@ public class nFiducia {
                 return 0;
 
         } catch (Exception ex) {
-            System.out.println("Error de  getRendimientosContrato" + ex);
+            LOGGER.debug("Error de  getRendimientosContrato" + ex);
             return 0;
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -920,26 +925,26 @@ public class nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println("Funcion firmasMancomunadas, Error:");
-            System.out.println(ex);
+            LOGGER.debug("Funcion firmasMancomunadas, Error:");
+            LOGGER.error("Exception: ", ex);
         } finally {
-            //System.out.println("Cerrando finally de la base de  getFolio");
+            //LOGGER.debug("Cerrando finally de la base de  getFolio");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             return firmas;
         }
@@ -998,29 +1003,29 @@ public class nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println(sQuery);
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug(sQuery);
         } finally {
 
-            System.out.println("Cerrando finally de la base de existeUsuario");
+            LOGGER.debug("Cerrando finally de la base de existeUsuario");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null) {
                     stQuery.close();
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (conBD != null)
                     CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return numUsuario;
@@ -1090,25 +1095,25 @@ public class nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -1129,7 +1134,7 @@ public class nFiducia {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
 
         } finally {
 
@@ -1137,12 +1142,12 @@ public class nFiducia {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -1179,26 +1184,26 @@ public class nFiducia {
             } else
                 return false;
         } catch (Exception ex) {
-            System.out.println("getTipoFiso: " + ex);
+            LOGGER.debug("getTipoFiso: " + ex);
             return false;
         } finally {
-            //System.out.println("Cerrando finally de la base de getTipoFiso");
+            //LOGGER.debug("Cerrando finally de la base de getTipoFiso");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1229,25 +1234,25 @@ public class nFiducia {
             else
                 return false;
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return false;
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1320,28 +1325,28 @@ public class nFiducia {
             return dImp;
 
         } catch (Exception ex) {
-            System.out.println("Error de getSaldoActual");
-            System.out.println(ex);
-            System.out.println(sQuery);
+            LOGGER.debug("Error de getSaldoActual");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug(sQuery);
             return 0;
         } finally {
-            //System.out.println("Cerrando finally de la base de getSaldoActual");
+            //LOGGER.debug("Cerrando finally de la base de getSaldoActual");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1385,26 +1390,26 @@ public class nFiducia {
             else
                 return 0;
         } catch (Exception ex) {
-            System.out.println("getSaldoRecursos: " + ex);
+            LOGGER.debug("getSaldoRecursos: " + ex);
             return 0;
         } finally {
-            //System.out.println("Cerrando finally de la base de getSaldoRecursos");
+            //LOGGER.debug("Cerrando finally de la base de getSaldoRecursos");
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1432,24 +1437,24 @@ public class nFiducia {
                 iNumUser = rsQuery.getInt(1);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return iNumUser;
@@ -1485,7 +1490,7 @@ public class nFiducia {
 
 
         } catch (Exception ex) {
-            System.out.println("esDeposito: " + ex);
+            LOGGER.debug("esDeposito: " + ex);
 
         } finally {
 
@@ -1493,18 +1498,18 @@ public class nFiducia {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
 
             return bReturn;
@@ -1542,24 +1547,24 @@ public class nFiducia {
                 } while (rsQuery.next());
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -1594,24 +1599,24 @@ public class nFiducia {
                 } while (rsQuery.next());
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -1635,24 +1640,24 @@ public class nFiducia {
                 iData[0] = rsQuery.getInt(1);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
 
@@ -1678,31 +1683,31 @@ public class nFiducia {
             sQuery += " WHERE MOV_FEC_OPER = TO_DATE('" + sFecFidIni + "','DD/MM/YYYY')";
             sQuery += " AND MOV_TIPO_OPER = 'I'";
             sQuery += " AND MOV_CONTRATO = " + sFiso;
-            System.out.println(sQuery);
+            LOGGER.debug(sQuery);
             rsQuery = stQuery.executeQuery(sQuery);
 
             if (rsQuery.next()) {
                 iNumMovIni = rsQuery.getInt(1);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return iNumMovIni;

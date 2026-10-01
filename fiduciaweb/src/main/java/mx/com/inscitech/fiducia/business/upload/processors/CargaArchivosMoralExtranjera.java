@@ -2,6 +2,9 @@ package  mx.com.inscitech.fiducia.business.upload.processors;
 
 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 
@@ -67,6 +70,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class CargaArchivosMoralExtranjera extends UploadProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosMoralExtranjera.class);
+
 
 
 
@@ -170,7 +175,7 @@ public class CargaArchivosMoralExtranjera extends UploadProcessor {
 
             }
 
-            System.out.println("Valor de fileName Excel"+fileName);
+            LOGGER.debug("Valor de fileName Excel"+fileName);
 
             File theExcelFile = new File(fileName);
 
@@ -238,7 +243,7 @@ public class CargaArchivosMoralExtranjera extends UploadProcessor {
 
                 String line = "";
 
-                //System.out.println("linea no.:"+String.valueOf(i));
+                //LOGGER.debug("linea no.:"+String.valueOf(i));
 
                 if(i==2)
 
@@ -250,7 +255,7 @@ public class CargaArchivosMoralExtranjera extends UploadProcessor {
 
                     for(col = 0; col < 36; col++) {
 
-                        System.out.println("col no.:"+String.valueOf(col));
+                        LOGGER.debug("col no.:"+String.valueOf(col));
 
                       //if(col!=0)  {
 
@@ -338,7 +343,7 @@ public class CargaArchivosMoralExtranjera extends UploadProcessor {
 
         } catch (Exception e) {
 
-            System.out.println("Error "+e);
+            LOGGER.debug("Error "+e);
 
             //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.ERROR, "Error en la carga de archivos.", e);
 

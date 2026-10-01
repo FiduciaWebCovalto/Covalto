@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.util;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +20,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XLSXDataReader implements ExcelDataReader {
+    private static final Logger LOGGER = LoggerFactory.getLogger(XLSXDataReader.class);
+
     
     private static final String NO_EXISTE_NO_LEER = "El archivo especificado no existe o no puede ser leido! Archivo: [%s], Existe: [%s], Puede ser leido: [%s]";
     private static final String FORMATO_NO_VALIDO = "El archivo especificado no corresponde al formato XLSX! Archivo: [%s], Existe: [%s], Puede ser leido: [%s]";
@@ -90,7 +95,7 @@ public class XLSXDataReader implements ExcelDataReader {
             try {
                 theWorkBook.close();                
             } catch (IOException e) {
-                System.out.println("Error "+e);
+                LOGGER.debug("Error "+e);
                 //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.WARN, "Error al cerrar el archivo.", e);
             }
         }

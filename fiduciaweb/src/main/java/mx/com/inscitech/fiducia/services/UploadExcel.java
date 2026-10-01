@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -17,6 +20,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class UploadExcel extends servicios{
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadExcel.class);
+
     public static String uploadFileAndData(InputStream inputStream, 
                                            String fileFieldName,
                                            String fileName,
@@ -26,7 +31,7 @@ public class UploadExcel extends servicios{
                                              throws IOException {
            String secret = "dennis123456789phegon123456789den1234321";
            String apiUrl = ConfigLoader.getUrl();
-           System.out.println("apiUrl de archivo config "+apiUrl);           
+           LOGGER.debug("apiUrl de archivo config "+apiUrl);           
            String targetUrl=apiUrl+"/api/excel/upload";
            //String token = generateToken(secret, "Inmuebles@trustechcapitalmexico.com");
            String boundary = "===" + UUID.randomUUID().toString() + "===";

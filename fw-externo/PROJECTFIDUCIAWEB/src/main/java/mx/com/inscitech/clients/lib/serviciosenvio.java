@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.domain.FBienesValor;
 import mx.com.inscitech.clients.domain.FBienesValorDTO;
 import mx.com.inscitech.clients.domain.FBitacora;
@@ -37,10 +40,12 @@ import java.time.ZoneOffset;
 
 
 public class serviciosenvio extends servicios{
+    private static final Logger LOGGER = LoggerFactory.getLogger(serviciosenvio.class);
+
 
     public int consumo(int caso,String []param1) {
         String apiUrlc = ConfigLoader.getUrl();
-        System.out.println("apiUrl de archivo config "+apiUrlc);        
+        LOGGER.debug("apiUrl de archivo config "+apiUrlc);        
         String url=apiUrlc;
         String jsonPayload="";
         int respuesta=0;
@@ -60,7 +65,7 @@ public class serviciosenvio extends servicios{
                             OffsetDateTime.parse(json.getAsString(), DateTimeFormatter.ISO_OFFSET_DATE_TIME))
                         .create();
                     /*for (String datosenviados : param1) {
-                        System.out.println("datosenviados envio "+datosenviados);
+                        LOGGER.debug("datosenviados envio "+datosenviados);
                     }*/
                         switch(caso){
                             case 1://bienes
@@ -119,8 +124,8 @@ public class serviciosenvio extends servicios{
                                     apiUrl = url+"/retinver";
                                     // 2. Crear objeto compuesto y cuerpo
                                     // parse() usa ISO_OFFSET_DATE_TIME por defecto  
-                                    System.out.println("ctoinver: "+param1[0]);
-                                    System.out.println("folio: "+param1[1]);
+                                    LOGGER.debug("ctoinver: "+param1[0]);
+                                    LOGGER.debug("folio: "+param1[1]);
                                     FCtoinvRetDTO keyctoinver = new 
                                     FCtoinvRetDTO(Long.parseLong(param1[0]), Long.parseLong(param1[1]));
                                     FCtoinvRet ctoinver = new FCtoinvRet
@@ -339,7 +344,7 @@ public class serviciosenvio extends servicios{
                                  break;  
 
                         }
-                        System.out.println("JSON a enviar: " + jsonPayload);            
+                        LOGGER.debug("JSON a enviar: " + jsonPayload);            
 
 
                     
@@ -357,8 +362,8 @@ public class serviciosenvio extends servicios{
                     // 5. Enviar la solicitud
                     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     // 6. Imprimir respuesta
-                    System.out.println("Status Code: " + response.statusCode());
-                    System.out.println("Respuesta: " + response.body());
+                    LOGGER.debug("Status Code: " + response.statusCode());
+                    LOGGER.debug("Respuesta: " + response.body());
                     //respuesta exitosa
                     if(response.statusCode()>=200&&response.statusCode()<=299)
                         respuesta=0;
@@ -367,7 +372,7 @@ public class serviciosenvio extends servicios{
 
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.error("Exception: ", e);
                 }
                 return respuesta;
     }

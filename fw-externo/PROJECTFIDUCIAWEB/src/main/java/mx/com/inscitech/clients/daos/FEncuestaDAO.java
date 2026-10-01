@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.negocio.nFiducia;
 import mx.com.inscitech.clients.beans.FEncuesta;
 import java.util.StringTokenizer;
@@ -10,6 +13,8 @@ import java.sql.Statement;
 
 public class FEncuestaDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FEncuestaDAO.class);
+
 
   Connection connection = null;
   Statement statement = null;
@@ -61,9 +66,9 @@ public class FEncuestaDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
   
@@ -92,7 +97,7 @@ public class FEncuestaDAO
         
    } catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  }
@@ -137,7 +142,7 @@ public class FEncuestaDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
       
     return fEncuesta;
@@ -166,7 +171,7 @@ public class FEncuestaDAO
    } 
    catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  } 
@@ -196,7 +201,7 @@ public class FEncuestaDAO
         
    } catch (Exception e) 
    {
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
    }
    return resultado;
  }
@@ -250,9 +255,9 @@ SELECT A.FOPC_ID_OPCION, A.FOPC_DESCRIPCION FROM F_OPCENC A
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
   
@@ -297,9 +302,9 @@ SELECT A.FOPC_ID_OPCION, A.FOPC_DESCRIPCION FROM F_OPCENC A
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }  
 
@@ -330,7 +335,7 @@ SELECT A.FOPC_ID_OPCION, A.FOPC_DESCRIPCION FROM F_OPCENC A
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -362,7 +367,7 @@ SELECT A.FOPC_ID_OPCION, A.FOPC_DESCRIPCION FROM F_OPCENC A
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }  

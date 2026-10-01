@@ -1,12 +1,17 @@
 //nConsultas.java
 package mx.com.inscitech.fiducia.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.fiducia.common.util.DatosBD;
 import mx.com.inscitech.fiducia.common.util.Consultas;
 
 import java.sql.ResultSet;
 
 public class nConsultas extends nDatos {
+    private static final Logger LOGGER = LoggerFactory.getLogger(nConsultas.class);
+
 
     ResultSet rsDatos;
 
@@ -91,7 +96,7 @@ public class nConsultas extends nDatos {
                 break;
             case 117://Resumen Estado de Cuenta
                 db.setDataBO( getVtrIntDato1()); //Seq Edo Cuenta
-                System.out.println("Dato Fideicomiso:"+getVtrIntDato1());
+                LOGGER.debug("Dato Fideicomiso:"+getVtrIntDato1());
                 rsDatos = consulta.getResultSet(opc, db);
                 break;
             case 118://Resumen Estado de Cuenta
@@ -103,7 +108,7 @@ public class nConsultas extends nDatos {
                 break;
             }
         } catch (Exception e) {
-            System.out.println(this.getClass() + "->" + e + "<->opcion:" + opc);
+            LOGGER.debug(this.getClass() + "->" + e + "<->opcion:" + opc);
         }
         removerValores();
         intContador = 0;
@@ -336,7 +341,7 @@ public class nConsultas extends nDatos {
 
                      case 118: //Resumen Estado de Cuenta
                          setVtrStrDato1(rsDatos.getString("DAT_FEC_ULT_MOD"));
-                         System.out.print("Fecha Ingreso "+rsDatos.getString("DAT_FEC_ULT_MOD"));
+                         LOGGER.debug("Fecha Ingreso "+rsDatos.getString("DAT_FEC_ULT_MOD"));
                          setVtrStrDato2(rsDatos.getString("DAT_FEC_ALTA"));
                          setVtrStrDato3(rsDatos.getString("DIRECCION"));
                          setVtrStrDato4(rsDatos.getString("DAT_FEC_BAJA"));
@@ -351,7 +356,7 @@ public class nConsultas extends nDatos {
 
         } catch (Exception e) {
             blnDatos = false;
-            System.out.println(this.getClass() + "->" + e + "<-> opcionG :" + opc);
+            LOGGER.debug(this.getClass() + "->" + e + "<-> opcionG :" + opc);
         }
         consulta.dbConnClose();
     }

@@ -4,10 +4,15 @@
 */
 
 package mx.com.inscitech.clients.util;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.*;
 import java.sql.*;
 
-public class uReporte extends queryReportes{    
+public class uReporte extends queryReportes{
+    private static final Logger LOGGER = LoggerFactory.getLogger(uReporte.class);
+    
     private boolean blnDebug = true;
     public Statement st=null;
     public ResultSet rs=null;
@@ -15,13 +20,13 @@ public class uReporte extends queryReportes{
     Connection dbConn = null;
     public void dbConnClose()
     {
-        try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println("st"+ex); }
-        try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println("rt"+ex); }
-        try { if(prepared != null ) prepared.close(); } catch (Exception ex) { System.out.println(ex); }
+        try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }
+        try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.debug("rt"+ex); }
+        try { if(prepared != null ) prepared.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
         try { 
             if(dbConn != null ) 
                     dbConn.close();
-        } catch (Exception ex) { System.out.println(ex); }
+        } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
     }
     public synchronized  ResultSet getResultSet ( int opc , DatosBD db) 
      throws Exception, SQLException
@@ -32,17 +37,17 @@ public class uReporte extends queryReportes{
             c = new conexion();
             dbConn = c.conectarBD ( );				
             if (dbConn == null)	{	
-                System.out.println (this.getClass()+"-Error es nula la conexion");
+                LOGGER.debug(this.getClass()+"-Error es nula la conexion");
                 throw new Exception ("0");
             }
             else						
                  st= dbConn.createStatement();
 
         } catch (SQLException e ) {
-                System.out.println (this.getClass() +"->" +  e); 
+                LOGGER.debug(this.getClass() +"->" +  e); 
                 throw new Exception ("0");
         }catch (Exception e){
-                System.out.println (this.getClass()+"->" +e); 
+                LOGGER.debug(this.getClass()+"->" +e); 
                 throw new Exception ("2");
         }			
         try{
@@ -116,7 +121,7 @@ public class uReporte extends queryReportes{
              }			
              return rs;
         } catch (SQLException e ) {
-                System.out.println (this.getClass()+"->" + e+"<->opcion:"+ opc);
+                LOGGER.debug(this.getClass()+"->" + e+"<->opcion:"+ opc);
                 try{
                     dbConn.close();
                 } catch (Exception eCon){
@@ -124,7 +129,7 @@ public class uReporte extends queryReportes{
                 }
                 throw new Exception ("1");
         }catch (Exception e) {
-                System.out.println (this.getClass()+"->" + e+"<->opcion:"+ opc);
+                LOGGER.debug(this.getClass()+"->" + e+"<->opcion:"+ opc);
                 try{
                     dbConn.close();
                 }catch (Exception eCon){

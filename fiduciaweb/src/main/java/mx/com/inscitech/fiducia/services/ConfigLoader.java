@@ -1,21 +1,26 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 public class ConfigLoader {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigLoader.class);
+
     private static Properties properties = new Properties();
 
     static {
         try (InputStream input = ConfigLoader.class.getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
-                System.out.println("Lo siento, no se pudo encontrar config.properties");
+                LOGGER.debug("Lo siento, no se pudo encontrar config.properties");
             } else {
                 // Carga el archivo de propiedades
                 properties.load(input);
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
         }
     }
 

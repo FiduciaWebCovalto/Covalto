@@ -1,6 +1,9 @@
 //balanzaComprob.java
 package mx.com.inscitech.fiducia.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Exception;
@@ -23,6 +26,8 @@ import mx.com.inscitech.fiducia.common.services.ConfigurationService;
 import mx.com.inscitech.fiducia.common.util.ServiceLocator;
 
 public class balanzaComprob {
+    private static final Logger LOGGER = LoggerFactory.getLogger(balanzaComprob.class);
+
     private Connection conBD;
     private NumberFormat formatoMonto;
     private NumberFormat formatoCuentas;
@@ -44,7 +49,7 @@ public class balanzaComprob {
                                   .getConnection();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             return false;
         }
     }
@@ -54,7 +59,7 @@ public class balanzaComprob {
             if (conBD != null && conBD.isClosed() == false)
                 conBD.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 
@@ -84,25 +89,25 @@ public class balanzaComprob {
             rs.next();
             return Boolean.valueOf(rs.getBoolean(1));
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1483,25 +1488,25 @@ public class balanzaComprob {
 
             return reporte;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1545,7 +1550,7 @@ public class balanzaComprob {
                 escribe.append("</tr>");
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
         }
         return escribe.toString();
     }
@@ -1605,25 +1610,25 @@ public class balanzaComprob {
 
             return sumas;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
     }
@@ -1645,7 +1650,7 @@ public class balanzaComprob {
                 escribe.append("</td>");
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
         }
         return escribe.toString();
     }
@@ -2589,24 +2594,24 @@ public class balanzaComprob {
 
             numeroRegistro = Integer.valueOf((Double.valueOf(Math.ceil(suma.doubleValue() / 16.0))).intValue());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return numeroRegistro;
@@ -2664,7 +2669,7 @@ public class balanzaComprob {
             escribe.append("</tr>");
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
         }
         return escribe.toString();
     }

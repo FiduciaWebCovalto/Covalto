@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FAmortizacionBean;
 import mx.com.inscitech.clients.util.StringFormatter;
 
@@ -18,6 +21,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class FAmortizacionDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FAmortizacionDao.class);
+
 
     //VARIABLES GLOBALES//////////////////////////////////////////////////////////////////////////////////
     Connection connection = null;
@@ -90,7 +95,7 @@ public class FAmortizacionDao {
                   connection.close();
                   fiduciaConnection.CloseBD();
         } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
         }
          return sbTabla.toString();
     }
@@ -156,7 +161,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FAmortizacionesDao.insertar(): " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionesDao.insertar(): " + e.getMessage());
           return -1;
         }
     }
@@ -203,7 +208,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               return resultado;
         } catch (Exception e) {
-          System.out.println("Error en FAmortizacionDao.modificar(): " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionDao.modificar(): " + e.getMessage());
           return -1;
         }
     }
@@ -279,7 +284,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               
          } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
          }
       
     return bean;
@@ -312,7 +317,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               return resultado;
       } catch (Exception e) {
-          System.out.println("Error en FAmortizacionDao.baja: " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionDao.baja: " + e.getMessage());
           return -1;
          }
     }
@@ -392,7 +397,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FCreditosDao.consultar: " + e.getMessage());
+          LOGGER.debug("Error en FCreditosDao.consultar: " + e.getMessage());
        }
        
        return arrfideicomisos;
@@ -439,7 +444,7 @@ public class FAmortizacionDao {
               fiduciaConnection.CloseBD();
               
       } catch (Exception e) {
-          System.out.println("Error en FAmortizacionDao.getCount(): " + e.getMessage());
+          LOGGER.debug("Error en FAmortizacionDao.getCount(): " + e.getMessage());
           return  numero=-1;
        }
        

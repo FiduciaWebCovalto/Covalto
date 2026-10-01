@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.filters;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 import java.util.List;
@@ -27,6 +30,8 @@ import mx.com.inscitech.fiducia.exceptions.impl.InvalidUserException;
 import org.apache.commons.lang3.StringUtils;
 
 public class SecurityFilter implements Filter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
+
 
     private static String ALWAYS_ALLOW_HOSTS = "127.0.0.1,localhost,209.209.43.73";
 
@@ -79,9 +84,9 @@ public class SecurityFilter implements Filter {
 
         String userName = null;
         String uri = httpRequest.getRequestURI();
-        System.out.println("request: "+uri);
-        System.out.println("session: "+session);
-        System.out.println("usuario sesion: "+session.getAttribute("username"));
+        LOGGER.debug("request: "+uri);
+        LOGGER.debug("session: "+session);
+        LOGGER.debug("usuario sesion: "+session.getAttribute("username"));
         
         if (session.getAttribute("userInfo") == null) {
 

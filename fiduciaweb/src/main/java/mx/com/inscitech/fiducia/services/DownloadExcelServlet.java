@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.security.Key;
 import java.util.Date;
 
@@ -17,6 +20,8 @@ import io.jsonwebtoken.security.Keys;
 
 @WebServlet("/downloadExcel")
 public class DownloadExcelServlet  extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DownloadExcelServlet.class);
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
             // Permitir acceso desde cualquier origen
@@ -25,7 +30,7 @@ public class DownloadExcelServlet  extends HttpServlet {
         
             String urlfinal="";
             String apiUrl = ConfigLoader.getUrl();
-            System.out.println("apiUrl de archivo config "+apiUrl);
+            LOGGER.debug("apiUrl de archivo config "+apiUrl);
 
             String pathurl=apiUrl;
             // 1. Recibir tres parámetros desde HTML/JS
@@ -33,7 +38,7 @@ public class DownloadExcelServlet  extends HttpServlet {
             String p1 = request.getParameter("fiso");
             String p2 = request.getParameter("fechainicial");
             String p3 = request.getParameter("fechafinal");
-            System.out.println("Llega al servlet DownloadExcelServlet");
+            LOGGER.debug("Llega al servlet DownloadExcelServlet");
             switch(Integer.valueOf(p0).intValue()){
                 case 1://Cartera
                     urlfinal = 

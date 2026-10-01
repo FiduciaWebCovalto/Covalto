@@ -1,5 +1,8 @@
 package  mx.com.inscitech.fiducia.business.upload.processors;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import java.math.BigDecimal;
@@ -21,6 +24,8 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 //import mx.com.inscitech.fiducia.domain.ArchivosPlanos;
 
 public class CargaArchivosExcelDocFaltante extends UploadProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosExcelDocFaltante.class);
+
 
     /*** Variable que tiene la informacion del header del archivo del TAS*/
     private static List headerInfo;
@@ -72,7 +77,7 @@ public class CargaArchivosExcelDocFaltante extends UploadProcessor {
             } else {
                 excelReader = new XLSDataReader();
             }
-            System.out.println("Valor de fileName Excel"+fileName);
+            LOGGER.debug("Valor de fileName Excel"+fileName);
             File theExcelFile = new File(fileName);
             file.write(theExcelFile);
             //setPercent(5);
@@ -106,13 +111,13 @@ public class CargaArchivosExcelDocFaltante extends UploadProcessor {
                 //setPercent(new BigDecimal((i * 90)/rowCount).intValue() + 10);
                 
                 String line = "";
-                //System.out.println("linea no.:"+String.valueOf(i));
+                //LOGGER.debug("linea no.:"+String.valueOf(i));
                 if(i==2)
                     i=2;
                 try {
                     
                     for(col = 0; col < numColXls; col++) {
-                        System.out.println("col no.:"+String.valueOf(col));
+                        LOGGER.debug("col no.:"+String.valueOf(col));
                       //if(col!=0)  {
                         excelReader.setCurrentCell(i, col);
                         sValores[col] =excelReader.getStringCellValue(false, "0");
@@ -149,7 +154,7 @@ public class CargaArchivosExcelDocFaltante extends UploadProcessor {
             //setMessage("Operacion realizada con exito! Registros Procesados: " + secuencial);        
             
         } catch (Exception e) {
-            System.out.println("Error "+e);
+            LOGGER.debug("Error "+e);
             //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.ERROR, "Error en la carga de archivos.", e);
         } finally {
             if(excelReader != null) excelReader.closeWorkBook();

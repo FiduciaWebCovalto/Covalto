@@ -1,9 +1,14 @@
 package mx.com.inscitech.clients.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.domain.FTipoper;
 import mx.com.inscitech.clients.util.*;
 import mx.com.inscitech.clients.lib.servicios;
 public class nServicios extends nDatos{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nServicios.class);
+
     public void querySelect( int opc) 
     {
         String[] resultado={null},sArreglo={null};
@@ -19,7 +24,7 @@ public class nServicios extends nDatos{
                         resultado=serv.consumo(43,getVtrStrDato1()); 
                         for (String item : resultado) {
                             blnDatos= true;
-                            System.out.println("Documentos devueltos: "+item);
+                            LOGGER.debug("Documentos devueltos: "+item);
                             setVtrStrDato2 ( item);
                             intContador++;
                         } 
@@ -32,9 +37,9 @@ public class nServicios extends nDatos{
                     break;            
                 case 49:
                         //MONEDA POR DESCRIPCION/NOMBRE 
-                        System.out.println("Monedas por Nombre nservicios: "+getVtrStrDato1());
+                        LOGGER.debug("Monedas por Nombre nservicios: "+getVtrStrDato1());
                         resultado=serv.consumo(18,getVtrStrDato1()); 
-                        System.out.println("Salids Monedas por Nombre nservicios: "+resultado[0]);
+                        LOGGER.debug("Salids Monedas por Nombre nservicios: "+resultado[0]);
                         setVtrIntDato1 ( Integer.valueOf(resultado[0]).intValue());
                         intContador++;
                     break;               
@@ -55,9 +60,9 @@ public class nServicios extends nDatos{
                             blnDatos= true;
                             sArreglo= new String[item.split("-").length];
                             sArreglo=item.toString().split("-");
-                            System.out.println("Queryselect 202 "+item);
+                            LOGGER.debug("Queryselect 202 "+item);
                             setVtrIntDato1(Integer.valueOf(sArreglo[0]).intValue());//setVtrIntDato1(rsDatos.getInt("CONP_ID_CONCEPTO"));
-                            System.out.println("Etiqueta :"+sArreglo[4]);
+                            LOGGER.debug("Etiqueta :"+sArreglo[4]);
                             setVtrStrDato5(sArreglo[4]);//setVtrStrDato1(rsDatos.getString("CONP_NOMBRE"));//ETIQUETA
                             setVtrIntDato2(Integer.valueOf(sArreglo[1]).intValue());//setVtrIntDato2(rsDatos.getInt("CONP_BASE"));//SI VIENE 1 SE FORMA UN COMBO
                             setVtrStrDato2(sArreglo[7]);//setVtrStrDato2(rsDatos.getString("CONP_TABLA"));//QUERY EN CASO DE QUE SEA UN COMBO                    
@@ -83,7 +88,7 @@ public class nServicios extends nDatos{
                         for (String item : resultado) {
                             sArreglo= new String[item.split("-").length];
                             sArreglo=item.toString().split("-");
-                            System.out.println("Queryselect 205 "+item);
+                            LOGGER.debug("Queryselect 205 "+item);
                             setVtrIntDato1(Integer.valueOf(sArreglo[0]).intValue());//setVtrIntDato1(rsDatos.getInt("CONP_ID_CONCEPTO"));
                             setVtrStrDato1(sArreglo[4]);//setVtrStrDato1(rsDatos.getString("CONP_NOMBRE"));//ETIQUETA
                             setVtrIntDato2(Integer.valueOf(sArreglo[1]).intValue());//setVtrIntDato2(rsDatos.getInt("CONP_BASE"));//SI VIENE 1 SE FORMA UN COMBO
@@ -103,13 +108,13 @@ public class nServicios extends nDatos{
                         resultado=serv.consumo(24,""); 
                         sArreglo= new String[resultado.length];
                         for (String item : resultado) {
-                            System.out.println("case 200 "+item);
+                            LOGGER.debug("case 200 "+item);
                             sArreglo= new String[item.split("-").length];
                             sArreglo=item.toString().split("-");
                             setVtrStrDato1(sArreglo[0]);//setVtrStrDato1(rsDatos.getString("FTOP_NUM_OPER"));
                             setVtrStrDato2(sArreglo[2]);//setVtrStrDato2(rsDatos.getString("FTOP_NOMBRE_TIPOPER"));
                             setVtrStrDato3(sArreglo[3]);//setVtrStrDato3(rsDatos.getString("FTOP_ATENCION_DIAS"));
-                            System.out.println("case 200 sArreglo[1] "+sArreglo[1]);
+                            LOGGER.debug("case 200 sArreglo[1] "+sArreglo[1]);
                             setVtrIntDato1(Integer.
                                             valueOf(sArreglo[1].replaceAll("true","1").replaceAll("false","0")).intValue());//setVtrIntDato1(rsDatos.getInt("FTOP_BIENES"));
                             intContador++;
@@ -140,7 +145,7 @@ public class nServicios extends nDatos{
                         //INDICES  
                         intContador=0;
                         resultado=serv.consumo(26,getVtrStrDato1()); 
-                        System.out.println("nServicios 204: "+resultado[0]);
+                        LOGGER.debug("nServicios 204: "+resultado[0]);
                         setVtrStrDato2 ( resultado[0]);
                         intContador++;
                     break;             
@@ -198,7 +203,7 @@ public class nServicios extends nDatos{
         }
         catch (Exception e)
         {  
-            System.out.println (this.getClass()+"->" + e +"<->opcion:"+opc);
+            LOGGER.debug(this.getClass()+"->" + e +"<->opcion:"+opc);
             removerValores();
             intContador=0;
             blnDatos= false;

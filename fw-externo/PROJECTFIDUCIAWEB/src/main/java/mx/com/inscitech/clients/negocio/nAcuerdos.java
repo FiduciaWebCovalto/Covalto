@@ -4,11 +4,16 @@
 */
 
 package mx.com.inscitech.clients.negocio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.*;
 import mx.com.inscitech.clients.util.*;
 
 public class nAcuerdos extends nDatos
 	{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nAcuerdos.class);
+
    	ResultSet rsDatos=null;	
  	uAcuerdos acuerdos= new uAcuerdos();
  	DatosBD db = new DatosBD ();
@@ -33,7 +38,7 @@ public class nAcuerdos extends nDatos
 			catch(Exception e)
 				{
 				blnDatos= false;
-				System.out.println("Error:"+e+"--"+ 201 );
+				LOGGER.debug("Error:"+e+"--"+ 201);
 				}
 			finally
 			      {
@@ -58,7 +63,7 @@ public class nAcuerdos extends nDatos
 			catch(Exception e)
 				{
 				blnDatos= false;
-				System.out.println("Error:"+e+"--"+ 201 );
+				LOGGER.debug("Error:"+e+"--"+ 201);
 				}
 			finally
 			      {
@@ -143,7 +148,7 @@ public class nAcuerdos extends nDatos
 	   }
 	   catch (Exception error)
 	   		{  
-	   		System.out.println ("error->" + error);
+	   		LOGGER.debug("error->" + error);
 	   		}
 	   		
 	   acuerdos.dbConnClose();	
@@ -222,7 +227,7 @@ public class nAcuerdos extends nDatos
 		}
 		catch (Exception error)
 			{  
-			System.out.println ("error->" + error);
+			LOGGER.debug("error->" + error);
 			}
 		removerValores();
 		intContador=0;
@@ -297,7 +302,7 @@ public class nAcuerdos extends nDatos
 			catch(Exception e)
 				{
 				blnDatos= false;
-				System.out.println("Error:"+e+"--"+ opc );
+				LOGGER.debug("Error:"+e+"--"+ opc);
 				}
 			finally
 			      {

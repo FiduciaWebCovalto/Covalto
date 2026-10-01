@@ -1,5 +1,8 @@
 package  mx.com.inscitech.fiducia.business.upload.processors;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import java.math.BigDecimal;
@@ -21,6 +24,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.poi.ss.usermodel.DataFormatter;
 //import mx.com.inscitech.fiducia.domain.ArchivosPlanos;
 public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosExcelArchivosPoliza.class);
+
 
     /*** Variable que tiene la informacion del header del archivo del TAS*/
     private static List headerInfo;
@@ -69,7 +74,7 @@ public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
                 excelReader = new XLSDataReader();
             }
             
-            System.out.println("Valor de fileName Excel"+fileName);
+            LOGGER.debug("Valor de fileName Excel"+fileName);
             File theExcelFile = new File(fileName);
             file.write(theExcelFile);
             
@@ -85,7 +90,7 @@ public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
             for(int i = 1; i < rowCount; i++) {
                 
                 String line = "";
-                //System.out.println("linea no.:"+String.valueOf(i));
+                //LOGGER.debug("linea no.:"+String.valueOf(i));
                 if(i==2)
                     i=2;
                 try {
@@ -138,7 +143,7 @@ public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
                             dResultado = new BigDecimal(((BigDecimal) resultadoFuncion ).doubleValue());          
             
             } catch (Exception e) {
-                System.out.println("Error "+e);
+                LOGGER.debug("Error "+e);
                 //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.ERROR, "Error en la carga de archivos.", e);
             } finally {
                 if(excelReader != null) excelReader.closeWorkBook();

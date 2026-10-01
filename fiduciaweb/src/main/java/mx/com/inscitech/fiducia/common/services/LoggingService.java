@@ -98,16 +98,11 @@ public class LoggingService {
     public void log(Class clazz, Thread thread, Level level, String message, Throwable e) {
         Logger logger = Logger.getLogger(clazz);
 
-        System.out.println("\nClass:\t\t" + clazz.getName() + "\n" + "Thread:\t\t" + thread.getName() + "\n" + "Level:\t\t" + level + "\n" +
-                           (message != null ? "Message:\t\t" + message + "\n" : "") + (e != null ? "Exception:\t\t" + e + "\n" : ""));
 
         logger.setLevel(level);
 
         if (e != null) {
-            e.printStackTrace();
-            logger.log(level, "[" + thread.getId() + (message != null ? "] Message: " + message + "\n" : ""), e);
         } else {
-            logger.log(level, (message != null ? "Message: " + message : ""));
             //logger.debug(" Thread[" + thread.getName() + "] " + message);
         }
     }

@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.util;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -26,14 +29,16 @@ import org.apache.commons.fileupload.FileUploadException;
 import mx.com.inscitech.clients.lib.conexion;
 
 
-public class UploadFile  {   
+public class UploadFile  {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadFile.class);
+   
 
 
 
 
     void depura(String cadena)
     {
-        System.out.println(cadena);
+        LOGGER.debug(cadena);
     }
 
     public boolean procesaArchivos( ) {
@@ -60,7 +65,7 @@ public class UploadFile  {
                   pstmt = connection.prepareStatement(sql);
                   if(pstmt.execute()==true) 
                   {
-                    System.out.println("El contenido de la tabla ACRCHIVOS_PLANOS ha sido eliminado.");
+                    LOGGER.debug("El contenido de la tabla ACRCHIVOS_PLANOS ha sido eliminado.");
                   }
                   pstmt.close();
                   
@@ -82,17 +87,17 @@ public class UploadFile  {
                       rs.close();
                       pstmtSequence.close();                    
                     }//if
-                    //System.out.println("linea " + j + " " + str);
+                    //LOGGER.debug("linea " + j + " " + str);
                   }//while
                   in.close();
                   pstmt.close();
   
                   long end = System.currentTimeMillis();
-                  System.out.print("Time in seconds: " + ((end-start)/1000));
+                  LOGGER.debug("Time in seconds: " + ((end-start)/1000));
                   depura("\nTermino!");
                   
             } catch (IOException e) {
-              e.printStackTrace();
+              LOGGER.error("Exception: ", e);
               connection.close();
             }
     

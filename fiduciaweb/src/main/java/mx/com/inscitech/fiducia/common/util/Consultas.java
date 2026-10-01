@@ -1,6 +1,9 @@
 package mx.com.inscitech.fiducia.common.util;
 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Consultas extends QueryConsultas {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Consultas.class);
+
     private boolean blnDebug = true;
     String query = "";
     public Statement st = null;
@@ -20,25 +25,25 @@ public class Consultas extends QueryConsultas {
             if (st != null)
                 st.close();
         } catch (Exception ex) {
-            System.out.println("st" + ex);
+            LOGGER.debug("st" + ex);
         }
         try {
             if (rs != null)
                 rs.close();
         } catch (Exception ex) {
-            System.out.println("rt" + ex);
+            LOGGER.debug("rt" + ex);
         }
         try {
             if (prepared != null)
                 prepared.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
         try {
             if (dbConn != null)
                 dbConn.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
     }
 
@@ -49,17 +54,17 @@ public class Consultas extends QueryConsultas {
             c = new Conexion();
             dbConn = c.conectarBD();
             if (dbConn == null) {
-                System.out.println(this.getClass() + "-Error es nula la conexion");
-                System.out.println(query);
+                LOGGER.debug(this.getClass() + "-Error es nula la conexion");
+                LOGGER.debug(query);
                 throw new Exception("0");
             } else
                 st = dbConn.createStatement();
 
         } catch (SQLException e) {
-            System.out.println(this.getClass() + "->" + e);
+            LOGGER.debug(this.getClass() + "->" + e);
             throw new Exception("0");
         } catch (Exception e) {
-            System.out.println(this.getClass() + "->" + e);
+            LOGGER.debug(this.getClass() + "->" + e);
             throw new Exception("2");
         }
         try {
@@ -231,8 +236,8 @@ public class Consultas extends QueryConsultas {
             rs = prepared.executeQuery();
             return rs;
         } catch (SQLException e) {
-            System.out.println(query);
-            System.out.println(this.getClass() + "->" + e + "<-> opcion:" + opc);
+            LOGGER.debug(query);
+            LOGGER.debug(this.getClass() + "->" + e + "<-> opcion:" + opc);
             try {
                 dbConn.close();
             } catch (Exception eCon) {
@@ -240,7 +245,7 @@ public class Consultas extends QueryConsultas {
             }
             throw new Exception("1");
         } catch (Exception e) {
-            System.out.println(this.getClass() + "->" + e + "<->opcion:" + opc);
+            LOGGER.debug(this.getClass() + "->" + e + "<->opcion:" + opc);
             try {
                 dbConn.close();
             } catch (Exception eCon) {

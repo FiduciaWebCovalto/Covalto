@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import com.google.gson.Gson;
 import java.io.*;
@@ -12,6 +15,8 @@ import java.util.UUID;
 import mx.com.inscitech.fiducia.services.ConfigLoader;
 import mx.com.inscitech.fiducia.services.servicios;
 public class UploadPDF extends servicios{
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadPDF.class);
+
 
     public static String uploadFileAndData(InputStream inputStream, 
                                            String fileFieldName,
@@ -21,7 +26,7 @@ public class UploadPDF extends servicios{
                                              throws IOException {
            String secret = "dennis123456789phegon123456789den1234321";
            String apiUrl = ConfigLoader.getUrl();
-           System.out.println("apiUrl de archivo config "+apiUrl);
+           LOGGER.debug("apiUrl de archivo config "+apiUrl);
            String targetUrl=apiUrl+"/api/documentos/contrato/upload";
            //String token = generateToken(secret, "Inmuebles@trustechcapitalmexico.com");
            String boundary = "===" + UUID.randomUUID().toString() + "===";

@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.servlets;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -16,6 +19,8 @@ import mx.com.inscitech.fiducia.common.util.ObjectCache;
 
 
 public class MenuDispatcherServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuDispatcherServlet.class);
+
 
     private static final String CONTENT_TYPE = "text/xml; charset=ISO-8859-1";
 
@@ -44,7 +49,7 @@ public class MenuDispatcherServlet extends HttpServlet {
 
         String uri = request.getRequestURI();
         uri = uri.substring(0, uri.indexOf(".xml")) + puesto;
-        System.out.println("url: " + uri);
+        LOGGER.debug("url: " + uri);
         ObjectCache cache = ObjectCache.getInstance();
         MenuBean menu = null;
         MenuService menuService = null;

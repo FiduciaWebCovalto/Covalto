@@ -1,5 +1,8 @@
 package mx.com.inscitech.cuentas.individuales.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -8,6 +11,8 @@ import mx.com.inscitech.fiducia.common.services.LoggingService;
 import mx.com.inscitech.fiducia.common.util.ServiceLocator;
 
 public class Conexion {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Conexion.class);
+
 
     private LoggingService logger = null;
     private Connection con = null;
@@ -41,7 +46,7 @@ public class Conexion {
 
         } catch (Exception e) {
             //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.ERROR, e);       
-            System.out.println("e: " + e);
+            LOGGER.debug("e: " + e);
         }
         
         return con;

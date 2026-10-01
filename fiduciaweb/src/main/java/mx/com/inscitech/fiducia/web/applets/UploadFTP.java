@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.applets;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.applet.Applet;
 
 import java.awt.Label;
@@ -18,8 +21,10 @@ import java.awt.Dimension;
  * Applet para transferencia de archivos server - cliente - server
  * @author Inscitech México inscitech@inscitechmexico.com
  */
-@SuppressWarnings("removal")
+@SuppressWarnings("removal")
 public class UploadFTP extends Applet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadFTP.class);
+
 
     private Label lblWait = new Label();
 
@@ -30,7 +35,7 @@ public class UploadFTP extends Applet {
         try {
             jbInit();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 
@@ -72,11 +77,11 @@ public class UploadFTP extends Applet {
             out = ftpConnection.getOutputStream();
 
             while ((dato = archivoServer.read()) != -1) {
-                System.out.print((char) dato);
+                LOGGER.debug("{}", (char) dato);
                 out.write(dato);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         } finally {
             if (archivoServer != null)
                 try {
@@ -96,7 +101,7 @@ public class UploadFTP extends Applet {
             out = null;
         }
 
-        System.out.println("\nDone.");
+        LOGGER.debug("\nDone.");
 
         lblWait.setText("El archivo se ha transferido satisfactoriamente!");
     }

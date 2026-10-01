@@ -1,12 +1,17 @@
 package mx.com.inscitech.clients.negocio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.*;
 import mx.com.inscitech.clients.util.*;
 /**
- * Autor:  inscitech México
+ * Autor:  inscitech Mxico
  * mail: eminguer@inscitechmexico.com
  * Fecha: 29/06/2009
  **/
 public class nConsultasMDC extends nDatos{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nConsultasMDC.class);
+
     
     ResultSet rsDatos;
     public void querySelect( int opc) 
@@ -46,7 +51,7 @@ public class nConsultasMDC extends nDatos{
 			}
 	catch (Exception e)
 			{  
-            System.out.println (this.getClass()+"->" + e +"<->opcion:"+opc);
+            LOGGER.debug(this.getClass()+"->" + e +"<->opcion:"+opc);
 			}
 	removerValores();
 	intContador=0;
@@ -86,7 +91,7 @@ public class nConsultasMDC extends nDatos{
      catch(Exception e) 
      				{
             blnDatos= false;
-            System.out.println(this.getClass()+"->"+e+"<-> opcionG :"+ opc );
+            LOGGER.debug(this.getClass()+"->"+e+"<-> opcionG :"+ opc);
         			}
         consulta.dbConnClose();
      }	

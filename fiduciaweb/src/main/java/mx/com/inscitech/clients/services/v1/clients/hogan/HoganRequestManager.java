@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.services.v1.clients.hogan;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -16,6 +19,8 @@ import javax.ws.rs.core.Response;
 import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 public class HoganRequestManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HoganRequestManager.class);
+
     
     private LoggingService logger = LoggingService.getInstance();
     
@@ -71,7 +76,7 @@ public class HoganRequestManager {
 
 /*
 String uuid = UUID.randomUUID().toString();
-System.out.println("Generated UUID:" + uuid);
+LOGGER.debug("Generated UUID:" + uuid);
 
 X-HSBC-Locale	es_MX	es_MX	es_MX	es_MX	Log
 X-HSBC-Chnl-CountryCode	MX	MX	MX	MX	

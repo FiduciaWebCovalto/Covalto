@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.listeners;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import java.util.Locale;
@@ -17,6 +20,8 @@ import mx.com.inscitech.fiducia.common.FiduciaWebBase;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class ApplicationStartUp extends FiduciaWebBase implements ServletContextListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationStartUp.class);
+
 
     private ServletContext context = null;
 
@@ -57,7 +62,7 @@ public class ApplicationStartUp extends FiduciaWebBase implements ServletContext
         classLoader = Thread.currentThread().getContextClassLoader(); //this.getClass().getClassLoader();
 
       } catch (Exception e) {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
       }
 
       try {
@@ -69,7 +74,7 @@ public class ApplicationStartUp extends FiduciaWebBase implements ServletContext
 
         logSrv.log(this, Thread.currentThread(), INFO, "----> " + config.getProperty("toplinkSessionName"));
 
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
 
       }
 

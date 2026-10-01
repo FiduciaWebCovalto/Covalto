@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +27,8 @@ import org.apache.log4j.Level;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class MenuService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuService.class);
+
 
     private LoggingService logger;
 
@@ -55,7 +60,7 @@ public class MenuService {
         }
     }
 
-    @SuppressWarnings("removal")
+    @SuppressWarnings("removal")
     public void finalize() {
         if (cn != null)
             try {
@@ -110,7 +115,7 @@ public class MenuService {
 
                 if (menuHaveChilds(menuId))
                     menuItem.setChildItems(getMenuChilds(puestoId, Integer.valueOf(menuId)));
-                System.out.println("menuId:" + menuId);
+                LOGGER.debug("menuId:" + menuId);
                 result.add(menuItem);
             }
 

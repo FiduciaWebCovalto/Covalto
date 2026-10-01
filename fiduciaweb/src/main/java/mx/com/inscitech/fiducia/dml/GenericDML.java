@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.dml;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,6 +36,8 @@ import mx.com.inscitech.fiducia.dml.vo.DataRow;
 import mx.com.inscitech.fiducia.dml.vo.DataSet;
 
 public class GenericDML extends FiduciaWebBase {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDML.class);
+
 
     private String lastMessage = null;
     private String stackTrace = null;
@@ -54,7 +59,7 @@ public class GenericDML extends FiduciaWebBase {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
         stackTrace = sw.toString();
         sw.flush();
         sw = null;
@@ -215,7 +220,7 @@ public class GenericDML extends FiduciaWebBase {
         } catch (Exception ex) {
 
             logger.error(this, ex);
-            ex.printStackTrace();
+            LOGGER.error("Exception: ", ex);
             setStackTrace(ex);
 
         } finally {
@@ -237,7 +242,7 @@ public class GenericDML extends FiduciaWebBase {
                         cn.rollback();
                     }
                 } catch (Exception e) {
-                    System.out.println("GenericTransactionBean(Exception)::" + e.getMessage());
+                    LOGGER.debug("GenericTransactionBean(Exception)::" + e.getMessage());
                 } finally {
                     try {
                         cn.close();
@@ -511,7 +516,7 @@ public class GenericDML extends FiduciaWebBase {
 
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             if (cn != null)
                 try {
                     cn.rollback();
@@ -548,8 +553,8 @@ public class GenericDML extends FiduciaWebBase {
 
         } catch (SQLException e) {
 
-            System.out.println("GenericDML Command: " + strSQL);
-            e.printStackTrace();
+            LOGGER.debug("GenericDML Command: " + strSQL);
+            LOGGER.error("Exception: ", e);
             if (cn != null)
                 try {
                     cn.rollback();
@@ -617,8 +622,8 @@ public class GenericDML extends FiduciaWebBase {
             datos.setTheException(e);
             datos.setSqlErrorCode(e.getErrorCode());
 
-            System.out.println("Error en la consulta: " + e.getSQLState());
-            e.printStackTrace();
+            LOGGER.debug("Error en la consulta: " + e.getSQLState());
+            LOGGER.error("Exception: ", e);
 
             if (cn != null)
                 try {
@@ -739,9 +744,9 @@ public class GenericDML extends FiduciaWebBase {
             try {
                 cn.commit();
             } catch (SQLException e) {
-                System.out.println("executeCall(SQLException):" + e.getErrorCode());
-                System.out.println("executeCall(SQLException):" + e.getMessage());
-                e.printStackTrace();
+                LOGGER.debug("executeCall(SQLException):" + e.getErrorCode());
+                LOGGER.debug("executeCall(SQLException):" + e.getMessage());
+                LOGGER.error("Exception: ", e);
             }
 
         } catch (SQLException e) {
@@ -749,9 +754,9 @@ public class GenericDML extends FiduciaWebBase {
             this.logger.log(DEBUG, "strSQL: " + strSQL, null);
             this.logger.log(ERROR, "strSQL: " + strSQL, e);
             result.put("SQL_EXCEPTION", e);
-            System.out.println("executeCall(SQLException):" + e.getErrorCode());
-            System.out.println("executeCall(SQLException):" + e.getMessage());
-            e.printStackTrace();
+            LOGGER.debug("executeCall(SQLException):" + e.getErrorCode());
+            LOGGER.debug("executeCall(SQLException):" + e.getMessage());
+            LOGGER.error("Exception: ", e);
 
             if (cn != null)
                 try {

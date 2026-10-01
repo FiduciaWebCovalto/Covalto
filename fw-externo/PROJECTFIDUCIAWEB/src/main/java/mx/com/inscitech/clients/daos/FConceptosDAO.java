@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.servicios;
 
 import java.sql.Connection;
@@ -15,7 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FConceptosDAO 
-{  Connection connection = null;
+{
+    private static final Logger LOGGER = LoggerFactory.getLogger(FConceptosDAO.class);
+  Connection connection = null;
   Statement statement = null;
   PreparedStatement preparedStatement = null;
   ResultSet resultSet = null;
@@ -64,7 +69,7 @@ public class FConceptosDAO
     stringBufferSQL.append("where FFID_ID_FIDEICOMISO = ?");
     stringBufferSQL.append(" AND  FCMA_ID_PADRE = ?");
     try {
-          System.out.println("cveNumClave: " + cveNumClave); 
+          LOGGER.debug("cveNumClave: " + cveNumClave); 
           //se recuperan los conceptos
           servicios serv = new servicios();
           resultado=serv.consumo(6,cveNumClave);  
@@ -75,7 +80,7 @@ public class FConceptosDAO
         fiduciaConnection.conectarBD();
         //Asigna el valor de la conexion a la variable declarada
         connection = fiduciaConnection.conBD;
-        System.out.println("Fiso Disponible"+ctoNumContrato);
+        LOGGER.debug("Fiso Disponible"+ctoNumContrato);
           preparedStatement = connection.prepareStatement(stringBufferSQL.toString(), ResultSet.TYPE_SCROLL_SENSITIVE, 
                         ResultSet.CONCUR_UPDATABLE);
           preparedStatement.setInt(1, Integer.valueOf(ctoNumContrato.trim()).intValue());
@@ -91,15 +96,15 @@ public class FConceptosDAO
               // Búsqueda para encontrar la descripcion
               for (String resul : resultado) {
                   if (resul.contains(resultSet.getString(2).trim())) {
-                      System.out.println("resul dispo: " + resul);
+                      LOGGER.debug("resul dispo: " + resul);
                       sprovional = resul.replace(resultSet.getString(2), "");
-                      System.out.println("hallado dispo: " + sprovional);
+                      LOGGER.debug("hallado dispo: " + sprovional);
                       break; // Detener la búsqueda al encontrarlo
                   }
               }
 
               sArregloAsignado[recorrido]=resultSet.getString(1)+"-"+sprovional;
-              System.out.println("sArregloAsignado: " + sArregloAsignado[recorrido]);
+              LOGGER.debug("sArregloAsignado: " + sArregloAsignado[recorrido]);
               recorrido++;
           }//while          
           if (statement != null)
@@ -112,13 +117,13 @@ public class FConceptosDAO
                     
             //se filtra por num y o descripcion clave
             if(cveNumSecClave!=null&&cveNumSecClave.length()>0){ 
-              System.out.println("cveNumSecClave: " + cveNumSecClave);                
+              LOGGER.debug("cveNumSecClave: " + cveNumSecClave);                
               resultadoFiltrado = Arrays.stream(resultado) // Crear Stream
                 .filter(n -> n.contains(cveNumSecClave))   // Filtrar por coincidencia
                 .toArray(String[]::new);
             }
 
-            System.out.println("resultadoFiltrado: " + resultadoFiltrado.length);
+            LOGGER.debug("resultadoFiltrado: " + resultadoFiltrado.length);
             if(resultadoFiltrado.length>0&&resultadoFiltrado[0]!=null)
               resultado=resultadoFiltrado;
           value=0;
@@ -126,7 +131,7 @@ public class FConceptosDAO
           for (String subconjunto : resultado) {
               elemento=subconjunto.split("-");  
               sArregloOriginal[value]=((cveNumClave+"-"+elemento[1]+"-"+ctoNumContrato).replaceAll(" ","")+"-"+elemento[2]);
-              System.out.println("sArregloOriginal[value]: " + sArregloOriginal[value]);
+              LOGGER.debug("sArregloOriginal[value]: " + sArregloOriginal[value]);
               value++;
           }   
         
@@ -134,7 +139,7 @@ public class FConceptosDAO
           resultado=regresaArregoFiltrado(sArregloOriginal,sArregloAsignado);
           for (String subconjunto : resultado) {
               elemento=subconjunto.split("-");  
-              System.out.println("subconjunto: " + subconjunto);
+              LOGGER.debug("subconjunto: " + subconjunto);
               sbTabla.append("<tr>");
               sbTabla.append("<td><input type=\"checkbox\" class=\"row-check\" value=\"" + (elemento[0]==null?"":elemento[0]) + "\" /></td>\n");
               sbTabla.append("<td class=\"fcmaIdPadre\">" + (elemento[0]==null?"":elemento[0]) + "</td>");
@@ -146,9 +151,9 @@ public class FConceptosDAO
           }        
 
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
   
@@ -181,7 +186,7 @@ public class FConceptosDAO
           fiduciaConnection.conectarBD();
           //Asigna el valor de la conexion a la variable declarada
           connection = fiduciaConnection.conBD;
-          System.out.println("Fiso Asignado"+ctoNumContrato);
+          LOGGER.debug("Fiso Asignado"+ctoNumContrato);
             preparedStatement = connection.prepareStatement(stringBufferSQL.toString(), ResultSet.TYPE_SCROLL_SENSITIVE, 
                           ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setInt(1, Integer.valueOf(ctoNumContrato.trim()).intValue());
@@ -189,7 +194,7 @@ public class FConceptosDAO
             resultSet = preparedStatement.executeQuery();   
             if (resultSet.last()) {
                 value = resultSet.getRow();
-                ////System.out.println("Total de registros Disponible: " + value);
+                ////LOGGER.debug("Total de registros Disponible: " + value);
                 resultSet.beforeFirst(); // Volver al inicio para poder iterar
             }   
             sArregloAsignado= new String[value];
@@ -197,13 +202,13 @@ public class FConceptosDAO
             String sprovional="";
             while (resultSet.next()) 
             { 
-                System.out.println("sprovional: " + resultSet.getString(2).trim());
+                LOGGER.debug("sprovional: " + resultSet.getString(2).trim());
                 // Búsqueda para encontrar la descripcion
                 for (String resul : resultado) {
                     if (resul.contains(resultSet.getString(2).trim())) {
-                        System.out.println("resul: " + resul);
+                        LOGGER.debug("resul: " + resul);
                         sprovional = resul.replace(resultSet.getString(2), "");
-                        System.out.println("hallado: " + sprovional);
+                        LOGGER.debug("hallado: " + sprovional);
                         break; // Detener la búsqueda al encontrarlo
                     }
                 }
@@ -222,7 +227,7 @@ public class FConceptosDAO
           resultado=sArregloAsignado      ;
           for (String subconjunto : resultado) {
               elemento=subconjunto.split("-");  
-              System.out.println("TablaAsignada: " + subconjunto);
+              LOGGER.debug("TablaAsignada: " + subconjunto);
               sbTabla.append("<tr>");
               sbTabla.append("<td><input type=\"checkbox\" class=\"row-check\" value=\"" + (elemento[0]==null?"":elemento[0]) + "\" /></td>\n");
               sbTabla.append("<td class=\"fcmaIdPadre\">" + (elemento[0]==null?"":elemento[0]) + "</td>");
@@ -235,9 +240,9 @@ public class FConceptosDAO
 
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
 
@@ -274,7 +279,7 @@ public class FConceptosDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -305,7 +310,7 @@ public class FConceptosDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }  
@@ -326,10 +331,10 @@ public class FConceptosDAO
                     }
                     original=modificado;
                     /*for (String subconjunto : original) {
-                            System.out.println("Arreglo Original:"+subconjunto);
+                            LOGGER.debug("Arreglo Original:"+subconjunto);
                     }
                     for (String subconjunto : aExcluir) {
-                            System.out.println("Arreglo aExcluir:"+subconjunto);
+                            LOGGER.debug("Arreglo aExcluir:"+subconjunto);
                     }*/
 
                     // 3. Convertir el arreglo original a una lista mutable
@@ -342,7 +347,7 @@ public class FConceptosDAO
                     String[] resultado = listaOriginal.toArray(new String[0]);
 
                     // Imprimir resultado
-                    //System.out.println(Arrays.toString(resultado));
+                    //LOGGER.debug(Arrays.toString(resultado));
                     return resultado;
         }
 

@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.seguridad;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.conexion;
 import mx.com.inscitech.clients.lib.conexion;
 
@@ -22,6 +25,8 @@ import javax.naming.*;
  * @version v1.0
  */
 public class GenericDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDAO.class);
+
 	/**
 	 * Metodo para crear y configurar una conexion
 	 * @return Devuelve un objeto del tipo Connection con la conexion ya configurada
@@ -64,7 +69,7 @@ public class GenericDAO {
 	stmt = conn.createStatement();
 	stmt.execute("select sysdate from dual");
 	rs = stmt.getResultSet();
-	System.out.print(rs.getInt(1));
+	LOGGER.debug("{}", rs.getInt(1));
 
 	//Close JDBC objects as soon as possible
 	stmt.close();
@@ -74,7 +79,7 @@ public class GenericDAO {
 	
 	} catch (Exception e) {
 	// a failure occurred
-	e.printStackTrace();
+	LOGGER.error("Exception: ", e);
 	}
 	return conn;
 	
@@ -90,7 +95,7 @@ public class GenericDAO {
    g.getConnection();
   } catch (Exception e) 
   {
-    e.printStackTrace();
+    LOGGER.error("Exception: ", e);
   }
   }
 }

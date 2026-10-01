@@ -4,6 +4,9 @@
 */
 
 package mx.com.inscitech.clients.negocio;  
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.sql.*;
@@ -33,6 +36,8 @@ import javax.naming.InitialContext;
 import mx.com.inscitech.clients.lib.conexion;
 
 public class balanzaComprob  {
+    private static final Logger LOGGER = LoggerFactory.getLogger(balanzaComprob.class);
+
 	private Connection conBD;
 	private ResourceBundle resBundle;
 	private NumberFormat formatoMonto;
@@ -49,7 +54,7 @@ public class balanzaComprob  {
 		try {
     		DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		}catch(SQLException e){
-    		System.out.print(e);
+    		LOGGER.error("Exception: ", e);
 		}
 	}
 */
@@ -61,7 +66,7 @@ public class balanzaComprob  {
 	            conBD = ds.conectarBD();
 	           
 	         //} catch (Exception e) {
-	         //   e.printStackTrace();
+	         //   LOGGER.error("Exception: ", e);
 	          //}
 	          if(conBD!=null){
 	            return true;
@@ -74,7 +79,7 @@ public class balanzaComprob  {
 	                                                        }
 	                                                        catch (Exception e)
 	                                                        {
-	                                                                System.out.print(e);
+	                                                                LOGGER.error("Exception: ", e);
 	                                                                return false;
 	                                                        }
 	                                                }
@@ -87,7 +92,7 @@ public class balanzaComprob  {
 								}
 								catch (SQLException e)
 								{
-									System.out.print(e);
+									LOGGER.error("Exception: ", e);
 								}
 							}
 
@@ -100,7 +105,7 @@ public class balanzaComprob  {
             conBD = DriverManager.getConnection (resBundle.getString( "db.url" ),resBundle.getString( "db.user" ),resBundle.getString( "db.pwd" ));
             return true;
         } catch (SQLException e){
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
             return false;
         }
     }
@@ -109,7 +114,7 @@ public class balanzaComprob  {
         try {
             if(conBD != null && conBD.isClosed() == false ) conBD.close();
         }catch (SQLException e){
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
         }
     }
 	*(						
@@ -135,12 +140,12 @@ public class balanzaComprob  {
             rs.next();
             return Boolean.valueOf(rs.getBoolean(1));
         } catch (Exception ex){ 
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
-            try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println(ex); }
-            try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println(ex); }
-            try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+            try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+            try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+            try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
         }
     }		
 /*****************************VERIFICA SI TIENE ADMINISTRACION PROPIA************************/
@@ -236,12 +241,12 @@ public class balanzaComprob  {
             
                 return reporte;
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
                 return null;
             } finally {
-                try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println(ex); }
-                try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println(ex); }
-                try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+                try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
             }
         }
         
@@ -280,7 +285,7 @@ public class balanzaComprob  {
                     escribe.append("</tr>");
                }
            } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
            }
            return escribe.toString();        
         }
@@ -335,12 +340,12 @@ public class balanzaComprob  {
                 
                 return sumas;
                 } catch (Exception ex) {
-                     System.out.println(ex);
+                     LOGGER.error("Exception: ", ex);
                      return null;
                 } finally {
-                try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println(ex); }
-                try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println(ex); }
-                try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+                try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
                }
         }
 /******************************* OBTIENE LA SUMA DE LA BALANZA DE COMPROBACION****************/   
@@ -360,7 +365,7 @@ public class balanzaComprob  {
                     escribe.append("</td>");
                 }
            }catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
            }
            return escribe.toString();        
       }
@@ -421,11 +426,11 @@ public class balanzaComprob  {
                 
             numeroRegistro = Integer.valueOf((int) Math.ceil(suma.doubleValue() / 16.0));              
             } catch (Exception ex){ 
-                 System.out.println(ex);
+                 LOGGER.error("Exception: ", ex);
             } finally {
-                 try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println(ex); }
-                 try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println(ex); }
-                 try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+                 try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                 try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                 try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
             }       
                 return numeroRegistro; 
          }
@@ -485,7 +490,7 @@ public class balanzaComprob  {
                    escribe.append("</tr>");
           
          }catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
          }
            return escribe.toString();        
       }

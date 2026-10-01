@@ -1,4 +1,7 @@
 package mx.com.inscitech.cuentas.individuales.negocio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +14,8 @@ import mx.com.inscitech.fiducia.common.services.LoggingService;
 import mx.com.inscitech.fiducia.common.util.ServiceLocator;
 
 public class TransferenciaElectronica extends nConsultas {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransferenciaElectronica.class);
+
     
     private LoggingService logger = null;
     
@@ -36,7 +41,7 @@ public class TransferenciaElectronica extends nConsultas {
                                   .getConnection();
             return true;
         } catch (SQLException e) {
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
             return false;
         }
     }
@@ -46,7 +51,7 @@ public class TransferenciaElectronica extends nConsultas {
             if (conBD != null && conBD.isClosed() == false)
                 conBD.close();
         } catch (SQLException e) {
-            System.out.print(e);
+            LOGGER.error("Exception: ", e);
         }
     }
 
@@ -123,29 +128,29 @@ public class TransferenciaElectronica extends nConsultas {
                 iRows = st.executeUpdate(sQuery);
 
             if (iRows > 0) {
-                System.out.println("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
+                LOGGER.debug("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
                 conBD.commit();
                 bCta = true;
             } else {
                 conBD.rollback();
                 conBD.commit();
-                System.out.println("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
+                LOGGER.debug("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
                 bCta = false;
             }
         }
 
         catch (Exception ex) {
-            System.out.println("Error en registraCuenta:" + ex);
-            System.out.println("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
-            System.out.println(sQuery);
+            LOGGER.debug("Error en registraCuenta:" + ex);
+            LOGGER.debug("Registro de Cta con Folio:" + folio + " NO SATISFACTORIO");
+            LOGGER.debug(sQuery);
 
             try {
                 conBD.rollback();
                 conBD.commit();
-                System.out.println("rollback");
+                LOGGER.debug("rollback");
             } catch (SQLException e) {
 
-                System.out.println("Error al realizar el roll back: :" + e);
+                LOGGER.debug("Error al realizar el roll back: :" + e);
             }
             bCta = false;
         } finally {
@@ -154,15 +159,15 @@ public class TransferenciaElectronica extends nConsultas {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println("Metodo: registraCuenta");
-                System.out.println(ex);
+                LOGGER.debug("Metodo: registraCuenta");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 conBD.setAutoCommit(false);
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println("Metodo: registraCuenta");
-                System.out.println(ex);
+                LOGGER.debug("Metodo: registraCuenta");
+                LOGGER.error("Exception: ", ex);
             }
             return bCta;
         }
@@ -179,11 +184,11 @@ public class TransferenciaElectronica extends nConsultas {
 		
 		
 		        } catch (Exception ex){
-		            System.out.println(ex);
+		            LOGGER.error("Exception: ", ex);
 		        } finally {
-		           // try { if(rs != null ) rs.close(); } catch (Exception ex) { System.out.println(ex); }
-		            try { if(st != null ) st.close(); } catch (Exception ex) { System.out.println(ex); }
-		            try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+		           // try { if(rs != null ) rs.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+		            try { if(st != null ) st.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+		            try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		        }
 		    }	/****************************** ESCRIBE TABLA PERFIRDI *********************************/
 
@@ -229,25 +234,25 @@ public class TransferenciaElectronica extends nConsultas {
 
         } catch (Exception ex) {
 
-            System.out.println("Error en existeCuenta: " + ex);
-            System.out.println("Query:\n" + sQuery);
+            LOGGER.debug("Error en existeCuenta: " + ex);
+            LOGGER.debug("Query:\n" + sQuery);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return existeCuenta;
@@ -286,25 +291,25 @@ public class TransferenciaElectronica extends nConsultas {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
             return null;
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return s.toString();
@@ -339,25 +344,25 @@ public class TransferenciaElectronica extends nConsultas {
             }
 
         } catch (Exception ex) {
-            System.out.println("claveCuenta:" + ex);
+            LOGGER.debug("claveCuenta:" + ex);
             return null;
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return id;
@@ -391,25 +396,25 @@ public class TransferenciaElectronica extends nConsultas {
 
         } catch (Exception ex) {
 
-            System.out.println("Error en validaSt: " + ex);
-            System.out.println("Query:\n" + sQuery);
+            LOGGER.debug("Error en validaSt: " + ex);
+            LOGGER.debug("Query:\n" + sQuery);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return stCta;
@@ -481,30 +486,30 @@ public class TransferenciaElectronica extends nConsultas {
                 iRows = st.executeUpdate(sQuery);
 
             if (iRows > 0) {
-                System.out.println("Autorización (" + accion + ") de Cta con Folio:" + folio + "  SATISFACTORIO");
+                LOGGER.debug("Autorización (" + accion + ") de Cta con Folio:" + folio + "  SATISFACTORIO");
                 conBD.commit();
                 bAutorizaCuenta = true;
             } else {
                 conBD.rollback();
                 conBD.commit();
-                System.out.println("Autorización (" + accion + ") de Cta con Folio:" + folio + " NO SATISFACTORIO");
+                LOGGER.debug("Autorización (" + accion + ") de Cta con Folio:" + folio + " NO SATISFACTORIO");
                 bAutorizaCuenta = false;
             }
 
 
         } catch (Exception ex) {
 
-            System.out.println("Error en autorizaCuenta:" + ex);
-            System.out.println("Autorización (" + accion + ") de Cta con Folio:" + folio + " NO SATISFACTORIO");
-            System.out.println(sQuery);
+            LOGGER.debug("Error en autorizaCuenta:" + ex);
+            LOGGER.debug("Autorización (" + accion + ") de Cta con Folio:" + folio + " NO SATISFACTORIO");
+            LOGGER.debug(sQuery);
 
             try {
                 conBD.rollback();
                 conBD.commit();
-                System.out.println("rollback");
+                LOGGER.debug("rollback");
             } catch (SQLException e) {
 
-                System.out.println("Error al realizar el roll back: :" + e);
+                LOGGER.debug("Error al realizar el roll back: :" + e);
             }
             bAutorizaCuenta = false;
         } finally {
@@ -512,22 +517,22 @@ public class TransferenciaElectronica extends nConsultas {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println("Metodo: autorizaCuenta");
-                System.out.println(ex);
+                LOGGER.debug("Metodo: autorizaCuenta");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println("Metodo: autorizaCuenta");
-                System.out.println(ex);
+                LOGGER.debug("Metodo: autorizaCuenta");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 conBD.setAutoCommit(false);
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println("Metodo: autorizaCuenta");
-                System.out.println(ex);
+                LOGGER.debug("Metodo: autorizaCuenta");
+                LOGGER.error("Exception: ", ex);
             }
             return bAutorizaCuenta;
         }
@@ -562,25 +567,25 @@ public class TransferenciaElectronica extends nConsultas {
 
         } catch (Exception ex) {
 
-            System.out.println("Error en existeCuenta: " + ex);
-            System.out.println("Query:\n" + sQuery);
+            LOGGER.debug("Error en existeCuenta: " + ex);
+            LOGGER.debug("Query:\n" + sQuery);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return validaAsignacion;
@@ -626,24 +631,24 @@ public class TransferenciaElectronica extends nConsultas {
         }
 
         catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return getBanco;
@@ -681,25 +686,25 @@ public class TransferenciaElectronica extends nConsultas {
 
         } catch (Exception ex) {
 
-            System.out.println("Error en existeCuenta: " + ex);
-            System.out.println("Query:\n" + sQuery);
+            LOGGER.debug("Error en existeCuenta: " + ex);
+            LOGGER.debug("Query:\n" + sQuery);
         } finally {
             try {
                 if (rs != null)
                     rs.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (st != null)
                     st.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return validaCta;

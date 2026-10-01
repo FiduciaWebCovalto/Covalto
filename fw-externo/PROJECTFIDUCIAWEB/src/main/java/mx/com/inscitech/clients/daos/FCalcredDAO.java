@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.negocio.nFiducia;
 
 import java.sql.Connection;
@@ -10,6 +13,8 @@ import java.text.DecimalFormat;
 
 public class FCalcredDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FCalcredDAO.class);
+
 
   Connection connection = null;
   Statement statement = null;
@@ -51,7 +56,7 @@ public class FCalcredDAO
         connection = fiduciaConnection.conBD;
         //Crea un statement
         statement = connection.createStatement();
-         //System.out.println(stringBufferSQL.toString());  
+         //LOGGER.debug(stringBufferSQL.toString());  
         
         sbTabla.append("<table width=\"90%\" height=\"67\">");
         sbTabla.append("<tr class=\"celda01\" bgcolor=\"#999966\">");
@@ -102,9 +107,9 @@ public class FCalcredDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }  
 

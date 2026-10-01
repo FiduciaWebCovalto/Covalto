@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.business;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import org.apache.log4j.Level;
 
 
 public class ETFWSInterface extends InterfaceDef {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ETFWSInterface.class);
+
 
     protected LoggingService logger = LoggingService.getInstance();
 
@@ -81,7 +86,7 @@ public class ETFWSInterface extends InterfaceDef {
 
         } catch (Exception e) {
 
-            System.out.println("Clase Error: " + e.getClass().getName());
+            LOGGER.debug("Clase Error: " + e.getClass().getName());
             logger.log(this, Thread.currentThread(), Level.ERROR, e);
 
             if (e.getClass()

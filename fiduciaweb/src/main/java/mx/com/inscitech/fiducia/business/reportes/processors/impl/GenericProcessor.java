@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business.reportes.processors.impl;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 
 import java.util.HashMap;
@@ -16,6 +19,8 @@ import mx.com.inscitech.fiducia.business.reportes.processors.BaseProcessor;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class GenericProcessor implements BaseProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericProcessor.class);
+
     public GenericProcessor() {
     }
 
@@ -74,7 +79,7 @@ public class GenericProcessor implements BaseProcessor {
             return dataSetXML;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             throw new BusinessException("500", "No fue posible generar el reporte solicitado!");
         } finally {
             dataRow = null;

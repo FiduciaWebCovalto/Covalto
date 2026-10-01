@@ -12,6 +12,7 @@ import jakarta.mail.internet.MimeMessage;
 
 
 @Service
+@Slf4j
 public class MensajeriaServiceImpl implements MensajeriaService {
     @Autowired
     private JavaMailSender mailSender;
@@ -39,8 +40,7 @@ public class MensajeriaServiceImpl implements MensajeriaService {
 
                     mailSender.send(message);            
         } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error("Error al enviar correo", e);
         }
 
         

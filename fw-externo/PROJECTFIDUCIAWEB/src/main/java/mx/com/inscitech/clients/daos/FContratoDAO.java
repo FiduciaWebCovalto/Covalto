@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class FContratoDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FContratoDAO.class);
+
   Connection connection = null;
   Statement statement = null;
   PreparedStatement preparedStatement = null;
@@ -72,7 +77,7 @@ public class FContratoDAO
           resultSet = preparedStatement.executeQuery();   
           if (resultSet.last()) {
               value = resultSet.getRow();
-              ////System.out.println("Total de registros Disponible: " + value);
+              ////LOGGER.debug("Total de registros Disponible: " + value);
               resultSet.beforeFirst(); // Volver al inicio para poder iterar
           }
           sArregloAsignado= new String[value];
@@ -82,7 +87,7 @@ public class FContratoDAO
               //se recuperan el nombre del fiso
               nomFiso=serv.consumo(7,resultSet.getString(1));
               sArregloAsignado[recorrido]=resultSet.getString(1)+"-"+nomFiso[0];
-              //System.out.println("\"Disponible  sArregloAsignado: "+sArregloAsignado[recorrido]);              
+              //LOGGER.debug("\"Disponible  sArregloAsignado: "+sArregloAsignado[recorrido]);              
               nomFiso=null;
               recorrido++;
           }
@@ -94,12 +99,12 @@ public class FContratoDAO
             connection.close();
 
           if(ctoNumContrato!=null&&ctoNumContrato.length()>0){ 
-            //System.out.println("ctoNumContrato: " + ctoNumContrato);                
+            //LOGGER.debug("ctoNumContrato: " + ctoNumContrato);                
             resultadoFiltrado = Arrays.stream(resultado) // Crear Stream
               .filter(n -> n.contains(ctoNumContrato))   // Filtrar por coincidencia
               .toArray(String[]::new);
           }
-          //System.out.println("resultadoFiltrado: " + resultadoFiltrado.length);
+          //LOGGER.debug("resultadoFiltrado: " + resultadoFiltrado.length);
           if(resultadoFiltrado.length>0&&resultadoFiltrado[0]!=null)
             resultado=resultadoFiltrado;
           //Al arreglo con la clave consultada se le quitan las claves asignadas al fiso
@@ -108,7 +113,7 @@ public class FContratoDAO
         for (String subconjunto : resultado) {
             if (subconjunto != null) {
                 elemento=subconjunto.split("-");  
-                //System.out.println("Disponibles: " + subconjunto);
+                //LOGGER.debug("Disponibles: " + subconjunto);
                 sbTabla.append("<tr >");
                 sbTabla.append("<td><input type=\"checkbox\" class=\"row-check\"></td>");
                 sbTabla.append("<td class=\"usuario\">"+ (fusuIdUsuario==null?"":fusuIdUsuario) +"</td>");            
@@ -119,9 +124,9 @@ public class FContratoDAO
         }
         
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      ////System.out.println(sbTabla.toString());
+      ////LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
 
@@ -146,7 +151,7 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
           resultSet = preparedStatement.executeQuery();   
           if (resultSet.last()) {
               value = resultSet.getRow();
-              //System.out.println("Total de registros: " + value);
+              //LOGGER.debug("Total de registros: " + value);
               resultSet.beforeFirst(); // Volver al inicio para poder iterar
           }
           resultado= new String[value];
@@ -154,10 +159,10 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
           while (resultSet.next()) 
           { 
               //se recuperan el nombre del fiso
-              //System.out.println("Fiso Asignado: "+resultSet.getString(1));
+              //LOGGER.debug("Fiso Asignado: "+resultSet.getString(1));
               nomFiso=serv.consumo(7,resultSet.getString(1));
               resultado[recorrido]=resultSet.getString(1)+"-"+nomFiso[0];
-              //System.out.println("sArregloAsignado: "+resultado[recorrido]);              
+              //LOGGER.debug("sArregloAsignado: "+resultado[recorrido]);              
               nomFiso=null;
               recorrido++;
           }
@@ -168,11 +173,11 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
           if (connection != null)
             connection.close();
 
-          //System.out.println("Longitud Arreglo asignado:"+resultado.length);  
+          //LOGGER.debug("Longitud Arreglo asignado:"+resultado.length);  
           for (String subconjunto : resultado) {
               if (subconjunto != null) {
                   elemento=subconjunto.split("-");  
-                  //System.out.println("Asignado: " + subconjunto);
+                  //LOGGER.debug("Asignado: " + subconjunto);
                   
                   sbTabla.append("<tr>");
                   sbTabla.append("<td><input type=\"checkbox\" class=\"row-check\"></td>");
@@ -184,9 +189,9 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
 
           }
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      ////System.out.println(sbTabla.toString());
+      ////LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
 }
 
@@ -200,9 +205,9 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
     StringTokenizer st = new StringTokenizer(fideicomisoAsignar, "|");
     try 
     {
-        System.out.println("Opcion para asignar fisos: "+String.valueOf(opcion));
-         System.out.println("fideicomisoAsignar: "+fideicomisoAsignar);
-         System.out.println("fusuIdUsuario: "+fusuIdUsuario);
+        LOGGER.debug("Opcion para asignar fisos: "+String.valueOf(opcion));
+         LOGGER.debug("fideicomisoAsignar: "+fideicomisoAsignar);
+         LOGGER.debug("fusuIdUsuario: "+fusuIdUsuario);
         if(opcion==1)  {
           sbSQL.append("INSERT INTO F_USUFID (FFID_ID_FIDEICOMISO, FUSU_ID_USUARIO) ");
           sbSQL.append("VALUES (?, ?) ");
@@ -211,7 +216,7 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
             sbSQL.append("WHERE FFID_ID_FIDEICOMISO = ? ");
             sbSQL.append("AND FUSU_ID_USUARIO = ? ");            
             }
-         System.out.println("SQL: "+sbSQL.toString());
+         LOGGER.debug("SQL: "+sbSQL.toString());
             nFiducia fiduciaConnection = new nFiducia();
             fiduciaConnection.conectarBD();
             connection = fiduciaConnection.conBD;      
@@ -226,7 +231,7 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -245,17 +250,17 @@ public String generaTablaFideicomisos(String ctoNumContrato)
           resultado=serv.consumo(5,"");  
           
             if(ctoNumContrato!=null&&ctoNumContrato.length()>0){ 
-              //System.out.println("ctoNumContrato: " + ctoNumContrato);                
+              //LOGGER.debug("ctoNumContrato: " + ctoNumContrato);                
               resultadoFiltrado = Arrays.stream(resultado) // Crear Stream
                 .filter(n -> n.contains(ctoNumContrato))   // Filtrar por coincidencia
                 .toArray(String[]::new);
             }
-          //System.out.println("resultadoFiltrado: " + resultadoFiltrado.length);
+          //LOGGER.debug("resultadoFiltrado: " + resultadoFiltrado.length);
           if(resultadoFiltrado.length>0&&resultadoFiltrado[0]!=null)
               resultado=resultadoFiltrado;
           for (String subconjunto : resultado) {
               elemento=subconjunto.split("-");  
-              //System.out.println("subconjunto: " + subconjunto);
+              //LOGGER.debug("subconjunto: " + subconjunto);
               sbTabla.append("<tr>");
               sbTabla.append("<td align=\"center\"><input type=\"radio\" name=\"radioContrato\" value=\"" + (elemento[0]==null?"":elemento[0]) + "\" /></td>\n");
               sbTabla.append("<td align=\"center\">" + (elemento[0]==null?"":elemento[0]) + "</td>");
@@ -264,9 +269,9 @@ public String generaTablaFideicomisos(String ctoNumContrato)
           }        
               
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      ////System.out.println(sbTabla.toString());
+      ////LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
 }
 
@@ -332,9 +337,9 @@ public String generaTablaFideicomisos(String ctoNumContrato)
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      ////System.out.println(sbTabla.toString());
+      ////LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
 
@@ -386,7 +391,7 @@ public String generaTablaFideicomisos(String ctoNumContrato)
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return sbTabla.toString();
   }//generaTablaFideicomisosAsignadosCuenta
@@ -424,7 +429,7 @@ public String generaTablaFideicomisos(String ctoNumContrato)
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -463,7 +468,7 @@ public String generaTablaFideicomisos(String ctoNumContrato)
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }  
@@ -481,26 +486,26 @@ public String obtenerDatosFideicomiso(String ctoNumContrato)
           resultado=serv.consumo(5,"");  
           
             if(ctoNumContrato!=null&&ctoNumContrato.length()>0){ 
-              //System.out.println("ctoNumContrato: " + ctoNumContrato);                
+              //LOGGER.debug("ctoNumContrato: " + ctoNumContrato);                
               resultadoFiltrado = Arrays.stream(resultado) // Crear Stream
                 .filter(n -> n.contains(ctoNumContrato))   // Filtrar por coincidencia
                 .toArray(String[]::new);
             }
-            //System.out.println("resultadoFiltrado: " + resultadoFiltrado.length);
+            //LOGGER.debug("resultadoFiltrado: " + resultadoFiltrado.length);
             if(resultadoFiltrado.length>0&&resultadoFiltrado[0]!=null)
               resultado=resultadoFiltrado;
           
               for (String subconjunto : resultado) {
                 elemento=subconjunto.split("-");  
-                //System.out.println("subconjunto: " + subconjunto);
+                //LOGGER.debug("subconjunto: " + subconjunto);
                   ctoNomContrato = new String();
                   ctoNomContrato = elemento[1]==null?"":elemento[1];          
               }
 
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      ////System.out.println(sbTabla.toString());
+      ////LOGGER.debug(sbTabla.toString());
     return ctoNomContrato;
 }
 
@@ -545,7 +550,7 @@ public String obtenerDatosFideicomiso(String ctoNumContrato)
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return sbTabla.toString();
     
@@ -565,10 +570,10 @@ public String obtenerDatosFideicomiso(String ctoNumContrato)
                     }
                     original=modificado;
                     /*for (String subconjunto : original) {
-                            System.out.println("Arreglo Original:"+subconjunto);
+                            LOGGER.debug("Arreglo Original:"+subconjunto);
                     }
                     for (String subconjunto : aExcluir) {
-                            System.out.println("Arreglo aExcluir:"+subconjunto);
+                            LOGGER.debug("Arreglo aExcluir:"+subconjunto);
                     }*/
 
                     // 3. Convertir el arreglo original a una lista mutable
@@ -581,7 +586,7 @@ public String obtenerDatosFideicomiso(String ctoNumContrato)
                     String[] resultado = listaOriginal.toArray(new String[0]);
 
                     // Imprimir resultado
-                    //System.out.println(Arrays.toString(resultado));
+                    //LOGGER.debug(Arrays.toString(resultado));
                     return resultado;
         }
 

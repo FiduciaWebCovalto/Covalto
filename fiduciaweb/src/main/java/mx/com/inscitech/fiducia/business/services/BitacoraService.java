@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.business.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,6 +24,8 @@ import org.apache.log4j.Level;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class BitacoraService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BitacoraService.class);
+
 
     /**
      * Sirve para indicar que se realiza una alta.
@@ -123,7 +128,7 @@ public class BitacoraService {
 
       int resultadoBitacora = cs.getInt(1);
 
-      //System.out.println("Se llamo a la funcion de bitacora. Resultado: " + resultadoBitacora);
+      //LOGGER.debug("Se llamo a la funcion de bitacora. Resultado: " + resultadoBitacora);
 
     } catch(SQLException e) {
       logger.log(this, Thread.currentThread(), Level.ERROR, e);

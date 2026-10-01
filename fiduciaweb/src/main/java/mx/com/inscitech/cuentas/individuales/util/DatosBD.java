@@ -1,10 +1,15 @@
 package mx.com.inscitech.cuentas.individuales.util;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Vector;
 
 import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 public class DatosBD {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatosBD.class);
+
 
     private LoggingService logger = null;
     
@@ -34,7 +39,7 @@ public class DatosBD {
     public void verDatos() {
         for (int a = 0; a < vtrDatos.size(); a++) {
             //logger.log(this, Thread.currentThread(), LoggingService.LEVEL.DEBUG, "Dato " + a + " - " + vtrDatos.elementAt(a));
-            System.out.println("Dato: " + vtrDatos.elementAt(a));
+            LOGGER.debug("Dato: " + vtrDatos.elementAt(a));
         }
     }
 

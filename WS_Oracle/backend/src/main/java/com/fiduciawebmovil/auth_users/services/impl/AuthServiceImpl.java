@@ -95,8 +95,8 @@ public class AuthServiceImpl implements AuthService {
         if (userRepo.findByUsuEmail(request.getUsuEmail()).isPresent()) {
             throw new BadRequestException("El correo ya se encuentra registrado.");
         }
-        System.out.println("Rol default: "+roles);
-        System.out.println("Antes de insertar spring boot: "+request);
+        log.debug("Rol default: {}", roles);
+        log.debug("Antes de insertar spring boot: {}", request);
         //devuelve el password configurado en la bd
         String PasswordInicial=repoPassword.devuelveContrasena(Long.parseLong("1"));
         Personal personal = new Personal();
@@ -177,7 +177,7 @@ public class AuthServiceImpl implements AuthService {
         for (FeccontDTO dto : listaDTO) {
                 fecha=dto.getFcoFecha();
                 // Accede a los valores usando los getters de tu DTO
-                System.out.println("Valor del campo Fecha: " + dto.getFcoFecha());
+                log.debug("Valor del campo Fecha: {}", dto.getFcoFecha());
         }
         LoginResponse loginResponse = LoginResponse.builder()
                 .roles(user.getRoles().stream().map(Role::getName).toList())

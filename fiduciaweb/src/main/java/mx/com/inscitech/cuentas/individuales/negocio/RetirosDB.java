@@ -1,11 +1,16 @@
 package mx.com.inscitech.cuentas.individuales.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 public class RetirosDB extends FiduciaBD {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetirosDB.class);
+
 
     private LoggingService logger = null;
     
@@ -298,24 +303,24 @@ public class RetirosDB extends FiduciaBD {
             }
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -422,7 +427,7 @@ Fecha: Agosto 2004
 
             }
 
-            //System.out.println(sQuery);
+            //LOGGER.debug(sQuery);
             // conectandose a la base
             if (conBD == null)
                 if (!OpenBD())
@@ -448,25 +453,25 @@ Fecha: Agosto 2004
                 } while (rsQuery.next());
             }
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println(sQuery);
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug(sQuery);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -535,25 +540,25 @@ Fecha: Agosto 2004
             sData[4] = (rsQuery.getString(5) == null) ? "" : rsQuery.getString(5);
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         } finally {
 
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return sData;
@@ -578,26 +583,26 @@ Fecha: Agosto 2004
             if (rsQuery.next())
                 sNumTercero = rsQuery.getString(1);
         } catch (Exception ex) {
-            System.out.println(ex);
-            System.out.println("Excepción en obtenNumTercero");
+            LOGGER.error("Exception: ", ex);
+            LOGGER.debug("Excepción en obtenNumTercero");
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
-                System.out.println("Excepción del Finally");
+                LOGGER.error("Exception: ", ex);
+                LOGGER.debug("Excepción del Finally");
             }
         }
         return sNumTercero;
@@ -654,34 +659,34 @@ Fecha: Agosto 2004
             queryPersona += " 3,'RETIRO')";
             stInstrucc.executeUpdate(queryPersona);
         } catch (Exception ex) {
-            System.out.println("Metodo: insertaTercero");
-            System.out.println("Error: \n" + ex);
+            LOGGER.debug("Metodo: insertaTercero");
+            LOGGER.debug("Error: \n" + ex);
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println("rsQuery" + ex);
+                LOGGER.debug("rsQuery" + ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println("stQuery" + ex);
+                LOGGER.debug("stQuery" + ex);
             }
             try {
                 if (stInstrucc != null)
                     stInstrucc.close();
             } catch (Exception ex) {
-                System.out.println("Funcion: insertaTerceros");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: insertaTerceros");
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (conBD != null)
                     CloseBD();
             } catch (Exception ex) {
-                System.out.println("Funcion: insertaTercero");
-                System.out.println(ex);
+                LOGGER.debug("Funcion: insertaTercero");
+                LOGGER.error("Exception: ", ex);
             }
         }
         return true;
@@ -726,25 +731,25 @@ Fecha: Agosto 2004
 
 
         } catch (Exception ex) {
-            System.out.println(ex + "\n CONSULTA:\n" + ex);
+            LOGGER.debug(ex + "\n CONSULTA:\n" + ex);
 
         } finally {
             try {
                 if (rsQuery != null)
                     rsQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 if (stQuery != null)
                     stQuery.close();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
             try {
                 CloseBD();
             } catch (Exception ex) {
-                System.out.println(ex);
+                LOGGER.error("Exception: ", ex);
             }
         }
         return impDisponible;

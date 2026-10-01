@@ -1,6 +1,9 @@
 package mx.com.inscitech.fiducia.common.util;
 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Reporte extends QueryReportes {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Reporte.class);
+
     private boolean blnDebug = true;
     public Statement st = null;
     public ResultSet rs = null;
@@ -19,25 +24,25 @@ public class Reporte extends QueryReportes {
             if (st != null)
                 st.close();
         } catch (Exception ex) {
-            System.out.println("st" + ex);
+            LOGGER.debug("st" + ex);
         }
         try {
             if (rs != null)
                 rs.close();
         } catch (Exception ex) {
-            System.out.println("rt" + ex);
+            LOGGER.debug("rt" + ex);
         }
         try {
             if (prepared != null)
                 prepared.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
         try {
             if (dbConn != null)
                 dbConn.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
     }
 
@@ -48,16 +53,16 @@ public class Reporte extends QueryReportes {
             c = new Conexion();
             dbConn = c.conectarBD();
             if (dbConn == null) {
-                System.out.println(this.getClass() + "-Error es nula la conexion");
+                LOGGER.debug(this.getClass() + "-Error es nula la conexion");
                 throw new Exception("0");
             } else
                 st = dbConn.createStatement();
 
         } catch (SQLException e) {
-            System.out.println(this.getClass() + "->" + e);
+            LOGGER.debug(this.getClass() + "->" + e);
             throw new Exception("0");
         } catch (Exception e) {
-            System.out.println(this.getClass() + "->" + e);
+            LOGGER.debug(this.getClass() + "->" + e);
             throw new Exception("2");
         }
         try {
@@ -65,7 +70,7 @@ public class Reporte extends QueryReportes {
 
                 //BALANCE GENERAL
             case 1:
-                System.out.println("this.getStrQueryBalance(tabla): " + this.getStrQueryBalance(tabla) + " tabla: " + tabla);
+                LOGGER.debug("this.getStrQueryBalance(tabla): " + this.getStrQueryBalance(tabla) + " tabla: " + tabla);
                 prepared = dbConn.prepareStatement(this.getStrQueryBalance(tabla));
                 prepared.setInt(1, ((Integer) db.getDatoBD(0)).intValue()); //CTO_NUM_CONTRATO	
 
@@ -80,7 +85,7 @@ public class Reporte extends QueryReportes {
                 break;
                 //BALANCE GENERAL REEXPRESADO
             case 5:
-                //System.out.println("this.getStrQueryBalanceReexpresado(tabla): " + this.getStrQueryBalanceReexpresado(tabla) + " tabla: " + tabla);
+                //LOGGER.debug("this.getStrQueryBalanceReexpresado(tabla): " + this.getStrQueryBalanceReexpresado(tabla) + " tabla: " + tabla);
                 prepared = dbConn.prepareStatement(this.getStrQueryBalanceReexpresado(tabla));
                 prepared.setInt(1, ((Integer) db.getDatoBD(0)).intValue()); //CTO_NUM_CONTRATO	
 
@@ -89,7 +94,7 @@ public class Reporte extends QueryReportes {
 
                 //ESTADO DE RESULTADOS
             case 2:
-                //System.out.println ("strQueryEdoRes->" + strQueryEdoRes);
+                //LOGGER.debug("strQueryEdoRes->" + strQueryEdoRes);
                 prepared = dbConn.prepareStatement(this.getStrQueryEdoRes(tabla));
                 prepared.setInt(1, ((Integer) db.getDatoBD(0)).intValue()); //CTO_NUM_CONTRATO	
 
@@ -105,7 +110,7 @@ public class Reporte extends QueryReportes {
 
                 //ESTADO DE RESULTADOS POR MES
             case 3:
-                //System.out.println ("strQueryEdoRes->" + getStrQueryEdoResMes);
+                //LOGGER.debug("strQueryEdoRes->" + getStrQueryEdoResMes);
                 prepared = dbConn.prepareStatement(this.getStrQueryEdoResMes(tabla));
                 prepared.setInt(1, ((Integer) db.getDatoBD(0)).intValue()); //CTO_NUM_CONTRATO	
 
@@ -148,8 +153,8 @@ public class Reporte extends QueryReportes {
             }
             return rs;
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(this.getClass() + "->" + e + "<->opcion:" + opc);
+            LOGGER.error("Exception: ", e);
+            LOGGER.debug(this.getClass() + "->" + e + "<->opcion:" + opc);
             try {
                 dbConn.close();
             } catch (Exception eCon) {
@@ -157,7 +162,7 @@ public class Reporte extends QueryReportes {
             }
             throw new Exception("1");
         } catch (Exception e) {
-            System.out.println(this.getClass() + "->" + e + "<->opcion:" + opc);
+            LOGGER.debug(this.getClass() + "->" + e + "<->opcion:" + opc);
             try {
                 dbConn.close();
             } catch (Exception eCon) {

@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FDeposito;
 import mx.com.inscitech.clients.beans.FRetiro;
 import mx.com.inscitech.clients.beans.Instrucc;
@@ -17,6 +20,8 @@ import java.sql.Types;
 
 public class InstruccDAO
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InstruccDAO.class);
+
 
   Connection connection = null;
   Statement statement = null;
@@ -38,8 +43,8 @@ public class InstruccDAO
     sbSQL.append("DECODE(NVL(D.FDEP_MONEDA,0),1,'MONEDA NACIONAL',2,'DOLAR AMERICANO',54,'DOLAR AMERICANO',46,'EUROS') AS MONDEPOSITO, ");
     sbSQL.append("DECODE(NVL(R.FRET_MONEDA,0),1,'MONEDA NACIONAL',2,'DOLAR AMERICANO',54,'DOLAR AMERICANO',46,'EUROS') AS MONRETIRO, ");
     sbSQL.append("(SELECT MON_NOM_MONEDA FROM CONTINTE,MONEDAS WHERE CPR_NUM_PAIS=MON_NUM_PAIS AND CPR_CONTRATO_INTER=FCIN_ID_CTO_INVERSION_DESTINO AND CPR_NUM_CONTRATO=INS_NUM_CONTRATO AND CPR_ENTIDAD_FIN=1) AS MONEDA_TRASPASO, ");
-    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', ");
-    sbSQL.append("'ENVIO A FIDUCIA', 'PEND. ENVÍO A FIDUCIA',  ");
+    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIN LEGAL', ");
+    sbSQL.append("'ENVIO A FIDUCIA', 'PEND. ENVO A FIDUCIA',  ");
     sbSQL.append("'RECHAZADA', 'RECHAZADA',  "); 
     sbSQL.append("INS_CVE_ST_INSTRUC) AS STATUS ");
     sbSQL.append(",TO_CHAR(NVL(C.FCOH_IMPORTE_CIVA,0),'999,999,999,999,990.00') AS IMPORTE_HONORARIOS "); 
@@ -148,14 +153,14 @@ public class InstruccDAO
         fiduciaConnection.conectarBD().close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       } 
       		finally
 		{
 			
-			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(statement != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(connection != null ) connection.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(statement != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(connection != null ) connection.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
      
 		}
     return sbTabla.toString();
@@ -185,7 +190,7 @@ public class InstruccDAO
     sbSQL.append("c1.cve_desc_clave as nomcuenta, ");//8
     sbSQL.append("MON_NOM_MONEDA as moneda, ");//9
     sbSQL.append("'PERSONA' as persona, ");//10
-    sbSQL.append("DECODE(FDEP_STATUS, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', FDEP_STATUS) AS STATUS, ");//11
+    sbSQL.append("DECODE(FDEP_STATUS, 'ACTIVO', 'PEND. VALIDACIN LEGAL', FDEP_STATUS) AS STATUS, ");//11
     sbSQL.append("FDEP_DESCRIPCION, ");//12
     sbSQL.append("FDPO_TIPO_CAMBIO_PROV, ");//13
     sbSQL.append("FDPO_TIPO_CAMBIO_FIRME, ");//14
@@ -253,7 +258,7 @@ public class InstruccDAO
     }
        
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return fDeposito;
   }
@@ -369,7 +374,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -484,7 +489,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -611,7 +616,7 @@ public class InstruccDAO
 
         
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return res;
   }
@@ -677,7 +682,7 @@ public class InstruccDAO
         fiduciaConnection.conectarBD().close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return res;
   }  
@@ -793,7 +798,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;  }
 
@@ -896,7 +901,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
     } 
@@ -949,7 +954,7 @@ public class InstruccDAO
     }
         
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return sbTabla.toString();
   }  
@@ -994,7 +999,7 @@ public class InstruccDAO
     }
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return res;
   }  
@@ -1033,7 +1038,7 @@ public class InstruccDAO
     sbSQL.append(" R.FRET_DESCRIPCION,");//22
     sbSQL.append(" R.FRET_NOM_BENEFICIARIO,");//23
     sbSQL.append(" MON_NOM_MONEDA as moneda,");//24
-    sbSQL.append(" DECODE(FRET_STATUS_RET, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', FRET_STATUS_RET) AS STATUS, ");//25
+    sbSQL.append(" DECODE(FRET_STATUS_RET, 'ACTIVO', 'PEND. VALIDACIN LEGAL', FRET_STATUS_RET) AS STATUS, ");//25
     sbSQL.append(" TO_CHAR(R.FRET_SUBCTA)||'-'||S.FSCT_NOMBRE_SUB_CUENTA AS SUBCUENTA ");//26
     sbSQL.append(" FROM ");
     sbSQL.append(" instrucc I, F_RETIRO R, CLAVES C1, CLAVES C2, F_CTOINV_RET CXR, CONTRATO C, MONEDAS, F_SUBCUENTA S");
@@ -1109,7 +1114,7 @@ public class InstruccDAO
     }
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return fRetiro;
   
@@ -1131,9 +1136,9 @@ public class InstruccDAO
     sbSQL.append("DECODE(NVL(D.FDEP_MONEDA,0),1,'MONEDA NACIONAL',2,'DOLAR AMERICANO') AS MONDEPOSITO, ");//8
     sbSQL.append("DECODE(NVL(R.FRET_MONEDA,0),1,'MONEDA NACIONAL',2,'DOLAR AMERICANO') AS MONRETIRO, ");//9
     sbSQL.append("(SELECT MON_NOM_MONEDA FROM CONTINTE,MONEDAS WHERE CPR_NUM_PAIS=MON_NUM_PAIS AND CPR_CONTRATO_INTER=FCIN_ID_CTO_INVERSION_DESTINO AND CPR_NUM_CONTRATO=INS_NUM_CONTRATO AND CPR_ENTIDAD_FIN=1) AS MONEDA_TRASPASO, ");//10
-    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', ");//11
-    sbSQL.append("'AUTORIZADA', 'PEND. VALIDACIÓN OPERATIVA',  ");
-    sbSQL.append("'TRANSITO', 'LISTA PARA ENVÍO A FIDUCIA', INS_CVE_ST_INSTRUC) AS STATUS ");
+    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIN LEGAL', ");//11
+    sbSQL.append("'AUTORIZADA', 'PEND. VALIDACIN OPERATIVA',  ");
+    sbSQL.append("'TRANSITO', 'LISTA PARA ENVO A FIDUCIA', INS_CVE_ST_INSTRUC) AS STATUS ");
     sbSQL.append(",TO_CHAR(NVL(C.FCOH_IMPORTE_CIVA,0),'999,999,999,999,990.00') AS IMPORTE_HONORARIOS "); //12
     sbSQL.append(",DECODE(NVL(C.FCOH_MONEDA,0),1,'MONEDA NACIONAL',2,'DOLAR AMERICANO') AS MONHONORARIOS ");  //13  
     sbSQL.append("FROM INSTRUCC, F_DEPOSITO D, F_RETIRO R, F_TRASPASO T ,F_COBRO C ");
@@ -1204,7 +1209,7 @@ public class InstruccDAO
     }
      
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return instrucc;
   }
@@ -1302,7 +1307,7 @@ public class InstruccDAO
         preparedStatement.close();
       fiduciaConnection.conectarBD().close();
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
    
     return sb.toString();
@@ -1373,7 +1378,7 @@ public class InstruccDAO
     }
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return fTraspaso;
 }
@@ -1394,7 +1399,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -1520,7 +1525,7 @@ public class InstruccDAO
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -1550,7 +1555,7 @@ public class InstruccDAO
             connection.close();   
           fiduciaConnection.conectarBD().close();                 
       } catch (Exception ex){ 
-        System.out.println(ex); 
+        LOGGER.error("Exception: ", ex); 
       }
         return resultado;  
    } 
@@ -1571,13 +1576,13 @@ public class InstruccDAO
           spContabiliza.setString(1, insNumFolioInst); 
           spContabiliza.setString(2, usuario);           
           resultado = spContabiliza.execute();
-          System.out.println(resultado);
+          LOGGER.debug("{}", resultado);
 
           if (connection != null)
             connection.close();   
           fiduciaConnection.conectarBD().close();                 
       } catch (Exception ex){ 
-        System.out.println(ex); 
+        LOGGER.error("Exception: ", ex); 
       }
         return resultado;  
      } 
@@ -1598,7 +1603,7 @@ public class InstruccDAO
     sbSQL.append("TO_CHAR(FPRO_ID_PROVISION) as SECUENCIALPROVISION, ");//4
     sbSQL.append("FCOH_TIPO_HONO as TIPOHONORARIO, ");//5
     sbSQL.append("TO_CHAR(FCOH_IMPORTE_CIVA,'999,999,999,999,999.00') as importe, ");//6
-    sbSQL.append("DECODE(FCOH_STATUS, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', FCOH_STATUS) AS STATUS, ");//7
+    sbSQL.append("DECODE(FCOH_STATUS, 'ACTIVO', 'PEND. VALIDACIN LEGAL', FCOH_STATUS) AS STATUS, ");//7
     sbSQL.append("TO_CHAR(FFID_ID_FIDEICOMISO)||'-'||CTO_NOM_CONTRATO AS FIDEICOMISO ");//8
     sbSQL.append(",MON_NOM_MONEDA as moneda, ");//9
     sbSQL.append("TO_CHAR(FCOH_FECHA_COBRO) as fechaCobro ");//10
@@ -1651,7 +1656,7 @@ public class InstruccDAO
     }
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return fHonorarios;
    } 
@@ -1668,9 +1673,9 @@ public class InstruccDAO
     sbSQL.append("D.DVA_NUM_DATO6||'-'||S.FSCT_NOMBRE_SUB_CUENTA AS SUBCTA,  ");//19
     sbSQL.append("D.DVA_NUM_DATO8 AS CTOINVER, ");//20
    sbSQL.append("TO_CHAR(TO_DATE(INS_DIA_ALTA_REG||'/'||INS_MES_ALTA_REG||'/'||INS_ANO_ALTA_REG,'dd/mm/yyyy'),'dd/mm/yyyy') as FECHA, ");//3
-    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIÓN LEGAL', ");
-    sbSQL.append("'AUTORIZADA', 'PEND. VALIDACIÓN OPERATIVA',  ");
-    sbSQL.append("'TRANSITO', 'LISTA PARA ENVÍO A FIDUCIA', INS_CVE_ST_INSTRUC) AS STATUS ");//11
+    sbSQL.append("DECODE(INS_CVE_ST_INSTRUC, 'ACTIVO', 'PEND. VALIDACIN LEGAL', ");
+    sbSQL.append("'AUTORIZADA', 'PEND. VALIDACIN OPERATIVA',  ");
+    sbSQL.append("'TRANSITO', 'LISTA PARA ENVO A FIDUCIA', INS_CVE_ST_INSTRUC) AS STATUS ");//11
     sbSQL.append("FROM INSTRUCC I,DATOVAL D, CONTRATO C, F_SUBCUENTA S ");
     sbSQL.append("WHERE D.DVA_FOLIO_OPERA = I.INS_NUM_FOLIO_INST");
     sbSQL.append(" AND C.CTO_NUM_CONTRATO = D.DVA_IMP_DATO5 ");
@@ -1728,7 +1733,7 @@ public class InstruccDAO
     }
      
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
     return instrucc;
   }
@@ -1784,7 +1789,7 @@ public int internaSospechosa(String insNumFolioInst,int iEjecutivo, String sComm
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -1841,7 +1846,7 @@ public int internaSospechosa(String insNumFolioInst,int iEjecutivo, String sComm
          } 
          catch (Exception e) 
          {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
          }
         return resultado;
       }
@@ -1957,7 +1962,7 @@ public int aceptaInstruccion(String insNumFolioInst)
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -1994,7 +1999,7 @@ public int aceptaInstruccion(String insNumFolioInst)
      } 
      catch (Exception e) 
      {
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
      }
     return resultado;
   }
@@ -2060,14 +2065,14 @@ public int aceptaInstruccion(String insNumFolioInst)
         fiduciaConnection.conectarBD().close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       } 
       		finally
 		{
 			
-			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(statement != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(connection != null ) connection.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(statement != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(connection != null ) connection.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
      
 		}
     return sbTabla.toString();
@@ -2173,14 +2178,14 @@ public int aceptaInstruccion(String insNumFolioInst)
         fiduciaConnection.conectarBD().close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       } 
       		finally
 		{
 			
-			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(statement != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(connection != null ) connection.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(resultSet != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(statement != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(connection != null ) connection.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
      
 		}
     return sbTabla.toString();
@@ -2273,14 +2278,14 @@ public int aceptaInstruccion(String insNumFolioInst)
           fiduciaConnection.conectarBD().close();
         
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         } 
                   finally
                   {
                           
-                          try { if(resultSet != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-                          try { if(statement != null ) statement.close(); } catch (Exception ex) { System.out.println(ex); }
-                          try { if(connection != null ) connection.close(); } catch (Exception ex) { System.out.println(ex); }
+                          try { if(resultSet != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                          try { if(statement != null ) statement.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                          try { if(connection != null ) connection.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
        
                   }
       return sbTabla.toString();
@@ -2336,7 +2341,7 @@ public int aceptaInstruccion(String insNumFolioInst)
       }
        
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
      return instrucc;
     }

@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 
@@ -17,6 +20,8 @@ import java.net.UnknownServiceException;
 import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 public class WebContentServices {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebContentServices.class);
+
 
     protected LoggingService logger = null;
 
@@ -113,7 +118,7 @@ public class WebContentServices {
             binaryData.close();
 
             if (result.length != contentLength) {
-                System.out.println("Only read " + result.length + " bytes; Expected " + contentLength + " bytes");
+                LOGGER.debug("Only read " + result.length + " bytes; Expected " + contentLength + " bytes");
                 //throw new IOException("Only read " + offset + " bytes; Expected " + contentLength + " bytes");
             }
 
@@ -235,7 +240,7 @@ public class WebContentServices {
 
     } catch (Exception e) {
 
-      e.printStackTrace();
+      LOGGER.error("Exception: ", e);
       return null;
 
     } finally {

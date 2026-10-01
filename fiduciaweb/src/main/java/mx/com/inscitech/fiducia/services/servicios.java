@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Jwts;
@@ -60,6 +63,8 @@ import mx.com.inscitech.fiducia.domain.Detcart;
 
 @WebServlet("/proceso")
 public class servicios extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(servicios.class);
+
     @SuppressWarnings("compatibility:-8029344130080575154")
     private static final long serialVersionUID = 1L;
 
@@ -73,8 +78,8 @@ public class servicios extends HttpServlet {
             
             String p3 = request.getParameter("param3");//token
             String p4 = request.getParameter("param4");//usuario
-            System.out.println("p1:"+p1);
-            System.out.println("p2:"+p2);
+            LOGGER.debug("p1:"+p1);
+            LOGGER.debug("p2:"+p2);
             String []sRegreso=consumo(Integer.valueOf(p1).intValue(),p2,p3,p4);
             
             // 3. Configurar la respuesta (JSON)
@@ -101,7 +106,7 @@ public class servicios extends HttpServlet {
         int cont=0;        
         String urlfinal="",jsoncadena="";
         String apiUrl = ConfigLoader.getUrl();
-        System.out.println("apiUrl de archivo config "+apiUrl);
+        LOGGER.debug("apiUrl de archivo config "+apiUrl);
         
         String url=apiUrl;
 
@@ -130,7 +135,7 @@ public class servicios extends HttpServlet {
                     break;   
        
             }
-               System.out.println("url: " + urlfinal);
+               LOGGER.debug("url: " + urlfinal);
 
                 //consumo api
                 jsoncadena=consumeApiRest(urlfinal,token,usuario);
@@ -143,7 +148,7 @@ public class servicios extends HttpServlet {
                     case 1://ParamGlobal
                         // 3. Deserializar
                         //jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         Type listType = new TypeToken<List<FideicomDTO>>(){}.getType();
                         List<FideicomDTO> fideicom = gson.fromJson(jsoncadena, listType); 
@@ -158,7 +163,7 @@ public class servicios extends HttpServlet {
                     case 2://benefici
                         // 3. Deserializar
                         //jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         Type listTypeb = new TypeToken<List<BeneficiDTO>>(){}.getType();
                         List<BeneficiDTO> benefici = gson.fromJson(jsoncadena, listTypeb); 
@@ -173,7 +178,7 @@ public class servicios extends HttpServlet {
                     case 3://terceros
                         // 3. Deserializar
                         //jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         Type listTypet = new TypeToken<List<TercerosDTO>>(){}.getType();
                         List<TercerosDTO> tercero = gson.fromJson(jsoncadena, listTypet); 
@@ -186,7 +191,7 @@ public class servicios extends HttpServlet {
                         }
                         break;                
                     case 4://vista movimiento
-                            System.out.println("jsoncadena:"+jsoncadena);            
+                            LOGGER.debug("jsoncadena:"+jsoncadena);            
                             // Deserializar JSON a objeto Java
                             // 3. Definir el tipo de la lista (TypeToken)
                             Type typev1 = new TypeToken<List<VistaMov>>(){}.getType();
@@ -200,7 +205,7 @@ public class servicios extends HttpServlet {
                             }
                         break;
                     case 5://vista comite
-                            System.out.println("jsoncadena:"+jsoncadena);            
+                            LOGGER.debug("jsoncadena:"+jsoncadena);            
                             // Deserializar JSON a objeto Java
                             // 3. Definir el tipo de la lista (TypeToken)
                             Type typev2 = new TypeToken<List<VistaCom>>(){}.getType();
@@ -214,7 +219,7 @@ public class servicios extends HttpServlet {
                             }
                         break;  
                     case 6://recuperacion de datos de documento a visualizar PdfDocumentContrato
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typevdoc = new TypeToken<List<PdfDocument>>(){}.getType();
@@ -227,11 +232,11 @@ public class servicios extends HttpServlet {
                                 item.contentType;
                         }
                         for (String item : resultado) {
-                            System.out.println("salida documentos: "+item);
+                            LOGGER.debug("salida documentos: "+item);
                         }
                     break;      
                     case 7://recuperacion de datos de documento a visualizar PdfDocumentContrato
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                     if(jsoncadena!=null){
@@ -241,13 +246,13 @@ public class servicios extends HttpServlet {
                         resultado = new String[datosdocumentoC.size()];
                         cont=0;
                         for (PdfDocumentContrato item : datosdocumentoC) {
-                            System.out.println("item opcion 7: "+item);
+                            LOGGER.debug("item opcion 7: "+item);
                             if(item!=null)
                                 resultado[cont++]=item.nombre+"-"+item.filePath+"-"+item.contentType;
                         }
                         
                         for (String item : resultado) {
-                            System.out.println("salida documentos: "+item);
+                            LOGGER.debug("salida documentos: "+item);
                         }                         
                     }else{
                             resultado=null;
@@ -259,7 +264,7 @@ public class servicios extends HttpServlet {
                 
             }
             catch (Exception e) {
-                        System.out.println("Exception in NetClientGet:- " + e);
+                        LOGGER.debug("Exception in NetClientGet:- " + e);
             }
         return resultado;
     }
@@ -293,7 +298,7 @@ public class servicios extends HttpServlet {
             return jsoncadena;
             }
             catch (Exception e) {
-                        System.out.println("Exception in NetClientGet:- " + e);
+                        LOGGER.debug("Exception in NetClientGet:- " + e);
             }
             return jsoncadena;
         }

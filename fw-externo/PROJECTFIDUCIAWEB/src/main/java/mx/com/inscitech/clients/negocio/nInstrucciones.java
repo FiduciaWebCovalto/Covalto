@@ -15,6 +15,9 @@ Funcion: Insertar las Intrucciones:
 */
 
 package mx.com.inscitech.clients.negocio;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.daos.InstruccDAO;
 import mx.com.inscitech.clients.lib.servicios;
 
@@ -44,6 +47,8 @@ import javax.naming.*;
 
 public class nInstrucciones extends nFiducia
 	{
+    private static final Logger LOGGER = LoggerFactory.getLogger(nInstrucciones.class);
+
 
 	private String[] ctas=new String[18];	
 	private	Statement stSaldos=null;//stSaldos
@@ -113,14 +118,14 @@ public class nInstrucciones extends nFiducia
 		}
 		catch(Exception ex)
 		{
-			System.out.println("validaStatus: "+ex);
+			LOGGER.debug("validaStatus: "+ex);
 			return false;
 		}
 		finally
 		{			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}		
 	}
 
@@ -174,15 +179,15 @@ public class nInstrucciones extends nFiducia
 		}
 		catch(Exception ex)
 		{
-			System.out.println("existeFolio: "+ex);
+			LOGGER.debug("existeFolio: "+ex);
 			
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			
 		return bReturn;	
 		}		
@@ -356,7 +361,7 @@ public class nInstrucciones extends nFiducia
 	                                        + "del_entidad_fin,"
 	                                        + "del_contrato_inter) "
 	                                        + "VALUES(";
-	            System.out.println("Entro a realizar el retiro");                               
+	            LOGGER.debug("Entro a realizar el retiro");                               
 	//SE INSERTA EN LA TABLA DE RETIRO DE FIDUCIAWEB
 	  sDetRetiro = "INSERT INTO F_RETIRO (FRET_ID_RETIRO,"
 	  + "FRET_IMP_RETIRO,"
@@ -391,10 +396,10 @@ public class nInstrucciones extends nFiducia
 	  + "FRET_TELEFONO_BENEFICI_SWIFT,"
 	  + "FRET_TIPO_CAMBIO_PROV,FRET_CONVENIO_CIE,FRET_CTA_CHEQUES,FRET_SUBCTA) VALUES (";
 	  dFechaAcuerd=sData[56]!=null&&!sData[56].equals("")?"TO_DATE('" + sData[56] + "','DD/MM/YYYY'),":"null,";
-	            System.out.println("dFechaAcuerd: "+dFechaAcuerd);
+	            LOGGER.debug("dFechaAcuerd: "+dFechaAcuerd);
 	            
           String smoneda=getKey(3,cveMoneda);
-          System.out.println("smoneda: "+smoneda);
+          LOGGER.debug("smoneda: "+smoneda);
           String sCuenta="";
          
          if(sData[63].indexOf("-")!=-1)
@@ -402,16 +407,16 @@ public class nInstrucciones extends nFiducia
          else
             sCuenta=sData[63];
 	 
-        System.out.println("Cuenta Retiro: "+sCuenta);
+        LOGGER.debug("Cuenta Retiro: "+sCuenta);
              
           //DETALLE DEL RETIRO
              int i=0;
          for(String item : sData){
-                System.out.println("sData"+i+": "+item);
+                LOGGER.debug("sData"+i+": "+item);
              i++;
           }   
-            System.out.println("Contrato inversion: "+ sData[3]);
-            System.out.println("Folios: "+ sData[1]);
+            LOGGER.debug("Contrato inversion: "+ sData[3]);
+            LOGGER.debug("Folios: "+ sData[1]);
 	  sDetRetiro += sData[1] + ","+ sData[4] + ",TO_DATE('" + sData[0] + "','DD/MM/YYYY')," + 
 	  sData[55] + ",'"+ sData[6] + "'," +
 	  dFechaAcuerd + 
@@ -427,7 +432,7 @@ public class nInstrucciones extends nFiducia
 	  sData[61]+"',"+sCuenta
           +
           ","+sData[64]+")"; 
-	            System.out.println("Entro a realizar el retiro 2");
+	            LOGGER.debug("Entro a realizar el retiro 2");
 	sDetRetxCtoInver="INSERT INTO F_CTOINV_RET (FRET_ID_RETIRO,FCIN_ID_CTO_INVERSION,FCVR_IMPORTE_X_CTOINV) " +
 	                " VALUES ( " + sData[1] + "," + sData[3] + "," + sData[4] + ")";
 	            
@@ -435,7 +440,7 @@ public class nInstrucciones extends nFiducia
 	                
                         sDetSWIFT = "";
 	                query=sInstrucc;        
-                        System.out.println("Entro a realizar la instruccion: "+sInstrucc);
+                        LOGGER.debug("Entro a realizar la instruccion: "+sInstrucc);
 	                iRows = stInstrucc.executeUpdate(sInstrucc);//inserta en instrucc
 	                //envio informacion
 	                envio.consumo(12, sProv);
@@ -443,7 +448,7 @@ public class nInstrucciones extends nFiducia
 	                        {
 	                        //query=sDetLiq;
 	                        //iRows = stInstrucc.executeUpdate(sDetLiq);//inserta en detliqui
-	System.out.println("Inserta retiro: "+sDetRetiro);
+	LOGGER.debug("Inserta retiro: "+sDetRetiro);
 	if (iRows>0) 
 	  iRows = stInstrucc.executeUpdate(sDetRetiro);//inserta en f_retiro  
 	  //envio informacion
@@ -472,14 +477,14 @@ public class nInstrucciones extends nFiducia
 	    //envio informacion
             String sValidaprov="";
 	    sValidaprov=sData[3].length()==0?"0":sData[3];
-            System.out.println("Valor CtoInver por retiro:"+sValidaprov);
+            LOGGER.debug("Valor CtoInver por retiro:"+sValidaprov);
             sProv=new String[3];
             sProv[0]=sData[3];  //ctoinver
             sProv[1]=sData[1];  //folio
             sProv[2]=sData[4];//importe
             if(!sValidaprov.equals("0"))
                 envio.consumo(5, sProv);
-            System.out.println("Nuevo punto de control.");
+            LOGGER.debug("Nuevo punto de control.");
 	}
 	                        }
 	                if (iRows>0 && bComiteTecnico && !sStatus.equals("ESPERA")&& !sData[7].equals("21"))
@@ -544,7 +549,7 @@ public class nInstrucciones extends nFiducia
 	               + sData[2] + "," + sData[1] + ",4,"+sData[31]+","
 	               + "TO_TIMESTAMP('"+ bitacora[0] +" '||(SELECT to_char(NOW(), 'HH24:MI:SS') FROM DUAL),'DD/MM/YYYY HH24:MI:SS'),NULL,"
 	               + "'',0)";
-                       System.out.println("REtiro bitacorasol: "+sInstrucc);
+                       LOGGER.debug("REtiro bitacorasol: "+sInstrucc);
 	               iRows = stInstrucc.executeUpdate(sInstrucc); 
 	                sProv=new String[5];
 	                  sProv[0]=sData[2];  
@@ -566,7 +571,7 @@ public class nInstrucciones extends nFiducia
 	                                                if(insertaFirma(strFirma))
 	                                                        {       
 	                                                        conBD.commit();
-	                                                        System.out.println("Retiro con Folio:"+ sData[1]+ " SATISFACTORIO" );
+	                                                        LOGGER.debug("Retiro con Folio:"+ sData[1]+ " SATISFACTORIO");
 	                                                        bInstruccion=true;
 	              conBD.close();
 	                                                        }
@@ -574,15 +579,15 @@ public class nInstrucciones extends nFiducia
 	                                                        {
 	                                                        conBD.rollback();
 	                                                        conBD.commit();
-	                                                        System.out.println("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO" );
-	                                                        System.out.println(query);
+	                                                        LOGGER.debug("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO");
+	                                                        LOGGER.debug(query);
 	                                                  bInstruccion=false;
 	              conBD.close();
 	                                                        }       
 	                                                }
 	                                            else{
 	                                                conBD.commit();
-	                                                System.out.println("Retiro con Folio:"+ sData[1]+ " SATISFACTORIO" );
+	                                                LOGGER.debug("Retiro con Folio:"+ sData[1]+ " SATISFACTORIO");
 	                                              bInstruccion=true;
 	          conBD.close();
 	                                                }               
@@ -591,35 +596,35 @@ public class nInstrucciones extends nFiducia
 	                                        {
 	                                        conBD.rollback();
 	                                        conBD.commit();
-	                                        System.out.println("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO" );
-	                                        System.out.println(query);
+	                                        LOGGER.debug("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO");
+	                                        LOGGER.debug(query);
 	                                        bInstruccion=false;
 	          conBD.close();
 	                                        }
 	        }
 	        catch(SQLException ex)
 	        {
-	                System.out.println("Error de insertaRetiro:"+ex);
-	                System.out.println("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO" );
-	                System.out.println(query);
+	                LOGGER.debug("Error de insertaRetiro:"+ex);
+	                LOGGER.debug("Retiro con Folio:"+ sData[1]+ " NO SATISFACTORIO");
+	                LOGGER.debug(query);
 	                
 	                try{
 	                        conBD.rollback();
 	                        conBD.commit();
-	                        System.out.println("rollback");
+	                        LOGGER.debug("rollback");
 	                        }
 	                catch(SQLException e)
 	                        {
 	                                        
-	                        System.out.println("Error al realizar el roll back: :"+e);      
+	                        LOGGER.debug("Error al realizar el roll back: :"+e);      
 	                        }
 	                bInstruccion=false;
 	        }
 	        finally
 	        {
-	        //System.out.println("Cerrando Finally de la base de InsertRetiro");
-	        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaRetiro");System.out.println(ex); }
-	        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaRetiro");System.out.println(ex); }
+	        //LOGGER.debug("Cerrando Finally de la base de InsertRetiro");
+	        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaRetiro");LOGGER.error("Exception: ", ex); }
+	        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaRetiro");LOGGER.error("Exception: ", ex); }
 	        return bInstruccion;
 	        }               
 	}
@@ -724,7 +729,7 @@ public class nInstrucciones extends nFiducia
                 Datos[14] = Datos[14];
             else
                 Datos[14] = Datos[14] + "/" + Datos[15];
-            System.out.println("Folio asignado al deposito: "+Datos[1]);
+            LOGGER.debug("Folio asignado al deposito: "+Datos[1]);
             sInstrucc="Insert into Instrucc (ins_num_contrato, ins_num_folio_inst,"
 						+ "ins_sub_contrato, ins_txt_comentario,ins_cve_tipo_instr,"
 						+ "ins_num_miembro, ins_nom_miembro, ins_ano_alta_reg,"
@@ -736,7 +741,7 @@ public class nInstrucciones extends nFiducia
 						+  a +","+ m +","+ d +","
 						+  a +","+ m +","+ d +","
 						+ "'" + sEstatus + "','12000')";
-                    System.out.println("LLego a la seccion de asignacion");
+                    LOGGER.debug("LLego a la seccion de asignacion");
 		    sProv=new String[8];
 		    sProv[0]="1";//"deposito"
 		    sProv[1]=Datos[3];//fiso
@@ -748,11 +753,11 @@ public class nInstrucciones extends nFiducia
 		    sProv[7]="12000";//operacion			   
 
 			      iRows = stInstrucc.executeUpdate(sInstrucc);
-		    System.out.println("Salio de la seccion de asignacion");
+		    LOGGER.debug("Salio de la seccion de asignacion");
                                 //envio informacion
                                 envio.consumo(12, sProv);
 
-            System.out.println("contenido de query de la tabla instrucc:"+sInstrucc);	
+            LOGGER.debug("contenido de query de la tabla instrucc:"+sInstrucc);	
 			            
             sInstrucc =  "Insert into Deposit values (";
             sInstrucc += "0," + Datos[1] + "," + Datos[2] + ",0,0,0," + Datos[3];
@@ -768,7 +773,7 @@ public class nInstrucciones extends nFiducia
         
 				//if(iRows>0)
 				  //iRows = stInstrucc.executeUpdate(sInstrucc);
-          //System.out.println("contenido de query de la tabla deposit:"+sInstrucc);	
+          //LOGGER.debug("contenido de query de la tabla deposit:"+sInstrucc);	
         
         //se graba en la tabla de deposito de FiduciaWeb
           if(iRows>0){
@@ -780,20 +785,20 @@ public class nInstrucciones extends nFiducia
           sInstrucc += numTipoPersona + "," + Datos[5].replaceAll(" ","") + ",";
           sInstrucc += Datos[3] + "," + Datos[21] + ",0, "+(Datos[23].length()==0?"0":Datos[23])+",'" + Datos[8] +"','"+Datos[22] +"')";
           iRows = stInstrucc.executeUpdate(sInstrucc);
-          System.out.println("contenido de query de f_deposito:"+sInstrucc);	
-          System.out.println("1:"+Datos[1]);	
-          System.out.println("2:"+Datos[9]);	
-          System.out.println("3:"+Datos[17]);	
-          System.out.println("4:"+Datos[8]);	
-          System.out.println("5:"+Datos[10]);	
-          System.out.println("6:"+Datos[4]);	
-          System.out.println("7:"+Datos[19]);	
-          System.out.println("8:"+Datos[15]);	
-          System.out.println("9:"+sEstatus);	
-          System.out.println("10:"+numTipoPersona);	
-          System.out.println("11:"+Datos[5]);	
-          System.out.println("12:"+Datos[3]);	
-          System.out.println("13:"+Datos[21]);	
+          LOGGER.debug("contenido de query de f_deposito:"+sInstrucc);	
+          LOGGER.debug("1:"+Datos[1]);	
+          LOGGER.debug("2:"+Datos[9]);	
+          LOGGER.debug("3:"+Datos[17]);	
+          LOGGER.debug("4:"+Datos[8]);	
+          LOGGER.debug("5:"+Datos[10]);	
+          LOGGER.debug("6:"+Datos[4]);	
+          LOGGER.debug("7:"+Datos[19]);	
+          LOGGER.debug("8:"+Datos[15]);	
+          LOGGER.debug("9:"+sEstatus);	
+          LOGGER.debug("10:"+numTipoPersona);	
+          LOGGER.debug("11:"+Datos[5]);	
+          LOGGER.debug("12:"+Datos[3]);	
+          LOGGER.debug("13:"+Datos[21]);	
         }
 
 				//Inserta un registro de la operaci?n en la bitacora
@@ -811,7 +816,7 @@ public class nInstrucciones extends nFiducia
                                    + Datos[3] + "," + Datos[1] + ",4,"+strFirma[3]+","
                                    + "TO_TIMESTAMP('"+ bitacora[0] +" ' ||(SELECT to_char(NOW(), 'HH24:MI:SS')),'DD/MM/YYYY HH24:MI:SS'),NULL,"
                                    + "'',0)";
-                                   System.out.println("Deposito FBItacorasol "+sInstrucc);
+                                   LOGGER.debug("Deposito FBItacorasol "+sInstrucc);
                                    iRows = stInstrucc.executeUpdate(sInstrucc); 
                                     sProv=new String[5];
                                       sProv[0]=Datos[3];  
@@ -824,33 +829,33 @@ public class nInstrucciones extends nFiducia
                                 }
 
 				if(iRows>0) {
-				     System.out.println("Se registro Deposito con Folio:"+Datos[1]);	
+				     LOGGER.debug("Se registro Deposito con Folio:"+Datos[1]);	
 				     conBD.commit();
 				   	 bInstruccion=true;
 				} else {
-					   System.out.println("No se registro Deposito con Folio:"+Datos[1]);	
+					   LOGGER.debug("No se registro Deposito con Folio:"+Datos[1]);	
 						 conBD.rollback();
 						 conBD.commit();
 						 bInstruccion=false;
 				}
 		}catch (Exception ex) {
-						System.out.println("Funcion: insertaDeposito");
-						System.out.println("Error: "+ex);
-						System.out.println(ex);
-						System.out.println(sInstrucc);
-						System.out.println(sQuery);
+						LOGGER.debug("Funcion: insertaDeposito");
+						LOGGER.debug("Error: "+ex);
+						LOGGER.error("Exception: ", ex);
+						LOGGER.debug(sInstrucc);
+						LOGGER.debug(sQuery);
 						try{
-						  	System.out.println("No se registro Deposito con Folio:"+Datos[1]);	
+						  	LOGGER.debug("No se registro Deposito con Folio:"+Datos[1]);	
 							  conBD.rollback();
 							  conBD.commit();
-							  System.out.println("rollback");
+							  LOGGER.debug("rollback");
 						} catch(SQLException e) {				
-								System.out.println("Error al realizar el roll back: :"+e);	
+								LOGGER.debug("Error al realizar el roll back: :"+e);	
 						}	
 						  bInstruccion=false;
 		} finally {
-				try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-				try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+				try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+				try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
                 return (iRows>0?true:false);						
 		}										
  }
@@ -891,23 +896,23 @@ public class nInstrucciones extends nFiducia
                                                     sProv[3]=sBeneficiario;     
                }                            
             iRows = stInstrucc.executeUpdate(sInstrucc);
-            System.out.println("contenido de query de la tabla sInstrucc:"+sInstrucc);   
+            LOGGER.debug("contenido de query de la tabla sInstrucc:"+sInstrucc);   
                    }catch (Exception ex) {
-                                                   System.out.println("Funcion: insertaDeposito");
-                                                   System.out.println("Error: "+ex);
-                                                   System.out.println(ex);
-                                                   System.out.println(sInstrucc);
-                                                   System.out.println(sQuery);
+                                                   LOGGER.debug("Funcion: insertaDeposito");
+                                                   LOGGER.debug("Error: "+ex);
+                                                   LOGGER.error("Exception: ", ex);
+                                                   LOGGER.debug(sInstrucc);
+                                                   LOGGER.debug(sQuery);
                                                    try{                                                             conBD.rollback();
                                                              conBD.commit();
-                                                             System.out.println("rollback");
+                                                             LOGGER.debug("rollback");
                                                    } catch(SQLException e) {                               
-                                                                   System.out.println("Error al realizar el roll back: :"+e);      
+                                                                   LOGGER.debug("Error al realizar el roll back: :"+e);      
                                                    }       
                                                      bInstruccion=false;
                    } finally {
-                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
                                    return (iRows>0?true:false);                                            
                    }                                                                               
     }  
@@ -960,23 +965,23 @@ public class nInstrucciones extends nFiducia
 
            }
             iRows = stInstrucc.executeUpdate(sInstrucc);
-            System.out.println("contenido de query de la tabla sInstrucc:"+sInstrucc);   
+            LOGGER.debug("contenido de query de la tabla sInstrucc:"+sInstrucc);   
                    }catch (Exception ex) {
-                                                   System.out.println("Funcion: insertaDeposito");
-                                                   System.out.println("Error: "+ex);
-                                                   System.out.println(ex);
-                                                   System.out.println(sInstrucc);
-                                                   System.out.println(sQuery);
+                                                   LOGGER.debug("Funcion: insertaDeposito");
+                                                   LOGGER.debug("Error: "+ex);
+                                                   LOGGER.error("Exception: ", ex);
+                                                   LOGGER.debug(sInstrucc);
+                                                   LOGGER.debug(sQuery);
                                                    try{                                                             conBD.rollback();
                                                              conBD.commit();
-                                                             System.out.println("rollback");
+                                                             LOGGER.debug("rollback");
                                                    } catch(SQLException e) {                               
-                                                                   System.out.println("Error al realizar el roll back: :"+e);      
+                                                                   LOGGER.debug("Error al realizar el roll back: :"+e);      
                                                    }       
                                                      bInstruccion=false;
                    } finally {
-                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
                                    return (iRows>0?true:false);                                            
                    }                                                                               
     }      
@@ -1028,23 +1033,23 @@ public class nInstrucciones extends nFiducia
                resultado = spContabiliza.getInt(1);
             }
                
-            System.out.println("contenido de query de la tabla sInstrucc:"+sInstrucc);   
+            LOGGER.debug("contenido de query de la tabla sInstrucc:"+sInstrucc);   
                    }catch (Exception ex) {
-                                                   System.out.println("Funcion: insertaDeposito");
-                                                   System.out.println("Error: "+ex);
-                                                   System.out.println(ex);
-                                                   System.out.println(sInstrucc);
-                                                   System.out.println(sQuery);
+                                                   LOGGER.debug("Funcion: insertaDeposito");
+                                                   LOGGER.debug("Error: "+ex);
+                                                   LOGGER.error("Exception: ", ex);
+                                                   LOGGER.debug(sInstrucc);
+                                                   LOGGER.debug(sQuery);
                                                    try{                                                             conBD.rollback();
                                                              conBD.commit();
-                                                             System.out.println("rollback");
+                                                             LOGGER.debug("rollback");
                                                    } catch(SQLException e) {                               
-                                                                   System.out.println("Error al realizar el roll back: :"+e);      
+                                                                   LOGGER.debug("Error al realizar el roll back: :"+e);      
                                                    }       
                                                      bInstruccion=false;
                    } finally {
-                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+                                   try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+                                   try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
                                    return (iRows>0?true:false);                                            
                    }                                                                               
     }       
@@ -1188,7 +1193,7 @@ public class nInstrucciones extends nFiducia
 		       + tFideicomiso + "," + tFolio + ",4,"+nomUsuario+","//falta recuperar el id del usaurio
 		       + "TO_TIMESTAMP('"+ bitacora[0] +" '||(SELECT to_char(NOW(), 'HH24:MI:SS')),'DD/MM/YYYY HH24:MI:SS'),NULL,"
 		       + "'',0)";
-                       System.out.println("Query Traspaso bitacora "+sInstrucc);
+                       LOGGER.debug("Query Traspaso bitacora "+sInstrucc);
 		       iRows = stInstrucc.executeUpdate(sInstrucc); 
 		        sProv=new String[5];
                           sProv[0]=tFideicomiso;  
@@ -1210,19 +1215,19 @@ public class nInstrucciones extends nFiducia
 			    		{	
 			      		conBD.commit();
 			      		bInstruccion=true;
-			      		System.out.println("Transpaso con Folio:"+tFolio);
+			      		LOGGER.debug("Transpaso con Folio:"+tFolio);
 			      		}
 			      	else
 			      		{
 			      		conBD.rollback();
 			      		conBD.commit();
 			      	    bInstruccion=false;
-			      	    System.out.println("No se Registro el Transpaso con Folio:"+tFolio);
+			      	    LOGGER.debug("No se Registro el Transpaso con Folio:"+tFolio);
 			      		}	
 			      	}
 			    else{
 			    	conBD.commit();
-			    	System.out.println("Transpaso con Folio:"+tFolio);
+			    	LOGGER.debug("Transpaso con Folio:"+tFolio);
 			      	bInstruccion=true;
 			    	}  		
 		      	}
@@ -1239,13 +1244,13 @@ public class nInstrucciones extends nFiducia
 			try	{
 			conBD.rollback();
 			conBD.commit();
-			System.out.println("No se Registro el Transpaso con Folio:"+tFolio);
-			System.out.println("Error: "+ex);
+			LOGGER.debug("No se Registro el Transpaso con Folio:"+tFolio);
+			LOGGER.debug("Error: "+ex);
 				}
 			catch (Exception error)
 				{
-				System.out.println("No se realizo el rollback");
-				System.out.println("Error: "+ex+"\n"+sQuery);	
+				LOGGER.debug("No se realizo el rollback");
+				LOGGER.debug("Error: "+ex+"\n"+sQuery);	
 				
 				}
 			bInstruccion=false;
@@ -1253,8 +1258,8 @@ public class nInstrucciones extends nFiducia
 		finally
 		{
 			
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
 			return bInstruccion;	
 		
 		}
@@ -1411,13 +1416,13 @@ public class nInstrucciones extends nFiducia
                   try     {
                   conBD.rollback();
                   conBD.commit();
-                  System.out.println("No se Registro la Inversion con Folio:"+sFolio);
-                  System.out.println("Error: "+ex);
+                  LOGGER.debug("No se Registro la Inversion con Folio:"+sFolio);
+                  LOGGER.debug("Error: "+ex);
                           }
                   catch (Exception error)
                           {
-                          System.out.println("No se realizo el rollback");
-                          System.out.println("Error: "+ex+"\n"+sQuery);   
+                          LOGGER.debug("No se realizo el rollback");
+                          LOGGER.debug("Error: "+ex+"\n"+sQuery);   
                           
                           }
                   bInstruccion=false;
@@ -1425,8 +1430,8 @@ public class nInstrucciones extends nFiducia
           finally
           {
                   
-                  try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-                  try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+                  try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+                  try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
                   return (iRows>0?true:false);   
           
           }
@@ -1553,13 +1558,13 @@ public class nInstrucciones extends nFiducia
 
 		if(iRows>0)
 		   	{
-		   	System.out.println("El Pago de Honorarios con Folio: "+ FolioOpera+ " SATISFACTORIO");
+		   	LOGGER.debug("El Pago de Honorarios con Folio: "+ FolioOpera+ " SATISFACTORIO");
 		   	conBD.commit();
 		   	bInstruccion=true;
 		   	}
 		 else
 		   	{
-		   	System.out.println("El Pago de Honorarios con Folio: "+ FolioOpera+ " NO SATISFACTORIO");
+		   	LOGGER.debug("El Pago de Honorarios con Folio: "+ FolioOpera+ " NO SATISFACTORIO");
 		   	conBD.rollback();
 		   	conBD.commit();
 		   	bInstruccion=false;
@@ -1570,13 +1575,13 @@ public class nInstrucciones extends nFiducia
 			try	{
 			conBD.rollback();
 			conBD.commit();
-			System.out.println("No se Registro el Transpaso con Folio:"+FolioOpera);
-			System.out.println("Error: "+ex);
+			LOGGER.debug("No se Registro el Transpaso con Folio:"+FolioOpera);
+			LOGGER.debug("Error: "+ex);
 				}
 			catch (Exception error)
 				{
-				System.out.println("No se realizo el rollback");
-				System.out.println("Error: "+error+"\n"+sQuery);	
+				LOGGER.debug("No se realizo el rollback");
+				LOGGER.debug("Error: "+error+"\n"+sQuery);	
 				
 				}
 			bInstruccion=false;
@@ -1584,10 +1589,10 @@ public class nInstrucciones extends nFiducia
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonorarios");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonorarios");System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonorarios");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonorarios");LOGGER.error("Exception: ", ex); }
 
 			
 			return bInstruccion;
@@ -1628,7 +1633,7 @@ public class nInstrucciones extends nFiducia
 		{	
 			int sec_pago=0;
 			sec_pago=getSecuencialPago(sFiso,scve_pers,inum_pers,sTipo_hono,sFeccalc,sNumSec,sFechaOper);
-			System.out.println("registra  Pago: "+sec_pago);
+			LOGGER.debug("registra  Pago: "+sec_pago);
 
 	
 			Locale currentLocale = new Locale("sp","US");
@@ -1700,8 +1705,8 @@ public class nInstrucciones extends nFiducia
 		}						
 		catch (Exception ex)
 			{
-			System.out.println("Error en el Metodo:registraPago");
-			System.out.println(query);
+			LOGGER.debug("Error en el Metodo:registraPago");
+			LOGGER.debug(query);
 		    iRows=0;
 			}
 		finally
@@ -1746,7 +1751,7 @@ public class nInstrucciones extends nFiducia
 		catch (Exception ex)
 		{
 			
-			System.out.println("Error en el Metodo:secuencialPago\n"+ex+"\n"+query);
+			LOGGER.debug("Error en el Metodo:secuencialPago\n"+ex+"\n"+query);
 			return 0;
 		}
 
@@ -1823,7 +1828,7 @@ public class nInstrucciones extends nFiducia
 							iRows=contabilizaFoseg(strPresupuesto[0],bFirmasM);//PRESUESTAL AL QUE SE LE ASIGNAN LOS RENDIMIENTOS
 							if(iRows>0 && bContabilizado)
 							  {
-							   //System.out.println("IMPORTE R:"+ strPresupuesto[4]);
+							   //LOGGER.debug("IMPORTE R:"+ strPresupuesto[4]);
 				  			   query = " UPDATE "
 				   					 + " rendimi_foseg "
 				   					 + " SET REN_IMP_X_ASIGNAR = REN_IMP_X_ASIGNAR-" + strPresupuesto[4]
@@ -1855,25 +1860,25 @@ public class nInstrucciones extends nFiducia
 			    		{
 			    	    conBD.commit();
 			      		bInstruccion=true;
-			      		System.out.println("Se registo instruccion FOSEG tipo "+tipoInstruccion+" :"+ bitacora[1]);
+			      		LOGGER.debug("Se registo instruccion FOSEG tipo "+tipoInstruccion+" :"+ bitacora[1]);
 			      		}
 			      	else
 			      		{
 			      		conBD.rollback();
 			      		conBD.commit();
 			      	    bInstruccion=false;
-			      	    System.out.println("No se registo instruccion FOSEG tipo"+tipoInstruccion+ " con Folio:"+bitacora[1]);
+			      	    LOGGER.debug("No se registo instruccion FOSEG tipo"+tipoInstruccion+ " con Folio:"+bitacora[1]);
 			      		}	
 			      	}
 			    else{
 			    	conBD.commit();
-			    	System.out.println("Se registo instruccion FOSEG tipo "+tipoInstruccion+" :"+ bitacora[1]);
+			    	LOGGER.debug("Se registo instruccion FOSEG tipo "+tipoInstruccion+" :"+ bitacora[1]);
 			      	bInstruccion=true;
 			    	}  		
 		      	}
 		    else
 		    	{
-		        System.out.println("No se registo instruccion FOSEG tipo"+tipoInstruccion+" :"+ bitacora[1]);
+		        LOGGER.debug("No se registo instruccion FOSEG tipo"+tipoInstruccion+" :"+ bitacora[1]);
 		      	conBD.rollback();
 		      	conBD.commit();
 		      	bInstruccion=false;
@@ -1883,20 +1888,20 @@ public class nInstrucciones extends nFiducia
 		}
 		catch(Exception ex)
 		{
-			System.out.println("insertaInstruccFoseg: "+ex);
-			System.out.println("Query:\n "+query);
+			LOGGER.debug("insertaInstruccFoseg: "+ex);
+			LOGGER.debug("Query:\n "+query);
 			iRows=0;
 			bInstruccion=false;
 						try	{
 			conBD.rollback();
 			conBD.commit();
-			System.out.println("No se Registro el insertaInstruccFoseg");
-			System.out.println("Error: "+ex);
+			LOGGER.debug("No se Registro el insertaInstruccFoseg");
+			LOGGER.debug("Error: "+ex);
 				}
 			catch (Exception error)
 				{
-				System.out.println("No se realizo el rollback");
-				System.out.println("Error: "+ex);	
+				LOGGER.debug("No se realizo el rollback");
+				LOGGER.debug("Error: "+ex);	
 				
 				}
 
@@ -1904,8 +1909,8 @@ public class nInstrucciones extends nFiducia
 		finally
 		{
 		bContabilizado=false;			
-		try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: ProcesoDeposito");System.out.println(ex); }
-		try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaDeposito");System.out.println(ex); }
+		try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: ProcesoDeposito");LOGGER.error("Exception: ", ex); }
+		try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaDeposito");LOGGER.error("Exception: ", ex); }
 		return bInstruccion;
 	
 		}		
@@ -1947,15 +1952,15 @@ public class nInstrucciones extends nFiducia
 
 			
 			iRows = stInstrucc.executeUpdate(queryBitacora);
-      System.out.println("query bitacora:"+queryBitacora);
+      LOGGER.debug("query bitacora:"+queryBitacora);
 		    //envio informacion
 		    envio.consumo(2, bitacora);			
 		}
 		catch (Exception ex)
 		{
 			iRows=0;
-			System.out.println("Metodo: insertaBitacora");
-			System.out.println("Error: \n"+ex);
+			LOGGER.debug("Metodo: insertaBitacora");
+			LOGGER.debug("Error: \n"+ex);
 		}
 		finally
 		{
@@ -1999,11 +2004,11 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println("identificaCta: " + ex);
+			LOGGER.debug("identificaCta: " + ex);
 		}
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de identificaCta");
+			//LOGGER.debug("Cerrando finally de la base de identificaCta");
 		}  
 	}
 	
@@ -2136,8 +2141,8 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println("contabilizaFoseg:" + ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("contabilizaFoseg:" + ex);
+			LOGGER.debug(sInstrucc);
 			iRows=0;
 		}
 
@@ -2210,7 +2215,7 @@ public class nInstrucciones extends nFiducia
     			}
         	else // si existe el presupuesto
         		{
-        		//System.out.println("con saldos");
+        		//LOGGER.debug("con saldos");
             	//se actualizan los rubros por separado, para que posteriormente se efectue
             	//el calculo del saldo actual basandose en dichos datos
             
@@ -2261,7 +2266,7 @@ public class nInstrucciones extends nFiducia
 						+ " and SAL_NUM_SSSSSCTA=" + ctas[5];    
 
 				iRows = stInstrucc.executeUpdate(sqlprinc+sQuery);                
-				//System.out.println("irows saldo 1:"+iRows);
+				//LOGGER.debug("irows saldo 1:"+iRows);
 				//se actualiza saldo actual
 				sQuery = "update saldos set"
 						+ " SAL_IMP_SALDO_ACT=SAL_IMP_INI_EJE-SAL_CARGOS_PER-SAL_IMP_CAR_EJER+SAL_IMP_ABO_EJER"
@@ -2302,13 +2307,13 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{	
-			System.out.println("actualizaSaldo: " + ex);
+			LOGGER.debug("actualizaSaldo: " + ex);
 			iRows=0;
 		}
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de actualizaSaldo");
-			try { if(stSaldosAnt != null ) stSaldosAnt.close(); } catch (Exception ex) { System.out.println(ex); }
+			//LOGGER.debug("Cerrando finally de la base de actualizaSaldo");
+			try { if(stSaldosAnt != null ) stSaldosAnt.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			
 			return iRows;
 		}  
@@ -2350,15 +2355,15 @@ public class nInstrucciones extends nFiducia
     	}
 		catch (Exception ex)
     	{
-			System.out.println("validaCtas: " + ex);
+			LOGGER.debug("validaCtas: " + ex);
       		return false;
 		}
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de validaCtas");
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			//LOGGER.debug("Cerrando finally de la base de validaCtas");
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
       		return true;
 		}  
   	}
@@ -2445,15 +2450,15 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (SQLException ex)
 		{
-			System.out.println("Error al insertaFirma");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirma");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 			catch (Exception ex)
 		{
-			System.out.println("Error al insertaFirma");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirma");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 		finally
 		{
@@ -2686,27 +2691,27 @@ public class nInstrucciones extends nFiducia
 				if(iRows>0)
 				   {
 				   	conBD.commit();
-				    System.out.println("FirmaAutoriza  con Folio:"+strDatos[1]);
+				    LOGGER.debug("FirmaAutoriza  con Folio:"+strDatos[1]);
 				    bInstruccion=true;
 				   }	
 				else{
 					conBD.rollback();
 				   	bInstruccion=false;
-				   	System.out.println("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
+				   	LOGGER.debug("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
 				    }
 		}
 		catch (Exception ex)
 		{
 			try	{
 				conBD.rollback();
-				System.out.println("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
-				System.out.println("Error: "+ex);
-				System.out.println("Query: \n"+query);
+				LOGGER.debug("No se Registro la FirmaAutoriza con Folio:"+strDatos[1]);
+				LOGGER.debug("Error: "+ex);
+				LOGGER.debug("Query: \n"+query);
 				}
 			catch (Exception error)
 				{
-				System.out.println("No se realizo la FirmaAutoriza rollback");
-				System.out.println("Error: "+ex);	
+				LOGGER.debug("No se realizo la FirmaAutoriza rollback");
+				LOGGER.debug("Error: "+ex);	
 				
 				}
 			bInstruccion=false;
@@ -2714,8 +2719,8 @@ public class nInstrucciones extends nFiducia
 		}
 		finally
 		{
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: autoriza");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: autoriza");System.out.println(ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: autoriza");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: autoriza");LOGGER.error("Exception: ", ex); }
 			return bInstruccion;
 		}
 	}
@@ -2772,13 +2777,13 @@ public class nInstrucciones extends nFiducia
 	}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sDato;
 	}
@@ -2819,15 +2824,15 @@ public class nInstrucciones extends nFiducia
 	}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error en el metodo getSaldoContRen");
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error en el metodo getSaldoContRen");
+			LOGGER.debug(sQuery);
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sDato;
 	}
@@ -2877,16 +2882,16 @@ public class nInstrucciones extends nFiducia
 	}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error en el metodo: getHeader");
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error en el metodo: getHeader");
+			LOGGER.debug(sQuery);
 			return null;
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sDatos;
 	}
@@ -2939,16 +2944,16 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error en el metodo: getDatos");
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error en el metodo: getDatos");
+			LOGGER.debug(sQuery);
 			return null;
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData;
 	}
@@ -3034,17 +3039,17 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error de getSalContRendimiento");
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error de getSalContRendimiento");
+			LOGGER.debug(sQuery);
 			return 0;
 		}				
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de getSalContRendimiento");
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			//LOGGER.debug("Cerrando finally de la base de getSalContRendimiento");
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}		
 
@@ -3103,16 +3108,16 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Error de getRendimiento");
-			System.out.println(ex);
-			System.out.println(sQuery);
+			LOGGER.debug("Error de getRendimiento");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sQuery);
 			return null;
 		}				
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}		
 
@@ -3367,9 +3372,9 @@ public class nInstrucciones extends nFiducia
 		}						
 		catch (Exception ex)
 			{
-				System.out.println(ex);
-				System.out.println("Error en el Metodo: registraPagoHonFos");
-				System.out.println(query);
+				LOGGER.error("Exception: ", ex);
+				LOGGER.debug("Error en el Metodo: registraPagoHonFos");
+				LOGGER.debug(query);
 			  iRows=0;
 			}
 		finally
@@ -3475,8 +3480,8 @@ public class nInstrucciones extends nFiducia
 						dImpPago = num.format(Double.parseDouble(SImporte_cad)/1.15);
 						dImpHon  = num.format(Double.parseDouble(sData[6])) ;
 						
-						//System.out.println("Importe del pago = " + dImpPago);
- 						//System.out.println("Adeudo de Honorarios = " + dImpHon);
+						//LOGGER.debug("Importe del pago = " + dImpPago);
+ 						//LOGGER.debug("Adeudo de Honorarios = " + dImpHon);
  						
  						//JJR 05112007 SE BLOQUEA EN USO DE FIRMAS MANCOMUNADAS PARA PAGOS DE HONORARIOS FOSEG 
 						//bFirmasM = firmasMancomunadas(SFiso);	
@@ -3522,13 +3527,13 @@ public class nInstrucciones extends nFiducia
 
 		if(iRows>0)
 		   	{
-			   	System.out.println("El Pago de Honorarios FOSEG con Folio: "+ FolioOpera+ " SATISFACTORIO");
+			   	LOGGER.debug("El Pago de Honorarios FOSEG con Folio: "+ FolioOpera+ " SATISFACTORIO");
 			   	conBD.commit();
 			   	bInstruccion=true;
 		   	}
 		 else
 		   	{
-			   	System.out.println("El Pago de Honorarios FOSEG con Folio: "+ FolioOpera+ " NO SATISFACTORIO");
+			   	LOGGER.debug("El Pago de Honorarios FOSEG con Folio: "+ FolioOpera+ " NO SATISFACTORIO");
 			   	conBD.rollback();
 			   	conBD.commit();
 			   	bInstruccion=false;
@@ -3540,13 +3545,13 @@ public class nInstrucciones extends nFiducia
 			{
 				conBD.rollback();
 				conBD.commit();
-				System.out.println("No se Registro el Pago de Honorarios FOSEG con Folio:"+FolioOpera);
-				System.out.println("Error: "+ex);
+				LOGGER.debug("No se Registro el Pago de Honorarios FOSEG con Folio:"+FolioOpera);
+				LOGGER.debug("Error: "+ex);
 			}
 			catch (Exception error)
 			{
-				System.out.println("No se realizo el rollback");
-				System.out.println("Error: "+error+"\n"+sQuery);					
+				LOGGER.debug("No se realizo el rollback");
+				LOGGER.debug("Error: "+error+"\n"+sQuery);					
 				}
 			bInstruccion=false;
 		    
@@ -3554,10 +3559,10 @@ public class nInstrucciones extends nFiducia
 		finally
 		{
 			bContabilizado=false;
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonorarios");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonorarios");System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonorarios");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonorarios");LOGGER.error("Exception: ", ex); }
 			
 			return bInstruccion;
 		}		
@@ -3701,17 +3706,17 @@ public class nInstrucciones extends nFiducia
 		
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error de getCRen");
-			System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error de getCRen");
+			LOGGER.debug(sQuery);
 			return sData;	
 		}				
 		finally
 		{
-			//System.out.println("Cerrando finally de la base de getCRen");
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			//LOGGER.debug("Cerrando finally de la base de getCRen");
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}		
 	
@@ -3994,17 +3999,17 @@ public class nInstrucciones extends nFiducia
 		 			    
 		 				if(iRows>0) 
 		 						{
-								 System.out.println("Traspaso Inter Fideicomiso:");	
-								 System.out.println("		Retiro   con Folio: " + sDataR[1]);	
-								 System.out.println("		Deposito con Folio: " + sDataD[1]);
+								 LOGGER.debug("Traspaso Inter Fideicomiso:");	
+								 LOGGER.debug("		Retiro   con Folio: " + sDataR[1]);	
+								 LOGGER.debug("		Deposito con Folio: " + sDataD[1]);
 							     conBD.commit();
 							   	 bInstruccion=true;
 							  		
 								} 
 						else 	{
-								 System.out.println("No se registro el Traspaso Inter Fideicomiso:");	
-								 System.out.println("		Retiro   con Folio: " + sDataR[1]);	
-								 System.out.println("		Deposito con Folio: " + sDataD[1]);
+								 LOGGER.debug("No se registro el Traspaso Inter Fideicomiso:");	
+								 LOGGER.debug("		Retiro   con Folio: " + sDataR[1]);	
+								 LOGGER.debug("		Deposito con Folio: " + sDataD[1]);
 							     
 								conBD.rollback();
 								conBD.commit();
@@ -4013,30 +4018,30 @@ public class nInstrucciones extends nFiducia
 					}
 							catch (Exception ex)
 							{
-								System.out.println("Funcion: insertaInterFid");
-								System.out.println("Error: "+ex);
-								System.out.println(ex);
-								System.out.println(sInstrucc);
-								System.out.println(sQuery);
+								LOGGER.debug("Funcion: insertaInterFid");
+								LOGGER.debug("Error: "+ex);
+								LOGGER.error("Exception: ", ex);
+								LOGGER.debug(sInstrucc);
+								LOGGER.debug(sQuery);
 								try{
-									System.out.println("No se registro el Traspaso Inter Fideicomiso:");	
-									System.out.println("		Retiro   con Folio: " + sDataR[1]);	
-									System.out.println("		Deposito con Folio: " + sDataD[1]);
+									LOGGER.debug("No se registro el Traspaso Inter Fideicomiso:");	
+									LOGGER.debug("		Retiro   con Folio: " + sDataR[1]);	
+									LOGGER.debug("		Deposito con Folio: " + sDataD[1]);
 									conBD.rollback();
 									conBD.commit();
-									System.out.println("rollback");
+									LOGGER.debug("rollback");
 									}
 								catch(SQLException e)
 									{				
-										System.out.println("Error al realizar el roll back: :"+e);	
+										LOGGER.debug("Error al realizar el roll back: :"+e);	
 									}	
 								bInstruccion=false;
 							}
 							finally
 							{
-							try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-							try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaInterFid");System.out.println(ex); }
-							try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaInterFid");System.out.println(ex); }
+							try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+							try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaInterFid");LOGGER.error("Exception: ", ex); }
+							try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaInterFid");LOGGER.error("Exception: ", ex); }
 							return bInstruccion;
 							}																
 	}
@@ -4077,41 +4082,41 @@ public class nInstrucciones extends nFiducia
 									+"," + sData[2] + "," + sData[3] +"," + sData[4]+"," + sData[5] + ")";												
 
 
-			System.out.println("Pago de honorarios con Folio "+ sData[1] ); 					
+			LOGGER.debug("Pago de honorarios con Folio "+ sData[1]); 					
 			query=sInstrucc;	
 			iRows = stInstrucc.executeUpdate(sInstrucc);//inserta en instrucc				
 			 
 				if(iRows>0) 	{
 					conBD.commit();
-					System.out.println("Pago con Folio:"+ sData[1]+ " SATISFACTORIO" );
+					LOGGER.debug("Pago con Folio:"+ sData[1]+ " SATISFACTORIO");
 					bInstruccion=true;
 				}  		
 				else	{
 					conBD.rollback();
 					conBD.commit();
-					System.out.println("Pago con Folio:"+ sData[1]+ " NO SATISFACTORIO" );
+					LOGGER.debug("Pago con Folio:"+ sData[1]+ " NO SATISFACTORIO");
 					bInstruccion=false;
 				}
 			}
 		catch(SQLException ex){
-			System.out.println("Error de insertaPagoHonor:"+ex);
-			System.out.println("Pago con Folio:"+ sData[1]+ " NO SATISFACTORIO" );
-			System.out.println(query);
+			LOGGER.debug("Error de insertaPagoHonor:"+ex);
+			LOGGER.debug("Pago con Folio:"+ sData[1]+ " NO SATISFACTORIO");
+			LOGGER.debug(query);
 			
 			try{
 				conBD.rollback();
 				conBD.commit();
-				System.out.println("rollback");
+				LOGGER.debug("rollback");
 				}
 			catch(SQLException e)	{						
-				System.out.println("Error al realizar el roll back: :"+e);	
+				LOGGER.debug("Error al realizar el roll back: :"+e);	
 				}
 			bInstruccion=false;
 		}
 		finally {
-		//System.out.println("Cerrando Finally de la base de insertaPagoHonor");
-		try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonor");System.out.println(ex); }
-		try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaPagoHonor");System.out.println(ex); }
+		//LOGGER.debug("Cerrando Finally de la base de insertaPagoHonor");
+		try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonor");LOGGER.error("Exception: ", ex); }
+		try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaPagoHonor");LOGGER.error("Exception: ", ex); }
 		return bInstruccion;
 		}		
 	}
@@ -4167,13 +4172,13 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 				{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
     			}
 		finally
 				{
-					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-					try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+					try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+					try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 				}
 		return sDatos;
 	}
@@ -4265,15 +4270,15 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (SQLException ex)
 		{
-			System.out.println("Error al insertaFirmaTrasp");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirmaTrasp");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 			catch (Exception ex)
 		{
-			System.out.println("Error al insertaFirmaTrasp");
-			System.out.println(ex);
-			System.out.println(sInstrucc);
+			LOGGER.debug("Error al insertaFirmaTrasp");
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug(sInstrucc);
 		}
 		finally
 		{
@@ -4425,14 +4430,14 @@ public class nInstrucciones extends nFiducia
                   }
                   catch (Exception ex)
                   {
-                          System.out.println("Error: "+ex);   
+                          LOGGER.debug("Error: "+ex);   
                   }
                   finally
                   {
-                          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
-                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
+                          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
+                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
         
         return resInterna;
                   }
@@ -4562,14 +4567,14 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Error: "+ex);   
+			LOGGER.debug("Error: "+ex);   
 		}
 		finally
 		{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
       
       return resInterna;
 		}
@@ -4716,14 +4721,14 @@ public class nInstrucciones extends nFiducia
                   }
                   catch (Exception ex)
                   {
-                          System.out.println("Error: "+ex);   
+                          LOGGER.debug("Error: "+ex);   
                   }
                   finally
                   {
-                          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
-                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
+                          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
+                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
         
         return resInterna;
                   }
@@ -4872,14 +4877,14 @@ public class nInstrucciones extends nFiducia
                 }
                 catch (Exception ex)
                 {
-                        System.out.println("Error: "+ex);   
+                        LOGGER.debug("Error: "+ex);   
                 }
                 finally
                 {
-                        try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
-                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
+                        try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
+                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
       
       return resInterna;
                 }
@@ -4928,14 +4933,14 @@ public class nInstrucciones extends nFiducia
                 }
                 catch (Exception ex)
                 {
-                        System.out.println("Error: "+ex);   
+                        LOGGER.debug("Error: "+ex);   
                 }
                 finally
                 {
-                        try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
-                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: esInternaPreocupante");System.out.println(ex); }
+                        try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
+                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: esInternaPreocupante");LOGGER.error("Exception: ", ex); }
       
       return res24Horas;
                 }
@@ -4972,14 +4977,14 @@ public class nInstrucciones extends nFiducia
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Error: "+ex);   
+			LOGGER.debug("Error: "+ex);   
 		}
 		finally
 		{
-			/*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: getMonedaFiso");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: getMonedaFiso");System.out.println(ex); }
+			/*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: getMonedaFiso");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: getMonedaFiso");LOGGER.error("Exception: ", ex); }
       */
       return monedaFiso;
 		}
@@ -5016,14 +5021,14 @@ public class nInstrucciones extends nFiducia
       
       
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenTipoCambio");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenTipoCambio");
     } finally 
     {
-			/*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: obtenTipoCambio");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: obtenTipoCambio");System.out.println(ex); }
+			/*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: obtenTipoCambio");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: obtenTipoCambio");LOGGER.error("Exception: ", ex); }
       */
 		}
 		return sTipoCambio;
@@ -5066,14 +5071,14 @@ public class nInstrucciones extends nFiducia
         
         
       }catch (Exception ex) {
-                          System.out.println(ex);
-        System.out.println("Excepci�n en obtenTipoCambio");
+                          LOGGER.error("Exception: ", ex);
+        LOGGER.debug("Excepci�n en obtenTipoCambio");
       } finally 
       {
-                          /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: obtenTipoCambio");System.out.println(ex); }
-                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: obtenTipoCambio");System.out.println(ex); }
+                          /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                          try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: obtenTipoCambio");LOGGER.error("Exception: ", ex); }
+                          try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: obtenTipoCambio");LOGGER.error("Exception: ", ex); }
         */
                   }
                   return dMontoMensual;
@@ -5091,18 +5096,18 @@ public class nInstrucciones extends nFiducia
                         {
 
                                 
-                                System.out.println("Done");                
+                                LOGGER.debug("Done");                
                 }
                 catch (Exception ex)
                 {
-                        System.out.println("Error: "+ex);   
+                        LOGGER.debug("Error: "+ex);   
                 }
                 finally
                 {
-                        /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rsQuery"+ex); }
-                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("stQuery"+ex); }
-                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: getMonedaFiso");System.out.println(ex); }
-                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: getMonedaFiso");System.out.println(ex); }
+                        /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rsQuery"+ex); }
+                        try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("stQuery"+ex); }
+                        try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: getMonedaFiso");LOGGER.error("Exception: ", ex); }
+                        try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: getMonedaFiso");LOGGER.error("Exception: ", ex); }
       */
       return sClasifica;
                 }
@@ -5116,7 +5121,7 @@ public class nInstrucciones extends nFiducia
           //PreparedStatement prepared=null;
           try
           {
-                    System.out.println("sEjecutaQuery 27:"+sQuery);
+                    LOGGER.debug("sEjecutaQuery 27:"+sQuery);
                   sArreglo=serv.consumo(27,sQuery);
                   /*if (conBD == null) 
                       if (!conectarBD()) 
@@ -5124,7 +5129,7 @@ public class nInstrucciones extends nFiducia
                   if (conBD != null && conBD.isClosed() == true) if (!conectarBD()) dcont=0;
                   
                   //stQuery = conBD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                  System.out.println("sEjecutaQuery: "+sQuery);
+                  LOGGER.debug("sEjecutaQuery: "+sQuery);
                   prepared = conBD.prepareStatement(sQuery);
                   if(sCondicion.length()!=0){
                       prepared.setInt (1,Integer.parseInt(sCondicion));
@@ -5137,7 +5142,7 @@ public class nInstrucciones extends nFiducia
                   sArreglo= new String[dcont];
                   rsQuery.close();
                   prepared.close();
-                  System.out.println("Ejecuta query nisntrucciones "+sQuery);
+                  LOGGER.debug("Ejecuta query nisntrucciones "+sQuery);
                   prepared = conBD.prepareStatement(sQuery);
                   if(sCondicion.length()!=0){
                       prepared.setInt (1,Integer.parseInt(sCondicion));
@@ -5156,15 +5161,15 @@ public class nInstrucciones extends nFiducia
           }
           catch(Exception ex)
           {
-                  System.out.println("existeFolio: "+ex);
+                  LOGGER.debug("existeFolio: "+ex);
                   
           }
           finally
           {
                   
-                  /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-                  try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-                  try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+                  /*try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                  try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+                  try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
                   */
           return sArreglo; 
           }               

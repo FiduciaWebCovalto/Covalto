@@ -1,6 +1,9 @@
 package mx.com.inscitech.fiducia.common.util;
 
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Acuerdos extends QueryAcuerdos {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Acuerdos.class);
+
     public String sQuery = "";
     private boolean blnDebug = true;
     public Statement st = null;
@@ -22,25 +27,25 @@ public class Acuerdos extends QueryAcuerdos {
             if (st != null)
                 st.close();
         } catch (Exception ex) {
-            System.out.println("st" + ex);
+            LOGGER.debug("st" + ex);
         }
         try {
             if (rs != null)
                 rs.close();
         } catch (Exception ex) {
-            System.out.println("rt" + ex);
+            LOGGER.debug("rt" + ex);
         }
         try {
             if (prepared != null)
                 prepared.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
         try {
             if (dbConn != null)
                 dbConn.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            LOGGER.error("Exception: ", ex);
         }
     }
 
@@ -58,14 +63,14 @@ public class Acuerdos extends QueryAcuerdos {
 
             dbConn = c.conectarBD();
             if (dbConn == null)
-                System.out.println("Error es nula la conexion");
+                LOGGER.debug("Error es nula la conexion");
             st = dbConn.createStatement();
             dbConn.setAutoCommit(false);
         } catch (SQLException eSQL) {
-            System.out.println(this.getClass() + "eSQL1:" + eSQL);
+            LOGGER.debug(this.getClass() + "eSQL1:" + eSQL);
             throw new Exception("0");
         } catch (Exception e) {
-            System.out.println(this.getClass() + ":e1...: " + e);
+            LOGGER.debug(this.getClass() + ":e1...: " + e);
             throw new Exception("2");
         }
         try {
@@ -188,9 +193,9 @@ public class Acuerdos extends QueryAcuerdos {
             intNumRows = 0;
             dbConn.rollback();
             dbConn.commit();
-            System.out.println("intNumRows Error: " + intNumRows);
-            System.out.println("Query Error: " + sQuery);
-            System.out.println("Error en uSeguridad en la opcion:" + opc + "\nclase:" + this.getClass() + "\nError: " + eSQL);
+            LOGGER.debug("intNumRows Error: " + intNumRows);
+            LOGGER.debug("Query Error: " + sQuery);
+            LOGGER.debug("Error en uSeguridad en la opcion:" + opc + "\nclase:" + this.getClass() + "\nError: " + eSQL);
             String arregloErrores[] = new String[5];
             arregloErrores[0] = "ORA-00001"; // unique constraint";
             arregloErrores[1] = "ORA-02292"; //integrity constraint
@@ -202,7 +207,7 @@ public class Acuerdos extends QueryAcuerdos {
             int intA = -1;
 
             try {
-                System.out.println("Cerrando conexion... ");
+                LOGGER.debug("Cerrando conexion... ");
                 dbConn.close();
             } catch (Exception eCon) {
                 throw new Exception("Error al Cerrar la Conexion");
@@ -239,9 +244,9 @@ public class Acuerdos extends QueryAcuerdos {
 
 
         } catch (Exception e) {
-            System.out.println("Error en " + this.getClass().getName() + "\nError:" + e);
+            LOGGER.debug("Error en " + this.getClass().getName() + "\nError:" + e);
             try {
-                System.out.println("Cerrando conexion... ");
+                LOGGER.debug("Cerrando conexion... ");
                 dbConn.close();
             } catch (Exception eCon) {
                 throw new Exception("No se pudo Cerrar la Conexion");
@@ -263,15 +268,15 @@ public class Acuerdos extends QueryAcuerdos {
             c = new Conexion();
             dbConn = c.conectarBD();
             if (dbConn == null)
-                System.out.println("Error es nula la conexion");
+                LOGGER.debug("Error es nula la conexion");
             else
                 st = dbConn.createStatement();
 
         } catch (SQLException eSQL) {
-            System.out.println(this.getClass() + "eSQL1:" + eSQL);
+            LOGGER.debug(this.getClass() + "eSQL1:" + eSQL);
             throw new Exception("0");
         } catch (Exception e) {
-            System.out.println(this.getClass() + ":e1...: " + e);
+            LOGGER.debug(this.getClass() + ":e1...: " + e);
             throw new Exception("2");
         }
         try {
@@ -385,19 +390,19 @@ public class Acuerdos extends QueryAcuerdos {
                 rs = prepared.executeQuery();
             return rs;
         } catch (SQLException eSQL) {
-            System.out.println(this.getClass() + ":eSQL2: " + eSQL);
-            System.out.println("QUERY:\n" + sQuery);
+            LOGGER.debug(this.getClass() + ":eSQL2: " + eSQL);
+            LOGGER.debug("QUERY:\n" + sQuery);
             try {
-                System.out.println("Cerrando conexion... ");
+                LOGGER.debug("Cerrando conexion... ");
                 dbConn.close();
             } catch (Exception eCon) {
                 throw new Exception("1");
             }
             throw new Exception("1");
         } catch (Exception e) {
-            System.out.println(this.getClass() + ":e2: " + e);
+            LOGGER.debug(this.getClass() + ":e2: " + e);
             try {
-                System.out.println("Cerrando conexion... ");
+                LOGGER.debug("Cerrando conexion... ");
                 dbConn.close();
             } catch (Exception eCon) {
                 throw new Exception("1");

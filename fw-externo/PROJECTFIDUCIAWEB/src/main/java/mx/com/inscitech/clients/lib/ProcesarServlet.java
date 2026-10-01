@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.PrintWriter;
 
 // ProcesarServlet.java
@@ -32,6 +35,8 @@ import java.util.stream.Collectors;
 
 @WebServlet("/procesarDatos")
 public class ProcesarServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcesarServlet.class);
+
     int conta=0;
     String sAccion="";
     @Override
@@ -47,14 +52,14 @@ public class ProcesarServlet extends HttpServlet {
                }
            }
            String jsonData = buffer.toString();
-            System.out.println("jsondata "+jsonData);
+            LOGGER.debug("jsondata "+jsonData);
            // 2. Procesar con GSON
            Gson gson = new Gson();
            Accion accion = gson.fromJson(jsonData, Accion.class);
            accion.getAccion();
            // Obtenemos un parámetro que identifica la acción
            //String accion = request.getParameter("accion");
-           System.out.println("accion: "+accion.getAccion());
+           LOGGER.debug("accion: "+accion.getAccion());
            sAccion=accion.getAccion();
            if (sAccion == null) {
                response.getWriter().println("Acción no especificada");
@@ -64,7 +69,7 @@ public class ProcesarServlet extends HttpServlet {
     
                FContratoDAO inserta = new FContratoDAO();
     
-               //System.out.println("Usuario: " + data.getUsuarioId());
+               //LOGGER.debug("Usuario: " + data.getUsuarioId());
                for (FContratoDATODTO item : productosSeleccionados.getFilasSeleccionadas()) {
                    inserta.asignarquitarFideicomiso(item.getFiso(),item.getUsuario(),
                                                     productosSeleccionados.getOpcion());
@@ -76,9 +81,9 @@ public class ProcesarServlet extends HttpServlet {
                FConceptosDAO bd = new FConceptosDAO();
                if(conceptos.getOpcion()==1){
                        for (MapeoTabla item : conceptos.getFilasSeleccionadas()) {
-                           System.out.println("clave:"+item.getFcmaIdSecCatma());
-                           System.out.println("sclave:"+item.getConcepto());
-                           System.out.println("desclave:"+conceptos.getFfidIdFideicomiso().replaceAll(" ", ""));
+                           LOGGER.debug("clave:"+item.getFcmaIdSecCatma());
+                           LOGGER.debug("sclave:"+item.getConcepto());
+                           LOGGER.debug("desclave:"+conceptos.getFfidIdFideicomiso().replaceAll(" ", ""));
                            conta=bd.asignarConcepto(item.getFcmaIdSecCatma(),
                                                      item.getConcepto(),
                                                      conceptos.getFfidIdFideicomiso().replaceAll(" ", ""));

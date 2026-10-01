@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /*
   @Autor:Inscitech
   @Creado: Junio 2008
@@ -8,6 +11,8 @@ package mx.com.inscitech.clients.negocio;
  
 public class balanceFormulas
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(balanceFormulas.class);
+
 
 
 	private static int sal_num_ctam;
@@ -23,7 +28,7 @@ public class balanceFormulas
     
     
 	public boolean bFCajayBco;     //CAJA Y BANCOS(@FCAJAYBCO) tabla:saldosmsa
-	public boolean bValoresPorRecibir;//VALORES POR RECIBIR EN OPERACIONES DE PRÉSTAMO DENTRO DEL ACTIVO Y DE PASO
+	public boolean bValoresPorRecibir;//VALORES POR RECIBIR EN OPERACIONES DE PRSTAMO DENTRO DEL ACTIVO Y DE PASO
 	public boolean bOtrasDispon;    //OTRAS DISPONIB(@OTRAS DISPON)
 	public boolean bTitulos;     //TITULOS PARA NEGOCIAR(@TITULOS)
 	public boolean bFAccion;    //ACCION(@FACCION)
@@ -90,7 +95,7 @@ public class balanceFormulas
      
 public balanceFormulas()
 						{
-						 bValoresPorRecibir=false;//VALORES POR RECIBIR EN OPERACIONES DE PRÉSTAMO DENTRO DEL ACTIVO Y DE PASO	  
+						 bValoresPorRecibir=false;//VALORES POR RECIBIR EN OPERACIONES DE PRSTAMO DENTRO DEL ACTIVO Y DE PASO	  
 						 bFCajayBco=false;      //CAJA Y BANCOS(@FCAJAYBCO) tabla:saldosmsa
 						 bOtrasDispon=false;     //OTRAS DISPONIB(@OTRAS DISPON)
 						 bTitulos=false;      //TITULOS PARA NEGOCIAR(@TITULOS)
@@ -315,7 +320,7 @@ public balanceFormulas()
 	
 
 	
-	//VALORES POR RECIBIR EN OPERACIONES DE PRÉSTAMO DENTRO DEL ACTIVO Y DE PASO
+	//VALORES POR RECIBIR EN OPERACIONES DE PRSTAMO DENTRO DEL ACTIVO Y DE PASO
 	public double valoresPorRecibir()
 									{
 									
@@ -360,7 +365,7 @@ public balanceFormulas()
 	
 	public double titulos()
 		{
-			//System.out.println(sal_num_ctam);
+			//LOGGER.debug("{}", sal_num_ctam);
 			
 		if	(
 		  	(sal_num_ctam==1201 && sal_num_scta==0 && sal_num_sscta==0 && sal_num_ssscta==0 && sal_num_sssscta==0 && sal_num_ssssscta==0 && sal_num_aux2==0 && sal_num_aux3==0)

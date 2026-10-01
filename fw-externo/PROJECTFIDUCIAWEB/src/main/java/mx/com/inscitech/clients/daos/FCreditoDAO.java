@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.daos;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +18,8 @@ import mx.com.inscitech.clients.util.StringFormatter;
 
 public class FCreditoDAO 
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FCreditoDAO.class);
+
 
   Connection connection = null;
   Statement statement = null;
@@ -56,7 +61,7 @@ public class FCreditoDAO
         //Crea un statement
         statement = connection.createStatement();
         //Ejecuta el query
-        System.out.println(stringBufferSQL.toString());
+        LOGGER.debug(stringBufferSQL.toString());
         resultSet = statement.executeQuery(stringBufferSQL.toString());    
         
         while (resultSet.next()) 
@@ -81,9 +86,9 @@ public class FCreditoDAO
           connection.close();
       
       } catch (Exception e) {
-          e.printStackTrace();
+          LOGGER.error("Exception: ", e);
       }
-      //System.out.println(sbTabla.toString());
+      //LOGGER.debug(sbTabla.toString());
     return sbTabla.toString();
   }
 

@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.common.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import java.util.HashMap;
@@ -19,6 +22,8 @@ import org.apache.commons.configuration.XMLConfiguration;
  * @author Inscitech México inscitech@inscitechmexico.com
  */
 public class ConfigurationService extends FiduciaWebBase {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationService.class);
+
 
     private static ConfigurationService instance = null;
 
@@ -94,7 +99,7 @@ public class ConfigurationService extends FiduciaWebBase {
             this.logger.info("... Configuration Loaded!");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
             throw new ConfigurationException(e);
         }
         
@@ -108,7 +113,7 @@ public class ConfigurationService extends FiduciaWebBase {
             try {
                 loadConfiguration();
             } catch (ConfigurationException e) {
-                e.printStackTrace();
+                LOGGER.error("Exception: ", e);
                 logger.fatal(this, e);
             }
         }

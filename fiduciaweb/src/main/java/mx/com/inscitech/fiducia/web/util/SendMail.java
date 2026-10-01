@@ -1,5 +1,8 @@
 package mx.com.inscitech.fiducia.web.util;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -13,6 +16,8 @@ import javax.mail.internet.MimeMessage;
 
 
 public class SendMail {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendMail.class);
+
     private String from;
     private String to;
     private String cc;
@@ -46,7 +51,7 @@ public class SendMail {
             toAddress = new InternetAddress(to);
             ccAddress = new InternetAddress(cc);
         } catch (AddressException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
 
         try {
@@ -57,9 +62,9 @@ public class SendMail {
             simpleMessage.setText(text);
 
             Transport.send(simpleMessage);
-            System.out.println("Email enviado");
+            LOGGER.debug("Email enviado");
         } catch (MessagingException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception: ", e);
         }
     }
 

@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -11,11 +14,13 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class UploadPDF extends servicios{
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadPDF.class);
+
 
     public String sendPdfToRestApi(InputStream fileStream, String fileName, 
                                        String description, String token) throws IOException {
             String apiUrl = ConfigLoader.getUrl();
-            System.out.println("apiUrl de archivo config "+apiUrl);
+            LOGGER.debug("apiUrl de archivo config "+apiUrl);
             String url=apiUrl+"/api/documentos/upload";
             HttpClient client = HttpClient.newHttpClient();
             String boundary = "JavaMultipartBoundary-" + UUID.randomUUID();

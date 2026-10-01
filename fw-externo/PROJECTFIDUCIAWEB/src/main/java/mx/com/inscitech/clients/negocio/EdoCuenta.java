@@ -5,6 +5,9 @@
 
 package mx.com.inscitech.clients.negocio;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.servicios;
 
 import java.awt.geom.AffineTransform;
@@ -22,6 +25,8 @@ import oracle.jdbc.driver.*;
 
 
 public class EdoCuenta extends nFiducia{
+    private static final Logger LOGGER = LoggerFactory.getLogger(EdoCuenta.class);
+
 	
     int origen=0;//1 origen servicios y 0 query
     servicios serv = new servicios();
@@ -57,7 +62,7 @@ public class EdoCuenta extends nFiducia{
 				case 3: // Contratos de Inversion
 					
                                     origen=1;
-                                    System.out.println("Condicion caso 3"+sCond);
+                                    LOGGER.debug("Condicion caso 3"+sCond);
                                     resultado=serv.consumo(13,sCond); 
                                     sData=new String[resultado.length];
                                     sData= resultado;
@@ -502,7 +507,7 @@ public class EdoCuenta extends nFiducia{
                     if (conBD != null && conBD.isClosed() == true) if (!conectarBD()) return sData;
                     
                     stQuery = conBD.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                    System.out.println("EdoCuenta sQuery getData: "+sQuery);
+                    LOGGER.debug("EdoCuenta sQuery getData: "+sQuery);
                     rsQuery=stQuery.executeQuery(sQuery); 
                     if(rsQuery.next())
                      {
@@ -523,14 +528,14 @@ public class EdoCuenta extends nFiducia{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
     }
 		finally
 		{
             if(origen==0){
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
                         }
 		}
 		return sData;
@@ -569,7 +574,7 @@ public class EdoCuenta extends nFiducia{
 							+ folio + ","
 							+ "'" + numUsuario + "',"
 							+ "'" + detalle + "')";
-			System.out.println("Query "+queryBitacora);
+			LOGGER.debug("Query "+queryBitacora);
 			iRows = stInstrucc.executeUpdate(queryBitacora);					
 			
 		}
@@ -580,18 +585,18 @@ public class EdoCuenta extends nFiducia{
 			try{
 				conBD.rollback();
 				conBD.commit();
-				System.out.println("rollback");
+				LOGGER.debug("rollback");
 				}
 			catch(SQLException e)
 				{
 						
-				System.out.println("Metodo: insertaBitacora:"+e);	
+				LOGGER.debug("Metodo: insertaBitacora:"+e);	
 				}
 		}
 		finally
 		{
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: insertaBitacora");System.out.println(ex); }
-			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { System.out.println("Funcion: insertaBitacora");System.out.println(ex); }			
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaBitacora");LOGGER.error("Exception: ", ex); }
+			try { conBD.setAutoCommit(true);CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: insertaBitacora");LOGGER.error("Exception: ", ex); }			
 			return iRows;
 		}
 	}
@@ -623,12 +628,12 @@ public class EdoCuenta extends nFiducia{
 		catch (Exception ex)
 		{
 			importeMaximo=0;
-			System.out.println("Metodo: getImporteMaxRetiro:"+ex);
+			LOGGER.debug("Metodo: getImporteMaxRetiro:"+ex);
 		}
 		finally
 		{
-			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { System.out.println("Funcion: getImporteMaxRetiro");System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println("Funcion: getImporteMaxRetiro");System.out.println(ex); }			
+			try { if(stInstrucc != null ) stInstrucc.close(); } catch (Exception ex) { LOGGER.debug("Funcion: getImporteMaxRetiro");LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.debug("Funcion: getImporteMaxRetiro");LOGGER.error("Exception: ", ex); }			
 		}
 		
 		if(importeMaximo==0)
@@ -725,12 +730,12 @@ public class EdoCuenta extends nFiducia{
 			   intCve = rsQuery.getDouble(1);
     
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenDatosEscritura");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenDatosEscritura");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex);  }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex);  }
 		}
 		return intCve;
 	}
@@ -755,12 +760,12 @@ public class EdoCuenta extends nFiducia{
 			   nombreIntermed = rsQuery.getString(1);
       
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenNombreIntermed");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNombreIntermed");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return nombreIntermed;
 	}
@@ -784,12 +789,12 @@ public class EdoCuenta extends nFiducia{
 			   sNumCuenta = rsQuery.getString(1);
       
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenNumCuenta");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNumCuenta");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
 		}
 		return sNumCuenta;
 	}
@@ -814,12 +819,12 @@ public class EdoCuenta extends nFiducia{
 			   sNomBanco = rsQuery.getString(1);
       
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenNombreBanco");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenNombreBanco");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
 		}
 		return sNomBanco;
 	}
@@ -860,12 +865,12 @@ public class EdoCuenta extends nFiducia{
 			   intPersona = rsQuery.getInt(1);
     
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenDatosPersona");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenDatosPersona");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex);  }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex);  }
 		}
 		return intPersona;
 	}
@@ -895,19 +900,19 @@ public class EdoCuenta extends nFiducia{
      //        + " AND TIC_ANO_ULT_MOD = " + a 
      //        + " AND TIC_MES_ULT_MOD = " + m
      //        + " AND TIC_DIA_ULT_MOD = " + d;
-      //System.out.println("Consulta tipo de cambio: " + sQuery );
+      //LOGGER.debug("Consulta tipo de cambio: " + sQuery);
       rsQuery=stQuery.executeQuery(sQuery);
 			if(rsQuery.next())
 			   sTipoCambio = rsQuery.getString(1);
       
       
     }catch (Exception ex) {
-			System.out.println(ex);
-      System.out.println("Excepci�n en obtenCotizacion");
+			LOGGER.error("Exception: ", ex);
+      LOGGER.debug("Excepci�n en obtenCotizacion");
     } finally {
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); System.out.println("Excepci�n del Finally"); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); LOGGER.debug("Excepci�n del Finally"); }
 		}
 		return sTipoCambio;
 	}
@@ -1064,7 +1069,7 @@ public class EdoCuenta extends nFiducia{
 				
 					sQuery = "SELECT cve_num_sec_clave FROM claves WHERE cve_num_clave=27 AND";
 					sQuery+= " cve_desc_clave='" + sCond.substring(sCond.indexOf('|')+2,sCond.lastIndexOf('|')-1) + "'";
-          			System.out.println(sQuery);
+          			LOGGER.debug(sQuery);
 
 					rsQuery=stQuery.executeQuery(sQuery);
 					rsQuery.next();
@@ -1073,7 +1078,7 @@ public class EdoCuenta extends nFiducia{
 					sQuery = "SELECT cdp_cve_cuendep FROM cuendep WHERE CDP_ESTATUS='ACEPTADA' AND cdp_cve_banco=";
 					sQuery = sQuery + sCve + " AND cdp_num_cuenta=";
 					sQuery = sQuery + sCond.substring(sCond.lastIndexOf('|')+2,sCond.length());
-					System.out.println(sQuery);
+					LOGGER.debug(sQuery);
 					sCve="";
 					break;
 			}
@@ -1084,7 +1089,7 @@ public class EdoCuenta extends nFiducia{
 			
 			sQuery = "SELECT cdp_cve_banco,cdp_plaza,cdp_sucursal,cdp_titular,cdp_rfc";
 			sQuery +=" FROM cuendep WHERE CDP_ESTATUS='ACEPTADA' AND cdp_cve_cuendep=" + sCve;
-			System.out.println(sQuery);
+			LOGGER.debug(sQuery);
       rsQuery=stQuery.executeQuery(sQuery);
 			rsQuery.next();
 			
@@ -1097,15 +1102,15 @@ public class EdoCuenta extends nFiducia{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-				System.out.println(sQuery);
+			LOGGER.error("Exception: ", ex);
+				LOGGER.debug(sQuery);
     }
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData;
 	}
@@ -1182,14 +1187,14 @@ public class EdoCuenta extends nFiducia{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData;
 	}
@@ -1321,14 +1326,14 @@ public class EdoCuenta extends nFiducia{
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData.toString();
 	}
@@ -1430,21 +1435,21 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			if(numHon!=0)
 			{
-			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			}
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData.toString();
 	}
@@ -1487,7 +1492,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 			}
 			catch (Exception ex)
 			{
-				System.out.println(ex);
+				LOGGER.error("Exception: ", ex);
 				return "error";
 			}				
 			}
@@ -1559,7 +1564,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 			}
 			catch (Exception ex)
 			{
-				System.out.println(ex);
+				LOGGER.error("Exception: ", ex);
 				return "error";
 			}		
 		}	
@@ -1595,7 +1600,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 			}
 			catch (Exception ex)
 			{
-				System.out.println(ex);
+				LOGGER.error("Exception: ", ex);
 				return "error";
 			}				
 			}
@@ -1703,19 +1708,19 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			if(adeudoPendiente==true)
 				{
-			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 				}
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData.toString();
 	}
@@ -1860,7 +1865,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return null;
 		}
 		finally
@@ -1868,9 +1873,9 @@ public String getHonPend(String sNumFid,String[] bitacora)
 			
 			if(sCtos!=null)
 			{
-				try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rs"+ex); }
-				try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("st"+ex); }		
-				try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+				try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rs"+ex); }
+				try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }		
+				try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			}
 		}
 	}
@@ -1972,14 +1977,14 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		return sData.toString();
 	}
@@ -2059,16 +2064,16 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 			catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	return "0.00";
 	}
@@ -2097,15 +2102,15 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return 0;
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		
 		return 0;
@@ -2124,15 +2129,15 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return null;
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		
 		return sOpciones;
@@ -2180,17 +2185,17 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println(ex);
+			LOGGER.error("Exception: ", ex);
 			return null;
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(rsQuery_Secuen != null ) rsQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 		
 	
@@ -2277,7 +2282,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 				sReturn = "Esta operaci�n no esta vigente";
 				return  sReturn ;
 			}*/
-			//System.out.println("Validando el numero de operaciones");
+			//LOGGER.debug("Validando el numero de operaciones");
 							
 			sQuery = "SELECT COUNT(*) FROM instrucc,detliqui WHERE ins_num_contrato=" + sNumFid;
 			sQuery += " AND ins_cve_tipo_instr='LIQUIDACION INTERNET' AND del_rubro = " + sCveConcepto;
@@ -2302,16 +2307,16 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Error de ValidRetiro"); 
-			System.out.println(ex);
+			LOGGER.debug("Error de ValidRetiro"); 
+			LOGGER.error("Exception: ", ex);
 			return "";
 		}
 		finally
 		{
 
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}
 	}
 
@@ -2364,15 +2369,15 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch(Exception ex)
 		{
-			System.out.println("ExisteSWIFT: "+ex);
+			LOGGER.debug("ExisteSWIFT: "+ex);
 			return 0;
 		}
 		finally
 		{
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}		
 	}
 	
@@ -2440,15 +2445,15 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getDatosSWIFT: "+ex);
+			LOGGER.debug("getDatosSWIFT: "+ex);
 			return null;
 		}
 		finally
 		{
 		
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 		}		
 	}
 	
@@ -2650,17 +2655,17 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getMovsFOSEG: "+ex);
-			System.out.println(sQuery);
+			LOGGER.debug("getMovsFOSEG: "+ex);
+			LOGGER.debug(sQuery);
 			
 		}
 		finally
 		{
 		
 			
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rs"+ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("st"+ex); }		
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rs"+ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }		
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			return sData.toString();
 
 		}		
@@ -3691,8 +3696,8 @@ public String getHonPend(String sNumFid,String[] bitacora)
 	}
 	catch(Exception ex)
 		{
-			System.out.println("getMovsDetFOSEG: "+ex);
-			System.out.println(sQuery);
+			LOGGER.debug("getMovsDetFOSEG: "+ex);
+			LOGGER.debug(sQuery);
 			sMensaje="ERRORFS";
 			sData.append("<font class=\"alerta\">Error al consultar el detalle<br>Intente mas tarde<br>Si el problema persiste: Informe a su ejecutivo de cuenta</font>");
 		}
@@ -3704,9 +3709,9 @@ public String getHonPend(String sNumFid,String[] bitacora)
 	
 			sData.append("</table>");
 		    
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("st"+ex); }		
-			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { System.out.println("st"+ex); }		
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }		
+			try { if(stQuery_Secuen != null ) stQuery_Secuen.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }		
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			return sData.toString();
 		}		
 	}
@@ -3775,8 +3780,8 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		
 		catch (Exception ex)
 		{
-			System.out.println(ex);
-			System.out.println("Error del metodo: getCtosSaldo"); 
+			LOGGER.error("Exception: ", ex);
+			LOGGER.debug("Error del metodo: getCtosSaldo"); 
 			return null;
 		}
 		finally
@@ -3784,9 +3789,9 @@ public String getHonPend(String sNumFid,String[] bitacora)
 			
 			if(sCtos!=null)
 			{
-				try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println("rs"+ex); }
-				try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println("st"+ex); }		
-				try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+				try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.debug("rs"+ex); }
+				try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.debug("st"+ex); }		
+				try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			}
 		}
 		
@@ -3817,7 +3822,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch(Exception ex)
 			{
-			System.out.println("getIpMail: "+ex);
+			LOGGER.debug("getIpMail: "+ex);
 			dato=null;	
 			}
 		finally
@@ -3854,14 +3859,14 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		}
 		catch(Exception ex)
 			{
-			System.out.println("getDatosParametros: "+ex);
+			LOGGER.debug("getDatosParametros: "+ex);
 			dato=null;	
 			}
 		finally
 			{
-			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-			try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+			try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+			try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
 			return dato;
 			}		
 	}		
@@ -3887,14 +3892,14 @@ public String muestraImporte (String sImporteOrig)
         }
         catch (Exception ex)
         {
-          System.out.println(ex);
+          LOGGER.error("Exception: ", ex);
         }
         finally
         {
           
-          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-          try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+          try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
         }
    return "0.0";     
  }
@@ -3921,14 +3926,14 @@ public String muestraImporteSinFormato (String sImporteOrig)
         }
         catch (Exception ex)
         {
-          System.out.println(ex);
+          LOGGER.error("Exception: ", ex);
         }
         finally
         {
           
-          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-          try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+          try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+          try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+          try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
         }
    return "0.0";     
  }
@@ -3969,7 +3974,7 @@ public String muestraImporteSinFormato (String sImporteOrig)
          * @return
          */
        public byte[] GetImgByteById(String sAnio,String sMes,String sCuenta){
-        //System.out.println("Get img data which id is " + nID);
+        //LOGGER.debug("Get img data which id is " + nID);
         byte[] data = null;
         boolean bregreso = false;
         try {
@@ -3988,25 +3993,25 @@ public String muestraImporteSinFormato (String sImporteOrig)
                     try {
                         long nLen = blob.length();
                         int nSize = (int) nLen;
-                        //System.out.println("img data size is :" + nSize);
+                        //LOGGER.debug("img data size is :" + nSize);
                         data = new byte[nSize];
                         inStream.read(data);
                         inStream.close();
                     } catch (IOException e) {
-                                             System.out.println ("Error al obtener datos de la imagen, raz�n:" + e.getMessage ());
+                                             LOGGER.debug("Error al obtener datos de la imagen, raz�n:" + e.getMessage ());
                     }
                    
                     //data = ChangeImgSize(data, 300, 300);
                 }
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                LOGGER.error("Error: {}", ex.getMessage());
             }
             finally
             {
               
-              try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-              try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { System.out.println(ex); }
-              try { CloseBD(); } catch (Exception ex) { System.out.println(ex); }
+              try { if(rsQuery != null ) rsQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+              try { if(stQuery != null ) stQuery.close(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
+              try { CloseBD(); } catch (Exception ex) { LOGGER.error("Exception: ", ex); }
             }        
             return data;
     }
@@ -4040,7 +4045,7 @@ public String muestraImporteSinFormato (String sImporteOrig)
                 newdata = baos.toByteArray();
                
         }catch(IOException e){ 
-             e.printStackTrace(); 
+             LOGGER.error("Exception: ", e); 
         } 
       
         return newdata;

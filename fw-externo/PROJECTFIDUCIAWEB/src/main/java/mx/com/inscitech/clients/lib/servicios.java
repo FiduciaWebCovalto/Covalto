@@ -1,5 +1,8 @@
 package mx.com.inscitech.clients.lib;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.daos.FContratoDAO;
 import mx.com.inscitech.clients.daos.FContratoDATODTO;
 import mx.com.inscitech.clients.domain.ParamGlobal;
@@ -38,6 +41,8 @@ import jakarta.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 
 public class servicios {
+    private static final Logger LOGGER = LoggerFactory.getLogger(servicios.class);
+
     String apiUrl = ConfigLoader.getUrl();
     String url=apiUrl;
     //ObjectMapper objectMapper = new ObjectMapper();
@@ -210,7 +215,7 @@ public class servicios {
                     urlfinal = url+"/api/documentos/buscar?id="+param1;
                     break;              
             }
-               System.out.println("url: " + urlfinal);
+               LOGGER.debug("url: " + urlfinal);
 
                HttpClient client = HttpClient.newHttpClient();
                
@@ -222,8 +227,8 @@ public class servicios {
                        .build();
                 
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                System.out.println("Status Code: " + response.statusCode());
-                System.out.println("Response: " + response.body());                 
+                LOGGER.debug("Status Code: " + response.statusCode());
+                LOGGER.debug("Response: " + response.body());                 
 
                 ObjectMapper mapper = new ObjectMapper();
 
@@ -237,16 +242,16 @@ public class servicios {
                     case 1://ParamGlobal
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         ParamGlobal usuario = gson.fromJson(jsoncadena, ParamGlobal.class);                        
-                        System.out.println("GSON: "+usuario.paramValor); // Salida: Juan 
+                        LOGGER.debug("GSON: "+usuario.paramValor); // Salida: Juan 
                         resultado[0]=String.valueOf(usuario.paramValor);
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                     case 2://f_usufid
                         jsoncadena=jsoncadena.trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
 
 
                         // Deserializar arreglo de objetos
@@ -256,35 +261,35 @@ public class servicios {
                         if(registros.size()>0)
                             resultado=registros.get(0).getContrato().toString().replaceAll("\\[","").split(",");
       
-                        System.out.println("Longitud resultado fusufid "+resultado.length);
+                        LOGGER.debug("Longitud resultado fusufid "+resultado.length);
                         // Resultado
                         for (String nombre : resultado) {
-                            System.out.println(nombre);
+                            LOGGER.debug(nombre);
                         }
                         break;                
                     case 3://feccont
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         Feccont fecha = gson.fromJson(jsoncadena, Feccont.class);                        
-                        System.out.println("GSON: "+fecha.fcoFecha); // Salida: Juan 
+                        LOGGER.debug("GSON: "+fecha.fcoFecha); // Salida: Juan 
                         resultado[0]=String.valueOf(fecha.fcoFecha);
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                     case 4://ParamGlobal se recupera valor2
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         ParamGlobal valor2 = gson.fromJson(jsoncadena, ParamGlobal.class);                        
-                        System.out.println("GSON: "+valor2.paramValor2); 
+                        LOGGER.debug("GSON: "+valor2.paramValor2); 
                         resultado[0]=String.valueOf(valor2.paramValor2);
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                 case 5://fisos
                         jsoncadena=jsoncadena. trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
         
         
                         // Deserializar arreglo de objetos
@@ -293,17 +298,17 @@ public class servicios {
                         resultado = new String[fisos.size()];
                         resultado=fisos.toString().replaceAll("\\[","").split(",");
                         
-                        System.out.println("Longitud resultado fisos "+resultado.length);
+                        LOGGER.debug("Longitud resultado fisos "+resultado.length);
                         // Resultado
                         /*for (String nombre : resultado) {
-                            System.out.println(nombre);
+                            LOGGER.debug(nombre);
                         }*/
                         break;  
                 case 6: case 28: case 34://conceptos
                             Gson gson2 = new Gson();
                             //jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","");
                     
-                            System.out.println("jsoncadena:"+jsoncadena);            
+                            LOGGER.debug("jsoncadena:"+jsoncadena);            
                             // Deserializar JSON a objeto Java
                             // 3. Definir el tipo de la lista (TypeToken)
                             Type typeclaves = new TypeToken<List<ClavesDTO>>(){}.getType();
@@ -314,15 +319,15 @@ public class servicios {
                             for (ClavesDTO item : claves) {
                                 resultado[cont++]=item.toString();
                             }
-                            System.out.println("Longitud resultado claves "+resultado.length);
+                            LOGGER.debug("Longitud resultado claves "+resultado.length);
                             // Resultado
                             /*for (String nombre : resultado) {
-                                System.out.println(nombre);
+                                LOGGER.debug(nombre);
                             }*/
                             break;                  
                         case 7://datos del fiso
                             jsoncadena=jsoncadena. trim();
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             
                             
                             // Deserializar arreglo de objetos
@@ -332,14 +337,14 @@ public class servicios {
                             resultado=fisosid.toString().replaceAll("\\]","").replaceAll("\\[","").substring(
                             fisosid.toString().indexOf('-')).split(",");
                             
-                            System.out.println("Longitud listFisosid "+resultado.length);
+                            LOGGER.debug("Longitud listFisosid "+resultado.length);
                             // Resultado
                             /*for (String nombre : resultado) {
-                                System.out.println("listFisosid:"+nombre);
+                                LOGGER.debug("listFisosid:"+nombre);
                             }*/
                             break;  
                     case 8:
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typemonedas = new TypeToken<List<Monedas>>(){}.getType();
                             // 4. Deserializar
                             List<Monedas> monedas = gson.fromJson(jsoncadena, typemonedas);
@@ -348,13 +353,13 @@ public class servicios {
                             for (Monedas item : monedas) {
                                 resultado[cont++]=item.getMonNomMoneda();
                             }
-                            //System.out.println("Longitud resultado claves "+resultado.length);   
+                            //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                             /*for (String nombre : resultado) {
-                                System.out.println("monedas:"+nombre);
+                                LOGGER.debug("monedas:"+nombre);
                             }*/
                             break;
                     case 9:case 30://fideicomcase 29:
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typefideicom = new TypeToken<List<FideicomDTO>>(){}.getType();
                             // 4. Deserializar
                             List<FideicomDTO> fideicom = gson.fromJson(jsoncadena, typefideicom);
@@ -365,7 +370,7 @@ public class servicios {
                             }
                             break;             
                     case 10:case 29://benefici
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typebenefici = new TypeToken<List<BeneficiDTO>>(){}.getType();
                             // 4. Deserializar
                             List<BeneficiDTO> benefici = gson.fromJson(jsoncadena, typebenefici);
@@ -376,7 +381,7 @@ public class servicios {
                             }
                             break;             
                     case 11:case 31://otros
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typeterceros = new TypeToken<List<TercerosDTO>>(){}.getType();
                             // 4. Deserializar
                             List<TercerosDTO> terceros = gson.fromJson(jsoncadena, typeterceros);
@@ -389,15 +394,15 @@ public class servicios {
                     case 12://folios
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         //Folios folio = gson.fromJson(jsoncadena, Folios.class);                        
-                        System.out.println("folio asignado: "+jsoncadena); 
+                        LOGGER.debug("folio asignado: "+jsoncadena); 
                         resultado[0]=jsoncadena;
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                     case 13:
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typecueninv = new TypeToken<List<FCuentasInversion>>(){}.getType();
                         // 4. Deserializar
                         List<FCuentasInversion> inver = gson.fromJson(jsoncadena, typecueninv);
@@ -407,7 +412,7 @@ public class servicios {
                             //caso especial para recuperar el nombre de la moneda
                             HttpClient clientmon = HttpClient.newHttpClient();
                             urlfinal = url+"/monedas/id/"+item.getFciMoneda();//se envia el codigo de la moneda
-                            System.out.println("Moneda Cto Inver: "+urlfinal);
+                            LOGGER.debug("Moneda Cto Inver: "+urlfinal);
                             HttpRequest requestmon = HttpRequest.newBuilder()
                                     .uri(URI.create(urlfinal))
                                     .header("Authorization", "Bearer " + token) // PASO CLAVE
@@ -430,7 +435,7 @@ public class servicios {
 
                     case 14:case 41:
                     
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typecueninv2 = new TypeToken<List<FCuentasInversion>>(){}.getType();
                         // 4. Deserializar
                         List<FCuentasInversion> inver2 = gson.fromJson(jsoncadena, typecueninv2);
@@ -439,7 +444,7 @@ public class servicios {
                         for (FCuentasInversion item : inver2) {
                             resultado[cont++]=item.fciNumCta+"";
                         }                    
-                        /*System.out.println("jsoncadena:"+jsoncadena);
+                        /*LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typefisocuenta = new TypeToken<List<FFideicoCuebanDTO>>(){}.getType();
                         // 4. Deserializar
                         List<FFideicoCuebanDTO> ctaxfiso = gson.fromJson(jsoncadena, typefisocuenta);
@@ -449,12 +454,12 @@ public class servicios {
                             resultado[cont++]=item.toString();
                         }
                         /*for (String nombre : resultado) {
-                                                    System.out.println("FFideicoCuebanDTO:"+nombre);
+                                                    LOGGER.debug("FFideicoCuebanDTO:"+nombre);
                                                 }*/
                         break;   
 
                     case 15://subfiso
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typesubfiso = new TypeToken<List<FSubcuentaDTO>>(){}.getType();
                         // 4. Deserializar
                         List<FSubcuentaDTO> subfiso = gson.fromJson(jsoncadena, typesubfiso);
@@ -466,7 +471,7 @@ public class servicios {
                         break; 
 
                     case 16://personal
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typepersonal = new TypeToken<List<Personal>>(){}.getType();
                         // 4. Deserializar
                         List<Personal> personal = gson.fromJson(jsoncadena, typepersonal);
@@ -477,7 +482,7 @@ public class servicios {
                         }
                         break;
                     case 18://monedas por nombre
-                                System.out.println("jsoncadenaMoneda:"+jsoncadena);
+                                LOGGER.debug("jsoncadenaMoneda:"+jsoncadena);
                                 Type typemonedasn = new TypeToken<List<Monedas>>(){}.getType();
                                 // 4. Deserializar
                                 List<Monedas> monedasn = gson.fromJson(jsoncadena, typemonedasn);
@@ -486,13 +491,13 @@ public class servicios {
                                 for (Monedas item : monedasn) {
                                     resultado[cont++]=item.monNumPais+"";
                                 }
-                                //System.out.println("Longitud resultado claves "+resultado.length);   
+                                //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                                 for (String nombre : resultado) {
-                                    System.out.println("monedas por nombre:"+nombre);
+                                    LOGGER.debug("monedas por nombre:"+nombre);
                                 }
                                 break;
                     case 19://monedas y regresa el id y nombre
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typemonedas2 = new TypeToken<List<Monedas>>(){}.getType();
                         // 4. Deserializar
                         List<Monedas> monedas2 = gson.fromJson(jsoncadena, typemonedas2);
@@ -501,24 +506,24 @@ public class servicios {
                         for (Monedas item : monedas2) {
                             resultado[cont++]=item.toString();
                         }
-                        //System.out.println("Longitud resultado claves "+resultado.length);   
+                        //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                         /*for (String nombre : resultado) {
-                            System.out.println("monedas:"+nombre);
+                            LOGGER.debug("monedas:"+nombre);
                         }*/
                         break;
                     case 20://ParamGlobal por nombre y regresa el paramvalor2
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         ParamGlobal param = gson.fromJson(jsoncadena, ParamGlobal.class);                        
-                        System.out.println("GSON: "+param.paramValor2); // Salida: Juan 
+                        LOGGER.debug("GSON: "+param.paramValor2); // Salida: Juan 
                         resultado[0]=String.valueOf(param.paramValor2);
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                 
                     case 21:case 22:case 23://parametrizacion no monetarias
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typeparamnom = new TypeToken<List<FConinsnomon>>(){}.getType();
                         // 4. Deserializar
                         List<FConinsnomon> insnomon = gson.fromJson(jsoncadena, typeparamnom);
@@ -530,13 +535,13 @@ public class servicios {
                                 item.conpObligatorio+"-"+item.conpPadre+"-"+item.conpTabla+"-"+
                                 item.conpTipoDato;
                         }
-                        //System.out.println("Longitud resultado claves "+resultado.length);   
+                        //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                         for (String nombre : resultado) {
-                            System.out.println("parametrizacion no monetarias:"+nombre);
+                            LOGGER.debug("parametrizacion no monetarias:"+nombre);
                         }
                         break;
                     case 24://operaciones no monetarias
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typenomon = new TypeToken<List<FTipoper>>(){}.getType();
                         // 4. Deserializar
                         List<FTipoper> nomonetaria = gson.fromJson(jsoncadena, typenomon);
@@ -548,13 +553,13 @@ public class servicios {
                                               item.ftopNombreTipoper+"-"+
                                               (item.ftopAtencionDias==null?"1":item.ftopAtencionDias);
                         }
-                        //System.out.println("Longitud resultado claves "+resultado.length);   
+                        //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                         for (String nombre : resultado) {
-                            System.out.println("operaciones no monetarias:"+nombre);
+                            LOGGER.debug("operaciones no monetarias:"+nombre);
                         }
                         break;
                     case 25://unidades
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typeunidades = new TypeToken<List<FUnidades>>(){}.getType();
                         // 4. Deserializar
                         List<FUnidades> unidades = gson.fromJson(jsoncadena, typeunidades);
@@ -564,23 +569,23 @@ public class servicios {
                             resultado[cont++]=item.id.funiIdSubcuenta+"-"+item.funiTipo+"-"+
                                 item.id.funiIdBien+"-"+item.id.funiIdEdificio+"-"+item.id.funiIdDepto;
                         }
-                        //System.out.println("Longitud resultado claves "+resultado.length);   
+                        //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                         for (String nombre : resultado) {
-                            System.out.println("operaciones no monetarias:"+nombre);
+                            LOGGER.debug("operaciones no monetarias:"+nombre);
                         }
                         break;
                     case 26://INDICES
                         // 3. Deserializar
                         jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","").trim();
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                     
                         FIndices indices = gson.fromJson(jsoncadena, FIndices.class);                        
-                        System.out.println("GSON: "+indices.eindFormaEmp); 
+                        LOGGER.debug("GSON: "+indices.eindFormaEmp); 
                         resultado[0]=String.valueOf(indices.eindFormaEmp);
                         //resultado=DestructuraJSON(new String[]{"\"paramValor\":",""},response.body(),1);
                         break;
                     case 27:
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typeindiceclave = new TypeToken<List<FIndices>>(){}.getType();
                         // 4. Deserializar
                         List<FIndices> indicesclave = gson.fromJson(jsoncadena, typeindiceclave);
@@ -594,7 +599,7 @@ public class servicios {
                     case 32://conceptos lim inf
                                 //jsoncadena=jsoncadena.replaceAll("\\]","").replaceAll("\\[","");
                         
-                                System.out.println("jsoncadena:"+jsoncadena);            
+                                LOGGER.debug("jsoncadena:"+jsoncadena);            
                                 // Deserializar JSON a objeto Java
                                 // 3. Definir el tipo de la lista (TypeToken)
                                 Type typeclaves2 = new TypeToken<List<ClavesDTO>>(){}.getType();
@@ -605,10 +610,10 @@ public class servicios {
                                 for (ClavesDTO item : claves2) {
                                     resultado[cont++]=item.cveLiminfClave+"";
                                 }
-                                System.out.println("Longitud resultado claves liminf "+resultado.length);
+                                LOGGER.debug("Longitud resultado claves liminf "+resultado.length);
                         break;
                     case 33://tipocambio
-                                System.out.println("jsoncadena:"+jsoncadena);            
+                                LOGGER.debug("jsoncadena:"+jsoncadena);            
                                 // Deserializar JSON a objeto Java
                                 // 3. Definir el tipo de la lista (TypeToken)
                                 Type typetipoc = new TypeToken<List<Tipocamb>>(){}.getType();
@@ -619,10 +624,10 @@ public class servicios {
                                 for (Tipocamb item : tipocamb) {
                                     resultado[cont++]=item.ticImpTipoCamb+"";
                                 }
-                                System.out.println("Longitud resultado tipocamb "+resultado.length);
+                                LOGGER.debug("Longitud resultado tipocamb "+resultado.length);
                         break;
                 case 35: case 42://posicion por fiso y por fiso/ctoinver
-                                System.out.println("jsoncadena:"+jsoncadena);            
+                                LOGGER.debug("jsoncadena:"+jsoncadena);            
                                 // Deserializar JSON a objeto Java
                                 // 3. Definir el tipo de la lista (TypeToken)
                                 Type typeposicion = new TypeToken<List<Posicion>>(){}.getType();
@@ -633,11 +638,11 @@ public class servicios {
                                 for (Posicion item : posicion) {
                                     resultado[cont++]=item.id.posContratoInter+"-"+item.posCostoHistoric;
                                 }
-                                System.out.println("Longitud resultado posicion "+resultado.length);
+                                LOGGER.debug("Longitud resultado posicion "+resultado.length);
                         break;                
 
                     case 36://paises
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typepaises = new TypeToken<List<Paises>>(){}.getType();
                             // 4. Deserializar
                             List<Paises> paises = gson.fromJson(jsoncadena, typepaises);
@@ -646,14 +651,14 @@ public class servicios {
                             for (Paises item : paises) {
                                 resultado[cont++]=item.getPaiNomPais();
                             }
-                            //System.out.println("Longitud resultado claves "+resultado.length);   
+                            //LOGGER.debug("Longitud resultado claves "+resultado.length);   
                             /*for (String nombre : resultado) {
-                                System.out.println("monedas:"+nombre);
+                                LOGGER.debug("monedas:"+nombre);
                             }*/
                             break;
 
                         case 37://otros
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typetercerosnom = new TypeToken<List<TercerosDTO>>(){}.getType();
                             // 4. Deserializar
                             List<TercerosDTO> tercerosnom = gson.fromJson(jsoncadena, typetercerosnom);
@@ -664,7 +669,7 @@ public class servicios {
                             }
                             break;  
                         case 38:case 39://cuentas de forma liquidacion spei
-                            System.out.println("jsoncadena:"+jsoncadena);
+                            LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typecueninv3 = new TypeToken<List<FCuentasInversion>>(){}.getType();
                             // 4. Deserializar
                             List<FCuentasInversion> inver3 = gson.fromJson(jsoncadena, typecueninv3);
@@ -676,7 +681,7 @@ public class servicios {
                             } 
                     
                     
-                            /*System.out.println("jsoncadena:"+jsoncadena);
+                            /*LOGGER.debug("jsoncadena:"+jsoncadena);
                             Type typefisocuentaspei = new TypeToken<List<FFideicoCuebanDTO>>(){}.getType();
                             // 4. Deserializar
                             List<FFideicoCuebanDTO> ctaxfisospei = gson.fromJson(jsoncadena, typefisocuentaspei);
@@ -686,11 +691,11 @@ public class servicios {
                                 resultado[cont++]=item.fcbaTitular+"|CUENTA CHEQUES|"+item.toString();
                             }
                             /*for (String nombre : resultado) {
-                                                        System.out.println("FFideicoCuebanDTO:"+nombre);
+                                                        LOGGER.debug("FFideicoCuebanDTO:"+nombre);
                                                     }*/
                             break;   
                     case 40://plazas por banco
-                        System.out.println("jsoncadena:"+jsoncadena);
+                        LOGGER.debug("jsoncadena:"+jsoncadena);
                         Type typeplazas = new TypeToken<List<FPlazasBancoDTO>>(){}.getType();
                         // 4. Deserializar
                         List<FPlazasBancoDTO> plazas = gson.fromJson(jsoncadena, typeplazas);
@@ -700,11 +705,11 @@ public class servicios {
                             resultado[cont++]=item.fplbNombrePlaza;
                         }
                         /*for (String nombre : resultado) {
-                                                    System.out.println("FFideicoCuebanDTO:"+nombre);
+                                                    LOGGER.debug("FFideicoCuebanDTO:"+nombre);
                                                 }*/
                         break;                
                         case 43://documento por operacion
-                                System.out.println("jsoncadena:"+jsoncadena);            
+                                LOGGER.debug("jsoncadena:"+jsoncadena);            
                                 // Deserializar JSON a objeto Java
                                 // 3. Definir el tipo de la lista (TypeToken)
                                 Type typedocumento = new TypeToken<List<VistaDocumento>>(){}.getType();
@@ -717,7 +722,7 @@ public class servicios {
                                 }
                         break;
                     case 44://documento por operacion
-                            System.out.println("jsoncadena:"+jsoncadena);            
+                            LOGGER.debug("jsoncadena:"+jsoncadena);            
                             // Deserializar JSON a objeto Java
                             // 3. Definir el tipo de la lista (TypeToken)
                             Type typev1 = new TypeToken<List<Vista1>>(){}.getType();
@@ -730,7 +735,7 @@ public class servicios {
                             }
                     break;
                     case 45://documento por operacion
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typev2 = new TypeToken<List<Vista2>>(){}.getType();
@@ -743,7 +748,7 @@ public class servicios {
                         }
                     break;  
                     case 46://documento por operacion
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typev3 = new TypeToken<List<Vista3>>(){}.getType();
@@ -756,7 +761,7 @@ public class servicios {
                         }
                     break;    
                     case 47://documento por operacion
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typev4 = new TypeToken<List<Vista4>>(){}.getType();
@@ -769,7 +774,7 @@ public class servicios {
                         }
                     break;                  
                     case 48://documento por operacion
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typev5 = new TypeToken<List<Vista5>>(){}.getType();
@@ -782,7 +787,7 @@ public class servicios {
                         }
                     break; 
                     case 49://documento por operacion
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typev6 = new TypeToken<List<Vista6>>(){}.getType();
@@ -795,7 +800,7 @@ public class servicios {
                         }
                     break; 
                     case 50://recuperacion de datos de documento a visualizar
-                        System.out.println("jsoncadena:"+jsoncadena);            
+                        LOGGER.debug("jsoncadena:"+jsoncadena);            
                         // Deserializar JSON a objeto Java
                         // 3. Definir el tipo de la lista (TypeToken)
                         Type typevdoc = new TypeToken<List<PdfDocument>>(){}.getType();
@@ -812,7 +817,7 @@ public class servicios {
                 
             }
             catch (Exception e) {
-                        System.out.println("Exception in NetClientGet:- " + e);
+                        LOGGER.debug("Exception in NetClientGet:- " + e);
             }
         return resultado;
     }
