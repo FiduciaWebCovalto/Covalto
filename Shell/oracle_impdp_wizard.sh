@@ -5,11 +5,11 @@ DEFAULT_USER="system"
 DEFAULT_INSTANCE="localhost:1521/XEPDB1"
 DEFAULT_DIRECTORY="export"
 DEFAULT_DUMPFILE="COVALTO_INICIAL.DMP"
-DEFAULT_REMAP_SCHEMA="covalto:inmuebles"
+DEFAULT_REMAP_SCHEMA="covalto:fiduciaweb"
 DEFAULT_LOGFILE="fiduciaweb_import.log"
 DEFAULT_IGNORE="Y"
 DEFAULT_TRANSFORM="oid:n"
-DEFAULT_REMAP_TABLESPACE="FW_DATOS:inmuebles_DATOS"
+DEFAULT_REMAP_TABLESPACE="fiduciaweb_DATOS:fiduciaweb_DATOS2"
 
 line(){ printf '%*s\n' 78 '' | tr ' ' '='; }
 read_default(){ local p="$1" d="$2" v; read -r -p "$p ($d): " v; printf '%s' "${v:-$d}"; }

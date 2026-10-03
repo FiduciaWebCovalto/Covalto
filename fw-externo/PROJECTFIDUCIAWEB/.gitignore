@@ -90,7 +90,7 @@ hs_err_pid*
 replay_pid*
 
 # --- Environment & Credentials ---
-.env
+#.env
 .env.local
 *.key
 *.pem
