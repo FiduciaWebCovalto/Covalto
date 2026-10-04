@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page contentType="text/html;charset=windows-1252" import="mx.com.inscitech.fiducia.services.ConfigLoader" %>
 <html>
     <head>
         <meta content="text/html;" http-equiv="content-type" charset="utf-8"/>
@@ -26,7 +26,7 @@
     </style>
     <script language="JavaScript" >
     // Se lee del contexto y se asigna a una variable JS
-    window.API_BASE_URL = "<%= application.getInitParameter("apiBaseUrl") %>";
+    window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
     </script>
     </head>
     <body   class="bg-light">

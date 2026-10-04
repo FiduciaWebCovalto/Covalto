@@ -53,13 +53,17 @@ public class ConfigLoader {
             "../../.env"
         };
         for (String path : possiblePaths) {
+            LOGGER.info("Searching env file '{}'", path);
             File envFile = new File(path);
             if (envFile.exists() && envFile.isFile()) {
+                LOGGER.info("env file '{}' found!", path);
                 try (FileInputStream fis = new FileInputStream(envFile)) {
                     Properties dotEnvProps = new Properties();
                     dotEnvProps.load(fis);
                     for (String name : dotEnvProps.stringPropertyNames()) {
+                        LOGGER.info("Property name '{}'", name);
                         String resolvedValue = resolvePlaceholders(dotEnvProps.getProperty(name));
+                        LOGGER.info("Property name '{}' Value: '{}'", resolvedValue);
                         if (!properties.containsKey(name) && resolvedValue != null) {
                             properties.setProperty(name, resolvedValue);
                         }
@@ -108,14 +112,18 @@ public class ConfigLoader {
      * 4. defaultValue fallback
      */
     public static String getProperty(String key, String defaultValue) {
+        LOGGER.info("Environment Property '{}' Default '{}'", key, defaultValue);
         if (key == null) {
             return defaultValue;
         }
 
         String envKey = key.toUpperCase().replace('.', '_').replace('-', '_');
+        LOGGER.info("Environment Property Key Name '{}'", envKey);
 
         // 1. Environment variables
         String val = System.getenv(envKey);
+        LOGGER.info("Value '{}'", val);
+
         if (val != null && !val.trim().isEmpty()) {
             return resolvePlaceholders(val);
         }
@@ -149,7 +157,9 @@ public class ConfigLoader {
     }
 
     public static String getProperty(String key) {
+        LOGGER.info("Key Name '{}'", key);
         return getProperty(key, null);
+
     }
 
     public static int getIntProperty(String key, int defaultValue) {
@@ -171,6 +181,7 @@ public class ConfigLoader {
      */
     public static String getUrl() {
         String url = getProperty("api.base.url", DEFAULT_URL);
+        LOGGER.info("api.base.url '{}'", url);
         if (url != null && url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
         }

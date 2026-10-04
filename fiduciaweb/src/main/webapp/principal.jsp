@@ -1,4 +1,7 @@
-<%@ page contentType="text/html;charset=ISO-8859-1" import="mx.com.inscitech.fiducia.common.beans.UsersInformation"%>
+<%@ page contentType="text/html;charset=ISO-8859-1"
+         import="mx.com.inscitech.fiducia.common.beans.UsersInformation,
+         mx.com.inscitech.fiducia.services.ConfigLoader"
+%>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -275,7 +278,7 @@
     <script type="text/javascript" src="js/JSON.js"></script>
     <script src="js/xlsx.full.min.js"></script>
 	<script>
-        window.API_BASE_URL = "<%= application.getInitParameter("apiBaseUrl") %>";
+        window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
 
         if (!localStorage.getItem('token')) {
             window.location.href = 'login.jsp'; // Redirigir si no hay token

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page contentType="text/html;charset=windows-1252" import="mx.com.inscitech.fiducia.services.ConfigLoader" %>
 <html>
     <head>
         <meta content="text/html;" http-equiv="content-type" charset="utf-8"/>

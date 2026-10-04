@@ -77,10 +77,10 @@
         <url-pattern>/downloadExcel</url-pattern>
     </servlet-mapping>   
     
-    <context-param>
+    <!--context-param>
         <param-name>apiBaseUrl</param-name>
-        <param-value>http://localhost:8091</param-value>
-    </context-param>   
+        <param-value>${env.APP_API_URL:http://localhost:8091}</param-value>
+    </context-param-->
     <servlet>
         <servlet-name>PdfServlet</servlet-name>
         <servlet-class>mx.com.inscitech.fiducia.services.PdfServlet</servlet-class>

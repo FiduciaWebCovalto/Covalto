@@ -1,4 +1,9 @@
-<%@ page contentType="text/html;charset=ISO-8859-1" import="mx.com.inscitech.fiducia.common.services.ConfigurationService"%>
+<%@ page contentType="text/html;charset=ISO-8859-1"
+        import="
+            mx.com.inscitech.fiducia.common.services.ConfigurationService,
+            mx.com.inscitech.fiducia.services.ConfigLoader
+        "
+%>
 <%
 String mensaje = request.getAttribute("Mensaje") == null ? "" : "" + request.getAttribute("Mensaje");
 
@@ -33,7 +38,7 @@ if(session.getAttribute("userInfo") != null) {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
     <script language="JavaScript" >
     // Se lee del contexto y se asigna a una variable JS
-    window.API_BASE_URL = "<%= application.getInitParameter("apiBaseUrl") %>";
+    window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
         function valida(){
                 //valido el nombre
                 if (document.logon.username.value.length==0){
