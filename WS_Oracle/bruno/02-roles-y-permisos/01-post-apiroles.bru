@@ -1,0 +1,28 @@
+meta {
+  name: POST - /api/roles
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/roles
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "name": "ROLE_TESTER"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

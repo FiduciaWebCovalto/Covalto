@@ -1,0 +1,21 @@
+meta {
+  name: GET - /fideicom/:buscarnombre/:id
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/fideicom/:buscarnombre/:id
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

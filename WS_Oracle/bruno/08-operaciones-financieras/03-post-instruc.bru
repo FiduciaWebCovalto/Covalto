@@ -1,0 +1,30 @@
+meta {
+  name: POST - /instruc
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/instruc
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "insNumContrato": 100,
+  "insTxtComentario": "Instruccion de prueba",
+  "insCveTipoInstr": "TRA"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

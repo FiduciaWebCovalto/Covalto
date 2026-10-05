@@ -1,0 +1,21 @@
+meta {
+  name: GET - /plazas/:buscar
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{baseUrl}}/plazas/:buscar
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

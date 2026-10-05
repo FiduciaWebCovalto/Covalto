@@ -1,0 +1,21 @@
+meta {
+  name: GET - /feccont/:id
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/feccont/:id
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

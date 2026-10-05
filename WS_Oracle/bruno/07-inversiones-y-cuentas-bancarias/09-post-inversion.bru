@@ -1,0 +1,31 @@
+meta {
+  name: POST - /inversion
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/inversion
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "insNumContrato": 100,
+  "finImporte": 25000.0,
+  "finObservaciones": "Inversion de prueba",
+  "finInstrumento": "BONO"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

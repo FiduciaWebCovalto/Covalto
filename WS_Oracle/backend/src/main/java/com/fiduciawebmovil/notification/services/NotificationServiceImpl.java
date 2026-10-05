@@ -42,13 +42,13 @@ public class NotificationServiceImpl implements NotificationService {
                     StandardCharsets.UTF_8.name()
             );
             helper.setFrom("ventas@trustechcapitalmexico.com");
-            System.out.println("setTo "+notificationDTO.getRecipient());
-            System.out.println("notificationDTO "+notificationDTO.getSubject());
+            log.debug("setTo: {}", notificationDTO.getRecipient());
+            log.debug("notificationDTO: {}", notificationDTO.getSubject());
             helper.setTo(notificationDTO.getRecipient());
             helper.setSubject(notificationDTO.getSubject());
 
-            System.out.println("getTemplateName "+notificationDTO.getTemplateName());
-            System.out.println("getBody "+notificationDTO.getBody());
+            log.debug("getTemplateName: {}", notificationDTO.getTemplateName());
+            log.debug("getBody: {}", notificationDTO.getBody());
             // Use template if provided
             if (notificationDTO.getTemplateName() != null) {
                 Context context = new Context();
@@ -60,7 +60,7 @@ public class NotificationServiceImpl implements NotificationService {
                 // If No template send text body directly
                 helper.setText(notificationDTO.getBody(), true);
             }
-            System.out.println("Ants de enviar el correo");
+            log.debug("Antes de enviar el correo");
             mailSender.send(mimeMessage);
             log.info("Email sent Out");
 
@@ -94,13 +94,13 @@ public class NotificationServiceImpl implements NotificationService {
                     StandardCharsets.UTF_8.name()
             );
             helper.setFrom("ventas@trustechcapitalmexico.com");
-            System.out.println("setTo "+notificationDTO.getRecipient());
-            System.out.println("notificationDTO "+notificationDTO.getSubject());
+            log.debug("setTo: {}", notificationDTO.getRecipient());
+            log.debug("notificationDTO: {}", notificationDTO.getSubject());
             helper.setTo("ventas@trustechcapitalmexico.com");
             helper.setSubject(notificationDTO.getSubject());
 
-            System.out.println("getTemplateName "+notificationDTO.getTemplateName());
-            System.out.println("getBody "+notificationDTO.getBody());
+            log.debug("getTemplateName: {}", notificationDTO.getTemplateName());
+            log.debug("getBody: {}", notificationDTO.getBody());
             // Use template if provided
             if (notificationDTO.getTemplateName() != null) {
                 Context context = new Context();
@@ -112,7 +112,7 @@ public class NotificationServiceImpl implements NotificationService {
                 // If No template send text body directly
                 helper.setText(notificationDTO.getBody(), true);
             }
-            System.out.println("Antes de enviar el correo");
+            log.debug("Antes de enviar el correo");
             mailSender.send(mimeMessage);
             log.info("Email sent Out");
 
@@ -134,13 +134,13 @@ public class NotificationServiceImpl implements NotificationService {
                     StandardCharsets.UTF_8.name()
             );
             helper.setFrom("ventas@trustechcapitalmexico.com");
-            System.out.println("setTo "+notificationDTO.getRecipient());
-            System.out.println("notificationDTO "+notificationDTO.getSubject());
+            log.debug("setTo: {}", notificationDTO.getRecipient());
+            log.debug("notificationDTO: {}", notificationDTO.getSubject());
             helper.setTo("ventas@trustechcapitalmexico.com");
             helper.setSubject(notificationDTO.getSubject());
 
-            System.out.println("getTemplateName "+notificationDTO.getTemplateName());
-            System.out.println("getBody "+notificationDTO.getBody());
+            log.debug("getTemplateName: {}", notificationDTO.getTemplateName());
+            log.debug("getBody: {}", notificationDTO.getBody());
             // Use template if provided
             if (notificationDTO.getTemplateName() != null) {
                 Context context = new Context();
@@ -152,7 +152,7 @@ public class NotificationServiceImpl implements NotificationService {
                 // If No template send text body directly
                 helper.setText(notificationDTO.getBody(), true);
             }
-            System.out.println("Antes de enviar el correo");
+            log.debug("Antes de enviar el correo");
             mailSender.send(mimeMessage);
             log.info("Email sent Out");
 

@@ -42,7 +42,10 @@ import com.fiduciawebmovil.unidades.entity.FUnidades;
 import com.fiduciawebmovil.unidades.entity.FUnidadesId;
 import com.fiduciawebmovil.unidades.repo.FUnidadesRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ExcelService {
     private SimpleJdbcCall simpleJdbcCall;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
@@ -98,7 +101,7 @@ public class ExcelService {
                         validateCellType(cellFecha, CellType.STRING, row.getRowNum(), 3);
                         
                         Cell cellPeriodoDel = row.getCell(4, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
-                        System.out.println("aNTES DE PERIODOAL:"+cellPeriodoDel);
+                        log.debug("aNTES DE PERIODOAL:{}", cellPeriodoDel);
                         validateCellNotNull(cellPeriodoDel, row.getRowNum(), 4);
                         /*if (!DateUtil.isCellDateFormatted(cellPeriodoDel)){
                             regreso="Error en el Periodo Del, Linea "+i;
@@ -106,7 +109,7 @@ public class ExcelService {
                         }*/
                         validateCellType(cellPeriodoDel, CellType.STRING, row.getRowNum(), 4);
                         Cell cellPeriodoAl= row.getCell(5, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
-                        System.out.println("cellPeriodoAl "+cellPeriodoAl);
+                        log.debug("cellPeriodoAl {}", cellPeriodoAl);
                         validateCellNotNull(cellPeriodoAl, row.getRowNum(), 5);
                         validateCellType(cellPeriodoAl, CellType.STRING, row.getRowNum(), 5);
                         
@@ -151,7 +154,7 @@ public class ExcelService {
                         }
                         List<Feccont> listFecha = feccontrepo.findAll();
                         for (Feccont fechaactual : listFecha) {
-                            System.out.println("Fecha Contable: " + fechaactual.getFcoFecha());
+                            log.debug("Fecha Contable: {}", fechaactual.getFcoFecha());
                             FechaContable=fechaactual.getFcoFecha();
                         }
                         if(!esMismoMes(
@@ -189,8 +192,8 @@ public class ExcelService {
                         if(Integer.valueOf(tipo).intValue()!=1)
                             if(( (detcart.findImporteFolio((long)folio)).doubleValue()!=
                             row.getCell(8).getNumericCellValue())){
-                                System.out.println("Importe del pago: "+detcart.findImporteFolio((long)folio));    
-                                System.out.println("Importe del archivo "+row.getCell(8).getNumericCellValue());
+                                log.debug("Importe del pago: {}", detcart.findImporteFolio((long)folio));    
+                                log.debug("Importe del archivo {}", row.getCell(8).getNumericCellValue());
                                 regreso="Error El importe no coindice con la provision relacionada, Linea "+i;
                                 break;
                             }
@@ -220,7 +223,7 @@ public class ExcelService {
                         inParams.put("IMPORTEMN", 0);
                         inParams.put("TDC", row.getCell(10).getNumericCellValue());
                         regreso=simpleJdbcCall.executeFunction(String.class, inParams);
-                        System.out.println("Salida Funcion: "+regreso);
+                        log.debug("Salida Funcion: {}", regreso);
                     }
                     workbook.close();
                     if (!file.getContentType().equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
@@ -252,13 +255,13 @@ public class ExcelService {
 
                                 /* INICIO VALIDACIONES GENERALES*/ 
                                 //fideicomiso
-                                System.out.println("Inicio de lectura");
+                                log.debug("Inicio de lectura");
                                 Cell cellFiso = row.getCell(0, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
                                 validateCellNotNull(cellFiso, row.getRowNum(), 0);
                                 validateCellType(cellFiso, CellType.NUMERIC, row.getRowNum(), 0);
                                 strContenido = dataFormatter.formatCellValue(cellFiso);
                                 //concatenado.append(strContenido).append(","); // Puedes cambiar el separador
-                                System.out.println("Punto1");
+                                log.debug("Punto1");
                                 if(!strContenido.equals(fiso)){
                                     regreso="El Fideicomiso no corresponde con el seleccionado, Linea "+i;
                                     break;                                 
@@ -269,7 +272,7 @@ public class ExcelService {
                                 validateCellType(cellCodigo, CellType.NUMERIC, row.getRowNum(), 1);
                                 strContenido = dataFormatter.formatCellValue(cellCodigo);
                                 concatenado.append(strContenido).append(","); // Puedes cambiar el separador
-                                System.out.println("Punto2");
+                                log.debug("Punto2");
                                 //nombre empleado
                                 Cell cellNombreEmp = row.getCell(2, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
                                 validateCellNotNull(cellNombreEmp, row.getRowNum(), 2);
@@ -306,8 +309,8 @@ public class ExcelService {
                                 validateCellType(cellIntEmpresa, CellType.NUMERIC, row.getRowNum(), 7);
                                 strContenido = dataFormatter.formatCellValue(cellIntEmpresa).replaceAll("-", "").replaceAll(" ", "").replaceAll(",", "");
                                 concatenado.append(strContenido).append(","); // Puedes cambiar el separador    
-                                // System.out.println("Punto2");                         
-                                System.out.println("Antes de las fechas");
+                                // log.debug("Punto2");                         
+                                log.debug("Antes de las fechas");
                                 //IntFechaCalculo
                                 Cell cellIntFechaCalculo = row.getCell(8, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
                                 if(!validateCellNotNull(cellIntFechaCalculo)){
@@ -321,7 +324,7 @@ public class ExcelService {
                                 }
                                 strContenido = dataFormatter.formatCellValue(cellIntFechaCalculo);
                                 concatenado.append(strContenido).append(","); // Puedes cambiar el separador                             //IntFechaIngreso
-                                System.out.println("Fecha2");
+                                log.debug("Fecha2");
                                 Cell cellIntFechaIngreso = row.getCell(9, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
                                 if(!validateCellNotNull(cellIntFechaIngreso)){
                                     regreso="Error La Fecha viene vacia, Linea "+i;
@@ -334,23 +337,23 @@ public class ExcelService {
                                 }                          
                                 strContenido = dataFormatter.formatCellValue(cellIntFechaIngreso);
                                 concatenado.append(strContenido).append(","); // Puedes cambiar el separador                               //IntFechaBaja
-                                System.out.println("Fecha3");
+                                log.debug("Fecha3");
                                 Cell cellIntFechaBaja = row.getCell(10, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
-                                System.out.println("Valor cellIntFechaBaja:"+cellIntFechaBaja);
+                                log.debug("Valor cellIntFechaBaja:{}", cellIntFechaBaja);
                                 if(!validateCellNotNull(cellIntFechaBaja)){
                                     regreso="Error La Fecha viene vacia, Linea "+i;
                                     break;
                                 }
-                                System.out.println("Valor cellIntFechaBaja 2:"+cellIntFechaBaja);
+                                log.debug("Valor cellIntFechaBaja 2:{}", cellIntFechaBaja);
                                 validateCellType(cellIntFechaBaja, CellType.STRING, row.getRowNum(), 10);
-                                System.out.println("Valor Fecha3:"+cellIntFechaBaja);
+                                log.debug("Valor Fecha3:{}", cellIntFechaBaja);
                                 if(!esFechaValida(row.getCell(10).getStringCellValue())){
                                     regreso="Error La Fecha tiene formato incorrecto DD/MM/YYYY, Linea "+i;
                                     break;
                                 }                            
                                 strContenido = dataFormatter.formatCellValue(cellIntFechaBaja);
                                 concatenado.append(strContenido).append(","); // Puedes cambiar el separador                              //Status
-                                System.out.println("Status");
+                                log.debug("Status");
                                 Cell cellStatus = row.getCell(11, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
                                 validateCellNotNull(cellStatus, row.getRowNum(), 11);
                                 validateCellType(cellStatus, CellType.STRING, row.getRowNum(), 11);
@@ -371,7 +374,7 @@ public class ExcelService {
                                     tabexcel.setAreContenido(concatenado.toString());
                                     empleados.add(tabexcel);
                                 }catch(Exception e){
-                                    System.out.println("Error: "+e);
+                                    log.error("Error: ", e);
                                     regreso = "Error en la incorporacion de tabla transitoria.";
                                     break;
                                 }
@@ -379,11 +382,11 @@ public class ExcelService {
                             regreso = "0-Carga realizada";  
                             reparcexcel.saveAll(empleados);  
                         }
-                        System.out.println("Salida Antes Funcion: "+regreso); 
-                        System.out.println("Salida Antes Fecha: "+fecha);
-                        System.out.println("Salida Antes FIDEICOMISO: "+fiso);
-                        System.out.println("Salida Antes TIPOMOV: "+tipo);
-                        System.out.println("Salida Antes ARCHIVO: "+nombreArchivo);
+                        log.debug("Salida Antes Funcion: {}", regreso); 
+                        log.debug("Salida Antes Fecha: {}", fecha);
+                        log.debug("Salida Antes FIDEICOMISO: {}", fiso);
+                        log.debug("Salida Antes TIPOMOV: {}", tipo);
+                        log.debug("Salida Antes ARCHIVO: {}", nombreArchivo);
                         if(regreso.contains("0-")){
                             inParams.put("OPCION", 1);
                             inParams.put("SEPARADOR", ",");
@@ -394,7 +397,7 @@ public class ExcelService {
                             regreso=invocarCtasIndiv(inParams);
                         }                        
                     }//fin del else de tipo   
-                    System.out.println("Salida Funcion: "+regreso);                      
+                    log.debug("Salida Funcion: {}", regreso);                      
                     break;
                 case "3": //bienes individualizacion y liberacion
                         Iterator<Row> rowIterator = sheet.iterator();
@@ -403,7 +406,7 @@ public class ExcelService {
                         regreso = "0-Carga realizada"; 
                         // Opcional: Saltar la primera fila si tiene encabezados
                         if (rowIterator.hasNext()) rowIterator.next(); 
-                    System.out.println("Tipo de Carga: "+tipo);      
+                    log.debug("Tipo de Carga: {}", tipo);      
                     if(tipo.equals("5")){//Adquirentes
                         for (int i = 1; i <= sheet.getPhysicalNumberOfRows(); i++) {
                             strContenido="";
@@ -465,7 +468,7 @@ public class ExcelService {
                                 (Long.parseLong(dataFormatter.formatCellValue(cell1)),
                                 new BigDecimal(dataFormatter.formatCellValue(cell2)),
                                 dataFormatter.formatCellValue(cell3));
-                                System.out.println("existeRegistro: "+existeRegistro);
+                                log.debug("existeRegistro: {}", existeRegistro);
                                 //si no existe se rompe el ciclo
                                 if(existeRegistro==0){
                                     regreso="301";
@@ -578,11 +581,11 @@ public class ExcelService {
                             Cell cell43 = row.getCell(42, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                             Cell cell44 = row.getCell(43, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                             Cell cell45 = row.getCell(44, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                            System.out.println(dataFormatter.formatCellValue(cell1));
-                            System.out.println(dataFormatter.formatCellValue(cell2));
-                            System.out.println(dataFormatter.formatCellValue(cell3));
-                            System.out.println(dataFormatter.formatCellValue(cell4));
-                            System.out.println(dataFormatter.formatCellValue(cell5));                            
+                            log.debug("{}", dataFormatter.formatCellValue(cell1));
+                            log.debug("{}", dataFormatter.formatCellValue(cell2));
+                            log.debug("{}", dataFormatter.formatCellValue(cell3));
+                            log.debug("{}", dataFormatter.formatCellValue(cell4));
+                            log.debug("{}", dataFormatter.formatCellValue(cell5));                            
                             /*FBienesgarId bienes = new FBienesgarId(
                             Long.parseLong(dataFormatter.formatCellValue(cell1)),
                             new BigDecimal(dataFormatter.formatCellValue(cell2)),
@@ -593,10 +596,10 @@ public class ExcelService {
                             (Long.parseLong(dataFormatter.formatCellValue(cell1)),
                             new BigDecimal(dataFormatter.formatCellValue(cell2)),
                             dataFormatter.formatCellValue(cell3));
-                            System.out.println("existeRegistro: "+existeRegistro);
+                            log.debug("existeRegistro: {}", existeRegistro);
                             //si no existe se rompe el ciclo
                             if(existeRegistro==0){
-                                System.out.println("if existeRegistro: "+existeRegistro);
+                                log.debug("if existeRegistro: {}", existeRegistro);
                                 regreso="301";
                                 break;                                
                             }
@@ -607,7 +610,7 @@ public class ExcelService {
                             dataFormatter.formatCellValue(cell4),
                             dataFormatter.formatCellValue(cell5));
                             if(bExisteBien==0&&!tipo.equals("1")){
-                                System.out.println("bExisteBien: "+existeRegistro);
+                                log.debug("bExisteBien: {}", existeRegistro);
                                 regreso="303";
                                 break;                                
                             }
@@ -624,9 +627,9 @@ public class ExcelService {
                             (Long.parseLong(dataFormatter.formatCellValue(cell1)),
                             Long.parseLong(dataFormatter.formatCellValue(cell2)),
                             dataFormatter.formatCellValue(cell3));*/
-                            System.out.println("sStatusBien: "+sStatusBien);
+                            log.debug("sStatusBien: {}", sStatusBien);
                             if(sStatusBien.equals("COMPROMETIDO")){
-                                System.out.println("Codigo 302: "+sStatusBien);
+                                log.debug("Codigo 302: {}", sStatusBien);
                                 regreso="302";
                                 break;                                
                             }                            
@@ -645,7 +648,7 @@ public class ExcelService {
                             registro.setFuniNomColonia(dataFormatter.formatCellValue(cell9));
                             registro.setFuniNomPoblacion(dataFormatter.formatCellValue(cell10));
                             registro.setFuniCodigoPostal(dataFormatter.formatCellValue(cell11));
-                            System.out.println("devolverCero: "+new BigDecimal(devolverCero(dataFormatter.formatCellValue(cell12))));           
+                            log.debug("devolverCero: {}", new BigDecimal(devolverCero(dataFormatter.formatCellValue(cell12))));           
                             registro.setFuniNumEstado(new BigDecimal(devolverCero(dataFormatter.formatCellValue(cell12))));
                             registro.setFuniNumPais(new BigDecimal(devolverCero(dataFormatter.formatCellValue(cell13))));
                             registro.setFuniColindancias(dataFormatter.formatCellValue(cell14));
@@ -696,7 +699,7 @@ public class ExcelService {
                         }    
                         repunidades.saveAll(unidades); 
                     }//if del tipo unidades o adquirentes     
-                    System.out.println("Salida Funcion: "+regreso);           
+                    log.debug("Salida Funcion: {}", regreso);           
                     break;
                 default:
                     regreso = "0-Opcion incorrecta";
@@ -705,7 +708,7 @@ public class ExcelService {
             } catch (Exception e) {
                 throw new RuntimeException("Error al procesar el archivo Excel: " + e.getMessage());
             }    
-            System.out.println("Salida Servlet: "+regreso);
+            log.debug("Salida Servlet: {}", regreso);
             if(regreso.contains("0-"))
                 return "Archivo Cargado Correctamente";
             else    
@@ -733,7 +736,7 @@ public class ExcelService {
                 .withFunctionName("CARGA_MASIVA_CTAIND");
 
         MapSqlParameterSource paramSource = new MapSqlParameterSource(params);
-        System.out.println("Ejecuta funcion");
+        log.debug("Ejecuta funcion");
         // executeFunction retorna directamente el tipo de dato esperado
         return jdbcCall.executeFunction(String.class, paramSource);    
     }

@@ -1,0 +1,21 @@
+meta {
+  name: GET - /contrato
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/contrato
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

@@ -27,10 +27,10 @@ public class OtpServiceImpl implements OtpService{
     public void generarYEnviarOtp(String email) {
         // 1. Generar OTP de 6 dígitos
         String otp = String.format("%06d", new Random().nextInt(999999));
-        System.out.println("otp "+otp);
+        log.debug("OTP generado: {}", otp);
         // 2. Guardar en memoria con tiempo de expiración (ej. 5 minutos)
         cacheOtp.put(email, otp);
-        System.out.println("cacheOtp");
+        log.debug("OTP almacenado en cache temporal");
         // 4. Enviar
         Map<String, Object> vars = new HashMap<>();
         vars.put("name", email);
@@ -44,7 +44,7 @@ public class OtpServiceImpl implements OtpService{
                 .build();
 
         notificationService.sendEmailSolicitud(notificationDTO);        
-        System.out.println("OTP enviado a " + email + ": " + otp);
+        log.info("OTP enviado a {}: {}", email, otp);
     }
 
     // Método para validar el OTP ingresado por el usuario

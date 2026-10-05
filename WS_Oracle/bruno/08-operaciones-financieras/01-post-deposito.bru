@@ -1,0 +1,31 @@
+meta {
+  name: POST - /deposito
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/deposito
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "fdpoImporteDeposito": 50000.0,
+  "fdepDescripcion": "Deposito de prueba",
+  "fdepMoneda": 1,
+  "fdpoCbaInstitucion": 12
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

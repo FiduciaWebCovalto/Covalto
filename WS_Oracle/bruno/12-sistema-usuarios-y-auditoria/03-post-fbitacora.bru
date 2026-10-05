@@ -1,0 +1,28 @@
+meta {
+  name: POST - /fbitacora
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/fbitacora
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "fbitDescripcion": "Registro fbitacora prueba"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

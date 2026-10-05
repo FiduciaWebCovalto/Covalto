@@ -12,6 +12,7 @@ import com.fiduciawebmovilp.auth_users.services.OtpService;
 import com.fiduciawebmovilp.res.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
+@Slf4j
 public class AuthController {
 
     private final AuthService authService;
@@ -59,7 +61,7 @@ public class AuthController {
     @PostMapping("/enviar-otp")
     public ResponseEntity<String> solicitarOtp(@RequestBody OtpRequest request) {
         // Disparar el servicio asíncrono
-        System.out.println("Email: "+request.getEmail());
+        log.info("Email: {}", request.getEmail());
         otpService.generarYEnviarOtp(request.getEmail());
         
         return ResponseEntity.ok("OTP generado. Revisa tu bandeja de entrada.");

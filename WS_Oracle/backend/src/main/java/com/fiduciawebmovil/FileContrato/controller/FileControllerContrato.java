@@ -27,8 +27,11 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/documentos/contrato")
+@Slf4j
 public class FileControllerContrato {
 
     @Autowired
@@ -122,7 +125,7 @@ public class FileControllerContrato {
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error al procesar archivo PDF de contrato", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

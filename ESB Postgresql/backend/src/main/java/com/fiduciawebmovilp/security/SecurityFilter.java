@@ -1,6 +1,5 @@
 package com.fiduciawebmovilp.security;
 
-
 import com.fiduciawebmovilp.exceptions.CustomAccessDenialHandler;
 import com.fiduciawebmovilp.exceptions.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
@@ -51,11 +50,7 @@ public class SecurityFilter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Replace with your actual frontend URL (e.g., http://localhost:3000)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8091","http://localhost:8095","http://localhost:8080","http://209.209.43.73:8080/","http://209.209.43.73:8095/"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowedOrigins(Arrays.asList("*/*"));
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -1,0 +1,21 @@
+meta {
+  name: GET - /api/documentos/contrato/:buscardatos/:id
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/api/documentos/contrato/:buscardatos/:id
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

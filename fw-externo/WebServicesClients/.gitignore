@@ -1,0 +1,79 @@
+# =========================================================================
+# .gitignore for Classic Java Application / Library (Maven)
+# =========================================================================
+
+# --- Compiled Java Class files ---
+*.class
+classes/
+
+# --- Maven Build Artifacts ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Package Archives & Deployments ---
+*.jar
+*.war
+*.ear
+deploy/
+build/
+dist/
+
+# --- Application & Server Runtime Logs ---
+*.log
+*.log.*
+logs/
+
+# --- Eclipse IDE ---
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Oracle JDeveloper / ADF ---
+.data/
+*.cdi
+*.deploy
+*.proxy
+
+# --- NetBeans IDE ---
+nbproject/private/
+nbbuild/
+nbdist/
+
+# --- Visual Studio Code ---
+.vscode/
+
+# --- OS-specific & Temporary Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# --- JVM Crash Dumps ---
+hs_err_pid*
+replay_pid*

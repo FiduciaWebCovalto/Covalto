@@ -1,0 +1,20 @@
+meta {
+  name: GET - Test CORS Headers con Origin (/api/roles)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/roles
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

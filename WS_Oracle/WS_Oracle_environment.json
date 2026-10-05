@@ -1,0 +1,17 @@
+{
+  "id": "covalto-ws-oracle-local-env",
+  "name": "WS_Oracle Local Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8091",
+      "enabled": true
+    },
+    {
+      "key": "frontendOrigin",
+      "value": "http://localhost:3000",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

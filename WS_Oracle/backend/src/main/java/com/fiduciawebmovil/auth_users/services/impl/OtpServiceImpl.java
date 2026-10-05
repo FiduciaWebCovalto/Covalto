@@ -44,7 +44,7 @@ public class OtpServiceImpl implements OtpService{
                 .build();
 
         notificationService.sendEmailSolicitud(notificationDTO);        
-        System.out.println("OTP enviado a " + email + ": " + otp);
+        log.info("OTP enviado a {}: {}", email, otp);
     }
 
     // Método para validar el OTP ingresado por el usuario
