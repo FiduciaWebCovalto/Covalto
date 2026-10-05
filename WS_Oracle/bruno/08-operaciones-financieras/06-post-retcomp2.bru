@@ -1,0 +1,30 @@
+meta {
+  name: POST - /retcomp2
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/retcomp2
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "frcFolio": 1,
+  "frcPagounico": "S",
+  "frcNombresw": "Juan Perez"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

@@ -1,0 +1,21 @@
+meta {
+  name: GET - /vistas/vista1
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/vistas/vista1
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

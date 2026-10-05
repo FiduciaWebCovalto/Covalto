@@ -1,0 +1,21 @@
+meta {
+  name: GET - /operacion
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/operacion
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

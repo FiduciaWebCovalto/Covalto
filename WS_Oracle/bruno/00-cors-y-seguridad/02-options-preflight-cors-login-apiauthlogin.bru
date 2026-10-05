@@ -1,0 +1,23 @@
+meta {
+  name: OPTIONS - Preflight CORS Login (/api/auth/login)
+  type: http
+  seq: 2
+}
+
+options {
+  url: {{baseUrl}}/api/auth/login
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: authorization,content-type
+}
+
+assert {
+  res.status: in [200, 204]
+  res.headers["access-control-allow-origin"]: in ["{{frontendOrigin}}", "*"]
+  res.headers["access-control-allow-credentials"]: eq "true"
+}

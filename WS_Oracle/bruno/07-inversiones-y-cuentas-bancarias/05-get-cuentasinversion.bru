@@ -1,0 +1,21 @@
+meta {
+  name: GET - /cuentasinversion
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/cuentasinversion
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

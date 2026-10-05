@@ -1,0 +1,21 @@
+meta {
+  name: GET - /folios/:buscar
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/folios/:buscar
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

@@ -1,0 +1,21 @@
+meta {
+  name: GET - /tipocamb/:buscar
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{baseUrl}}/tipocamb/:buscar
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

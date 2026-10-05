@@ -1,0 +1,30 @@
+meta {
+  name: PUT - /api/reportes/:id
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/reportes/:id
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "nombre": "Reporte de Prueba",
+  "descripcion": "Reporte generado para pruebas funcionales",
+  "queryBase": "SELECT * FROM CAT_REPORTES"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

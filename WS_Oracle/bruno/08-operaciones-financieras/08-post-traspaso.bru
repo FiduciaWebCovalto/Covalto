@@ -1,0 +1,30 @@
+meta {
+  name: POST - /traspaso
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/traspaso
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "ftspImporteTraspaso": 10000.0,
+  "ftspStatus": "ACTIVO",
+  "ffidIdFideicomiso": 100
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

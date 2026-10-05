@@ -1,0 +1,29 @@
+meta {
+  name: POST - /api/documentos/upload
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/documentos/upload
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "id": 1,
+  "descripcion": "Prueba"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

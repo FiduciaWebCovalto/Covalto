@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  collections:
+    - ../WS_Oracle_backend_collection.json
+  environments:
+    - ../WS_Oracle_environment.json

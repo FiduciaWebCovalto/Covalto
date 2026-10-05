@@ -1,0 +1,28 @@
+meta {
+  name: POST - /nomonvalor
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{baseUrl}}/nomonvalor
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "convValor": "Valor no monetario prueba"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

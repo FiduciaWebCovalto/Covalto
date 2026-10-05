@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "WS_Oracle Backend API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

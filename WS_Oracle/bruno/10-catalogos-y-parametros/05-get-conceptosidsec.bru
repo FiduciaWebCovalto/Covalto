@@ -1,0 +1,21 @@
+meta {
+  name: GET - /conceptos/id/:sec
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/conceptos/id/:sec
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

@@ -1,0 +1,28 @@
+meta {
+  name: POST - /retinver
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/retinver
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "fcvrImporteXCtoinv": 1000.0
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

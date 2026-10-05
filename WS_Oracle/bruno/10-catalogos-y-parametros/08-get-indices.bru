@@ -1,0 +1,21 @@
+meta {
+  name: GET - /indices
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/indices
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

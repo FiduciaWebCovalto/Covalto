@@ -1,0 +1,30 @@
+meta {
+  name: POST - /api/auth/send-email
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/auth/send-email
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "destinatario": "destinatario@covalto.com",
+  "asunto": "Notificacion de Prueba",
+  "mensaje": "Mensaje de prueba desde WS_Oracle backend"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

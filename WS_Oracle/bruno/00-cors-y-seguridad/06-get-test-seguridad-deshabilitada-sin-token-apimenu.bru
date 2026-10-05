@@ -1,0 +1,20 @@
+meta {
+  name: GET - Test Seguridad Deshabilitada Sin Token (/api/menu/usuario/1)
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/menu/usuario/1
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

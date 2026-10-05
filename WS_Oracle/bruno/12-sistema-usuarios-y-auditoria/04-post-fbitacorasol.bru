@@ -1,0 +1,29 @@
+meta {
+  name: POST - /fbitacorasol
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/fbitacorasol
+  body: json
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+{
+  "usuNumUsuario": 1,
+  "fbisObservacion": "Observacion de prueba"
+}
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}

@@ -1,0 +1,21 @@
+meta {
+  name: GET - /beneficiario
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/beneficiario
+  body: none
+  auth: none
+}
+
+headers {
+  Origin: {{frontendOrigin}}
+  Accept: application/json
+}
+
+assert {
+  res.status: neq 401
+  res.status: neq 403
+}
