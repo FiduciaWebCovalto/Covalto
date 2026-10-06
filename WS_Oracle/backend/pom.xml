@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fiduciawebmovil</groupId>
 	<artifactId>fiduciawebmovil</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.5</version>
 	<packaging>jar</packaging>
 	<name>fiduciawebmovil</name>
 	<description>Demo project for Spring Boot</description>
