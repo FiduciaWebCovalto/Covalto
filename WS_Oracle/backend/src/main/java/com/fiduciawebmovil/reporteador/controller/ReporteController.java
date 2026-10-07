@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/reportes")
-@CrossOrigin(origins = "*") // Permitir peticiones desde el frontend
+@CrossOrigin(originPatterns = "*") // Permitir peticiones desde el frontend
 public class ReporteController {
 
     @Autowired

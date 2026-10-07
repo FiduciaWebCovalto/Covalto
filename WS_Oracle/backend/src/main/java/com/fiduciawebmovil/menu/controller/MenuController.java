@@ -15,7 +15,7 @@ import com.fiduciawebmovil.menu.repo.MenuRepository;
 
 @RestController
 @RequestMapping("/api/menu")
-@CrossOrigin(origins = "*") // Permite peticiones desde el frontend
+@CrossOrigin(originPatterns = "*") // Permite peticiones desde el frontend
 public class MenuController {
     @Autowired
     private MenuRepository menuRepository;

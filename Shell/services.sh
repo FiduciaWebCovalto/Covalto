@@ -3,7 +3,7 @@
 # Configuration
 JAVA_OPTS="-server -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -Dfile.encoding=UTF-8 -Djava.awt.headless=true -Dspring.threads.virtual.enabled=true"
 
-JAR_ORACLE="fiduciawebmovil-1.0.0.jar"
+JAR_ORACLE="fiduciawebmovil-1.1.0.jar"
 
 PID_ORACLE="fiduciawebmovil.pid"
 
@@ -26,11 +26,6 @@ export AWS_SECRETE_KEY=81Ne/dcsgxbkPQmPBj0cxSgChgevCzjpI1Zm78mb
 export AWS_BUCKET_NAME=phegon-bank-bucket
 export FILE_UPLOAD_DIR=C:/Documentos/pdf/upload
 export FILE_UPLOAD_DIR2=C:/Documentos/pdf/contrato
-export SSL_ENABLED=true
-export SSL_KEY_STORE=file=D:/Development/Projects/Inscitech/Covalto/Security/server.p12
-export SSL_KEY_TYPE=PKCS12
-export SSL_PASSWORD=kepwy2-Xizsid-jozruq
-export SSL_ALIAS=wildfly
 
 start_services() {
     echo "=========================================================="

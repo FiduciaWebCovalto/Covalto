@@ -126,6 +126,24 @@
         <url-pattern>/uploadServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OracleProxyServlet</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.orcl.OracleProxyServlet</servlet-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>targetBaseUrl</param-name>
+            <param-value>http://localhost:8091/</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OracleProxyServlet</servlet-name>
+        <url-pattern>/orcl/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OracleProxyServlet</servlet-name>
+        <url-pattern>/api/orcl/*</url-pattern>
+    </servlet-mapping>
+
 
     
     <servlet>
