@@ -85,15 +85,15 @@
         <servlet-name>PdfServlet</servlet-name>
         <servlet-class>mx.com.inscitech.fiducia.services.PdfServlet</servlet-class>
         
-        <!-- Configuración para recibir archivos -->
+        <!-- Configuraciï¿½n para recibir archivos -->
         <multipart-config>
-            <!-- Ubicación temporal donde se guardan los archivos -->
+            <!-- Ubicaciï¿½n temporal donde se guardan los archivos -->
             <location>/tmp</location>
-            <!-- Tamaño máximo por archivo (ej. 5MB) -->
+            <!-- Tamaï¿½o mï¿½ximo por archivo (ej. 5MB) -->
             <max-file-size>5242880</max-file-size>
-            <!-- Tamaño máximo de la solicitud (ej. 10MB) -->
+            <!-- Tamaï¿½o mï¿½ximo de la solicitud (ej. 10MB) -->
             <max-request-size>10485760</max-request-size>
-            <!-- Tamaño después del cual se escribe en disco -->
+            <!-- Tamaï¿½o despuï¿½s del cual se escribe en disco -->
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
@@ -108,15 +108,15 @@
         <servlet-name>ExcelUploadServlet</servlet-name>
         <servlet-class>mx.com.inscitech.fiducia.services.ExcelUploadServlet</servlet-class>
         
-        <!-- Configuración para recibir archivos -->
+        <!-- Configuraciï¿½n para recibir archivos -->
         <multipart-config>
-            <!-- Ubicación temporal donde se guardan los archivos -->
+            <!-- Ubicaciï¿½n temporal donde se guardan los archivos -->
             <location>/tmp</location>
-            <!-- Tamaño máximo por archivo (ej. 5MB) -->
+            <!-- Tamaï¿½o mï¿½ximo por archivo (ej. 5MB) -->
             <max-file-size>5242880</max-file-size>
-            <!-- Tamaño máximo de la solicitud (ej. 10MB) -->
+            <!-- Tamaï¿½o mï¿½ximo de la solicitud (ej. 10MB) -->
             <max-request-size>10485760</max-request-size>
-            <!-- Tamaño después del cual se escribe en disco -->
+            <!-- Tamaï¿½o despuï¿½s del cual se escribe en disco -->
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
@@ -132,7 +132,7 @@
         <async-supported>true</async-supported>
         <init-param>
             <param-name>targetBaseUrl</param-name>
-            <param-value>http://localhost:8091/</param-value>
+            <param-value>http://172.31.211.232:8091/</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

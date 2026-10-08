@@ -1,65 +1,40 @@
 package mx.com.inscitech.fiducia.services;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
-import mx.com.inscitech.fiducia.domain.Fideicom;
-import mx.com.inscitech.fiducia.domain.Benefici;
-import mx.com.inscitech.fiducia.domain.Terceros;
-import mx.com.inscitech.fiducia.domain.PdfDocument;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
-import java.net.URI;
-import java.security.Key;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.io.PrintWriter;
-
 import java.lang.reflect.Type;
-
-import java.net.URLEncoder;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import java.nio.charset.StandardCharsets;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
 
-import mx.com.inscitech.fiducia.domain.ParamGlobal;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import mx.com.inscitech.fiducia.domain.BeneficiDTO;
-import mx.com.inscitech.fiducia.domain.Cartera;
 import mx.com.inscitech.fiducia.domain.FideicomDTO;
+import mx.com.inscitech.fiducia.domain.PdfDocument;
 import mx.com.inscitech.fiducia.domain.PdfDocumentContrato;
 import mx.com.inscitech.fiducia.domain.TercerosDTO;
 import mx.com.inscitech.fiducia.domain.VistaCom;
 import mx.com.inscitech.fiducia.domain.VistaMov;
-import mx.com.inscitech.fiducia.domain.Cartera;
-import mx.com.inscitech.fiducia.domain.Detcart;
 
 @WebServlet("/proceso")
 public class servicios extends HttpServlet {
@@ -72,7 +47,7 @@ public class servicios extends HttpServlet {
         protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
 
-            // 1. Recibir los parámetros
+            // 1. Recibir los parï¿½metros
             String p1 = request.getParameter("param1");
             String p2 = request.getParameter("param2");
             
@@ -106,7 +81,7 @@ public class servicios extends HttpServlet {
         int cont=0;        
         String urlfinal="",jsoncadena="";
         String apiUrl = ConfigLoader.getUrl();
-        LOGGER.debug("apiUrl de archivo config "+apiUrl);
+        LOGGER.info("apiUrl de archivo config {}", apiUrl);
         
         String url=apiUrl;
 
@@ -135,13 +110,13 @@ public class servicios extends HttpServlet {
                     break;   
        
             }
-               LOGGER.debug("url: " + urlfinal);
+               LOGGER.info("url: {}", urlfinal);
 
                 //consumo api
                 jsoncadena=consumeApiRest(urlfinal,token,usuario);
                 // 2. Crear objeto Gson
                 Gson gson = new GsonBuilder()
-                    .serializeNulls() // Habilita la deserialización de campos nulos explícitos
+                    .serializeNulls() // Habilita la deserializaciï¿½n de campos nulos explï¿½citos
                     .create();
             
                 switch(caso){
@@ -279,10 +254,10 @@ public class servicios extends HttpServlet {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
-            // 2. Configurar la autenticación (Bearer Token)
+            // 2. Configurar la autenticaciï¿½n (Bearer Token)
             conn.setRequestProperty("Authorization", "Bearer " + token);
 
-            // 3. Verificar código de respuesta
+            // 3. Verificar cï¿½digo de respuesta
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Error HTTP: " + conn.getResponseCode());
             }                

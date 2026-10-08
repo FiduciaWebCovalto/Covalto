@@ -1,29 +1,28 @@
 package mx.com.inscitech.fiducia.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import com.google.gson.Gson;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
+
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Key;
-import java.util.Date;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-import java.nio.charset.StandardCharsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletOutputStream;
-
-import mx.com.inscitech.fiducia.domain.FideicomDTO;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @WebServlet("/PdfConsumer")
 public class PdfConsumer extends HttpServlet {
@@ -35,19 +34,22 @@ public class PdfConsumer extends HttpServlet {
                 throws ServletException, IOException {
             String urlfinal="";
             String apiUrl = ConfigLoader.getUrl();
-            LOGGER.debug("apiUrl de archivo config "+apiUrl);
+            LOGGER.info("apiUrl de archivo config {}", apiUrl);
             
             String pathurl=apiUrl;
             HttpURLConnection connection = null;
             String []sRegreso={};
-            // 1. Recibir los parámetros
+            // 1. Recibir los parï¿½metros
             String p1 = request.getParameter("param1");//caso
             String p2 = request.getParameter("param2");//folio
             String p3 = request.getParameter("param3");//fiso
             String p4 = request.getParameter("param4");//persona
             
             String p5 = request.getParameter("param5");//token
-            String p6 = request.getParameter("param6");//usuario            
+            String p6 = request.getParameter("param6");//usuario
+
+            LOGGER.info("Parametros {}, {}, {}, {}, {}, {}", p1, p2, p3, p4, p5, p6);
+
             String sNombrePDF="";
             String validaSalida="";
             servicios datospdf = new servicios();
@@ -63,6 +65,8 @@ public class PdfConsumer extends HttpServlet {
 
             }
             
+            LOGGER.info("sRegreso: {}", (Object) sRegreso);
+
             for (String item : sRegreso) {
                 LOGGER.debug("item:"+item);
                 //validaSalida=item;
@@ -91,6 +95,7 @@ public class PdfConsumer extends HttpServlet {
                         String secret = "dennis123456789phegon123456789den1234321"; // Ejemplo
                         String token = generateToken(secret, p6);
                         URL url = new URL(urlfinal);
+                        LOGGER.info("urlfinal: {}", urlfinal);
 
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setRequestMethod("GET");
@@ -125,7 +130,7 @@ public class PdfConsumer extends HttpServlet {
                             // 2. Obtener el ServletOutputStream
                             ServletOutputStream os = response.getOutputStream();
                             
-                            // 3. Escribir la cadena convirtiéndola a bytes con UTF-8
+                            // 3. Escribir la cadena convirtiï¿½ndola a bytes con UTF-8
                             os.write(miCadenaFija.getBytes(StandardCharsets.UTF_8));
                             os.flush();
                             os.close(); 
@@ -141,7 +146,7 @@ public class PdfConsumer extends HttpServlet {
                 }
         }
     
-    // Método auxiliar para leer InputStream a bytes en Java nativo
+    // Mï¿½todo auxiliar para leer InputStream a bytes en Java nativo
         private byte[] readAllBytes(InputStream inputStream) throws IOException {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             int nRead;
