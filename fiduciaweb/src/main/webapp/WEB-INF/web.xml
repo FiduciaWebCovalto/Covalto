@@ -66,6 +66,10 @@
     <servlet-mapping>
         <servlet-name>PdfConsumer</servlet-name>
         <url-pattern>/PdfConsumer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PdfConsumer</servlet-name>
+        <url-pattern>/PdfConsumer/*</url-pattern>
     </servlet-mapping>   
     
     <servlet>
@@ -199,4 +203,5 @@
         <mime-type>text/plain</mime-type>
     </mime-mapping>
 </web-app>
+
 

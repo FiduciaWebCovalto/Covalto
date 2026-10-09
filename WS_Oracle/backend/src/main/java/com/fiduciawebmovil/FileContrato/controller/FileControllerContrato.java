@@ -117,9 +117,20 @@ public class FileControllerContrato {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
             
-            // "inline" permite visualización en navegador. 
-            // "attachment" forzaría la descarga.
-            headers.setContentDispositionFormData("inline", archivo.getNombre() + ".pdf");
+            // "inline" permite visualización en navegador.
+            String nombre = archivo.getNombre();
+            if (nombre == null || nombre.trim().isEmpty()) {
+                nombre = "documento.pdf";
+            } else {
+                nombre = nombre.trim();
+                while (nombre.toLowerCase().endsWith(".pdf.pdf")) {
+                    nombre = nombre.substring(0, nombre.length() - 4);
+                }
+                if (!nombre.toLowerCase().endsWith(".pdf")) {
+                    nombre += ".pdf";
+                }
+            }
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + nombre + "\"");
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);

@@ -370,7 +370,7 @@
                     <div class="card p-4">
                         <h3>Bienvenido al Sistema</h3>
                         <h4><div id="dvNomUsuario"></div></h4>
-                        <p>Navegue a trav�s de las opciones del men� lateral izquierdo.</p>
+                        <p>Navegue a trav&aacute;s de las opciones del men&uacute; lateral izquierdo.</p>
                     </div>
                 </div>
             </div>
