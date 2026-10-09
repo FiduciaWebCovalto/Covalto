@@ -2,8 +2,6 @@ package com.fiduciawebmovil.retiro.controller;
 import lombok.RequiredArgsConstructor;
 
 
-import com.fiduciawebmovil.retcomp2.entity.FRetComp2;
-import com.fiduciawebmovil.retcomp2.services.FRetComp2Service;
 import com.fiduciawebmovil.retiro.entity.FRetiro;
 import com.fiduciawebmovil.retiro.services.FRetiroService;
 

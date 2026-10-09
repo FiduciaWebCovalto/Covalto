@@ -1,8 +1,5 @@
 package com.fiduciawebmovil.monedas.services;
 
-import com.fiduciawebmovil.folios.entity.Folios;
-import com.fiduciawebmovil.folios.repo.FoliosRepository;
-import com.fiduciawebmovil.fusuario.entity.FUsuario;
 import com.fiduciawebmovil.monedas.entity.Monedas;
 import com.fiduciawebmovil.monedas.repo.MonedasRepository;
 

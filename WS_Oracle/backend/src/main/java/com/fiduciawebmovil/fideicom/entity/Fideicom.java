@@ -1,15 +1,9 @@
 package com.fiduciawebmovil.fideicom.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 
-import com.fiduciawebmovil.contrato.entity.Contrato;
-import com.fiduciawebmovil.terceros.entity.TercerosId;
 
 
 @Entity

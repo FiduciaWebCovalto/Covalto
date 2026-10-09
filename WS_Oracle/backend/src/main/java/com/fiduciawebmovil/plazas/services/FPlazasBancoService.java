@@ -1,7 +1,6 @@
 package com.fiduciawebmovil.plazas.services;
 
 import com.fiduciawebmovil.plazas.entity.FPlazasBanco;
-import com.fiduciawebmovil.terceros.entity.Terceros;
 
 import java.util.List;
 

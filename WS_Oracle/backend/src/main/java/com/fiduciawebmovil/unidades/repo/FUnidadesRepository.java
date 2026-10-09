@@ -1,14 +1,9 @@
 package com.fiduciawebmovil.unidades.repo;
 
-import com.fiduciawebmovil.claves.entity.Claves;
-import com.fiduciawebmovil.insnomon.entity.FConinsnomon;
-import com.fiduciawebmovil.insnomon.entity.FConinsnomonId;
 import com.fiduciawebmovil.unidades.entity.FUnidades;
 import com.fiduciawebmovil.unidades.entity.FUnidadesId;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

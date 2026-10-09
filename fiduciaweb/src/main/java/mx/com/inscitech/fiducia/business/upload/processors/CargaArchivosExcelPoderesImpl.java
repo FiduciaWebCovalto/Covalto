@@ -21,7 +21,6 @@ import mx.com.inscitech.fiducia.domain.FjuPoderes;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.poi.ss.usermodel.DataFormatter;
-//import mx.com.inscitech.fiducia.domain.ArchivosPlanos;
 
 public class CargaArchivosExcelPoderesImpl extends UploadProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosExcelPoderesImpl.class);

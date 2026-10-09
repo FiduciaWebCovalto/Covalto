@@ -21,7 +21,6 @@ import mx.com.inscitech.fiducia.domain.FjuEmbargos;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.poi.ss.usermodel.DataFormatter;
-//import mx.com.inscitech.fiducia.domain.ArchivosPlanos;
 
 public class CargaArchivosExcelEmbargosImpl extends UploadProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosExcelEmbargosImpl.class);

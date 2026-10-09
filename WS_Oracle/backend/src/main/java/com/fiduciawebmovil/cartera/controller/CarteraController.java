@@ -1,7 +1,6 @@
 package com.fiduciawebmovil.cartera.controller;
 import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.benefici.entity.Benefici;
 import com.fiduciawebmovil.cartera.entity.Cartera;
 import com.fiduciawebmovil.cartera.services.CarteraService;
 

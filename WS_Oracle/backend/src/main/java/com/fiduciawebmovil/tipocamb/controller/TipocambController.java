@@ -1,8 +1,6 @@
 package com.fiduciawebmovil.tipocamb.controller;
 
 import lombok.RequiredArgsConstructor;
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
-import com.fiduciawebmovil.fideicom.services.FideicomService;
 import com.fiduciawebmovil.tipocamb.entity.Tipocamb;
 import com.fiduciawebmovil.tipocamb.services.TipocambService;
 

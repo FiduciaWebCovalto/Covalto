@@ -7,10 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fiduciawebmovil.FileContrato.entity.PdfDocumentContrato;
 import com.fiduciawebmovil.FileContrato.repo.PdfDocumentContratoRepository;
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
 
 import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

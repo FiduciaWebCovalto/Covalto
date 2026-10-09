@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import mx.com.inscitech.cuentas.individuales.lib.Conexion;
-//import mx.com.inscitech.fiducia.common.util.Conexion;
 
 public class uConsultas extends queryConsultas{
     private static final Logger LOGGER = LoggerFactory.getLogger(uConsultas.class);

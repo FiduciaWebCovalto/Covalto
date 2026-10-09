@@ -2,8 +2,6 @@ package com.fiduciawebmovil.unidades.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Objects;
 
 

@@ -1,6 +1,5 @@
 package com.fiduciawebmovil.terceros.services;
 
-import com.fiduciawebmovil.subcuenta.entity.FSubcuenta;
 import com.fiduciawebmovil.terceros.entity.Terceros;
 import com.fiduciawebmovil.terceros.entity.TercerosId;
 import com.fiduciawebmovil.terceros.repo.TercerosRepository;

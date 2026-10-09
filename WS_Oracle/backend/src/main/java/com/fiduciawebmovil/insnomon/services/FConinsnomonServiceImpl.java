@@ -1,6 +1,5 @@
 package com.fiduciawebmovil.insnomon.services;
 
-import com.fiduciawebmovil.claves.entity.Claves;
 import com.fiduciawebmovil.insnomon.entity.FConinsnomon;
 import com.fiduciawebmovil.insnomon.repo.FConinsnomonRepository;
 

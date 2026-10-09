@@ -1,15 +1,11 @@
 package com.fiduciawebmovil.cuentasinversion.repo;
 
-import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 
 public interface FCuentasInversionRepository extends JpaRepository<FCuentasInversion, String> {

@@ -2,7 +2,6 @@ package com.fiduciawebmovil.operacion.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 import com.fiduciawebmovil.operacion.entity.FTipoper;
 import com.fiduciawebmovil.operacion.services.FTipoperService;
 

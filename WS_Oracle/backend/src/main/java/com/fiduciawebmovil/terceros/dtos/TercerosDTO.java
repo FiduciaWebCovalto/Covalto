@@ -2,8 +2,6 @@ package com.fiduciawebmovil.terceros.dtos;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +10,6 @@ import com.fiduciawebmovil.terceros.entity.TercerosId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

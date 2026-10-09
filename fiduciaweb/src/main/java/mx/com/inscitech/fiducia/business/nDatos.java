@@ -1,8 +1,5 @@
 package mx.com.inscitech.fiducia.business;
 
-import java.lang.Double;
-import java.lang.Integer;
-import java.lang.String;
 
 import java.util.Vector;
 

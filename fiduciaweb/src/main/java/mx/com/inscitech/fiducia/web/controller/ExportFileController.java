@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.lang.ArrayIndexOutOfBoundsException;
 
 import java.util.List;
 import java.util.Map;

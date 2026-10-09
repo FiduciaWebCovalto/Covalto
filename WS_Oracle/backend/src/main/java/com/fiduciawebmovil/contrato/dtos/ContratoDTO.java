@@ -10,7 +10,6 @@ import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.fusuario.entity.FUsuario;
 import com.fiduciawebmovil.subcuenta.entity.FSubcuenta;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 

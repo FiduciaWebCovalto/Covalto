@@ -2,16 +2,9 @@ package com.fiduciawebmovil.claves.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-import com.fiduciawebmovil.benefici.entity.BeneficiId;
 
 import  java.util.Objects;
 

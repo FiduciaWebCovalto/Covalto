@@ -2,7 +2,6 @@ package com.fiduciawebmovil.feccont.controller;
 
 import com.fiduciawebmovil.feccont.entity.*;
 import com.fiduciawebmovil.feccont.services.*;
-import com.fiduciawebmovil.contrato.dtos.ContratoDTO;
 import com.fiduciawebmovil.feccont.dtos.*;
 
 import java.util.List;

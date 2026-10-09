@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import mx.com.inscitech.fiducia.dml.vo.DataRow;
 import mx.com.inscitech.fiducia.domain.base.DMLObject;
 import mx.com.inscitech.fiducia.domain.base.DomainObject;
-import mx.com.inscitech.fiducia.domain.base.FieldInfo;
 import mx.com.inscitech.fiducia.domain.base.PrimaryKey;
 
 @PrimaryKey(constraintName = "PROSPECT_PK", columns = { "PRS_NUM_PROSPECTO" }, sequences = { "MAX" })

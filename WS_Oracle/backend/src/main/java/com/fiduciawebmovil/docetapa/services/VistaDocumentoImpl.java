@@ -3,9 +3,6 @@ package com.fiduciawebmovil.docetapa.services;
 
 import com.fiduciawebmovil.docetapa.entity.VistaDocumento;
 import com.fiduciawebmovil.docetapa.repo.VistaDocumentoRepository;
-import com.fiduciawebmovil.fisocuenta.entity.FFideicoCueban;
-import com.fiduciawebmovil.instruc.entity.Instrucc;
-import com.fiduciawebmovil.instruc.repo.InstruccRepository;
 
 
 import lombok.extern.slf4j.Slf4j;

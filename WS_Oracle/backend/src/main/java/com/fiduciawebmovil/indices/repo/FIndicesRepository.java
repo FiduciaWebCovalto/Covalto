@@ -2,10 +2,8 @@ package com.fiduciawebmovil.indices.repo;
 
 import com.fiduciawebmovil.indices.entity.FIndices;
 import com.fiduciawebmovil.indices.entity.FIndicesId;
-import com.fiduciawebmovil.terceros.entity.Terceros;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

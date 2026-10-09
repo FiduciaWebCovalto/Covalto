@@ -3,21 +3,12 @@ package mx.com.inscitech.fiducia.business.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
 
-import mx.com.inscitech.fiducia.common.services.ConfigurationService;
 import mx.com.inscitech.fiducia.common.services.LoggingService;
-import mx.com.inscitech.fiducia.common.util.DateTimeUtils;
-import mx.com.inscitech.fiducia.common.util.ServiceLocator;
 
 import mx.com.inscitech.fiducia.common.beans.UsersInformation;
 import mx.com.inscitech.fiducia.common.services.UserInformationService;
-import mx.com.inscitech.fiducia.exceptions.impl.InvalidUserException;
 
-import org.apache.log4j.Level;
 
 /**
  * Servicio que se encarga de registrar en bitacora las operaciones realizadas.

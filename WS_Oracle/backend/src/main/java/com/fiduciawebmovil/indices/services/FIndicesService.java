@@ -1,7 +1,6 @@
 package com.fiduciawebmovil.indices.services;
 
 import com.fiduciawebmovil.indices.entity.FIndices;
-import com.fiduciawebmovil.terceros.entity.Terceros;
 
 import java.util.List;
 

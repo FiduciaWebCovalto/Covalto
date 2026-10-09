@@ -2,12 +2,10 @@ package com.fiduciawebmovil.terceros.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.benefici.entity.Benefici;
 import com.fiduciawebmovil.terceros.entity.Terceros;
 import com.fiduciawebmovil.terceros.services.TercerosService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor

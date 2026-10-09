@@ -2,8 +2,6 @@ package com.fiduciawebmovil.unidades.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.insnomon.entity.FConinsnomon;
-import com.fiduciawebmovil.insnomon.services.FConinsnomonService;
 import com.fiduciawebmovil.unidades.entity.FUnidades;
 import com.fiduciawebmovil.unidades.services.FUnidadesService;
 

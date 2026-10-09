@@ -1,9 +1,5 @@
 package com.fiduciawebmovil.parametro.services;
 
-import com.fiduciawebmovil.folios.entity.Folios;
-import com.fiduciawebmovil.folios.repo.FoliosRepository;
-import com.fiduciawebmovil.monedas.entity.Monedas;
-import com.fiduciawebmovil.monedas.repo.MonedasRepository;
 import com.fiduciawebmovil.parametro.entity.ParamGlobal;
 import com.fiduciawebmovil.parametro.repo.ParamGlobalRepository;
 

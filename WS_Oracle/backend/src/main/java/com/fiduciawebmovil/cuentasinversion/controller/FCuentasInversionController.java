@@ -2,12 +2,9 @@ package com.fiduciawebmovil.cuentasinversion.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 import com.fiduciawebmovil.cuentasinversion.services.FCuentasInversionService;
-import com.fiduciawebmovil.fisocuenta.entity.FFideicoCueban;
 
-import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

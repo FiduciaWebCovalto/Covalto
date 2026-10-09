@@ -6,7 +6,6 @@ import mx.com.inscitech.fiducia.common.services.LoggingService;
 
 import net.sf.json.JSONObject;
 
-import org.apache.log4j.Logger;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;

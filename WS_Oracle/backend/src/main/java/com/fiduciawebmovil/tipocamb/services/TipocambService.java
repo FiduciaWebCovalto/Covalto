@@ -1,6 +1,5 @@
 package com.fiduciawebmovil.tipocamb.services;
 
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
 import com.fiduciawebmovil.tipocamb.entity.Tipocamb;
 
 import java.util.List;

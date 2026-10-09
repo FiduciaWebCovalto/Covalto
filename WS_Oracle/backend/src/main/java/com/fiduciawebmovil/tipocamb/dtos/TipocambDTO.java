@@ -2,20 +2,14 @@ package com.fiduciawebmovil.tipocamb.dtos;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fiduciawebmovil.contrato.entity.Contrato;
-import com.fiduciawebmovil.fideicom.entity.FideicomId;
 import com.fiduciawebmovil.tipocamb.entity.EmbeddableId;
 import com.fiduciawebmovil.tipocamb.entity.TipocambId;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

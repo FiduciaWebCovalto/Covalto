@@ -1,21 +1,13 @@
 package com.fiduciawebmovil.contrato.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 import com.fiduciawebmovil.fusuario.entity.FUsuario;
-import com.fiduciawebmovil.subcuenta.entity.FSubcuenta;
 
 
 @Entity

@@ -1,8 +1,6 @@
 package com.fiduciawebmovil.feccont.dtos.mapper;
 
 
-import com.fiduciawebmovil.contrato.dtos.ContratoDTO;
-import com.fiduciawebmovil.contrato.entity.Contrato;
 import com.fiduciawebmovil.feccont.dtos.FeccontDTO;
 import com.fiduciawebmovil.feccont.entity.Feccont;
 

@@ -1,7 +1,5 @@
 package com.fiduciawebmovil.subcuenta.entity;
 
-import com.fiduciawebmovil.contrato.entity.Contrato;
-import com.fiduciawebmovil.posicion.entity.PosicionId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;

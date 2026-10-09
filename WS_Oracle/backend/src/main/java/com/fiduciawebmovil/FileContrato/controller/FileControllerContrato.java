@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import com.fiduciawebmovil.FileContrato.services.FileStorageServiceContrato;
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
 import com.fiduciawebmovil.FileContrato.entity.PdfDocumentContrato;
 import com.fiduciawebmovil.FileContrato.entity.PdfDocumentContratoId;
 import com.fiduciawebmovil.FileContrato.repo.PdfDocumentContratoRepository;

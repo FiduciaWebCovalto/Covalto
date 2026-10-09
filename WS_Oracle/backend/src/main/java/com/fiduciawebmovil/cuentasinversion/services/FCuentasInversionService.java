@@ -1,9 +1,7 @@
 package com.fiduciawebmovil.cuentasinversion.services;
 
-import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface FCuentasInversionService {

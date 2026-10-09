@@ -1,14 +1,9 @@
 package com.fiduciawebmovil.insnovalor.dtos;
 
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fiduciawebmovil.bitacora.entity.BitacoraId;
-import com.fiduciawebmovil.fbitacora.entity.FBitacoraId;
-import com.fiduciawebmovil.fbitacorasol.entity.FBitacoraSolId;
 import com.fiduciawebmovil.insnovalor.entity.FConinsnomonValorId;
 
 import jakarta.persistence.Column;

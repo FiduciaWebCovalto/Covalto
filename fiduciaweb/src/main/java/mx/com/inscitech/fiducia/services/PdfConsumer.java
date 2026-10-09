@@ -3,7 +3,6 @@ package mx.com.inscitech.fiducia.services;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import mx.com.inscitech.fiducia.services.ConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

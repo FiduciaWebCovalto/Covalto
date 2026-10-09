@@ -1,7 +1,5 @@
 package com.fiduciawebmovil.vistas.controller;
-import lombok.RequiredArgsConstructor;
 
-import com.fiduciawebmovil.fisocuenta.entity.FFideicoCueban;
 import com.fiduciawebmovil.vistas.entity.Vista1;
 import com.fiduciawebmovil.vistas.entity.Vista2;
 import com.fiduciawebmovil.vistas.entity.Vista3;

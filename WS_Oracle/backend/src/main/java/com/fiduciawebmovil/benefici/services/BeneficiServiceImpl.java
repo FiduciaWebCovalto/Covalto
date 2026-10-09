@@ -2,7 +2,6 @@ package com.fiduciawebmovil.benefici.services;
 
 import com.fiduciawebmovil.benefici.entity.Benefici;
 import com.fiduciawebmovil.benefici.repo.BeneficiRepository;
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

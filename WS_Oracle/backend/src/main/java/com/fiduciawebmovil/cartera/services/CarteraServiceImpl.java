@@ -2,9 +2,6 @@ package com.fiduciawebmovil.cartera.services;
 
 import com.fiduciawebmovil.cartera.entity.Cartera;
 import com.fiduciawebmovil.cartera.repo.CarteraRepository;
-import com.fiduciawebmovil.claves.entity.Claves;
-import com.fiduciawebmovil.insnomon.entity.FConinsnomon;
-import com.fiduciawebmovil.insnomon.repo.FConinsnomonRepository;
 
 
 import lombok.extern.slf4j.Slf4j;

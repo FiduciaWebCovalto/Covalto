@@ -1,7 +1,5 @@
 package com.fiduciawebmovil.subcuenta.services;
 
-import com.fiduciawebmovil.plazas.entity.FPlazasBanco;
-import com.fiduciawebmovil.plazas.repo.FPlazasBancoRepository;
 import com.fiduciawebmovil.subcuenta.entity.FSubcuenta;
 import com.fiduciawebmovil.subcuenta.repo.FSubcuentaRepository;
 

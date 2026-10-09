@@ -7,12 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fiduciawebmovil.File.entity.PdfDocument;
 import com.fiduciawebmovil.File.repo.PdfDocumentRepository;
-import com.fiduciawebmovil.plazas.entity.FPlazasBanco;
 
 import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.*;

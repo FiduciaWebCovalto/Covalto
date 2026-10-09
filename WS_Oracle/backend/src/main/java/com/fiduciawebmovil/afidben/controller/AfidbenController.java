@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 
 import com.fiduciawebmovil.afidben.entity.Afidben;
 import com.fiduciawebmovil.afidben.services.AfidbenService;
-import com.fiduciawebmovil.benefici.entity.Benefici;
 
 import java.math.BigDecimal;
 import java.util.List;

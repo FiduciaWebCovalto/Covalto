@@ -3,13 +3,8 @@ package com.fiduciawebmovil.plazas.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-import java.math.BigDecimal;
 
 
 @Table(name = "f_plazas_banco")

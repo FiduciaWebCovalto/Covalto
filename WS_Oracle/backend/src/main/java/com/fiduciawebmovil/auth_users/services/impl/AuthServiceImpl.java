@@ -9,8 +9,6 @@ import com.fiduciawebmovil.auth_users.entity.PasswordResetCode;
 import com.fiduciawebmovil.auth_users.repo.PasswordResetCodeRepo;
 import com.fiduciawebmovil.auth_users.services.AuthService;
 import com.fiduciawebmovil.auth_users.services.CodeGenerator;
-import com.fiduciawebmovil.enums.AccountType;
-import com.fiduciawebmovil.enums.Currency;
 import com.fiduciawebmovil.exceptions.BadRequestException;
 import com.fiduciawebmovil.exceptions.NotFoundException;
 import com.fiduciawebmovil.feccont.dtos.FeccontDTO;
@@ -38,8 +36,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

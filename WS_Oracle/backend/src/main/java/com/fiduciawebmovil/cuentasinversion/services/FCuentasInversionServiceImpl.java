@@ -1,6 +1,5 @@
 package com.fiduciawebmovil.cuentasinversion.services;
 
-import com.fiduciawebmovil.cueban.entity.FCueban;
 import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 import com.fiduciawebmovil.cuentasinversion.repo.FCuentasInversionRepository;
 
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 

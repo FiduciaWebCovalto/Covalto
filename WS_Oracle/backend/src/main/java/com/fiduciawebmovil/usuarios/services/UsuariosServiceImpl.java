@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -20,8 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fiduciawebmovil.auth_users.dtos.UpdatePasswordRequest;
 import com.fiduciawebmovil.exceptions.BadRequestException;
 import com.fiduciawebmovil.exceptions.NotFoundException;
-import com.fiduciawebmovil.fusuario.entity.FUsuario;
-import com.fiduciawebmovil.fusuario.repo.FUsuarioRepository;
 import com.fiduciawebmovil.notification.dtos.NotificationDTO;
 import com.fiduciawebmovil.res.Response;
 import com.fiduciawebmovil.usuarios.entity.Usuarios;

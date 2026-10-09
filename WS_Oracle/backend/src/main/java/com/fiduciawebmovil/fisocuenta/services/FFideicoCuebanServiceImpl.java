@@ -1,7 +1,5 @@
 package com.fiduciawebmovil.fisocuenta.services;
 
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
-import com.fiduciawebmovil.fideicom.repo.FideicomRepository;
 import com.fiduciawebmovil.fisocuenta.entity.FFideicoCueban;
 import com.fiduciawebmovil.fisocuenta.repo.FFideicoCuebanRepository;
 

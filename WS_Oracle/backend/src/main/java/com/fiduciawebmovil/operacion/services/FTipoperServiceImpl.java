@@ -1,5 +1,4 @@
 package com.fiduciawebmovil.operacion.services;
-import com.fiduciawebmovil.cuentasinversion.entity.FCuentasInversion;
 import com.fiduciawebmovil.operacion.entity.FTipoper;
 import com.fiduciawebmovil.operacion.repo.FTipoperRepository;
 

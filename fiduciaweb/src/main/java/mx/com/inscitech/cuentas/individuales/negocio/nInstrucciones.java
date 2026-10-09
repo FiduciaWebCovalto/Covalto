@@ -3,7 +3,6 @@ package mx.com.inscitech.cuentas.individuales.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.cuentas.individuales.negocio.nAcuerdos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

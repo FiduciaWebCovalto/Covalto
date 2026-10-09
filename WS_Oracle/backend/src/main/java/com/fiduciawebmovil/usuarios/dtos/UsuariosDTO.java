@@ -3,15 +3,12 @@ package com.fiduciawebmovil.usuarios.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fiduciawebmovil.role.entity.Role;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

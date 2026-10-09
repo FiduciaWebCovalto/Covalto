@@ -1,8 +1,5 @@
 package com.fiduciawebmovil.unidades.services;
 
-import com.fiduciawebmovil.claves.entity.Claves;
-import com.fiduciawebmovil.insnomon.entity.FConinsnomon;
-import com.fiduciawebmovil.insnomon.repo.FConinsnomonRepository;
 import com.fiduciawebmovil.unidades.entity.FUnidades;
 import com.fiduciawebmovil.unidades.repo.FUnidadesRepository;
 

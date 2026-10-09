@@ -2,10 +2,6 @@ package com.fiduciawebmovil.afidben.services;
 
 import com.fiduciawebmovil.afidben.entity.Afidben;
 import com.fiduciawebmovil.afidben.repo.AfidbenRepository;
-import com.fiduciawebmovil.subcuenta.entity.FSubcuenta;
-import com.fiduciawebmovil.terceros.entity.Terceros;
-import com.fiduciawebmovil.terceros.entity.TercerosId;
-import com.fiduciawebmovil.terceros.repo.TercerosRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

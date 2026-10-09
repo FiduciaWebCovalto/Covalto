@@ -1,7 +1,5 @@
 package com.fiduciawebmovil.tipocamb.services;
 
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
-import com.fiduciawebmovil.fideicom.repo.FideicomRepository;
 import com.fiduciawebmovil.tipocamb.entity.Tipocamb;
 import com.fiduciawebmovil.tipocamb.repo.TipocambRepository;
 

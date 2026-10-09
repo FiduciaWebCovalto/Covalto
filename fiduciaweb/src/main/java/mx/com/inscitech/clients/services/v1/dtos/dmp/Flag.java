@@ -1,6 +1,5 @@
 package mx.com.inscitech.clients.services.v1.dtos.dmp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

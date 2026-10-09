@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.fiduciawebmovil.usuarios.entity.Usuarios;
 import com.fiduciawebmovil.usuarios.services.UsuariosService;
 
 

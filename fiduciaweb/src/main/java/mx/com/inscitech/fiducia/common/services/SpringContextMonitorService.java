@@ -1,6 +1,5 @@
 package mx.com.inscitech.fiducia.common.services;
 
-import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
  *

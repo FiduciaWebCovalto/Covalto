@@ -3,7 +3,6 @@ package com.fiduciawebmovil.bitacora.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import  java.util.Objects;
 
 

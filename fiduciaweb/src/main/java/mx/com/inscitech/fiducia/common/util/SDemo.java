@@ -4,8 +4,6 @@ import mx.com.inscitech.fiducia.business.FiduciaBD;
 
 import java.io.File;
 
-import java.lang.String;
-import java.lang.System;
 
 public class SDemo {
 

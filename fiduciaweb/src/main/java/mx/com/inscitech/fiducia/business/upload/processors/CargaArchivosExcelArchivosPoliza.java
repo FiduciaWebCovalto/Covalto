@@ -13,16 +13,13 @@ import java.util.List;
 
 import mx.com.inscitech.fiducia.business.upload.UploadProcessor;
 import mx.com.inscitech.fiducia.common.beans.ParametroQueryBean;
-import mx.com.inscitech.fiducia.common.services.LoggingService;
 import mx.com.inscitech.fiducia.common.util.ExcelDataReader;
-import mx.com.inscitech.fiducia.common.util.ExcelDataReader.InvalidRowException;
 import mx.com.inscitech.fiducia.common.util.XLSDataReader;
 import mx.com.inscitech.fiducia.common.util.XLSXDataReader;
 import mx.com.inscitech.fiducia.domain.ArchivosPlanosPolizas;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.poi.ss.usermodel.DataFormatter;
-//import mx.com.inscitech.fiducia.domain.ArchivosPlanos;
 public class CargaArchivosExcelArchivosPoliza extends UploadProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CargaArchivosExcelArchivosPoliza.class);
 

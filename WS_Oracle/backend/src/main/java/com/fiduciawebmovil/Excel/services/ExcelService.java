@@ -2,7 +2,6 @@ package com.fiduciawebmovil.Excel.services;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,24 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlOutParameter;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.stereotype.Service;
 
 import com.fiduciawebmovil.Excel.entity.FArchivosExcel;
 import com.fiduciawebmovil.Excel.repo.FArchivosExcelRepository;
 import com.fiduciawebmovil.afidben.repo.AfidbenRepository;
 import com.fiduciawebmovil.bienes.entity.FAdquirentes;
 import com.fiduciawebmovil.bienes.entity.FAdquirentesId;
-import com.fiduciawebmovil.bienes.entity.FBienesgar;
-import com.fiduciawebmovil.bienes.entity.FBienesgarId;
 import com.fiduciawebmovil.bienes.repo.FAdquirentesRepository;
 import com.fiduciawebmovil.bienes.repo.FBienesgarRepository;
 import com.fiduciawebmovil.contrato.repo.ContratoRepository;

@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-import com.fiduciawebmovil.terceros.entity.TercerosId;
 
 
 @Entity

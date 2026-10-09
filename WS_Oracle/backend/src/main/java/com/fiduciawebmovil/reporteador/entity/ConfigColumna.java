@@ -1,6 +1,5 @@
 package com.fiduciawebmovil.reporteador.entity;
 import jakarta.persistence.*;
-import java.util.List;
 @Entity
 @Table(name = "CONFIG_COLUMNAS")
 public class ConfigColumna {

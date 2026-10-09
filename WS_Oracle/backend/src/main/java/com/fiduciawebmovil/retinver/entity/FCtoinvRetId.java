@@ -3,8 +3,6 @@ package com.fiduciawebmovil.retinver.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import  java.util.Objects;
 
 

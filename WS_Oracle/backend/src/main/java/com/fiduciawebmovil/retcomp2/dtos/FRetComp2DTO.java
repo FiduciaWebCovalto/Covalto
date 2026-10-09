@@ -1,18 +1,10 @@
 package com.fiduciawebmovil.retcomp2.dtos;
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fiduciawebmovil.bitacora.entity.BitacoraId;
-import com.fiduciawebmovil.fbitacora.entity.FBitacoraId;
-import com.fiduciawebmovil.fbitacorasol.entity.FBitacoraSolId;
-import com.fiduciawebmovil.insnovalor.entity.FConinsnomonValorId;
-import com.fiduciawebmovil.retinver.entity.FCtoinvRet;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

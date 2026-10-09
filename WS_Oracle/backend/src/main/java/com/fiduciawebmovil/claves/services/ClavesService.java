@@ -1,7 +1,6 @@
 package com.fiduciawebmovil.claves.services;
 
 import com.fiduciawebmovil.claves.entity.Claves;
-import com.fiduciawebmovil.terceros.entity.Terceros;
 
 import java.util.List;
 

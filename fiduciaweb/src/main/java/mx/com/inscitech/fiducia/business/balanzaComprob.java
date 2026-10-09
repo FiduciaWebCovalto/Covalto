@@ -4,14 +4,6 @@ package mx.com.inscitech.fiducia.business;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.lang.Boolean;
-import java.lang.Double;
-import java.lang.Exception;
-import java.lang.Integer;
-import java.lang.Math;
-import java.lang.String;
-import java.lang.StringBuffer;
-import java.lang.System;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

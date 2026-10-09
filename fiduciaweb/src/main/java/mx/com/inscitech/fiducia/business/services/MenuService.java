@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
-import java.sql.Types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,8 @@ public class MenuService {
         }
     }
 
-    @SuppressWarnings("removal")
+    @SuppressWarnings("removal")
+
     public void finalize() {
         if (cn != null)
             try {

@@ -2,8 +2,6 @@ package com.fiduciawebmovil.ctoinver.services;
 
 import com.fiduciawebmovil.ctoinver.entity.Continte;
 import com.fiduciawebmovil.ctoinver.repo.ContinteRepository;
-import com.fiduciawebmovil.fideicom.entity.Fideicom;
-import com.fiduciawebmovil.fideicom.repo.FideicomRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

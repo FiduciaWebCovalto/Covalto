@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import mx.com.inscitech.fiducia.domain.base.DomainObject;
 import mx.com.inscitech.fiducia.domain.base.FieldInfo;
 import mx.com.inscitech.fiducia.domain.base.PrimaryKey;
-import mx.com.inscitech.fiducia.domain.base.Reference;
 import mx.com.inscitech.fiducia.domain.base.DMLObject;
 
 import mx.com.inscitech.fiducia.dml.vo.DataRow;
