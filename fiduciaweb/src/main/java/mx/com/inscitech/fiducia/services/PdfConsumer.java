@@ -33,7 +33,7 @@ public class PdfConsumer extends HttpServlet {
         protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
             String urlfinal="";
-            String apiUrl = ConfigLoader.getUploadUrl();
+            String apiUrl = ConfigLoader.getDownloadUrl();
             LOGGER.info("apiUrl de archivo config {}", apiUrl);
             
             String pathurl=apiUrl;
