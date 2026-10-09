@@ -96,7 +96,7 @@ public class OracleProxyServlet extends HttpServlet {
         if (configuredUrl != null && !configuredUrl.trim().isEmpty()) {
             this.targetBaseUrl = cleanTrailingSlash(configuredUrl.trim());
         } else {
-            this.targetBaseUrl = cleanTrailingSlash(ConfigLoader.getUrl());
+            this.targetBaseUrl = cleanTrailingSlash(ConfigLoader.getServiceUrl());
         }
 
         String configuredTimeout = config.getInitParameter("timeoutMs");
@@ -112,6 +112,12 @@ public class OracleProxyServlet extends HttpServlet {
         }
 
         LOGGER.info("OracleProxyServlet initialized. Target Base URL: '{}', Timeout: {} ms", targetBaseUrl, timeoutMs);
+        LOGGER.info("URLs Base: {}, Upload: {}, Download: {}, Service: {}",
+                ConfigLoader.getApiBaseUrl(),
+                ConfigLoader.getUploadUrl(),
+                ConfigLoader.getDownloadUrl(),
+                ConfigLoader.getServiceUrl()
+        );
     }
 
     @Override
@@ -137,9 +143,10 @@ public class OracleProxyServlet extends HttpServlet {
             return;
         }
 
+        LOGGER.info("Received request for path '{}' targetBaseUrl: {}", pathInfo,  this.targetBaseUrl);
         String effectiveBaseUrl = (this.targetBaseUrl != null && !this.targetBaseUrl.isEmpty())
                 ? this.targetBaseUrl
-                : cleanTrailingSlash(ConfigLoader.getServiceUrl());
+                : cleanTrailingSlash(ConfigLoader.getApiBaseUrl());
 
         String targetUrl = buildTargetUrl(effectiveBaseUrl, pathInfo, request.getQueryString());
         LOGGER.info("Proxying {} {} -> {}", method, request.getRequestURI(), targetUrl);
@@ -303,7 +310,7 @@ public class OracleProxyServlet extends HttpServlet {
     private void sendJsonInfo(HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json;charset=UTF-8");
-        String effectiveBaseUrl = (this.targetBaseUrl != null) ? this.targetBaseUrl : ConfigLoader.getUrl();
+        String effectiveBaseUrl = (this.targetBaseUrl != null) ? this.targetBaseUrl : ConfigLoader.getApiBaseUrl();
         String json = "{\"service\":\"OracleProxyServlet\",\"status\":\"UP\",\"targetBaseUrl\":\""
             + escapeJson(effectiveBaseUrl) + "\"}";
         response.getWriter().write(json);
@@ -399,7 +406,7 @@ public class OracleProxyServlet extends HttpServlet {
     public static HttpResponse<String> send(String method, String path, String body, Map<String, String> headers)
             throws IOException, InterruptedException {
 
-        String baseUrl = cleanTrailingSlash(ConfigLoader.getUrl());
+        String baseUrl = cleanTrailingSlash(ConfigLoader.getServiceUrl());
         String targetUrl = buildTargetUrl(baseUrl, path, null);
 
         HttpRequest.Builder builder = HttpRequest.newBuilder()
@@ -430,6 +437,6 @@ public class OracleProxyServlet extends HttpServlet {
      * Returns the currently configured target base URL.
      */
     public static String getTargetBaseUrl() {
-        return cleanTrailingSlash(ConfigLoader.getUrl());
+        return cleanTrailingSlash(ConfigLoader.getServiceUrl());
     }
 }

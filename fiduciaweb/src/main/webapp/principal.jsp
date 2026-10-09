@@ -55,7 +55,7 @@
             float: right;
             margin-top: 10px;
         }
-        /* Botón de Salir Fijo en la parte inferior */
+        /* Botï¿½n de Salir Fijo en la parte inferior */
         .logout-container {
             position: absolute;
             bottom: 20px;
@@ -82,8 +82,8 @@
 
         /* Espaciado para evitar que el contenido se tape con el Header y el Footer fijos */
         body {
-            padding-top: 70px; /* Ajusta según la altura de tu div superior */
-            padding-bottom: 60px; /* Ajusta según la altura del footer */
+            padding-top: 70px; /* Ajusta segï¿½n la altura de tu div superior */
+            padding-bottom: 60px; /* Ajusta segï¿½n la altura del footer */
             display: flex;
             flex-direction: column;
         }        
@@ -99,7 +99,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 9999; /* Asegura que esté por encima de otros elementos */
+            z-index: 9999; /* Asegura que estï¿½ por encima de otros elementos */
             font-family: Arial, sans-serif;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
@@ -108,7 +108,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Cabecera (Título y botón de minimizar) */
+        /* Cabecera (Tï¿½tulo y botï¿½n de minimizar) */
         .cabecera-flotante {
             background-color: #007bff;
             color: white;
@@ -139,7 +139,7 @@
             padding: 15px;
             width:350px;
             height:250px;
-            max-height: 350px; /* Altura máxima para cuando está expandido */
+            max-height: 350px; /* Altura mï¿½xima para cuando estï¿½ expandido */
             overflow-y: auto;  /* Permite scroll si la tabla es muy grande */
             transition: all 0.3s ease;
         }
@@ -150,14 +150,14 @@
         }
         
         #contenedor-flotante.minimizado .btn-minimizar::before {
-            content: "+"; /* Cambia el ícono a expandir */
+            content: "+"; /* Cambia el ï¿½cono a expandir */
         }
         
         #contenedor-flotante:not(.minimizado) .btn-minimizar::before {
-            content: "-"; /* Muestra el ícono de minimizar */
+            content: "-"; /* Muestra el ï¿½cono de minimizar */
         }
         
-        /* Estilos personalizados para el menú lateral azul */
+        /* Estilos personalizados para el menï¿½ lateral azul */
         .sidebar {
             width: 280px;
             height: 100vh;
@@ -185,19 +185,19 @@
             color: #fff;
         }
 
-        /* Estilos para los desplegables (submenús) */
+        /* Estilos para los desplegables (submenï¿½s) */
         .sidebar .submenu {
             padding-left: 20px;
             background-color: rgba(0, 0, 0, 0.1);
         }
 
         .sidebar .nav-link i {
-            width: 25px; /* Alineación de los iconos */
+            width: 25px; /* Alineaciï¿½n de los iconos */
             text-align: center;
             margin-right: 10px;
         }
 
-        /* Ajuste de contenido principal para que no quede debajo del menú */
+        /* Ajuste de contenido principal para que no quede debajo del menï¿½ */
         .main-content {
             margin-left: 280px;
             padding: 40px;
@@ -219,7 +219,7 @@
     transition: all 0.3s ease;
     width: 350px;
   }
-   /* Cabecera con título y botón de minimizar */
+   /* Cabecera con tï¿½tulo y botï¿½n de minimizar */
   .tabla-header {
     display: flex;
     justify-content: space-between;
@@ -260,9 +260,9 @@
   /*reporteador dinamico*/
 /* Contenedor que fuerza el scroll horizontal y vertical */
         .contenedor-scroll {
-            max-height: 250px; /* Altura máxima para el scroll vertical */
-            overflow-y: auto;  /* Scroll vertical automático */
-            overflow-x: auto;  /* Scroll horizontal automático */
+            max-height: 250px; /* Altura mï¿½xima para el scroll vertical */
+            overflow-y: auto;  /* Scroll vertical automï¿½tico */
+            overflow-x: auto;  /* Scroll horizontal automï¿½tico */
             border: 1px solid #dee2e6;
         }
 
@@ -278,14 +278,14 @@
     <script type="text/javascript" src="js/JSON.js"></script>
     <script src="js/xlsx.full.min.js"></script>
 	<script>
-        window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
+        window.API_BASE_URL = "<%= ConfigLoader.getApiBaseUrl() %>";
 
         if (!localStorage.getItem('token')) {
             window.location.href = 'login.jsp'; // Redirigir si no hay token
         }
     </script>
         <%
-        // Simulamos una variable de sesión en Java
+        // Simulamos una variable de sesiï¿½n en Java
         String valorJavaFechaContableSis =  session.getAttribute("fechaContable")!=null?
         (String)session.getAttribute("fechaContable"):"";
         %>
@@ -350,17 +350,17 @@
                 <span id="texto-escuchado" style="font-style: italic; color: #555;">Presiona y habla...</span>
             </div>
             <div id="resultados-busqueda" style="margin-top: 15px; max-height: 200px; overflow-y: auto;">
-                <!-- Aquí se cargarán los resultados -->
+                <!-- Aquï¿½ se cargarï¿½n los resultados -->
             </div>
         </div>
     </div>
     <script type="text/javascript" src="js/ayuda.js"></script>
     <div class="container-fluid  flex-grow-1 d-flex p-0">
-            <!-- Menú Lateral -->
+            <!-- Menï¿½ Lateral -->
             <div class="sidebar d-flex flex-column flex-shrink-0">
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto" id="menu-contenedor">
-                    <!-- El menú se generará dinámicamente con JavaScript -->
+                    <!-- El menï¿½ se generarï¿½ dinï¿½micamente con JavaScript -->
                 </ul>
             </div>
     
@@ -370,7 +370,7 @@
                     <div class="card p-4">
                         <h3>Bienvenido al Sistema</h3>
                         <h4><div id="dvNomUsuario"></div></h4>
-                        <p>Navegue a través de las opciones del menú lateral izquierdo.</p>
+                        <p>Navegue a travï¿½s de las opciones del menï¿½ lateral izquierdo.</p>
                     </div>
                 </div>
             </div>
@@ -424,7 +424,7 @@ function toggleTabla() {
     
     contenedor.classList.toggle('minimizado');
     
-    // Cambia el icono del botón dependiendo del estado
+    // Cambia el icono del botï¿½n dependiendo del estado
     if (contenedor.classList.contains('minimizado')) {
       btn.textContent = '+';
     } else {

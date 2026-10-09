@@ -12,10 +12,10 @@ session.setMaxInactiveInterval(-1);// duración en segundos de la sesión (-1) = n
 String error = session.getAttribute("error") == null ? "" : "" + session.getAttribute("error");
 
 if (request.getParameter("ssousername") != null && request.getParameter("password") != null) {
-  session.setAttribute("username",(String)request.getParameter("ssousername"));
-  session.setAttribute("tipoCambio",(String)request.getParameter("tipo"));
-  session.setAttribute("password",(String)request.getParameter("password"));
-  session.setAttribute("password_pass",(String)request.getParameter("password"));
+  session.setAttribute("username", request.getParameter("ssousername"));
+  session.setAttribute("tipoCambio", request.getParameter("tipo"));
+  session.setAttribute("password", request.getParameter("password"));
+  session.setAttribute("password_pass", request.getParameter("password"));
 }
 
 if(session.getAttribute("userInfo") != null) {
@@ -38,7 +38,7 @@ if(session.getAttribute("userInfo") != null) {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
     <script language="JavaScript" >
     // Se lee del contexto y se asigna a una variable JS
-    window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
+    window.API_BASE_URL = "<%= ConfigLoader.getApiBaseUrl() %>";
         function valida(){
                 //valido el nombre
                 if (document.logon.username.value.length==0){

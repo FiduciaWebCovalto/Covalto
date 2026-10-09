@@ -29,10 +29,10 @@ public class DownloadExcelServlet  extends HttpServlet {
             response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         
             String urlfinal="";
-            String apiUrl = ConfigLoader.getUrl();
-            LOGGER.debug("apiUrl de archivo config "+apiUrl);
+            String apiUrl = ConfigLoader.getApiBaseUrl();
+            LOGGER.debug("apiUrl de archivo config {}", apiUrl);
 
-            String pathurl=apiUrl;
+            String pathurl = apiUrl;
             // 1. Recibir tres parámetros desde HTML/JS
             String p0 = request.getParameter("caso");
             String p1 = request.getParameter("fiso");

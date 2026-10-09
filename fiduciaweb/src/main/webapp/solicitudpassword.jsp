@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta content="text/html;" http-equiv="content-type" charset="utf-8"/>
-        <title>FiduciaWeb - Solcitud de cambio de Contraseña</title>
+        <title>FiduciaWeb - Solcitud de cambio de Contraseï¿½a</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>         
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -26,7 +26,7 @@
     </style>
     <script language="JavaScript" >
     // Se lee del contexto y se asigna a una variable JS
-    window.API_BASE_URL = "<%= ConfigLoader.getUrl() %>";
+    window.API_BASE_URL = "<%= ConfigLoader.getApiBaseUrl() %>";
     </script>
     </head>
     <body   class="bg-light">
@@ -42,7 +42,7 @@
         <div class="card-header h5 text-white bg-primary">Solicitud para Reestablecer Contrase&ntilde;a</div>
         <div class="card-body px-5">
             <p class="card-text py-2">
-                Introduce tu dirección de correo electrónico y te enviaremos un correo con instrucciones para restablecer tu contrase&ntilde;a.
+                Introduce tu direcciï¿½n de correo electrï¿½nico y te enviaremos un correo con instrucciones para restablecer tu contrase&ntilde;a.
             </p>
             <div data-mdb-input-init class="form-outline">
                 <input type="email" id="typeEmail" class="form-control my-3" required/>

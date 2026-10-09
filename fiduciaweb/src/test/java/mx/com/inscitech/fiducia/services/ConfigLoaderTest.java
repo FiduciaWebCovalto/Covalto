@@ -35,7 +35,7 @@ public class ConfigLoaderTest {
 
     @Test
     public void testGetUrlDefault() {
-        String url = ConfigLoader.getUrl();
+        String url = ConfigLoader.getApiBaseUrl();
         Assert.assertNotNull(url);
         // By default should return http://localhost:8091 (from config.properties or default)
         Assert.assertTrue(url.startsWith("http"));
@@ -45,7 +45,7 @@ public class ConfigLoaderTest {
     @Test
     public void testGetUrlFromSystemProperty() {
         System.setProperty("api.base.url", "https://api.covalto.com/test/");
-        String url = ConfigLoader.getUrl();
+        String url = ConfigLoader.getApiBaseUrl();
         Assert.assertEquals("https://api.covalto.com/test", url);
     }
 

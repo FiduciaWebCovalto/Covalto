@@ -184,7 +184,7 @@ public class ConfigLoader {
      * defaulting to http://localhost:8091.
      * Any trailing slash is trimmed to ensure consistent endpoint construction.
      */
-    public static String getUrl() {
+    public static String getApiBaseUrl() {
         String url = getProperty("api.base.url", DEFAULT_URL);
         LOGGER.info("api.base.url '{}'", url);
         if (url != null && url.endsWith("/")) {

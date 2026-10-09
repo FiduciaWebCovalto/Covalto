@@ -29,12 +29,10 @@ public class UploadExcel extends MasterServices{
                                            String id,String token,String origen,
                                            String fecha,String fiso) 
                                              throws IOException {
-           String secret = "dennis123456789phegon123456789den1234321";
-           String apiUrl = ConfigLoader.getUrl();
-           LOGGER.info("apiUrl de archivo config {}", apiUrl);           
-           String targetUrl=apiUrl+"/api/excel/upload";
-           //String token = generateToken(secret, "Inmuebles@trustechcapitalmexico.com");
-           String boundary = "===" + UUID.randomUUID().toString() + "===";
+
+           String targetUrl = ConfigLoader.getUploadUrl() + "/api/excel/upload";
+
+           String boundary = "===" + UUID.randomUUID() + "===";
            String crlf = "\r\n";
            String twoHyphens = "--";
 
