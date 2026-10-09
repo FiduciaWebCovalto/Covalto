@@ -52,7 +52,7 @@ public class PdfConsumer extends HttpServlet {
 
             String sNombrePDF="";
             String validaSalida="";
-            servicios datospdf = new servicios();
+            MasterServices datospdf = new MasterServices();
             switch(Integer.valueOf(p1).intValue()){
                 case 1://parametro por folio para visualizar carta instruccion
                     sRegreso=datospdf.consumo(6,p2,p5,p6);

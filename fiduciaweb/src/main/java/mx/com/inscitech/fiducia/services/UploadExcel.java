@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.UUID;
 
-public class UploadExcel extends servicios{
+public class UploadExcel extends MasterServices{
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadExcel.class);
 
     public static String uploadFileAndData(InputStream inputStream, 
@@ -31,7 +31,7 @@ public class UploadExcel extends servicios{
                                              throws IOException {
            String secret = "dennis123456789phegon123456789den1234321";
            String apiUrl = ConfigLoader.getUrl();
-           LOGGER.debug("apiUrl de archivo config "+apiUrl);           
+           LOGGER.info("apiUrl de archivo config {}", apiUrl);           
            String targetUrl=apiUrl+"/api/excel/upload";
            //String token = generateToken(secret, "Inmuebles@trustechcapitalmexico.com");
            String boundary = "===" + UUID.randomUUID().toString() + "===";
@@ -93,7 +93,7 @@ public class UploadExcel extends servicios{
                outputStream.flush();
                writer.append(crlf).flush(); // Fin del archivo
 
-               // 3. Fin de la petición multipart
+               // 3. Fin de la peticiï¿½n multipart
                writer.append(twoHyphens).append(boundary).append(twoHyphens).append(crlf);
                writer.flush();
            }
@@ -113,3 +113,4 @@ public class UploadExcel extends servicios{
            return response.toString();
        }
 }
+

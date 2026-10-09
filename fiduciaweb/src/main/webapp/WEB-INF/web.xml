@@ -51,12 +51,12 @@
     </servlet>    
     
     <servlet>
-        <servlet-name>servicios</servlet-name>
-        <servlet-class>mx.com.inscitech.fiducia.services.servicios</servlet-class>
+        <servlet-name>MasterServices</servlet-name>
+        <servlet-class>mx.com.inscitech.fiducia.services.MasterServices</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>servicios</servlet-name>
+        <servlet-name>MasterServices</servlet-name>
         <url-pattern>/proceso</url-pattern>
     </servlet-mapping>  
     <servlet>
@@ -132,7 +132,7 @@
         <async-supported>true</async-supported>
         <init-param>
             <param-name>targetBaseUrl</param-name>
-            <param-value>http://172.31.211.232:8091/</param-value>
+            <param-value>http://localhost:8091/</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
@@ -199,3 +199,4 @@
         <mime-type>text/plain</mime-type>
     </mime-mapping>
 </web-app>
+
