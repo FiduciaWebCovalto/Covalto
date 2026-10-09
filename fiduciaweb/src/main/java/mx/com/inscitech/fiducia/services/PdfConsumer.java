@@ -30,10 +30,9 @@ public class PdfConsumer extends HttpServlet {
 
 
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-                throws ServletException, IOException {
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
             String urlfinal="";
-            String apiUrl = ConfigLoader.getDownloadUrl();
+            String apiUrl = ConfigLoader.getUploadUrl();
             LOGGER.info("apiUrl de archivo config {}", apiUrl);
             
             String pathurl=apiUrl;
@@ -50,8 +49,8 @@ public class PdfConsumer extends HttpServlet {
 
             LOGGER.info("Parametros {}, {}, {}, {}, {}, {}", p1, p2, p3, p4, p5, p6);
 
-            String sNombrePDF="";
-            String validaSalida="";
+            String sNombrePDF = "";
+
             MasterServices datospdf = new MasterServices();
             switch(Integer.valueOf(p1).intValue()){
                 case 1://parametro por folio para visualizar carta instruccion
