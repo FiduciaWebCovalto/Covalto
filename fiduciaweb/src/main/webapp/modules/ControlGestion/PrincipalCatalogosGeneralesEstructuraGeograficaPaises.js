@@ -21,9 +21,20 @@ var fvMantenimientoPaises = new FormValidator();
 var CONSULTAR = 3;
 
 function cargaPrincipalCatalogosGeneralEstructuraGeograficaPaises() {
-  onButtonClick("ControlGestion.PrincipalCatalogosGeneralesEstructuraGeograficaPaises","");
-  hideWaitLayer();
+  //onButtonClick("ControlGestion.PrincipalCatalogosGeneralesEstructuraGeograficaPaises","");
+  
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogosGeneralesEstructuraGeograficaPaises.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+
 }
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
+  hideWaitLayer();
+  initForms();
+
+}
+
 
 function clickTabla(pk) {
   pkInfo = pk;
@@ -46,7 +57,7 @@ function cargaMantenimientoCatalogosGeneralesEstructuraGeograficaPaises(tipoPant
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required
@@ -68,6 +79,7 @@ function loadCatalogo() {
     muestraObjs("cmdAceptar,cmdCancelar"); //Mostrar el botón Aceptar y Cancelar
     formsLoaded();
   }
+  hideWaitLayer();
 }
 
 function catLoaded() {
@@ -83,6 +95,7 @@ function catLoaded() {
   }
   muestraObjs("cmdCancelar"); //Mostrar el botón Regresar
   formsLoaded();
+  hideWaitLayer();
 }
 
 function AltaOModificaInfo() {

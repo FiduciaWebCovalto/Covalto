@@ -29,9 +29,16 @@ var parametroComboEstado;
 var usarSetValuesFormObject=false;
 var CONSULTAR = 3;
 
+
 function cargaPrincipalCatalogosEjecutivosControlGestion() {
-  onButtonClick("ControlGestion.PrincipalCatalogosEjecutivosControlGestion","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogosEjecutivosControlGestion.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function clickTabla(pk) {
@@ -55,7 +62,7 @@ function cargaMantenimientoCatalogosEjecutivosControlGestion(tipoPantalla) {
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required

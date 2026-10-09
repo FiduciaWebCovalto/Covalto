@@ -16,9 +16,16 @@ var CONSULTAR = 3;
 
 formsLoaded();
 
+
 function cargaPrincipalCatalogoGeneralesEstructuraGeograficaMonedas() {
-  onButtonClick("ControlGestion.PrincipalCatalogoGeneralesEstructuraGeograficaMonedas","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogoGeneralesEstructuraGeograficaMonedas.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function cargaMantenimientoCatalogoGeneralesEstructuraGeograficaMonedas(tipoPantalla) {
@@ -35,7 +42,7 @@ function cargaMantenimientoCatalogoGeneralesEstructuraGeograficaMonedas(tipoPant
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required

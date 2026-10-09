@@ -12,8 +12,17 @@ makeAjaxRequest(url, "HTML", verificacionContenidoParamValor, null);
 formsLoaded();
 
 //Funciones
+
+
 function cargaPrincipalConfiguracionAccesoInternetControlGestion() {
-  onButtonClickPestania("ControlGestion.PrincipalConfiguracionAccesoInternetControlGestion","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalConfiguracionAccesoInternetControlGestion.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
+  hideWaitLayer();
+  initForms();
 }
 
 function verificacionContenidoParamValor(obj, result) {

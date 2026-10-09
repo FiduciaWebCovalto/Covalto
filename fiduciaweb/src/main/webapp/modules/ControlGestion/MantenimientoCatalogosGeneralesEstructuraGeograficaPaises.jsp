@@ -1,5 +1,4 @@
 <FORM name="frmMantenimientoCatalogosGeneralesEstructuraGeograficaPaises" id="frmMantenimientoCatalogosGeneralesEstructuraGeograficaPaises" onsubmit="">
-  <%=mx.com.inscitech.fiducia.web.security.SecurityBean.getToken(request, session)%>
   <table cellspacing="1" cellpadding="1" border="0" width="100%" align="center" style="height:auto;">
     <tr>
       <td align="center" height="100%" class="titulo">Mantenimiento Estructura Geografica Pa&iacute;ses</td>

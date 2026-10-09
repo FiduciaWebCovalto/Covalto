@@ -92,7 +92,7 @@ function cargaMantenimientoBienesFideicomitidos(Modo){
 }
 
 function despliegaPantallaMantenimientoBienesFideicomitidos(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   catfBienes.buscaCatalogoPK(false);
   fvcatfBienes.setup({

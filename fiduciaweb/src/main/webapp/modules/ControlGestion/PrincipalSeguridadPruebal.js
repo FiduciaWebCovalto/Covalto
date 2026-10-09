@@ -66,7 +66,7 @@ function cargaMantenimientoSeguridadPersonal(tipoPantalla) {
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   //initForms();
   
   //Agregando la funcionalidad del required

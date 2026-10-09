@@ -25,9 +25,16 @@ fvMantenimientoFuncionesXPuesto.setup({
   sendObjToAlert: true
 });
 
+
 function cargaPrincipalSeguridadFuncionesXPuesto() {
-  onButtonClickPestania("ControlGestion.PrincipalSeguridadFuncionesXPuesto","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalSeguridadFuncionesXPuesto.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 ////////////////////////////////////////////////////////////////////

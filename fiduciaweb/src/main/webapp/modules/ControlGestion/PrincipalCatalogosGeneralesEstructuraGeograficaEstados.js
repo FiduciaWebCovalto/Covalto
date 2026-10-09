@@ -33,9 +33,16 @@ fvPrincipalEstados.setup({
   sendObjToAlert: true
 });
 
+
 function cargaPrincipalCatalogosGeneralEstructuraGeograficaEstados() {
-  onButtonClick("ControlGestion.PrincipalCatalogosGeneralesEstructuraGeograficaEstados","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogosGeneralesEstructuraGeograficaEstados.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function clickTabla(pk) {
@@ -64,7 +71,7 @@ function cargaMantenimientoCatalogosGeneralesEstructuraGeograficaEstado(tipoPant
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required

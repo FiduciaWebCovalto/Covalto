@@ -22,9 +22,16 @@ var fvMantenimientoDiasFeriados = new FormValidator();
 var fechaFeriado = new Date();
 var CONSULTAR = 3;
 
+
 function cargaPrincipalCatalogosGeneralesEstructuraGeograficaDiasFeriados() {
-  onButtonClick("ControlGestion.PrincipalCatalogosGeneralesEstructuraGeograficaDiasFeriados","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogosGeneralesEstructuraGeograficaDiasFeriados.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function clickTabla(pk) {
@@ -49,7 +56,7 @@ function cargaMantenimientoCatalogosGeneralesEstructuraGeograficaDiasFeriados(ti
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required

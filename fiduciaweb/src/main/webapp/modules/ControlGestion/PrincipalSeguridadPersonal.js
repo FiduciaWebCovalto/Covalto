@@ -23,10 +23,18 @@ var CONSULTAR = 3;
 
 hideWaitLayer();
 
+
 function cargaPrincipalSeguridadPersonal() {
-  onButtonClickPestania("ControlGestion.PrincipalSeguridadPersonal","");
-  hideWaitLayer();
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalSeguridadPersonal.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
 }
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
+  hideWaitLayer();
+  initForms();
+}
+
 
 function clickTabla(pk) {
   pkInfo = pk;

@@ -21,9 +21,16 @@ var parametroComboSubMenu;
 var usarSetValuesFormObject=false;
 var CONSULTAR = 3;
 
+
 function cargaPrincipalSeguridadModulos() {
-  onButtonClickPestania("ControlGestion.PrincipalSeguridadModulos","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalSeguridadModulos.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function clickTabla(pk) {

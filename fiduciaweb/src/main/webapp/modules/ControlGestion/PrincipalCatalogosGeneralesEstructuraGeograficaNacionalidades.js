@@ -23,9 +23,16 @@ pkInfo = null;
 var fvMantenimientoNacionalidades = new FormValidator();
 var CONSULTAR = 3;
 
+
 function cargaPrincipalCatalogosGeneralEstructuraGeograficaNacionalidades() {
-  onButtonClick("ControlGestion.PrincipalCatalogosGeneralesEstructuraGeograficaNacionalidades","");
+	var urlCliente = ctxRoot + "/modules/ControlGestion/PrincipalCatalogosGeneralesEstructuraGeograficaNacionalidades.do";
+	makeAjaxRequest(urlCliente, "HTML", despliegaPantallaP, null);
+}
+
+function despliegaPantallaP(obj, result) {
+  GI("dvPantalla").innerHTML = result;
   hideWaitLayer();
+  initForms();
 }
 
 function clickTabla(pk) {
@@ -49,7 +56,7 @@ function cargaMantenimientoCatalogosGeneralesEstructuraGeograficaNacionalidades(
 }
 
 function despliegaPantalla(obj, result) {
-  GI("dvContenido").innerHTML = result;
+  GI("dvPantalla").innerHTML = result;
   initForms();
   
   //Agregando la funcionalidad del required
