@@ -139,7 +139,7 @@ public class OracleProxyServlet extends HttpServlet {
 
         String effectiveBaseUrl = (this.targetBaseUrl != null && !this.targetBaseUrl.isEmpty())
                 ? this.targetBaseUrl
-                : cleanTrailingSlash(ConfigLoader.getUrl());
+                : cleanTrailingSlash(ConfigLoader.getServiceUrl());
 
         String targetUrl = buildTargetUrl(effectiveBaseUrl, pathInfo, request.getQueryString());
         LOGGER.info("Proxying {} {} -> {}", method, request.getRequestURI(), targetUrl);
