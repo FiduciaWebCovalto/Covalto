@@ -3,11 +3,9 @@ package mx.com.inscitech.clients.domain;
 
 
 
-import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.ManyToMany;
 
 
 public class FUsuario {

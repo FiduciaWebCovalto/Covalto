@@ -8,7 +8,6 @@ package mx.com.inscitech.clients.domain;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Id;
 
 
 public class FPerfil {

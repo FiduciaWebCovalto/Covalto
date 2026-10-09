@@ -1,10 +1,8 @@
 package mx.com.inscitech.clients.domain;
 
-import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 
-import java.util.List;
 
 public class ClavesDTO {
     

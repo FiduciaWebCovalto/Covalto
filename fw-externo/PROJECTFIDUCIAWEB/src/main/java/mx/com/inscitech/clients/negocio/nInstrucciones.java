@@ -18,8 +18,7 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.daos.InstruccDAO;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 import mx.com.inscitech.clients.lib.serviciosenvio;
 
@@ -29,18 +28,8 @@ import java.util.*;
 import java.text.*;
 import java.util.Date;
 import java.util.Calendar;
-import mx.com.inscitech.clients.negocio.nAcuerdos;
 
-import java.time.OffsetDateTime;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
@@ -60,7 +49,7 @@ public class nInstrucciones extends nFiducia
 	static Date dFechaHon;
 	nAcuerdos n=new nAcuerdos();
         String[] resultado={null},sArreglo={null};
-        servicios serv = new servicios();
+        MasterServices serv = new MasterServices();
         serviciosenvio envio = new serviciosenvio();
 		/*
     Metodo: folioAutorizado

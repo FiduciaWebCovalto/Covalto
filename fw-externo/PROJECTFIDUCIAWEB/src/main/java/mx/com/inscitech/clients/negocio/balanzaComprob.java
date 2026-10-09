@@ -7,19 +7,15 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.sql.*;
 import oracle.jdbc.driver.*;
 import java.util.*;
 import java.text.NumberFormat;
-import java.lang.Double;
 import java.lang.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import java.sql.*;
-import java.util.*;
 import javax.naming.*;
 
 
@@ -28,11 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.util.Hashtable;
-import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import mx.com.inscitech.clients.lib.conexion;
 
 public class balanzaComprob  {

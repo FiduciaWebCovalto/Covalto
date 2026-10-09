@@ -21,6 +21,11 @@ public class ConfigLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigLoader.class);
 
     private static final String DEFAULT_URL = "http://localhost:8091";
+    private static final String DEFAULT_UPLOAD_URL = "http://localhost:8091";
+
+    private static final String DEFAULT_SERVICE_URL = "http://localhost:8091";
+
+    private static final String DEFAULT_DOWNLOAD_URL = "http://localhost:8091";
     private static final int DEFAULT_TIMEOUT = 5000;
 
     private static final Properties properties = new Properties();
@@ -48,18 +53,22 @@ public class ConfigLoader {
 
     private static void loadDotEnv() {
         String[] possiblePaths = {
-            ".env",
-            "../.env",
-            "../../.env"
+                ".env",
+                "../.env",
+                "../../.env"
         };
         for (String path : possiblePaths) {
+            LOGGER.info("Searching env file '{}'", path);
             File envFile = new File(path);
             if (envFile.exists() && envFile.isFile()) {
+                LOGGER.info("env file '{}' found!", path);
                 try (FileInputStream fis = new FileInputStream(envFile)) {
                     Properties dotEnvProps = new Properties();
                     dotEnvProps.load(fis);
                     for (String name : dotEnvProps.stringPropertyNames()) {
+                        LOGGER.info("Property name '{}'", name);
                         String resolvedValue = resolvePlaceholders(dotEnvProps.getProperty(name));
+                        LOGGER.info("Property name '{}' Value: '{}'", resolvedValue);
                         if (!properties.containsKey(name) && resolvedValue != null) {
                             properties.setProperty(name, resolvedValue);
                         }
@@ -108,14 +117,18 @@ public class ConfigLoader {
      * 4. defaultValue fallback
      */
     public static String getProperty(String key, String defaultValue) {
+        LOGGER.info("Environment Property '{}' Default '{}'", key, defaultValue);
         if (key == null) {
             return defaultValue;
         }
 
         String envKey = key.toUpperCase().replace('.', '_').replace('-', '_');
+        LOGGER.info("Environment Property Key Name '{}'", envKey);
 
         // 1. Environment variables
         String val = System.getenv(envKey);
+        LOGGER.info("Value '{}'", val);
+
         if (val != null && !val.trim().isEmpty()) {
             return resolvePlaceholders(val);
         }
@@ -149,7 +162,9 @@ public class ConfigLoader {
     }
 
     public static String getProperty(String key) {
+        LOGGER.info("Key Name '{}'", key);
         return getProperty(key, null);
+
     }
 
     public static int getIntProperty(String key, int defaultValue) {
@@ -169,8 +184,46 @@ public class ConfigLoader {
      * defaulting to http://localhost:8091.
      * Any trailing slash is trimmed to ensure consistent endpoint construction.
      */
-    public static String getUrl() {
+    public static String getApiBaseUrl() {
         String url = getProperty("api.base.url", DEFAULT_URL);
+        LOGGER.info("api.base.url '{}'", url);
+        if (url != null && url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+
+    /**
+     * Returns the base API URL (e.g. from API_BASE_URL or config.properties),
+     * defaulting to http://localhost:8091.
+     * Any trailing slash is trimmed to ensure consistent endpoint construction.
+     */
+    public static String getUploadUrl() {
+        String url = getProperty("api.upload.url", DEFAULT_UPLOAD_URL);
+        LOGGER.info("api.upload.url '{}'", url);
+        if (url != null && url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+
+    /**
+     * Returns the base API URL (e.g. from API_BASE_URL or config.properties),
+     * defaulting to http://localhost:8091.
+     * Any trailing slash is trimmed to ensure consistent endpoint construction.
+     */
+    public static String getDownloadUrl() {
+        String url = getProperty("api.upload.url", DEFAULT_DOWNLOAD_URL);
+        LOGGER.info("api.download.url '{}'", url);
+        if (url != null && url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+
+    public static String getServiceUrl() {
+        String url = getProperty("api.service.url", DEFAULT_SERVICE_URL);
+        LOGGER.info("api.service.url '{}'", url);
         if (url != null && url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
         }

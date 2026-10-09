@@ -12,8 +12,6 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 @WebServlet("/uploadServlet")
 // INSTRUMENTACIÓN: Configuración multipart para archivos
@@ -48,7 +46,7 @@ public class PdfServlet extends HttpServlet {
         LOGGER.debug("Token: "+token);
         LOGGER.debug("Usuario: "+usuario);*/
         // Guardar archivo
-        servicios serv = new servicios();
+        MasterServices serv = new MasterServices();
         String []resultado=serv.consumo(50,id);
         String sRegreso="500";
         LOGGER.debug("Existe el Folio: "+resultado.length);

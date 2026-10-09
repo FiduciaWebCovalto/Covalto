@@ -8,8 +8,7 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.domain.ClavesDTO;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 import java.io.*;
 import java.text.*;
@@ -21,7 +20,7 @@ public class RetirosDB extends FiduciaBD{
     private static final Logger LOGGER = LoggerFactory.getLogger(RetirosDB.class);
 
     int origen=0;//1 origen servicios y 0 query
-    servicios serv = new servicios();
+    MasterServices serv = new MasterServices();
     String[] resultado  ={null};
    //Catalogos
 	public String[] getData(int iOpcion,String sCond)

@@ -1,5 +1,4 @@
 package mx.com.inscitech.clients.domain;
-import mx.com.inscitech.clients.domain.FUsufid;
 
 import com.google.gson.annotations.SerializedName;
 

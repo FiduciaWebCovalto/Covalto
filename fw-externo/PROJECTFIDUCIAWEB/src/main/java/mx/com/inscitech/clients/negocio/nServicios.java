@@ -3,16 +3,15 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.domain.FTipoper;
 import mx.com.inscitech.clients.util.*;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 public class nServicios extends nDatos{
     private static final Logger LOGGER = LoggerFactory.getLogger(nServicios.class);
 
     public void querySelect( int opc) 
     {
         String[] resultado={null},sArreglo={null};
-        servicios serv = new servicios();
+        MasterServices serv = new MasterServices();
          //removerValores();
          intContador=0;
         try {

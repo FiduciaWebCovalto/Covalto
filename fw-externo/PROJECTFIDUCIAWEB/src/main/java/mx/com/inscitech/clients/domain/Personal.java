@@ -1,6 +1,5 @@
 package mx.com.inscitech.clients.domain;
 
-import javax.persistence.Id;
 
 
 public class Personal {

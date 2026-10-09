@@ -4,13 +4,10 @@ package mx.com.inscitech.clients.seguridad;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.conexion;
-import mx.com.inscitech.clients.lib.conexion;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.sql.Connection;
 
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import java.sql.*;

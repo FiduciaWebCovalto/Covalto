@@ -237,7 +237,8 @@ function recogerDatosParaPantallaMantenimiento(opc){
       GI("txtNomContraro").value=vgValor.nombre;
       GI("txtInsOperacion").value=vgTipoSolicitud;
       GI("paramEtapa").value=vgEtapa;
-	  //Swal.fire('Aviso', 'llego aki',  'warning')if(opcion==vgFunPtoRev)
+	  //Swal.fire('Aviso', 'llego aki',  'warning')
+      if(opcion===vgFunPtoRev)
         cat.setOnUpdate(cargaTablaParaPtosRev);
       else
           cat.setOnUpdate(formsLoaded);

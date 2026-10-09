@@ -3,7 +3,6 @@ package mx.com.inscitech.clients.lib;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.PrintWriter;
 
 // ProcesarServlet.java
 import jakarta.servlet.ServletException;
@@ -12,25 +11,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 import mx.com.inscitech.clients.daos.FContratoDAO;
 import mx.com.inscitech.clients.daos.FContratoDATODTO;
 import mx.com.inscitech.clients.daos.FConceptosDAO;
 import mx.com.inscitech.clients.daos.MapeoTabla;
 import mx.com.inscitech.clients.domain.Accion;
-import mx.com.inscitech.clients.domain.FCatmaesFideic;
 
-import jakarta.servlet.http.HttpServletRequestWrapper;
-import jakarta.servlet.http.HttpServletResponseWrapper;
 
-import java.io.BufferedReader;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @WebServlet("/procesarDatos")

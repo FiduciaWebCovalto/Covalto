@@ -2,7 +2,6 @@ package mx.com.inscitech.clients.beans;
 
 import java.time.LocalDateTime;
 
-import java.util.Date;
 
 public class FUsuario 
 {

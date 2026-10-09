@@ -9,16 +9,12 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import oracle.jdbc.driver.*;
 import java.sql.*;
 import java.util.*;
 
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import mx.com.inscitech.clients.lib.conexion;
 

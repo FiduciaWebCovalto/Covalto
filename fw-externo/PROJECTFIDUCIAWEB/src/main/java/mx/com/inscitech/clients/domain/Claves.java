@@ -1,7 +1,5 @@
 package mx.com.inscitech.clients.domain;
 
-import java.util.Objects;
-import com.google.gson.Gson;
 
 
 public class Claves {

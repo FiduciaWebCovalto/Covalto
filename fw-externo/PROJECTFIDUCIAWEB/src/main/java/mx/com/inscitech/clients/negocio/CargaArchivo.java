@@ -7,30 +7,21 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.io.FileNotFoundException;
 import java.io.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 import java.util.*; 
 
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import mx.com.inscitech.clients.lib.conexion;
 
-import mx.com.inscitech.clients.negocio.nConsultas;
-import mx.com.inscitech.clients.negocio.nFiducia;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -38,16 +29,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.CallableStatement;
-import java.io.*;
-import java.sql.Date;
 import java.text.*;
-import java.util.*;
 import javax.servlet.*; 
 import javax.servlet.http.*;
 import java.sql.Types;
 
 import javax.naming.NamingException;
-import mx.com.inscitech.clients.negocio.RetirosDB;
 
 public class CargaArchivo extends FiduciaBD
 {

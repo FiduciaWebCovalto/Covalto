@@ -8,7 +8,7 @@ package mx.com.inscitech.clients.negocio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -29,7 +29,7 @@ public class EdoCuenta extends nFiducia{
 
 	
     int origen=0;//1 origen servicios y 0 query
-    servicios serv = new servicios();
+    MasterServices serv = new MasterServices();
 
 
    //Catalogos
@@ -3815,7 +3815,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		try
 		{
 		    //se recuperan los parametros globales
-		    servicios serv = new servicios();
+		    MasterServices serv = new MasterServices();
 		    resultado=serv.consumo(2,String.valueOf(noDato)); 
 		    dato= resultado[0];
          		 		

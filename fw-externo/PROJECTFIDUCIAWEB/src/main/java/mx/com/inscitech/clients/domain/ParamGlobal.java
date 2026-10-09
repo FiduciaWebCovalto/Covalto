@@ -8,13 +8,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 
 import java.util.Map;
 
-import javax.enterprise.inject.spi.Bean;
 
 
 @JsonIgnoreProperties(ignoreUnknown=true)

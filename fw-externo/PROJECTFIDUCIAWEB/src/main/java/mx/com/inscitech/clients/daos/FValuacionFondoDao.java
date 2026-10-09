@@ -3,7 +3,6 @@ package mx.com.inscitech.clients.daos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.beans.FCreditosBean;
 import mx.com.inscitech.clients.beans.FValuacionFondoBean;
 import mx.com.inscitech.clients.util.StringFormatter;
 

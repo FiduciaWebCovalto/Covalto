@@ -8,12 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DecimalFormat;
-import java.util.StringTokenizer;
-import mx.com.inscitech.clients.beans.FCueban;
 import mx.com.inscitech.clients.negocio.nFiducia;
 import java.io.*;
-import java.util.ArrayList; 
-import mx.com.inscitech.clients.util.StringFormatter;
 
 
 public class FCreditoDAO 

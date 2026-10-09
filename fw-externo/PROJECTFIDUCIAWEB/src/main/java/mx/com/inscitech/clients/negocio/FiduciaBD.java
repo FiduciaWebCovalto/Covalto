@@ -20,7 +20,7 @@ import java.sql.*;
 import javax.imageio.ImageIO;
 
 import oracle.jdbc.driver.*;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 
 public class FiduciaBD extends nFiducia{
@@ -28,7 +28,7 @@ public class FiduciaBD extends nFiducia{
 
 	
     int origen=0;//1 origen servicios y 0 query
-    servicios serv = new servicios();
+    MasterServices serv = new MasterServices();
     String []sProvisional={null};
    //Catalogos
 	public String[] getData(int iOpcion,String sCond)
@@ -902,7 +902,7 @@ public class FiduciaBD extends nFiducia{
     String []sProv={null};
     try {
         
-        servicios serv = new servicios();
+        MasterServices serv = new MasterServices();
         resultado=serv.consumo(34,"id=27&id2="+(int)iCond);
         if(resultado[0].length()>0)
             sNomBanco=resultado[0];
@@ -3920,7 +3920,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		{
                     
                         //se recuperan los parametros globales
-                        servicios serv = new servicios();
+                        MasterServices serv = new MasterServices();
                         resultado=serv.consumo(2,String.valueOf(noDato)); 
                         dato= resultado[0];
          		 		
@@ -3949,7 +3949,7 @@ public String getHonPend(String sNumFid,String[] bitacora)
 		try
 		{
                         //se recuperan los parametros globales
-                        servicios serv = new servicios();
+                        MasterServices serv = new MasterServices();
                         LOGGER.debug("getDatosParametros: "+noDato);
                         resultado=serv.consumo(2,String.valueOf(noDato)); 
                         LOGGER.debug("resultado.length: "+resultado.length);

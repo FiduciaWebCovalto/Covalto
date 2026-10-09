@@ -7,16 +7,11 @@ import mx.com.inscitech.clients.beans.FProporcionesBean;
 import mx.com.inscitech.clients.util.StringFormatter;
 
 import mx.com.inscitech.clients.negocio.nFiducia;
-import mx.com.inscitech.clients.lib.conexion;
-import java.util.StringTokenizer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Types;
 
-import java.text.DecimalFormat; 
 import java.text.NumberFormat;
 import java.util.Locale;
 

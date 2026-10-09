@@ -9,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.lib.conexion;
 
-import mx.com.inscitech.clients.lib.conexion;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -21,17 +19,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 
@@ -57,7 +51,7 @@ public class nFiducia
   public String sMensaje;
   public PreparedStatement pstQuery;
   String resultado[]={null};
-  servicios serv = new servicios();
+  MasterServices serv = new MasterServices();
 	public nFiducia()
 						{
 							conBD = null;

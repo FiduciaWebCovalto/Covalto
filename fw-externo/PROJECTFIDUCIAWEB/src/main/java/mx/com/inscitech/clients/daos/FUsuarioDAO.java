@@ -4,7 +4,7 @@ package mx.com.inscitech.clients.daos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import mx.com.inscitech.clients.beans.FUsuario;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 import mx.com.inscitech.clients.lib.serviciosenvio;
 import mx.com.inscitech.clients.negocio.nFiducia;
 import mx.com.inscitech.clients.util.StringFormatter;
@@ -19,12 +19,6 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.OffsetDateTime;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 public class FUsuarioDAO 
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(FUsuarioDAO.class);
@@ -138,7 +132,7 @@ public class FUsuarioDAO
    */
   public int insertar(FUsuario fusuario) {
       
-     servicios serv = new servicios();
+     MasterServices serv = new MasterServices();
      serviciosenvio envio = new serviciosenvio();      
 
     int resultado = 0;
@@ -283,7 +277,7 @@ public class FUsuarioDAO
     
     try {
         
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           resultado=serv.consumo(6,"31");  
           String []elemento=new String[resultado.length];
           for (String subconjunto : resultado) {

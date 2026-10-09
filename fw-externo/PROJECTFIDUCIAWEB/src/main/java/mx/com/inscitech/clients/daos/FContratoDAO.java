@@ -9,17 +9,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.StringTokenizer;
 import mx.com.inscitech.clients.negocio.nFiducia;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 // LogicaNegocio.java
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import mx.com.inscitech.clients.daos.FContratoDATODTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -61,8 +57,8 @@ public class FContratoDAO
     String []nomFiso= new String[1];
     try {
           //se recuperan los fisos
-          servicios serv = new servicios();
-          servicios serv2 = new servicios();
+          MasterServices serv = new MasterServices();
+          MasterServices serv2 = new MasterServices();
           resultado=serv.consumo(5,"");
           
           stringBufferSQL.append("SELECT FFID_ID_FIDEICOMISO ");
@@ -138,7 +134,7 @@ public String generaTablaFideicomisosAsignados(String fusuIdUsuario)
     String []nomFiso= new String[1];
 
     try {
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           stringBufferSQL.append("SELECT FFID_ID_FIDEICOMISO ");
           stringBufferSQL.append("FROM F_USUFID "); 
           stringBufferSQL.append("WHERE FUSU_ID_USUARIO = ?");
@@ -246,7 +242,7 @@ public String generaTablaFideicomisos(String ctoNumContrato)
     
     try {
           //se recuperan los fisos
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           resultado=serv.consumo(5,"");  
           
             if(ctoNumContrato!=null&&ctoNumContrato.length()>0){ 
@@ -482,7 +478,7 @@ public String obtenerDatosFideicomiso(String ctoNumContrato)
 
 
           //se recuperan los fisos
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           resultado=serv.consumo(5,"");  
           
             if(ctoNumContrato!=null&&ctoNumContrato.length()>0){ 

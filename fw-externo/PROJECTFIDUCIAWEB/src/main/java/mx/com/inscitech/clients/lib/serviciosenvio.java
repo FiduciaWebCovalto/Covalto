@@ -7,7 +7,6 @@ import mx.com.inscitech.clients.domain.FBienesValor;
 import mx.com.inscitech.clients.domain.FBienesValorDTO;
 import mx.com.inscitech.clients.domain.FBitacora;
 import mx.com.inscitech.clients.domain.FBitacoraDTO;
-import java.io.IOException;
 import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -39,12 +38,12 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 
 
-public class serviciosenvio extends servicios{
+public class serviciosenvio extends MasterServices{
     private static final Logger LOGGER = LoggerFactory.getLogger(serviciosenvio.class);
 
 
     public int consumo(int caso,String []param1) {
-        String apiUrlc = ConfigLoader.getUrl();
+        String apiUrlc = ConfigLoader.getServiceUrl();
         LOGGER.debug("apiUrl de archivo config "+apiUrlc);        
         String url=apiUrlc;
         String jsonPayload="";

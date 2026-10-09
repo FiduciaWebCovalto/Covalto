@@ -8,8 +8,6 @@ package mx.com.inscitech.clients.domain;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 
 

@@ -13,13 +13,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UploadPDF extends servicios{
+public class UploadPDF extends MasterServices{
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadPDF.class);
 
 
     public String sendPdfToRestApi(InputStream fileStream, String fileName, 
                                        String description, String token) throws IOException {
-            String apiUrl = ConfigLoader.getUrl();
+            String apiUrl = ConfigLoader.getServiceUrl();
             LOGGER.debug("apiUrl de archivo config "+apiUrl);
             String url=apiUrl+"/api/documentos/upload";
             HttpClient client = HttpClient.newHttpClient();

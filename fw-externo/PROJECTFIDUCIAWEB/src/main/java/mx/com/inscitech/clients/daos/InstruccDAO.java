@@ -7,7 +7,6 @@ import mx.com.inscitech.clients.beans.FDeposito;
 import mx.com.inscitech.clients.beans.FRetiro;
 import mx.com.inscitech.clients.beans.Instrucc;
 import mx.com.inscitech.clients.beans.Traspaso;
-import mx.com.inscitech.clients.negocio.nFiducia;
 import mx.com.inscitech.clients.lib.conexion;
 import mx.com.inscitech.clients.beans.Honorarios;
 import java.util.StringTokenizer;

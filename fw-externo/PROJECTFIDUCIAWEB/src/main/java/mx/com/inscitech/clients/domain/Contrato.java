@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.OneToMany;
 
 
 public class Contrato {

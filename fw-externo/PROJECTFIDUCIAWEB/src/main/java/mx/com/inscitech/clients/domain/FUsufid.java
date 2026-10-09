@@ -1,18 +1,11 @@
 package mx.com.inscitech.clients.domain;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.google.gson.annotations.SerializedName;
 
-import java.util.Map;
 
-import java.util.Objects;
 
-import javax.persistence.GeneratedValue;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 

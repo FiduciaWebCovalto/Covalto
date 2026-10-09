@@ -8,42 +8,24 @@ package mx.com.inscitech.clients.lib;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.postgresql.ds.PGSimpleDataSource;
-import mx.com.inscitech.clients.lib.servicios;
-import com.mysql.cj.jdbc.MysqlDataSource;
-import java.lang.System;
 import java.io.*;
 import java.text.*;
 import java.util.*;
 import java.sql.*;
 import oracle.jdbc.driver.*;
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
-import java.sql.*;
-import java.util.*;
 import javax.naming.*;
 
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import java.util.Hashtable;
-import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 
 public class conexion {

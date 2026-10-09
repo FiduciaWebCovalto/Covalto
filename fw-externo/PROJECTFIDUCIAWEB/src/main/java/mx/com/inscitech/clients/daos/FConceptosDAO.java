@@ -3,15 +3,13 @@ package mx.com.inscitech.clients.daos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.com.inscitech.clients.lib.servicios;
+import mx.com.inscitech.clients.lib.MasterServices;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.StringTokenizer;
 import mx.com.inscitech.clients.negocio.nFiducia;
-import mx.com.inscitech.clients.lib.servicios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,7 +69,7 @@ public class FConceptosDAO
     try {
           LOGGER.debug("cveNumClave: " + cveNumClave); 
           //se recuperan los conceptos
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           resultado=serv.consumo(6,cveNumClave);  
 
         //Se crea una instancia de la clase que se conecta hacia la base de datos
@@ -177,7 +175,7 @@ public class FConceptosDAO
       stringBufferSQL.append(" AND  FCMA_ID_PADRE = ?");
     try {
           //se recuperan los conceptos
-          servicios serv = new servicios();
+          MasterServices serv = new MasterServices();
           resultado=serv.consumo(6,cveNumClave);  
 
           //Se crea una instancia de la clase que se conecta hacia la base de datos

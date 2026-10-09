@@ -3,7 +3,6 @@ package mx.com.inscitech.clients.domain;
 
 
 
-import java.math.BigDecimal;
 
 
 

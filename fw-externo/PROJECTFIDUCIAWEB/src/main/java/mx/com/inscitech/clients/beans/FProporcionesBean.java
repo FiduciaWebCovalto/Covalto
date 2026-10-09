@@ -1,6 +1,5 @@
 
 package mx.com.inscitech.clients.beans;
-import java.util.Date;
 
 public class FProporcionesBean{
 

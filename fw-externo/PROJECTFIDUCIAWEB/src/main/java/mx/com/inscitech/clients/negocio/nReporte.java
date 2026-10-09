@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
 import mx.com.inscitech.clients.util.*;
-import mx.com.inscitech.clients.lib.servicios;
 
 public class nReporte extends nDatos{
     private static final Logger LOGGER = LoggerFactory.getLogger(nReporte.class);
