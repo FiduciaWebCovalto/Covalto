@@ -22,6 +22,8 @@ public class ConfigLoader {
 
     private static final String DEFAULT_URL = "http://localhost:8091";
     private static final String DEFAULT_UPLOAD_URL = "http://localhost:8091";
+
+    private static final String DEFAULT_SERVICE_URL = "http://localhost:8091";
     private static final int DEFAULT_TIMEOUT = 5000;
 
     private static final Properties properties = new Properties();
@@ -197,6 +199,15 @@ public class ConfigLoader {
     public static String getUploadUrl() {
         String url = getProperty("api.upload.url", DEFAULT_UPLOAD_URL);
         LOGGER.info("api.upload.url '{}'", url);
+        if (url != null && url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+
+    public static String getServiceUrl() {
+        String url = getProperty("api.service.url", DEFAULT_SERVICE_URL);
+        LOGGER.info("api.service.url '{}'", url);
         if (url != null && url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
         }

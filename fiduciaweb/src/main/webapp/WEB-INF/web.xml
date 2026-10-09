@@ -130,10 +130,10 @@
         <servlet-name>OracleProxyServlet</servlet-name>
         <servlet-class>mx.com.inscitech.fiducia.services.orcl.OracleProxyServlet</servlet-class>
         <async-supported>true</async-supported>
-        <init-param>
+        <!--init-param>
             <param-name>targetBaseUrl</param-name>
             <param-value>http://localhost:8091/</param-value>
-        </init-param>
+        </init-param-->
     </servlet>
     <servlet-mapping>
         <servlet-name>OracleProxyServlet</servlet-name>
