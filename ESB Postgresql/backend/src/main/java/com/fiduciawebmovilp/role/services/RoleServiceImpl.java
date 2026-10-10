@@ -7,11 +7,13 @@ import com.fiduciawebmovilp.res.Response;
 import com.fiduciawebmovilp.role.entity.Role;
 import com.fiduciawebmovilp.role.repo.RoleRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
@@ -20,24 +22,25 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Response<Role> createRole(Role roleRequest) {
+        log.info("Creando nuevo rol: {}", roleRequest.getName());
+        if (roleRepo.findByName(roleRequest.getName()).isPresent()) {
+            throw new BadRequestException("Role already exists");
+        }
 
-       if(roleRepo.findByName(roleRequest.getName()).isPresent()){
-           throw new BadRequestException("Role already exists");
-       }
+        Role saveedRole = roleRepo.save(roleRequest);
 
-       Role saveedRole = roleRepo.save(roleRequest);
-
-       return Response.<Role>builder()
-               .statusCode(HttpStatus.OK.value())
-               .message("Role saved successfully")
-               .data(saveedRole)
-               .build();
+        return Response.<Role>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("Role saved successfully")
+                .data(saveedRole)
+                .build();
     }
 
     @Override
     public Response<Role> updateRole(Role roleRequest) {
+        log.info("Actualizando rol con id: {}", roleRequest.getId());
         Role role = roleRepo.findById(roleRequest.getId())
-                .orElseThrow(()-> new NotFoundException("Role not found"));
+                .orElseThrow(() -> new NotFoundException("Role not found"));
 
         role.setName(roleRequest.getName());
 
@@ -52,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Response<List<Role>> getAllRoles() {
-
+        log.debug("Consultando todos los roles");
         List<Role> roles = roleRepo.findAll();
 
         return Response.<List<Role>>builder()
@@ -64,7 +67,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Response<?> deleteRole(Long id) {
-        if (!roleRepo.existsById(id)){
+        log.info("Eliminando rol con id: {}", id);
+        if (!roleRepo.existsById(id)) {
             throw new NotFoundException("Role Not Found");
         }
         roleRepo.deleteById(id);

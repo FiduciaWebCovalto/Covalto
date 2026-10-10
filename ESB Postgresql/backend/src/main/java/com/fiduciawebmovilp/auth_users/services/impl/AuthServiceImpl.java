@@ -33,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Response<String> register(RegistrationRequest request) {
+        log.info("Registrando nuevo usuario: {}", request.getEmail());
 
         List<Role> roles;
 
@@ -69,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
             Role defaultRole = roleRepo.findByName("CUSTOMER")
                     .orElseThrow(() -> new NotFoundException("CUSTOMER ROLE NOT FOUND"));
 
-            roles = Collections.singletonList(defaultRole);
+            roles = List.of(defaultRole);
         } else {
             roles = request.getRoles().stream()
                     .map(roleName -> roleRepo.findByName(roleName)
@@ -133,13 +133,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Response<LoginResponse> login(LoginRequest loginRequest) {
-
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
+        log.info("Intento de inicio de sesión para el usuario: {}", email);
 
         FUsuario user = userRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("Email Not Found"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
+            log.warn("Contraseña incorrecta para el usuario: {}", email);
             throw new BadRequestException("Contraseña Incorrecta!");
         }
 
@@ -160,7 +161,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public Response<?> forgetPassword(String email) {
-
+        log.info("Solicitud de recuperación de contraseña para: {}", email);
         FUsuario user = userRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("Usuario no Valido!"));
         passwordResetCodeRepo.deleteByUserId(user.getId());
 
@@ -218,6 +219,7 @@ public class AuthServiceImpl implements AuthService {
 
         //update the pasword
         FUsuario user = resetCode.getUser();
+        log.info("Actualizando contraseña via reset code para: {}", user.getEmail());
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
 
@@ -251,6 +253,7 @@ public class AuthServiceImpl implements AuthService {
 
  @Override
     public Response<String> notificasolicitud(EnviaCorreo request) {
+        log.info("Enviando correo de notificación de solicitud tipo {} para: {}", request.tipo(), request.usuario());
         BigDecimal montof = new BigDecimal(request.monto());
         DecimalFormat formato = new DecimalFormat("#,###.00");
         //SEND WELCOME EMAIL
@@ -279,6 +282,7 @@ public class AuthServiceImpl implements AuthService {
 
      @Override
     public Response<String> notificasolicitudCuenta(EnviaCorreoCuenta request) {
+        log.info("Enviando correo de notificación de alta de cuenta para: {}", request.usuario());
         //SEND WELCOME EMAIL
         Map<String, Object> vars = new HashMap<>();
         vars.put("usuario", request.usuario());

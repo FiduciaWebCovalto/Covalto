@@ -4,17 +4,15 @@ import com.fiduciawebmovilp.exceptions.CustomAccessDenialHandler;
 import com.fiduciawebmovilp.exceptions.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +36,7 @@ public class SecurityFilter {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // <-- Importante
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(ex ->
                         ex.accessDeniedHandler(customAccessDenialHandler).authenticationEntryPoint(customAuthenticationEntryPoint))
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
@@ -47,10 +45,11 @@ public class SecurityFilter {
 
         return httpSecurity.build();
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*/*"));
+        configuration.setAllowedOrigins(List.of("*/*"));
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

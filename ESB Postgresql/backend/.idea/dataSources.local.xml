@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-262.8665.337">
+  <component name="dataSourceStorageLocal" created-in="IU-262.10968.63">
     <data-source name="fiduciawebmovil@localhost" uuid="132e4f62-aa06-400e-a914-6b0a5a696059">
       <database-info product="MySQL" version="8.0.45" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-9.5.0 (Revision: a7b3c94f50efbddb9f0dd69b3e0d1aaa25305cd6)" dbms="MYSQL" exact-version="8.0.45" exact-driver-version="9.5">
         <extra-name-characters>$</extra-name-characters>

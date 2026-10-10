@@ -1,50 +1,46 @@
 package com.fiduciawebmovilp.fusuario.services;
 
-import com.fiduciawebmovilp.notification.services.*;
-import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fiduciawebmovilp.auth_users.dtos.UpdatePasswordRequest;
 import com.fiduciawebmovilp.exceptions.BadRequestException;
 import com.fiduciawebmovilp.exceptions.NotFoundException;
 import com.fiduciawebmovilp.fusuario.entity.FUsuario;
 import com.fiduciawebmovilp.fusuario.repo.FUsuarioRepository;
 import com.fiduciawebmovilp.notification.dtos.NotificationDTO;
+import com.fiduciawebmovilp.notification.services.NotificationService;
 import com.fiduciawebmovilp.res.Response;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class FUsuarioServiceImpl implements FUsuarioService {
-    private final FUsuarioRepository userRepo = null;
-    private final NotificationService notificationService = null;
-    private final PasswordEncoder passwordEncoder = null;
 
-    @Autowired
-    private FUsuarioRepository repositorio; // Inyección del repositorio 
+    private final FUsuarioRepository userRepo;
+    private final NotificationService notificationService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public FUsuario save(FUsuario id) {
-        return repositorio.save(id);
+        log.info("Guardando usuario: {}", id.getFusuNombreUsuario());
+        return userRepo.save(id);
     }
 
-       @Override
+    @Override
     public Response<?> updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         FUsuario user = getCurrentLoggedInUser();
+        log.info("Actualizando contraseña para el usuario: {}", user.getEmail());
 
         String newPassword = updatePasswordRequest.getNewPassword();
         String oldPassword = updatePasswordRequest.getOldPassword();
@@ -60,12 +56,10 @@ public class FUsuarioServiceImpl implements FUsuarioService {
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setFusuUltAcceso(LocalDateTime.now());
 
-        repositorio.save(user);
-
+        userRepo.save(user);
 
         // Send password change confirmation email.
-        Map<String, Object> templateVariables = new HashMap<>();
-        templateVariables.put("name", user.getFusuNombreUsuario());
+        Map<String, Object> templateVariables = Map.of("name", user.getFusuNombreUsuario());
 
         NotificationDTO notificationDTO = NotificationDTO.builder()
                 .recipient(user.getEmail())
@@ -80,22 +74,20 @@ public class FUsuarioServiceImpl implements FUsuarioService {
                 .statusCode(HttpStatus.OK.value())
                 .message("Contraseña cambiada satisfactoriamente!")
                 .build();
-
     }
 
-        @Override
+    @Override
     public FUsuario getCurrentLoggedInUser() {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {
             throw new NotFoundException("Usuario no autenticado");
         }
         String email = authentication.getName();
+        log.debug("Obteniendo usuario autenticado: {}", email);
 
         return userRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("Usuario no Valido!"));
     }
-
 }
 
 

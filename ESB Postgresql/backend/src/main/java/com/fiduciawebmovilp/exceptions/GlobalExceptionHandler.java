@@ -1,18 +1,19 @@
 package com.fiduciawebmovilp.exceptions;
 
 import com.fiduciawebmovilp.res.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response<?>> handleAllUnknownExceptions(Exception ex){
+    public ResponseEntity<Response<?>> handleAllUnknownExceptions(Exception ex) {
+        log.error("Excepción inesperada: ", ex);
         Response<?> response = Response.builder()
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(ex.getMessage())
@@ -21,10 +22,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Response<?>> handleNotFoundException(NotFoundException ex){
-
+    public ResponseEntity<Response<?>> handleNotFoundException(NotFoundException ex) {
+        log.warn("Recurso no encontrado: {}", ex.getMessage());
         Response<?> response = Response.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(ex.getMessage())
@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InsufficientBalanceException.class)
-    public ResponseEntity<Response<?>> handleInsufficientBalance(InsufficientBalanceException ex){
-
+    public ResponseEntity<Response<?>> handleInsufficientBalance(InsufficientBalanceException ex) {
+        log.warn("Saldo insuficiente: {}", ex.getMessage());
         Response<?> response = Response.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
@@ -45,8 +45,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidTransactionException.class)
-    public ResponseEntity<Response<?>> handleInvalidTransaction(InvalidTransactionException ex){
-
+    public ResponseEntity<Response<?>> handleInvalidTransaction(InvalidTransactionException ex) {
+        log.warn("Transacción inválida: {}", ex.getMessage());
         Response<?> response = Response.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
@@ -56,8 +56,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Response<?>> handleBadRequestException(BadRequestException ex){
-
+    public ResponseEntity<Response<?>> handleBadRequestException(BadRequestException ex) {
+        log.warn("Solicitud incorrecta: {}", ex.getMessage());
         Response<?> response = Response.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
@@ -65,5 +65,4 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
 }
